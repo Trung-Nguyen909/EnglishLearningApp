@@ -12,7 +12,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="88dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/bg_book_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,7 +33,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="32dp"
         android:text="English App"
         android:textAlignment="center"
         android:textColor="@color/royalBlue"
@@ -56,8 +56,8 @@
 
     <View
         android:id="@+id/viewLogin"
-        android:layout_width="297dp"
-        android:layout_height="374dp"
+        android:layout_width="300dp"
+        android:layout_height="330dp"
         android:layout_marginTop="36dp"
         android:background="@drawable/bg_book_border"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="@id/viewLogin"
         app:layout_constraintStart_toStartOf="@id/viewLogin"
         app:layout_constraintTop_toTopOf="@id/viewLogin"
-        app:layout_constraintVertical_bias="0.110000014">
+        app:layout_constraintVertical_bias="0.050000012">
 
         <Button
             android:id="@+id/btnDangNhap"
@@ -99,7 +99,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/layoutNhap"
         android:layout_width="248dp"
         android:layout_height="132dp"
         android:orientation="vertical"
@@ -107,18 +107,18 @@
         app:layout_constraintEnd_toEndOf="@id/viewLogin"
         app:layout_constraintStart_toStartOf="@id/viewLogin"
         app:layout_constraintTop_toTopOf="@id/layoutDangNhap"
-        app:layout_constraintVertical_bias="0.25">
+        app:layout_constraintVertical_bias="0.2">
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email"
             android:paddingLeft="8dp"
+            android:text="Email"
             android:textSize="10sp" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/bg_edittext"
@@ -137,12 +137,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Mật khẩu"
             android:paddingLeft="8dp"
+            android:text="Mật khẩu"
             android:textSize="10sp" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/bg_edittext"
@@ -159,10 +159,10 @@
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/cbGhiNho"
         android:layout_width="168dp"
         android:layout_height="23dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:scaleX="0.8"
         android:scaleY="0.8"
         android:text="Ghi nhớ đăng nhập"
@@ -170,24 +170,24 @@
         app:layout_constraintEnd_toEndOf="@+id/viewLogin"
         app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="@+id/viewLogin"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutNhap" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:text="Quên mật khẩu?"
         android:textColor="@color/royalBlue"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/viewLogin"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintStart_toEndOf="@+id/cbGhiNho"
+        app:layout_constraintTop_toBottomOf="@+id/layoutNhap" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnDangNhapTC"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
@@ -197,7 +197,85 @@
         app:layout_constraintEnd_toEndOf="@+id/viewLogin"
         app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="@+id/viewLogin"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/cbGhiNho"
         tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:id="@+id/layoutKhac"
+        android:layout_width="300dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/viewLogin"
+        app:layout_constraintStart_toStartOf="@+id/viewLogin"
+        app:layout_constraintTop_toBottomOf="@id/viewLogin">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="#D0D0D0" />
+
+        <TextView
+            android:id="@+id/tvOrContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="Or continue with"
+            android:textColor="#8A8A8A"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="#D0D0D0" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutVoi"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/layoutKhac"
+        app:layout_constraintStart_toStartOf="@id/layoutKhac"
+        app:layout_constraintTop_toTopOf="@id/layoutKhac">
+
+        <Button
+            android:id="@+id/btnGoogle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_white"
+            android:gravity="center"
+            android:paddingStart="35dp"
+            android:text="Google"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:backgroundTint="@null"
+            app:icon="@drawable/ic_google"
+            app:iconPadding="-10dp"
+            app:iconTint="@null" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_white"
+            android:gravity="center"
+            app:icon="@drawable/ic_facebook"
+            android:paddingStart="30dp"
+            app:iconPadding="5dp"
+            app:iconTint="@null"
+            android:text="Facebook"
+            android:textColor="@color/black"
+            app:backgroundTint="@null" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
