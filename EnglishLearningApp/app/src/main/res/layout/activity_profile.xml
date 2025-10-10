@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F0F4F8">
+
+    <FrameLayout
+        android:id="@+id/top_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="#FFFFFF"
+        android:fitsSystemWindows="true"
+>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="Thông Tin Cá Nhân"
+            android:textColor="#4169E1"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+    <ScrollView
+        android:id="@+id/scroll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_toolbar"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="95dp"
+        android:clipToPadding="false"
+        android:fillViewport="true">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_profile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_gradient">
+
+            <View
+                android:id="@+id/header_background"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/shape_background_splash"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_user_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="100dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="60dp"
+                    android:paddingBottom="24dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp">
+
+                    <TextView
+                        android:id="@+id/tvUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trần Minh Chiến"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/tvLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trình độ cao cấp"
+                        android:textSize="14sp"
+                        android:textColor="#888" />
+
+                    <TextView
+                        android:id="@+id/tvJoined"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Là Thành viên từ 15/10/2024"
+                        android:textSize="13sp"
+                        android:textColor="#AAA"
+                        android:layout_marginBottom="16dp"/>
+
+                    <Button
+                        android:id="@+id/btnEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Chỉnh Sửa thông tin"
+                        android:backgroundTint="#4169E1"
+                        app:cornerRadius="16dp"
+                        android:textAllCaps="false"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/avatar_card"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="8dp"
+                app:layout_constraintTop_toTopOf="@id/card_user_info"
+                app:layout_constraintBottom_toTopOf="@id/card_user_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_user"
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
+
+            <GridLayout
+                android:id="@+id/stats_grid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/card_user_info"
+                app:layout_constraintStart_toStartOf="@id/card_user_info"
+                app:layout_constraintEnd_toEndOf="@id/card_user_info">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:strokeColor="#D1E5FE"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="6dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_white">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp">
+                            <TextView
+                                android:text="Streak"
+                                android:textSize="14sp"
+                                android:textColor="#888"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <ImageView
+                                android:src="@android:drawable/ic_menu_week"
+                                app:tint="#4169E1"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"/>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:text="0"
+                            android:textStyle="bold"
+                            android:textSize="28sp"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:text="Days"
+                            android:textSize="14sp"
+                            android:textColor="#888"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:strokeColor="#D1E5FE"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="6dp">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_white">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp">
+                            <TextView
+                                android:text="Points"
+                                android:textSize="14sp"
+                                android:textColor="#888"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <ImageView
+
+                                android:src="@android:drawable/star_big_off"
+                                app:tint="#4169E1"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"/>
+                        </RelativeLayout>
+                        <TextView
+                            android:text="0"
+                            android:textStyle="bold"
+                            android:textSize="28sp"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:text="Points"
+                            android:textSize="14sp"
+                            android:textColor="#888"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:strokeColor="#D1E5FE"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="6dp">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_white">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp">
+                            <TextView
+                                android:text="Leassons"
+                                android:textSize="14sp"
+                                android:textColor="#888"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <ImageView
+                                android:src="?attr/actionModePasteDrawable"
+                                app:tint="#4169E1"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"/>
+                        </RelativeLayout>
+                        <TextView
+                            android:text="0"
+                            android:textStyle="bold"
+                            android:textSize="28sp"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:text="Leassons"
+                            android:textSize="14sp"
+                            android:textColor="#888"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:strokeColor="#D1E5FE"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="6dp">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_white">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp">
+                            <TextView
+                                android:text="Time"
+                                android:textSize="14sp"
+                                android:textColor="#888"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <ImageView
+                                android:src="@android:drawable/ic_menu_recent_history"
+                                app:tint="#4169E1"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"/>
+                        </RelativeLayout>
+                        <TextView
+                            android:text="0"
+                            android:textStyle="bold"
+                            android:textSize="28sp"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:text="Hours"
+                            android:textSize="14sp"
+                            android:textColor="#888"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </GridLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_learning_progress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/stats_grid"
+                app:layout_constraintStart_toStartOf="@id/stats_grid"
+                app:layout_constraintEnd_toEndOf="@id/stats_grid">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tiến Trình Học"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/royalBlue"
+                        android:drawableStart="@drawable/ic_devlop"
+                        app:drawableTint="#5F77C8"
+                        android:drawablePadding="8dp"
+                        android:layout_marginBottom="20dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Vocabulary"
+                            android:textColor="#555"
+                            android:textStyle="bold"
+                            android:layout_alignParentStart="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0/100"
+                            android:textColor="#888"
+                            android:layout_alignParentEnd="true"/>
+                    </RelativeLayout>
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/shape_custom_progress_bar"
+                        android:layout_marginBottom="16dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Grammar"
+                            android:textStyle="bold"
+                            android:textColor="#555"
+                            android:layout_alignParentStart="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="level 0/10"
+                            android:textColor="#888"
+                            android:layout_alignParentEnd="true"/>
+                    </RelativeLayout>
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/shape_custom_progress_bar"
+                        android:layout_marginBottom="16dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Listening"
+                            android:textStyle="bold"
+                            android:textColor="#555"
+                            android:layout_alignParentStart="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="level 0/10"
+                            android:textColor="#888"
+                            android:layout_alignParentEnd="true"/>
+                    </RelativeLayout>
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/shape_custom_progress_bar"
+                        android:layout_marginBottom="16dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Speaking"
+                            android:textStyle="bold"
+                            android:textColor="#555"
+                            android:layout_alignParentStart="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="level 0/10"
+                            android:textColor="#888"
+                            android:layout_alignParentEnd="true"/>
+                    </RelativeLayout>
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/shape_custom_progress_bar"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_recent_activity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/card_learning_progress"
+                app:layout_constraintStart_toStartOf="@id/card_learning_progress"
+                app:layout_constraintEnd_toEndOf="@id/card_learning_progress">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hoạt động gần đây"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/royalBlue"
+                        android:layout_marginBottom="20dp"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp">
+                    <ImageView
+                        android:id="@+id/iv_activity_icon_1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:padding="8dp"
+                        android:src="@android:drawable/ic_menu_agenda"
+                        app:tint="#4169E1" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_toEndOf="@id/iv_activity_icon_1"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/tv_activity_points_1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Complete 'Learning english basic'"
+                                android:textColor="@color/black" android:textSize="15sp"
+                                android:textStyle="normal" /> <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2 hours ago"
+                                android:textColor="#888888"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_activity_points_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+ 100"
+                        android:textColor="#4169E1" android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true" />
+                </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp">
+
+                        <ImageView
+                            android:id="@+id/iv_activity_icon_2"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="16dp"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_complete"
+                            app:tint="#4169E1" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_toEndOf="@id/iv_activity_icon_2"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/tv_activity_points_2">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Complete 'Learning english basic'"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2 hours ago"
+                            android:textColor="#888888"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_activity_points_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+ 100"
+                            android:textColor="#4169E1"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_activity_icon_3"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="16dp"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_bow"
+                            app:tint="#4169E1" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_toEndOf="@id/iv_activity_icon_3"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/tv_activity_points_3">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Complete 'Learning english basic'"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2 hours ago"
+                            android:textColor="#888888"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_activity_points_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+ 100"
+                            android:textColor="#4169E1"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_achievements"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/card_recent_activity"
+                app:layout_constraintStart_toStartOf="@id/card_recent_activity"
+                app:layout_constraintEnd_toEndOf="@id/card_recent_activity">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thành Tựu"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/royalBlue"
+                        android:layout_marginBottom="20dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
+                                android:src="@android:drawable/ic_menu_agenda"
+                                app:tint="#4169E1"
+                                android:padding="14dp"
+                                android:layout_marginBottom="8dp"
+                                android:contentDescription="First Week Achievement"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="First-week"
+                                android:textStyle="bold"
+                                android:textSize="13sp"
+                                android:textColor="#555"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
+                                android:src="@drawable/ic_complete"
+                                android:padding="14dp"
+                                android:layout_marginBottom="8dp"
+                                android:contentDescription="100 Lessons Achievement"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="100 leassons"
+                                android:textStyle="bold"
+                                android:textSize="13sp"
+                                android:textColor="#555"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
+                                android:src="@drawable/ic_bow"
+                                android:padding="14dp"
+                                android:layout_marginBottom="8dp"
+                                android:contentDescription="30-day Streak Achievement"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="30-day Streak"
+                                android:textStyle="bold"
+                                android:textSize="13sp"
+                                android:textColor="#555"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSettings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Cài Đặt"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="80dp"
+                android:background="@drawable/button_white"
+                android:textColor="#4169E1"
+                android:drawableStart="@drawable/ic_setting"
+                android:gravity="start|center_vertical"
+                android:drawablePadding="16dp"
+                android:paddingStart="24dp"
+                android:textAllCaps="false"
+                app:layout_constraintTop_toBottomOf="@id/card_achievements"
+                app:layout_constraintStart_toStartOf="@id/card_achievements"
+                app:layout_constraintEnd_toEndOf="@id/card_achievements"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!--Thanh công cụ-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#26D6ECFB"
+        android:paddingTop="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false">
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:id="@+id/bottom_bar_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <LinearLayout
+                    android:id="@+id/btn_home"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_home"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_home"
+                        app:tint="#888888" />
+
+                    <View
+                        android:id="@+id/dot_home"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_lessons"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_lessons"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_books"
+                        app:tint="#888888" />
+
+                    <View
+                        android:id="@+id/dot_lessons"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_explore"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_explore"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_progrs"
+                        app:tint="#888888" />
+
+                    <View
+                        android:id="@+id/dot_explore"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_profile"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_person"
+                        app:tint="#4169E1" />
+
+                    <View
+                        android:id="@+id/dot_profile"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+</RelativeLayout>

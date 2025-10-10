@@ -11,8 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishLearningApp">
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".RegisterActivity"/>
+        <activity
+            android:name=".EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseProgressActivity"
+            android:exported="false" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity
             android:name=".SplashActivity"
             android:exported="true"

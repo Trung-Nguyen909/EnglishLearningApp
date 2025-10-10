@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F0F4F8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            app:tint="#4169E1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Exercise progress"
+            android:textColor="#4169E1"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/button_white"
+                android:padding="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/img_ic_family"
+                    android:layout_marginEnd="16dp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Family"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20 vocabulary words"
+                        android:textColor="#888888"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <FrameLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="16dp">
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:progress="74"
+                        android:max="100"
+                        android:background="@drawable/shape_bg_circular_progress_background"
+                        android:progressDrawable="@drawable/shape_bg_circular_progress"
+                        android:rotation="-90" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="74%"
+                        android:textColor="#FFA500"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/button_white"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp">
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/img_ic_fruits"
+                    android:layout_marginEnd="16dp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fruits &amp; Vegetables"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="24 vocabulary words"
+                        android:textColor="#888888"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <FrameLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="16dp">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_bg_circular_progress_background"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="0%"
+                        android:textColor="#888888"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/shape_bg_progress_card_premium"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp">
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/img_ic_travel"
+                    android:layout_marginEnd="16dp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Travel Destinations"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18 vocabulary words"
+                        android:textColor="#888888"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_premium_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/shape_bg_premium_tag"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:text="Premium 👑"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+
+                    android:drawablePadding="4dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/shape_bg_progress_card_premium"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp">
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/img_ic_transport"
+                    android:layout_marginEnd="16dp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Transportation"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15 vocabulary words"
+                        android:textColor="#888888"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/shape_bg_premium_tag"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:text="Premium 👑"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--Thanh công cụ-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#26D6ECFB"
+        android:paddingTop="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:id="@+id/bottom_bar_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <LinearLayout
+                    android:id="@+id/btn_home"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_home"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_home"
+                        app:tint="#888888" />
+
+                    <View
+                        android:id="@+id/dot_home"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_lessons"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_lessons"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_books"
+                        app:tint="#888888" />
+
+                    <View
+                        android:id="@+id/dot_lessons"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_explore"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_explore"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_progrs"
+                        app:tint="#4169E1" />
+
+                    <View
+                        android:id="@+id/dot_explore"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_profile"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_person"
+                        app:tint="#888888" />
+
+                    <View
+                        android:id="@+id/dot_profile"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+</LinearLayout>

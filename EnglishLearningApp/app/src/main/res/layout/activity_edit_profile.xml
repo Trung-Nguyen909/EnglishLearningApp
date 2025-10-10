@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_edit_profile_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F0F4F8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back Button"
+            app:tint="#4169E1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Chỉnh sửa thông tin"
+            android:textColor="#4169E1"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_book"
+            android:contentDescription="App Icon"
+            android:layout_marginRight="15dp"
+            app:tint="#4169E1" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none"
+        android:clipToPadding="false"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_gradient"
+            android:paddingTop="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="@drawable/button_white"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <RelativeLayout
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:id="@+id/imgProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_person"
+                        android:scaleType="centerCrop"
+                        android:padding="8dp"
+                        android:background="@drawable/shape_background_avt"
+                        android:contentDescription="Profile Avatar" />
+
+                    <ImageButton
+                        android:id="@+id/btnChangeImage"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:src="@android:drawable/ic_menu_camera"
+                        android:scaleType="centerInside"
+                        android:padding="8dp"
+                        app:tint="#5B3030"
+                        android:contentDescription="Change Photo"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start your English journey"
+                    android:textColor="#888888"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="2dp"
+                android:layout_marginTop="10dp"
+                app:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/button_white"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Full name"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp"/>
+                    <EditText
+                        android:id="@+id/etFullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="Huỳnh Lê Tiến Hiển"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:background="@drawable/bg_edittext"
+                        android:singleLine="true"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="16dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Email Address"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp"/>
+                    <EditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="huynhtientienhien@gmail.com"
+                        android:inputType="textEmailAddress"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:background="@drawable/bg_edittext"
+                        android:singleLine="true"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="16dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Level"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/bg_edittext"
+                        android:layout_marginBottom="16dp">
+                        <Spinner
+                            android:id="@+id/spLevel"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:spinnerMode="dropdown"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="16dp" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            app:tint="#334BD3"
+                            android:contentDescription="Dropdown arrow" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bio"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp"/>
+                    <EditText
+                        android:id="@+id/etBio"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:hint="Bạn sẽ không bao giờ can đảm nếu bạn không bị thương..."
+                        android:gravity="top"
+                        android:padding="16dp"
+                        android:background="@drawable/bg_edittext"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="24dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/btnCancel"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:text="Cancel"
+                            android:textAllCaps="false"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:strokeColor="#4169E1"
+                            android:textColor="#4169E1"/>
+                        <Button
+                            android:id="@+id/btnSave"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:text="Save"
+                            android:backgroundTint="#4169E1"
+                            app:cornerRadius="99dp"
+                            android:textAllCaps="false"
+                            app:strokeColor="#FFFFFF"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+    <!--Thanh công cụ-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#26D6ECFB"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="8dp">
+            <LinearLayout
+                android:id="@+id/bottom_bar_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <LinearLayout
+                    android:id="@+id/btn_home"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_home"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_home"
+                        app:tint="#888888" />
+
+                    <View
+                        android:id="@+id/dot_home"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_lessons"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_lessons"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_books"
+                        app:tint="#888888" />
+
+                    <View
+                        android:id="@+id/dot_lessons"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_explore"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_explore"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_progrs"
+                        app:tint="#888888" />
+
+                    <View
+                        android:id="@+id/dot_explore"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/icon_profile"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_person"
+                        app:tint="#4169E1" />
+
+                    <View
+                        android:id="@+id/dot_profile"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/shape_bg_bottom_nav_dot"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+</LinearLayout>

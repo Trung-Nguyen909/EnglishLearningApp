@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class LoginActivity extends AppCompatActivity {
-    Button btnDangKy;
+    Button btnDangKy, btnDangNhapTC;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +23,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btnDangNhapTC = findViewById(R.id.btnDangNhapTC);
+        btnDangNhapTC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ExerciseProgressActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
 
