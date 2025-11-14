@@ -229,7 +229,7 @@ alter table DanhGiaKyNang
 --Admin pass: 1, user2 pass: 2, user3 pass: 3
 set dateformat ymd
 INSERT INTO NguoiDung (tenDangNhap, matKhau, email, anhDaiDien, LastLogin, Streak, role) VALUES
-('user1', '$2a$10$PLLK1jr5F0hDTVVoKFSGj.T7nhAKhH/Qo563lNtuaaEMndxZwy.Ky', 'user1@email.com', 'avatar1.jpg', '2024-01-15 08:30:00', 5, 'ADMIN'),
+('user1', '$2a$10$PLLK1jr5F0hDTVVoKFSGj.T7nhAKhH/Qo563lNtuaaEMndxZwy.Ky', 'ttuankhanh4@email.com', 'avatar1.jpg', '2024-01-15 08:30:00', 5, 'ADMIN'),
 ('user2', '$2a$10$OgyHCP.YQ4xoGGXFpD6z3O01TwJNIhUG8t60Tu82HnwFkThK7BrUy', 'user2@email.com', 'avatar2.jpg', '2024-01-14 10:15:00', 3, 'USER'),
 ('user3', '$2a$10$l7GqvKZDYVsReEiGCc0LpeGoGgy0beEJ2yrAmSvzOM2BcOWUfStDC', 'user3@email.com', 'avatar3.jpg', '2024-01-13 14:20:00', 7, 'USER');
 

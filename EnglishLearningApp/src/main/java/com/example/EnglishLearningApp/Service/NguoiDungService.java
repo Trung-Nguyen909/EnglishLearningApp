@@ -1,5 +1,6 @@
 package com.example.EnglishLearningApp.Service;
 
+import com.example.EnglishLearningApp.Controller.GmailSender;
 import com.example.EnglishLearningApp.Exception.AppException;
 import com.example.EnglishLearningApp.Exception.ErrorCode;
 import com.example.EnglishLearningApp.Mapper.NguoiDungMapper;
@@ -26,6 +27,7 @@ public class NguoiDungService {
     private final UserResponseMapper userResponseMapper;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final GmailSender gmailSender;
 
     public List<NguoiDung> getAllNguoiDung(){
         return nguoiDungRepository.findAll();
@@ -49,6 +51,10 @@ public class NguoiDungService {
         if (!passwordEncoder.matches(user.getMatkhau(), nguoiDung.getMatKhau())) throw new AppException(ErrorCode.Wrong_Password);
         String token = jwtService.createToken(nguoiDung);
         UserResponse userResponse = userResponseMapper.toUserResponse(nguoiDung);
+        String userEmail = nguoiDung.getEmail();
+        GmailSender.sendEmail(userEmail,
+                "Thông báo đăng nhập",
+                "Bạn vừa đăng nhập thành công vào hệ thống!");
         return AuthResponse .builder()
                 .token(token)
                 .user(userResponse)
