@@ -31,11 +31,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Thêm khai báo cho LoginActivity ở đây -->
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-
     </application>
 
 </manifest>
