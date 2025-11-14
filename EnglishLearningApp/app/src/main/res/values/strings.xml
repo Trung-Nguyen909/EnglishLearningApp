@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">EnglishLearningApp</string>
     <string name="terms_text">
-        By signing up, you agree to our<br />
-        <font color="#1A73E8">Terms of Service</font> and <font color="#1A73E8">Privacy Policy</font>
+        Bằng việc đăng ký, bạn đồng ý với<br />
+        <font color="#1A73E8">Điều khoản dịch vụ</font> và <font color="#1A73E8">Chính sách bảo mật</font>
     </string>
 
 </resources>
