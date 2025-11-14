@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- Đầu (vòng tròn) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#1A73E8"
+        android:strokeWidth="40"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M256,144
+            a88,88 0 1,1 -0.0001,0z" />
+
+    <!-- Thân (nửa elip dưới) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#1A73E8"
+        android:strokeWidth="40"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M112,416
+            a144,112 0 1,1 288,0
+            v32
+            h-288
+            z" />
+</vector>
