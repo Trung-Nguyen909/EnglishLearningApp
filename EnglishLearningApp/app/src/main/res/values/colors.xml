@@ -5,4 +5,5 @@
     <color name="royalBlue">#2563EB</color>
     <color name="even_item_color">#DFF5FF</color>
     <color name="odd_item_color">#FFFFFF</color>
+    <color name="sub_item_color">#C3EEFF</color>
 </resources>
