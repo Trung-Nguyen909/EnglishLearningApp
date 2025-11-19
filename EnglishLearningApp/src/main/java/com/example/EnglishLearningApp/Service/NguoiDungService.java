@@ -14,7 +14,14 @@ import com.example.EnglishLearningApp.dto.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,5 +84,27 @@ public class NguoiDungService {
 
     public void xoaNguoiDung(Integer id){
         nguoiDungRepository.deleteById(id);
+    }
+
+    public String updateAvatar(String email, MultipartFile file) throws IOException {
+        NguoiDung tokenUser = nguoiDungRepository.findByEmail(email);
+        if (tokenUser.getEmail() == null) {
+            throw new RuntimeException("Bạn không có quyền cập nhật thông tin của người dùng khác");
+        }
+        String originalFileName = file.getOriginalFilename();
+        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+
+        List<String> allowed = Arrays.asList(".png", ".jpg", ".jpeg", ".webp");
+        if (!allowed.contains(extension)) throw new RuntimeException("File type not allowed");
+
+        String fileName = tokenUser.getID() + "_ava" + extension;
+        Path path = Paths.get("img_user/user_avatar", fileName);
+        Files.createDirectories(path.getParent());
+        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        System.out.println("Avatar saved to: " + path.toAbsolutePath());
+        String avatarUrl = "/img_user/user_avatar/" + fileName;
+        tokenUser.setAnhDaiDien(avatarUrl);
+        nguoiDungRepository.save(tokenUser);
+        return avatarUrl;
     }
 }

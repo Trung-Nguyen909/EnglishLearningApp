@@ -9,10 +9,13 @@ import com.example.EnglishLearningApp.dto.request.UserRegisterRequest;
 import com.example.EnglishLearningApp.dto.response.ApiResponse;
 import com.example.EnglishLearningApp.dto.response.AuthResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RequestMapping("/user")
@@ -59,5 +62,28 @@ public class NguoiDungController {
                         .code(1000)
                         .message("update thành công")
                         .build());
+    }
+    @PostMapping("/upAva")
+    public ResponseEntity<ApiResponse<String>> updateAvatar(
+            @RequestParam("avatar") MultipartFile file,
+            Authentication authentication) {
+        if (file.isEmpty()) return ResponseEntity.badRequest().body(ApiResponse.<String>builder()
+                .code(1001)
+                .message("ảnh không hợp lệ")
+                .build());
+        String email = authentication.getName();
+        try {
+            String link_ava = nguoiDungService.updateAvatar(email, file);
+            return ResponseEntity.ok(ApiResponse.<String>builder()
+                    .message("Cập nhật thành công avatar")
+                    .result(link_ava)
+                    .build());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    ApiResponse.<String>builder()
+                            .code(500)
+                            .message("Lỗi khi cập nhật avatar: " + e.getMessage())
+                            .build());
+        }
     }
 }
