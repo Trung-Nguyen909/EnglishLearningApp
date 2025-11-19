@@ -13,8 +13,7 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:background="#FFFFFF"
-        android:fitsSystemWindows="true"
->
+        android:fitsSystemWindows="true">
 
         <TextView
             android:layout_width="match_parent"
@@ -26,19 +25,21 @@
             android:textSize="20sp"
             android:textStyle="bold" />
     </FrameLayout>
+
     <ScrollView
         android:id="@+id/scroll_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/top_toolbar"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="95dp"
         android:clipToPadding="false"
         android:fillViewport="true">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main_profile_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
             android:background="@drawable/bg_gradient">
 
             <View
@@ -148,14 +149,12 @@
                     app:strokeColor="#D1E5FE"
                     app:strokeWidth="1dp"
                     android:layout_margin="6dp">
-
                     <LinearLayout
                         android:orientation="vertical"
                         android:padding="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_white">
-
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -176,7 +175,6 @@
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"/>
                         </RelativeLayout>
-
                         <TextView
                             android:text="0"
                             android:textStyle="bold"
@@ -222,7 +220,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
                             <ImageView
-
                                 android:src="@android:drawable/star_big_off"
                                 app:tint="#4169E1"
                                 android:layout_alignParentEnd="true"
@@ -349,7 +346,6 @@
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
             </GridLayout>
 
             <androidx.cardview.widget.CardView
@@ -483,8 +479,8 @@
                         android:progress="0"
                         android:progressDrawable="@drawable/shape_custom_progress_bar"/>
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_recent_activity"
                 android:layout_width="0dp"
@@ -513,16 +509,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp">
-                    <ImageView
-                        android:id="@+id/iv_activity_icon_1"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="16dp"
-                        android:padding="8dp"
-                        android:src="@android:drawable/ic_menu_agenda"
-                        app:tint="#4169E1" />
+                        <ImageView
+                            android:id="@+id/iv_activity_icon_1"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="16dp"
+                            android:padding="8dp"
+                            android:src="@android:drawable/ic_menu_agenda"
+                            app:tint="#4169E1" />
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -537,23 +533,23 @@
                                 android:text="Hoàn thành 'Tiếng Anh cơ bản'"
                                 android:textColor="@color/black" android:textSize="15sp"
                                 android:textStyle="normal" /> <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="2 giờ trước"
-                                android:textColor="#888888"
-                                android:textSize="13sp" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2 giờ trước"
+                            android:textColor="#888888"
+                            android:textSize="13sp" />
                         </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_activity_points_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="+ 100"
-                        android:textColor="#4169E1" android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
-                </RelativeLayout>
+                        <TextView
+                            android:id="@+id/tv_activity_points_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+ 100"
+                            android:textColor="#4169E1" android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true" />
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -578,21 +574,21 @@
                             android:layout_centerVertical="true"
                             android:layout_toStartOf="@+id/tv_activity_points_2">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hoàn thành 'Tiếng Anh cơ bản'"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="normal" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hoàn thành 'Tiếng Anh cơ bản'"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="normal" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2 giờ trước"
-                            android:textColor="#888888"
-                            android:textSize="13sp" />
-                    </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2 giờ trước"
+                                android:textColor="#888888"
+                                android:textSize="13sp" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tv_activity_points_2"
@@ -628,21 +624,21 @@
                             android:layout_centerVertical="true"
                             android:layout_toStartOf="@+id/tv_activity_points_3">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hoàn thành 'Tiếng Anh cơ bản'"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="normal" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hoàn thành 'Tiếng Anh cơ bản'"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="normal" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2 giờ trước"
-                            android:textColor="#888888"
-                            android:textSize="13sp" />
-                    </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2 giờ trước"
+                                android:textColor="#888888"
+                                android:textSize="13sp" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tv_activity_points_3"
@@ -771,7 +767,7 @@
                 android:padding="12dp"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginBottom="80dp"
+                android:layout_marginBottom="24dp"
                 android:background="@drawable/button_white"
                 android:textColor="#4169E1"
                 android:drawableStart="@drawable/ic_setting"
@@ -781,152 +777,9 @@
                 android:textAllCaps="false"
                 app:layout_constraintTop_toBottomOf="@id/card_achievements"
                 app:layout_constraintStart_toStartOf="@id/card_achievements"
-                app:layout_constraintEnd_toEndOf="@id/card_achievements"/>
+                app:layout_constraintEnd_toEndOf="@id/card_achievements"
+                app:layout_constraintBottom_toBottomOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <!--Thanh công cụ-->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#26D6ECFB"
-        android:paddingTop="8dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="16dp"
-        android:clipToPadding="false">
-
-    <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            app:cardCornerRadius="32dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@android:color/white">
-
-            <LinearLayout
-                android:id="@+id/bottom_bar_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp">
-
-                <LinearLayout
-                    android:id="@+id/btn_home"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="SpeakableTextPresentCheck">
-
-                    <ImageView
-                        android:id="@+id/icon_home"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_home"
-                        app:tint="#888888" />
-
-                    <View
-                        android:id="@+id/dot_home"
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/shape_bg_bottom_nav_dot"
-                        android:visibility="invisible" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_lessons"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="SpeakableTextPresentCheck">
-
-                    <ImageView
-                        android:id="@+id/icon_lessons"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_books"
-                        app:tint="#888888" />
-
-                    <View
-                        android:id="@+id/dot_lessons"
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/shape_bg_bottom_nav_dot"
-                        android:visibility="invisible" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_explore"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="SpeakableTextPresentCheck">
-
-                    <ImageView
-                        android:id="@+id/icon_explore"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_progrs"
-                        app:tint="#888888" />
-
-                    <View
-                        android:id="@+id/dot_explore"
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/shape_bg_bottom_nav_dot"
-                        android:visibility="invisible" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_profile"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="SpeakableTextPresentCheck">
-
-                    <ImageView
-                        android:id="@+id/icon_profile"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_person"
-                        app:tint="#4169E1" />
-
-                    <View
-                        android:id="@+id/dot_profile"
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/shape_bg_bottom_nav_dot"
-                        android:visibility="visible" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </FrameLayout>
 
 </RelativeLayout>

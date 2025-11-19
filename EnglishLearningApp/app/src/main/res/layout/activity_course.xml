@@ -77,6 +77,4 @@
         android:paddingTop="8dp"
         android:clipToPadding="false"
         tools:listitem="@layout/item_category_row_course" />
-
-
 </LinearLayout>
