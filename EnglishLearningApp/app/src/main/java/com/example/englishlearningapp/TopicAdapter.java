@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishlearningapp.Model.Topic;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Model;
+
+import com.example.englishlearningapp.SubItem;
 
 import java.util.List;
 
