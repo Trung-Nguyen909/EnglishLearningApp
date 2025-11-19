@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Test"
+                    android:text="Kiểm tra"
                     android:textSize="20sp"
                     android:textColor="#4169E1"
                     android:textStyle="bold" />
@@ -116,7 +116,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Basic"
+                            android:text="Cơ bản"
                             android:textSize="16sp"
                             android:textColor="#333333"
                             android:textStyle="bold"
@@ -155,7 +155,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Medium"
+                            android:text="Trung bình"
                             android:textSize="16sp"
                             android:textColor="#333333"
                             android:textStyle="bold"
@@ -194,7 +194,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Advanced"
+                            android:text="Cao cấp"
                             android:textSize="16sp"
                             android:textColor="#333333"
                             android:textStyle="bold"
@@ -250,7 +250,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="All Topics"
+                                android:text="Tất cả chủ đề"
                                 android:textSize="16sp"
                                 android:textColor="#4169E1" />
 
@@ -318,7 +318,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="Bắt đầu Test &amp; Tính giờ"
+                            android:text="Bắt đầu kiểm tra &amp; Tính giờ"
                             android:textSize="18sp"
                             android:textColor="@android:color/white"
                             android:textStyle="bold"
