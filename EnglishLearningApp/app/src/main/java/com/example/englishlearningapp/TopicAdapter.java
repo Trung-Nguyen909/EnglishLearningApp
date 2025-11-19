@@ -7,66 +7,126 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.englishlearningapp.Model.Topic;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> {
+public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final List<Topic> topicList;
+    private static final int TYPE_TOPIC = 0;
+    private static final int TYPE_SUB_ITEM = 1;
+
     private final Context context;
+    private final List<Object> displayList = new ArrayList<>();
+    private final List<Topic> topicOriginalList; // lưu danh sách topic để tính màu xen kẽ
 
     public TopicAdapter(Context context, List<Topic> topicList) {
         this.context = context;
-        this.topicList = topicList;
+        this.topicOriginalList = topicList;
+        displayList.addAll(topicList);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (displayList.get(position) instanceof Topic) return TYPE_TOPIC;
+        else return TYPE_SUB_ITEM;
     }
 
     @NonNull
     @Override
-    public TopicViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Sử dụng layout item_category_row_course.xml của bạn
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category_row_course, parent, false);
-        return new TopicViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == TYPE_TOPIC) {
+            View view = LayoutInflater.from(context)
+                    .inflate(R.layout.item_category_row_course, parent, false);
+            return new TopicViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(context)
+                    .inflate(R.layout.item_sub_category_row, parent, false);
+            return new SubItemViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TopicViewHolder holder, int position) {
-        Topic topic = topicList.get(position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (getItemViewType(position) == TYPE_TOPIC) {
+            Topic topic = (Topic) displayList.get(position);
+            TopicViewHolder topicHolder = (TopicViewHolder) holder;
 
-        // 1. Gán dữ liệu
-        holder.topicName.setText(topic.getName());
-        holder.topicIcon.setImageResource(topic.getIconResId());
+            topicHolder.topicName.setText(topic.getName());
+            topicHolder.topicIcon.setImageResource(topic.getIconResId());
 
-        // 2. LOGIC ĐỔI MÀU NỀN XEN KẼ
-        if (position % 2 == 0) {
-            // Vị trí chẵn (0, 2, 4, ...) -> Màu #DFF5FF
-            holder.itemLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.even_item_color));
+            // Tính vị trí topic thật trong danh sách topic gốc
+            int topicIndex = topicOriginalList.indexOf(topic);
+
+            // Màu xen kẽ topic
+            int bgColor = (topicIndex % 2 == 0) ?
+                    ContextCompat.getColor(context, R.color.even_item_color) :
+                    ContextCompat.getColor(context, R.color.odd_item_color);
+            topicHolder.itemLayout.setBackgroundColor(bgColor);
+
+            // Click mở rộng/thu gọn
+            topicHolder.dropdownIcon.setOnClickListener(v -> {
+                int index = displayList.indexOf(topic);
+                if (!topic.isExpanded()) {
+                    topic.setExpanded(true);
+                    displayList.addAll(index + 1, topic.getSubItems());
+                    notifyItemRangeInserted(index + 1, topic.getSubItems().size());
+                } else {
+                    topic.setExpanded(false);
+                    int subItemCount = topic.getSubItems().size();
+                    for (int i = 0; i < subItemCount; i++) displayList.remove(index + 1);
+                    notifyItemRangeRemoved(index + 1, subItemCount);
+                }
+            });
+
         } else {
-            // Vị trí lẻ (1, 3, 5, ...) -> Màu trắng (#FFFFFF)
-            holder.itemLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.odd_item_color));
+            // Sub-item
+            SubItem subItem = (SubItem) displayList.get(position);
+            SubItemViewHolder subHolder = (SubItemViewHolder) holder;
+            subHolder.subName.setText(subItem.getName());
+            subHolder.subIcon.setImageResource(subItem.getIconResId());
+
+            // Màu nền sub-item khác topic, ví dụ nhạt hơn
+            subHolder.itemLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.sub_item_color));
         }
     }
 
     @Override
     public int getItemCount() {
-        return topicList.size();
+        return displayList.size();
     }
 
-    // ViewHolder class
     public static class TopicViewHolder extends RecyclerView.ViewHolder {
-        // Hãy đảm bảo các ID này khớp với item_category_row_course.xml của bạn
         final LinearLayout itemLayout;
         final TextView topicName;
         final ImageView topicIcon;
-        // final ImageView dropdownIcon; // Nếu cần
+        final ImageView dropdownIcon;
 
         public TopicViewHolder(View itemView) {
             super(itemView);
             itemLayout = itemView.findViewById(R.id.linear_layout_container);
             topicName = itemView.findViewById(R.id.text_category_name);
             topicIcon = itemView.findViewById(R.id.icon_category);
-            // dropdownIcon = itemView.findViewById(R.id.icon_dropdown);
+            dropdownIcon = itemView.findViewById(R.id.icon_dropdown);
+        }
+    }
+
+    public static class SubItemViewHolder extends RecyclerView.ViewHolder {
+        final LinearLayout itemLayout;
+        final TextView subName;
+        final ImageView subIcon;
+
+        public SubItemViewHolder(View itemView) {
+            super(itemView);
+            itemLayout = itemView.findViewById(R.id.linear_layout_container);
+            subName = itemView.findViewById(R.id.text_category_name);
+            subIcon = itemView.findViewById(R.id.icon_category);
         }
     }
 }

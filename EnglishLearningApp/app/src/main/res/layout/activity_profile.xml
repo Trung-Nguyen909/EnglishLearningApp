@@ -161,7 +161,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp">
                             <TextView
-                                android:text="Streak"
+                                android:text="Chuỗi"
                                 android:textSize="14sp"
                                 android:textColor="#888"
                                 android:layout_alignParentStart="true"
@@ -185,7 +185,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <TextView
-                            android:text="Days"
+                            android:text="Ngày"
                             android:textSize="14sp"
                             android:textColor="#888"
                             android:layout_width="wrap_content"
@@ -214,7 +214,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp">
                             <TextView
-                                android:text="Points"
+                                android:text="Điểm"
                                 android:textSize="14sp"
                                 android:textColor="#888"
                                 android:layout_alignParentStart="true"
@@ -238,7 +238,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <TextView
-                            android:text="Points"
+                            android:text="Điểm"
                             android:textSize="14sp"
                             android:textColor="#888"
                             android:layout_width="wrap_content"
@@ -267,7 +267,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp">
                             <TextView
-                                android:text="Leassons"
+                                android:text="Bài học"
                                 android:textSize="14sp"
                                 android:textColor="#888"
                                 android:layout_alignParentStart="true"
@@ -290,7 +290,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <TextView
-                            android:text="Leassons"
+                            android:text="Bài học"
                             android:textSize="14sp"
                             android:textColor="#888"
                             android:layout_width="wrap_content"
@@ -319,7 +319,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp">
                             <TextView
-                                android:text="Time"
+                                android:text="Thời gian"
                                 android:textSize="14sp"
                                 android:textColor="#888"
                                 android:layout_alignParentStart="true"
@@ -342,7 +342,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <TextView
-                            android:text="Hours"
+                            android:text="Giờ"
                             android:textSize="14sp"
                             android:textColor="#888"
                             android:layout_width="wrap_content"
@@ -534,12 +534,12 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Complete 'Learning english basic'"
+                                android:text="Hoàn thành 'Tiếng Anh cơ bản'"
                                 android:textColor="@color/black" android:textSize="15sp"
                                 android:textStyle="normal" /> <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2 hours ago"
+                                android:text="2 giờ trước"
                                 android:textColor="#888888"
                                 android:textSize="13sp" />
                         </LinearLayout>
@@ -581,7 +581,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Complete 'Learning english basic'"
+                            android:text="Hoàn thành 'Tiếng Anh cơ bản'"
                             android:textColor="@color/black"
                             android:textSize="15sp"
                             android:textStyle="normal" />
@@ -589,7 +589,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2 hours ago"
+                            android:text="2 giờ trước"
                             android:textColor="#888888"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -631,7 +631,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Complete 'Learning english basic'"
+                            android:text="Hoàn thành 'Tiếng Anh cơ bản'"
                             android:textColor="@color/black"
                             android:textSize="15sp"
                             android:textStyle="normal" />
@@ -639,7 +639,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2 hours ago"
+                            android:text="2 giờ trước"
                             android:textColor="#888888"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -707,7 +707,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="First-week"
+                                android:text="Tuần đầu tiền"
                                 android:textStyle="bold"
                                 android:textSize="13sp"
                                 android:textColor="#555"/>
@@ -730,7 +730,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="100 leassons"
+                                android:text="100 bài học"
                                 android:textStyle="bold"
                                 android:textSize="13sp"
                                 android:textColor="#555"/>
@@ -753,7 +753,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="30-day Streak"
+                                android:text="Chuỗi 30 ngày"
                                 android:textStyle="bold"
                                 android:textSize="13sp"
                                 android:textColor="#555"/>

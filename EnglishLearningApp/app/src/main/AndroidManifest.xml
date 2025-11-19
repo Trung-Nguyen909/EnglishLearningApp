@@ -23,6 +23,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ExerciseDetailActivity"/>
         <activity android:name=".TestActivity"/>
+        <activity android:name=".ExerciseActivity"/>
+        <activity android:name=".CourseActivity"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true"

@@ -106,7 +106,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Start your English journey"
+                    android:text="Thông tin cá nhân"
                     android:textColor="#888888"
                     android:textSize="14sp"/>
             </LinearLayout>
@@ -128,7 +128,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Full name"
+                        android:text="Họ và tên"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -149,7 +149,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Email Address"
+                        android:text="Email"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -171,7 +171,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Level"
+                        android:text="Cấp độ"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -202,7 +202,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Bio"
+                        android:text="Giới thiệu"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -230,7 +230,7 @@
                             android:layout_height="50dp"
                             android:layout_marginEnd="8dp"
                             android:layout_weight="1"
-                            android:text="Cancel"
+                            android:text="Quay lại"
                             android:textAllCaps="false"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -241,7 +241,7 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:text="Save"
+                            android:text="Lưu"
                             android:backgroundTint="#4169E1"
                             app:cornerRadius="99dp"
                             android:textAllCaps="false"
