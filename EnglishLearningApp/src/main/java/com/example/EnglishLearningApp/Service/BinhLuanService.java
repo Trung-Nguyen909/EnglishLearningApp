@@ -1,5 +1,6 @@
 package com.example.EnglishLearningApp.Service;
 
+import com.example.EnglishLearningApp.Mapper.BinhluanMapper;
 import com.example.EnglishLearningApp.Model.BinhLuan;
 import com.example.EnglishLearningApp.Repository.BinhLuanRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class BinhLuanService {
 
     private final BinhLuanRepository repository;
+    private final BinhluanMapper mapper;
 
     public List<BinhLuan> getAll() {
         return repository.findAll();
@@ -29,12 +31,7 @@ public class BinhLuanService {
     public BinhLuan update(Integer id, BinhLuan details) {
         return repository.findById(id)
                 .map(bl -> {
-                    bl.setIdKhoaHoc(details.getIdKhoaHoc());
-                    bl.setIdNguoiDung(details.getIdNguoiDung());
-                    bl.setNgayLam(details.getNgayLam());
-                    bl.setNoiDung(details.getNoiDung());
-                    bl.setLikeCount(details.getLikeCount());
-                    bl.setDislikeCount(details.getDislikeCount());
+                    mapper.toBinhLuan(details);
                     return repository.save(bl);
                 })
                 .orElseThrow(() -> new RuntimeException("BinhLuan not found with id " + id));

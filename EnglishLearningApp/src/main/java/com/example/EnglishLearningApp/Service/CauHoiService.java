@@ -1,5 +1,6 @@
 package com.example.EnglishLearningApp.Service;
 
+import com.example.EnglishLearningApp.Mapper.CauhoiMapper;
 import com.example.EnglishLearningApp.Model.CauHoi;
 import com.example.EnglishLearningApp.Repository.CauHoiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ public class CauHoiService {
 
     @Autowired
     private CauHoiRepository cauHoiRepository;
+    private CauhoiMapper cauhoiMapper;
 
     public List<CauHoi> getAllCauHoi() {
         return cauHoiRepository.findAll();
@@ -28,12 +30,7 @@ public class CauHoiService {
 
     public CauHoi updateCauHoi(Integer id, CauHoi cauHoi) {
         return cauHoiRepository.findById(id).map(ch -> {
-            ch.setCauHoi(cauHoi.getCauHoi());
-            ch.setA(cauHoi.getA());
-            ch.setB(cauHoi.getB());
-            ch.setC(cauHoi.getC());
-            ch.setD(cauHoi.getD());
-            ch.setCauTraLoi(cauHoi.getCauTraLoi());
+            cauhoiMapper.toCauHoi(cauHoi);
             return cauHoiRepository.save(ch);
         }).orElseThrow(() -> new RuntimeException("Câu hỏi không tồn tại"));
     }

@@ -1,5 +1,6 @@
 package com.example.EnglishLearningApp.Service;
 
+import com.example.EnglishLearningApp.Mapper.BaihocMapper;
 import com.example.EnglishLearningApp.Model.BaiHoc;
 import com.example.EnglishLearningApp.Repository.BaiHocRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class BaiHocService {
 
     private final BaiHocRepository baiHocRepository;
+    private final BaihocMapper baihocMapper;
 
     public List<BaiHoc> getAllBaiHoc() {
         return baiHocRepository.findAll();
@@ -29,12 +31,7 @@ public class BaiHocService {
     public BaiHoc updateBaiHoc(Integer id, BaiHoc baiHocDetails) {
         return baiHocRepository.findById(id)
                 .map(b -> {
-                    b.setIdKhoaHoc(baiHocDetails.getIdKhoaHoc());
-                    b.setTenBaiHoc(baiHocDetails.getTenBaiHoc());
-                    b.setMoTa(baiHocDetails.getMoTa());
-                    b.setNoiDung(baiHocDetails.getNoiDung());
-                    b.setThuTuBaiHoc(baiHocDetails.getThuTuBaiHoc());
-                    b.setTrangThai(baiHocDetails.getTrangThai());
+                    baihocMapper.updateBaiHoc(baiHocDetails, b);
                     return baiHocRepository.save(b);
                 })
                 .orElseThrow(() -> new RuntimeException("BaiHoc not found with id " + id));

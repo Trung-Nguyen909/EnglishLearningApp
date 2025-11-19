@@ -1,5 +1,6 @@
 package com.example.EnglishLearningApp.Service;
 
+import com.example.EnglishLearningApp.Mapper.DanhgiakynangMapper;
 import com.example.EnglishLearningApp.Model.DanhGiaKyNang;
 import com.example.EnglishLearningApp.Repository.DanhGiaKyNangRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class DanhGiaKyNangService {
 
     private final DanhGiaKyNangRepository danhGiaKyNangRepository;
+    private final DanhgiakynangMapper danhgiakynangMapper;
 
     public List<DanhGiaKyNang> getAllDanhGiaKyNang() {
         return danhGiaKyNangRepository.findAll();
@@ -29,10 +31,7 @@ public class DanhGiaKyNangService {
     public DanhGiaKyNang updateDanhGiaKyNang(Integer id, DanhGiaKyNang danhGiaKyNangDetails) {
         return danhGiaKyNangRepository.findById(id)
                 .map(d -> {
-                    d.setIdKyNang(danhGiaKyNangDetails.getIdKyNang());
-                    d.setIdNguoiDung(danhGiaKyNangDetails.getIdNguoiDung());
-                    d.setDiem(danhGiaKyNangDetails.getDiem());
-                    d.setNgayCapNhat(danhGiaKyNangDetails.getNgayCapNhat());
+                    danhgiakynangMapper.toDanhGiaKyNang(danhGiaKyNangDetails);
                     return danhGiaKyNangRepository.save(d);
                 })
                 .orElseThrow(() -> new RuntimeException("DanhGiaKyNang not found with id " + id));
