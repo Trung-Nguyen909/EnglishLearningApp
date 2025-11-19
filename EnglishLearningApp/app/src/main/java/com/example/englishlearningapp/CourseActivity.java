@@ -34,51 +34,51 @@ public class CourseActivity extends AppCompatActivity {
 
         // 1. Family
         List<SubItem> familySubs = List.of(
-                new SubItem("Family members", R.drawable.img_ic_family_member),
-                new SubItem("Daily activities", R.drawable.img_ic_family_activityday),
-                new SubItem("Relationship", R.drawable.img_ic_family_relative)
+                new SubItem("Thành viên", R.drawable.img_ic_family_member),
+                new SubItem("Hoạt động hằng ngày", R.drawable.img_ic_family_activityday),
+                new SubItem("Họ hàng", R.drawable.img_ic_family_relative)
         );
-        list.add(new Topic("Family", R.drawable.img_ic_family_course, familySubs));
+        list.add(new Topic("Gia dình", R.drawable.img_ic_family_course, familySubs));
 
         // 2. School Life
         List<SubItem> schoolSubs = List.of(
-                new SubItem("Class", R.drawable.img_ic_family_course),
-                new SubItem("Teacher", R.drawable.img_ic_family_course),
-                new SubItem("Homework", R.drawable.img_ic_family_course)
+                new SubItem("Lớp học", R.drawable.img_ic_family_course),
+                new SubItem("Giáo viên", R.drawable.img_ic_family_course),
+                new SubItem("Bài tập về nhà", R.drawable.img_ic_family_course)
         );
-        list.add(new Topic("School Life", R.drawable.img_ic_schoollife_course, schoolSubs));
+        list.add(new Topic("Cuộc sống học đường", R.drawable.img_ic_schoollife_course, schoolSubs));
 
         // 3. Food & Drink
         List<SubItem> foodSubs = List.of(
-                new SubItem("Fruits", R.drawable.img_ic_fruits),
-                new SubItem("Vegetables", R.drawable.img_ic_family_course),
-                new SubItem("Drinks", R.drawable.img_ic_family_course)
+                new SubItem("Nước ép", R.drawable.img_ic_fruits),
+                new SubItem("Rau củ", R.drawable.img_ic_family_course),
+                new SubItem("Đồ ăn nhanh", R.drawable.img_ic_family_course)
         );
-        list.add(new Topic("Food & Drink", R.drawable.img_ic_fooddrink_course, foodSubs));
+        list.add(new Topic("Thức ăn & Đồ uống", R.drawable.img_ic_fooddrink_course, foodSubs));
 
         // 4. House & Home
         List<SubItem> homeSubs = List.of(
-                new SubItem("Kitchen", R.drawable.img_ic_family_course),
-                new SubItem("Bedroom", R.drawable.img_ic_family_course),
-                new SubItem("Living Room", R.drawable.img_ic_family_course)
+                new SubItem("Phòng bếp", R.drawable.img_ic_family_course),
+                new SubItem("Phòng ngủ", R.drawable.img_ic_family_course),
+                new SubItem("Phòng tắm", R.drawable.img_ic_family_course)
         );
-        list.add(new Topic("House & Home", R.drawable.img_ic_househome_course, homeSubs));
+        list.add(new Topic("Nhà", R.drawable.img_ic_househome_course, homeSubs));
 
         // 5. Shopping
         List<SubItem> shoppingSubs = List.of(
-                new SubItem("Clothes", R.drawable.img_ic_family_course),
-                new SubItem("Shoes", R.drawable.img_ic_family_course),
-                new SubItem("Accessories", R.drawable.img_ic_family_course)
+                new SubItem("Áo quần", R.drawable.img_ic_family_course),
+                new SubItem("Giày", R.drawable.img_ic_family_course),
+                new SubItem("Phụ kiện", R.drawable.img_ic_family_course)
         );
-        list.add(new Topic("Shopping", R.drawable.img_ic_shopping_course, shoppingSubs));
+        list.add(new Topic("Mua sắm", R.drawable.img_ic_shopping_course, shoppingSubs));
 
         // 6. Animal
         List<SubItem> animalSubs = List.of(
-                new SubItem("Dog", R.drawable.img_ic_family_course),
-                new SubItem("Cat", R.drawable.img_ic_family_course),
-                new SubItem("Bird", R.drawable.img_ic_family_course)
+                new SubItem("Chó", R.drawable.img_ic_family_course),
+                new SubItem("Mèo", R.drawable.img_ic_family_course),
+                new SubItem("Chim", R.drawable.img_ic_family_course)
         );
-        list.add(new Topic("Animal", R.drawable.img_ic_animal_course, animalSubs));
+        list.add(new Topic("Động vật", R.drawable.img_ic_animal_course, animalSubs));
 
         return list;
     }
