@@ -1,7 +1,13 @@
 package com.example.englishlearningapp;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment; // Thay AppCompatActivity bằng Fragment
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,33 +15,43 @@ import com.example.englishlearningapp.Model.SubItem;
 import com.example.englishlearningapp.Model.Topic;
 
 import java.util.ArrayList;
-import java.util.Arrays; // Dùng Arrays.asList cho an toàn với mọi phiên bản Android
+import java.util.Arrays;
 import java.util.List;
 
-public class CourseActivity extends AppCompatActivity {
+public class CourseFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TopicAdapter adapter;
 
+    // Fragment sử dụng onCreateView thay vì onCreate
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // 1. Thay thế setContentView bằng inflater.inflate
+        // Vẫn dùng lại file layout cũ: activity_course
+        View view = inflater.inflate(R.layout.activity_course, container, false);
 
-        recyclerView = findViewById(R.id.recycler_view_topics);
+        // 2. Ánh xạ View (Phải có biến "view." đứng trước findViewById)
+        recyclerView = view.findViewById(R.id.recycler_view_topics);
 
+        // 3. Logic khởi tạo dữ liệu giữ nguyên
         List<Topic> topics = createTopicData();
-        adapter = new TopicAdapter(this, topics);
+
+        // 4. Thiết lập Adapter
+        // Lưu ý: Trong Fragment, dùng getContext() thay cho "this"
+        adapter = new TopicAdapter(getContext(), topics);
 
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        return view;
     }
 
+    // --- Hàm tạo dữ liệu GIỮ NGUYÊN 100% như cũ ---
     private List<Topic> createTopicData() {
         List<Topic> list = new ArrayList<>();
 
         // 1. Family (Các ID: 1, 2, 3)
-        // Lưu ý: Mình dùng Arrays.asList() thay cho List.of() để chạy được trên cả Android cũ
         List<SubItem> familySubs = Arrays.asList(
                 new SubItem(1, "Family members", R.drawable.img_ic_family_member),
                 new SubItem(2, "Daily activities", R.drawable.img_ic_family_activityday),
