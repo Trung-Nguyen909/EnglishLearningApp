@@ -24,6 +24,7 @@
             android:id="@+id/icon_category"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginLeft="30dp"
             android:contentDescription="Sub Item Icon"
             android:scaleType="centerCrop"
             android:src="@drawable/img_ic_family" />
