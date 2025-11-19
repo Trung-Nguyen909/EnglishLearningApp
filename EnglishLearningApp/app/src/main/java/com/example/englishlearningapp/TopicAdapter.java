@@ -1,6 +1,7 @@
 package com.example.englishlearningapp;
 
 import android.content.Context;
+import android.content.Intent; // <--- THÊM DÒNG NÀY
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishlearningapp.Model.SubItem;
+import com.example.englishlearningapp.Model.Topic;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +26,7 @@ public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private final Context context;
     private final List<Object> displayList = new ArrayList<>();
-    private final List<Topic> topicOriginalList; // lưu danh sách topic để tính màu xen kẽ
+    private final List<Topic> topicOriginalList;
 
     public TopicAdapter(Context context, List<Topic> topicList) {
         this.context = context;
@@ -53,22 +57,19 @@ public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_TOPIC) {
+            // --- XỬ LÝ TOPIC (CHA) ---
             Topic topic = (Topic) displayList.get(position);
             TopicViewHolder topicHolder = (TopicViewHolder) holder;
 
             topicHolder.topicName.setText(topic.getName());
             topicHolder.topicIcon.setImageResource(topic.getIconResId());
 
-            // Tính vị trí topic thật trong danh sách topic gốc
             int topicIndex = topicOriginalList.indexOf(topic);
-
-            // Màu xen kẽ topic
             int bgColor = (topicIndex % 2 == 0) ?
                     ContextCompat.getColor(context, R.color.even_item_color) :
                     ContextCompat.getColor(context, R.color.odd_item_color);
             topicHolder.itemLayout.setBackgroundColor(bgColor);
 
-            // Click mở rộng/thu gọn
             topicHolder.dropdownIcon.setOnClickListener(v -> {
                 int index = displayList.indexOf(topic);
                 if (!topic.isExpanded()) {
@@ -84,14 +85,25 @@ public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             });
 
         } else {
-            // Sub-item
+            // --- XỬ LÝ SUB-ITEM (CON - BÀI HỌC) ---
             SubItem subItem = (SubItem) displayList.get(position);
             SubItemViewHolder subHolder = (SubItemViewHolder) holder;
             subHolder.subName.setText(subItem.getName());
             subHolder.subIcon.setImageResource(subItem.getIconResId());
 
-            // Màu nền sub-item khác topic, ví dụ nhạt hơn
             subHolder.itemLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.sub_item_color));
+
+            // >>>>>> BẮT SỰ KIỆN CLICK VÀO BÀI HỌC TẠI ĐÂY <<<<<<
+            subHolder.itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(context, ExerciseActivity.class);
+
+                // Gửi dữ liệu sang màn hình Exercise
+                // LƯU Ý: Bạn cần cập nhật Model SubItem thêm phương thức getId() như mình đã nhắc ở bước trước
+                intent.putExtra("SUB_ITEM_ID", subItem.getId());
+                intent.putExtra("SUB_ITEM_NAME", subItem.getName());
+
+                context.startActivity(intent);
+            });
         }
     }
 
@@ -100,6 +112,7 @@ public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return displayList.size();
     }
 
+    // Các Class ViewHolder giữ nguyên
     public static class TopicViewHolder extends RecyclerView.ViewHolder {
         final LinearLayout itemLayout;
         final TextView topicName;
