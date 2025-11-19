@@ -47,7 +47,7 @@ public class ExerciseActivity extends AppCompatActivity {
         lessonList = new ArrayList<>();
 
         // Dữ liệu từ ảnh (sử dụng màu đã định nghĩa ở trên)
-        lessonList.add(new Lesson("Vocabulary", "Family Members", "Beginner", "10 min", COLOR_VOCABULARY));
+        lessonList.add(new Lesson("Vocabulary", "Các Thành viên trong gia đình", "Beginner", "10 min", COLOR_VOCABULARY));
         lessonList.add(new Lesson("Grammar", "Possessive's", "Beginner", "12 min", COLOR_GRAMMAR));
         lessonList.add(new Lesson("Speaking", "Talking about Family", "Intermediate", "15 min", COLOR_SPEAKING));
         lessonList.add(new Lesson("Listening", "Family Daily Conversations", "Intermediate", "15 min", COLOR_LISTENING));
