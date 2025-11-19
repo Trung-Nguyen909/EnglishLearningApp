@@ -32,9 +32,9 @@ public class CourseActivity extends AppCompatActivity {
 
         // 1. Family
         List<SubItem> familySubs = List.of(
-                new SubItem("Father", R.drawable.img_ic_family_course),
-                new SubItem("Mother", R.drawable.img_ic_family_course),
-                new SubItem("Child", R.drawable.img_ic_family_course)
+                new SubItem("Family members", R.drawable.img_ic_family_member),
+                new SubItem("Daily activities", R.drawable.img_ic_family_activityday),
+                new SubItem("Relationship", R.drawable.img_ic_family_relative)
         );
         list.add(new Topic("Family", R.drawable.img_ic_family_course, familySubs));
 
