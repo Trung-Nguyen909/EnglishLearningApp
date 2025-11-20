@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
@@ -11,30 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishLearningApp">
 
-        <!-- Activity khởi chạy (màn hình chờ) -->
-        <activity
-            android:name=".EditProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ExerciseProgressActivity"
-            android:exported="false" />
-        <activity android:name=".ProfileActivity" />
+
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ExerciseDetailActivity"/>
         <activity android:name=".TestActivity"/>
         <activity android:name=".ExerciseActivity"/>
-        <activity android:name=".CourseActivity"/>
+
+        <activity android:name=".MainActivity"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.EnglishLearningApp.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
