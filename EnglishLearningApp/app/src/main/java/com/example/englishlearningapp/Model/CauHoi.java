@@ -2,7 +2,7 @@ package com.example.englishlearningapp.Model;
 
 import java.util.List;
 
-public class Question {
+public class CauHoi {
     private final int id;
     private final String instruction;
     private final String sentence;
@@ -10,7 +10,7 @@ public class Question {
     private final String correctAnswer;
     private String selectedAnswer;
 
-    public Question(int id, String instruction, String sentence, List<String> options, String correctAnswer) {
+    public CauHoi(int id, String instruction, String sentence, List<String> options, String correctAnswer) {
         this.id = id;
         this.instruction = instruction;
         this.sentence = sentence;
