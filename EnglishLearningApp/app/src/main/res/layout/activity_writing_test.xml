@@ -10,6 +10,7 @@
     android:padding="16dp">
 
     <RelativeLayout
+        android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp">
@@ -25,6 +26,7 @@
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <TextView
+            android:id="@+id/tv_header_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bài kiểm tra"
@@ -36,6 +38,7 @@
             android:layout_centerVertical="true"/>
 
         <LinearLayout
+            android:id="@+id/timer_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -47,6 +50,7 @@
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/iv_timer_icon"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_access_time_black_24dp"
@@ -64,16 +68,19 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/progress_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp">
         <TextView
+            android:id="@+id/tv_question_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Câu 1/2"
             android:textColor="#555"
             android:textSize="14sp"/>
         <TextView
+            android:id="@+id/tv_progress_percentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="50%"
@@ -93,17 +100,20 @@
         android:layout_marginBottom="24dp"/>
 
     <ScrollView
+        android:id="@+id/scroll_view_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:fillViewport="true">
 
         <LinearLayout
+            android:id="@+id/scroll_content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
@@ -112,12 +122,14 @@
                 android:layout_marginBottom="24dp">
 
                 <LinearLayout
+                    android:id="@+id/card_content_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="20dp">
 
                     <LinearLayout
+                        android:id="@+id/exercise_header_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_bg_pink_rounded"
@@ -126,21 +138,24 @@
                         android:layout_marginBottom="20dp">
 
                         <LinearLayout
+                            android:id="@+id/exercise_type_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:layout_marginBottom="4dp">
                             <ImageView
+                                android:id="@+id/iv_exercise_icon"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:src="@android:drawable/ic_menu_edit"
-                                app:tint="#C2185B"
+                                app:tint="@color/red_500"
                                 android:layout_marginEnd="8dp"/>
                             <TextView
+                                android:id="@+id/tv_exercise_type"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Bài tập Viết"
-                                android:textColor="#C2185B"
+                                android:textColor="@color/red_500"
                                 android:textStyle="bold"
                                 android:textSize="16sp"/>
                         </LinearLayout>
@@ -155,6 +170,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_question_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Write a short paragraph (50-100 words) describing your daily routine."
