@@ -51,6 +51,7 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     tools:ignore="SpeakableTextPresentCheck">
+
                     <ImageView
                         android:id="@+id/icon_home"
                         android:layout_width="28dp"
@@ -74,12 +75,10 @@
                     android:layout_weight="1"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-
                     android:focusable="true"
                     android:gravity="center"
                     android:orientation="vertical"
                     tools:ignore="SpeakableTextPresentCheck">
-
 
                     <ImageView
                         android:id="@+id/icon_lessons"
@@ -94,7 +93,6 @@
                         android:layout_height="4dp"
                         android:layout_marginTop="4dp"
                         android:background="@drawable/shape_bg_bottom_nav_dot"
-
                         />
                 </LinearLayout>
 
@@ -133,7 +131,6 @@
                     android:layout_weight="1"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-
                     android:focusable="true"
                     android:gravity="center"
                     android:orientation="vertical"
@@ -158,4 +155,5 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>
+
 </RelativeLayout>
