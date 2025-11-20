@@ -1,5 +1,6 @@
 package com.example.englishlearningapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +21,10 @@ public class Kiemtra_Fragment extends Fragment {
     private LinearLayout btnBasic, btnMedium, btnAdvanced;
     private LinearLayout dropdownTopics;
     private CardView btnStartTest;
-
-    // Biến này sẽ trỏ vào cái Tiêu đề "Chọn chủ đề(tùy chọn)"
     private TextView tvTenChuDe;
 
     private String selectedLevel = "";
-    private String currentTopic = "";
+    private String currentTopic = "Reading"; // Mặc định
 
     @Nullable
     @Override
@@ -34,13 +33,11 @@ public class Kiemtra_Fragment extends Fragment {
 
         initViews(view);
 
-        // >>> NHẬN DỮ LIỆU TỪ TRANG CHỦ <<<
+        // Nhận dữ liệu tên kỹ năng từ trang trước
         if (getArguments() != null) {
             String skillName = getArguments().getString("TEN_CHU_DE");
             if (skillName != null) {
                 currentTopic = skillName;
-
-                // Thay đổi tiêu đề thành tên kỹ năng (Ví dụ: "Listening")
                 if (tvTenChuDe != null) {
                     tvTenChuDe.setText(currentTopic);
                 }
@@ -62,38 +59,68 @@ public class Kiemtra_Fragment extends Fragment {
     }
 
     private void setupListeners() {
+        // Nút Back
         btnBack.setOnClickListener(v -> {
             if (getActivity() != null) {
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
 
+        // Chọn Level (Giữ nguyên logic cũ của bạn)
         btnBasic.setOnClickListener(v -> {
-            selectedLevel = "Basic - 10 câu";
+            selectedLevel = "Basic";
             Toast.makeText(getContext(), "Đã chọn: Basic", Toast.LENGTH_SHORT).show();
         });
 
         btnMedium.setOnClickListener(v -> {
-            selectedLevel = "Medium - 20 câu";
+            selectedLevel = "Medium";
             Toast.makeText(getContext(), "Đã chọn: Medium", Toast.LENGTH_SHORT).show();
         });
 
         btnAdvanced.setOnClickListener(v -> {
-            selectedLevel = "Advanced - 30 câu";
+            selectedLevel = "Advanced";
             Toast.makeText(getContext(), "Đã chọn: Advanced", Toast.LENGTH_SHORT).show();
         });
 
-        // Sự kiện click vào dropdown vẫn giữ nguyên (Hiển thị toast hoặc mở dialog chọn sau này)
         dropdownTopics.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Mở danh sách chủ đề con của: " + (currentTopic.isEmpty() ? "Tất cả" : currentTopic), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Đang chọn chủ đề: " + currentTopic, Toast.LENGTH_SHORT).show();
         });
 
+        // >>>>>> SỰ KIỆN QUAN TRỌNG: BẮT ĐẦU KIỂM TRA <<<<<<
         btnStartTest.setOnClickListener(v -> {
             if (selectedLevel.isEmpty()) {
                 Toast.makeText(getContext(), "Vui lòng chọn mức độ!", Toast.LENGTH_SHORT).show();
-            } else {
-                String message = "Bắt đầu: " + (currentTopic.isEmpty() ? "Tất cả chủ đề" : currentTopic) + " - " + selectedLevel;
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            Intent intent = null;
+
+            // Kiểm tra tên kỹ năng để chuyển đúng trang
+            switch (currentTopic) {
+                case "Listening":
+                    intent = new Intent(getContext(), BaiTapNgheActivity.class);
+                    break;
+
+                case "Speaking":
+                    intent = new Intent(getContext(), SpeakingTestActivity.class);
+                    break;
+
+                case "Writing":
+                    intent = new Intent(getContext(), WritingTestActivity.class);
+                    break;
+
+                case "Reading":
+                default:
+                    intent = new Intent(getContext(), BaiTapActivity.class); // Mặc định
+                    break;
+            }
+
+            if (intent != null) {
+                // Gửi kèm dữ liệu cần thiết
+                intent.putExtra("SELECTED_LEVEL", selectedLevel);
+                intent.putExtra("SELECTED_TOPIC", currentTopic);
+
+                startActivity(intent);
             }
         });
     }
