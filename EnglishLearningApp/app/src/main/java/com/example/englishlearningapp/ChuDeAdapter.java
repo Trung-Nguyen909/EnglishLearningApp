@@ -73,20 +73,41 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             h.khungItem.setBackgroundColor(mauNen);
 
-            h.iconDropdown.setOnClickListener(v -> {
+            // --- SỬA LỖI MỞ RỘNG TẠI ĐÂY ---
+            // Nên cho phép bấm vào cả cái khung (khungItem) hoặc iconDropdown
+            View.OnClickListener expandListener = v -> {
+                // 1. KIỂM TRA NULL: Nếu không có danh sách con thì dừng ngay, tránh crash
+                if (chuDe.getDanhSachMucCon() == null || chuDe.getDanhSachMucCon().isEmpty()) {
+                    return;
+                }
+
                 int index = danhSachHienThi.indexOf(chuDe);
+                if (index < 0) return; // Kiểm tra an toàn
 
                 if (!chuDe.isMoRong()) {
+                    // MỞ RỘNG
                     chuDe.setMoRong(true);
                     danhSachHienThi.addAll(index + 1, chuDe.getDanhSachMucCon());
                     notifyItemRangeInserted(index + 1, chuDe.getDanhSachMucCon().size());
                 } else {
+                    // THU GỌN
                     chuDe.setMoRong(false);
                     int soLuong = chuDe.getDanhSachMucCon().size();
-                    for (int i = 0; i < soLuong; i++) danhSachHienThi.remove(index + 1);
-                    notifyItemRangeRemoved(index + 1, soLuong);
+
+                    // Xóa an toàn từng phần tử
+                    if (danhSachHienThi.size() > index + 1) {
+                        for (int i = 0; i < soLuong; i++) {
+                            if (danhSachHienThi.size() > index + 1) {
+                                danhSachHienThi.remove(index + 1);
+                            }
+                        }
+                        notifyItemRangeRemoved(index + 1, soLuong);
+                    }
                 }
-            });
+            };
+
+            // Gán sự kiện cho cả icon mũi tên
+            h.iconDropdown.setOnClickListener(expandListener);
 
         } else {
 
@@ -95,7 +116,12 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             MucConViewHolder h = (MucConViewHolder) holder;
 
             h.tenMucCon.setText(mucCon.getTenChuDePhu());
-            h.iconMucCon.setImageResource(mucCon.getMaChuDePhu());
+
+            // --- SỬA LỖI CRASH HÌNH ẢNH ---
+            // Bạn KHÔNG được dùng getMaChuDePhu() (vì nó trả về số 1, 2, 3...)
+            // Bạn PHẢI dùng getter trả về R.drawable... (Ví dụ: getIdHinhAnh() hoặc getIconResId())
+            // Hãy đảm bảo Model ChuDePhu của bạn có hàm getIdHinhAnh() trả về int resource
+            h.iconMucCon.setImageResource(mucCon.getMaIcon());
 
             h.khungItem.setBackgroundColor(ContextCompat.getColor(context, R.color.sub_item_color));
 

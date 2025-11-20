@@ -15,23 +15,10 @@
             android:name=".SpeakingTestActivity"
             android:exported="false" />
         <activity
-            android:name=".DialogueTestActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ListeningTestActivity"
-            android:exported="false" />
-        <activity
             android:name=".WritingTestActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TrangChuActivity"
             android:exported="false" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ExerciseDetailActivity"/>
-        <activity android:name=".TestActivity"/>
-        <activity android:name=".ExerciseActivity"/>
-        <activity android:name=".CourseActivity"/>
         <activity android:name=".TestResultActivity"/>
         <activity android:name=".ExerciseDetailActivity" />
         <activity android:name=".BaiTapNgheActivity" />

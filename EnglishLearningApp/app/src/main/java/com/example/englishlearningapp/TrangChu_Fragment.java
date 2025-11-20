@@ -1,7 +1,13 @@
 package com.example.englishlearningapp;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment; // Thay AppCompatActivity bằng Fragment
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,39 +17,45 @@ import com.example.englishlearningapp.Model.ItemNgay;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrangChuActivity extends AppCompatActivity {
+public class TrangChu_Fragment extends Fragment {
 
     private RecyclerView rvQuickTest, rvCalendar;
     private KyNangAdapter adapter;
 
+    // Fragment sử dụng onCreateView thay vì onCreate
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trang_chu);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // 1. Nạp layout (Thay cho setContentView)
+        // Vẫn dùng lại file xml cũ: activity_trang_chu
+        View view = inflater.inflate(R.layout.activity_trang_chu, container, false);
 
-        // 1. Ánh xạ RecyclerView từ layout activity_main.xml
-        rvQuickTest = findViewById(R.id.rv_quick_test);
+        // 2. Ánh xạ View (Phải có "view." đằng trước findViewById)
+        rvQuickTest = view.findViewById(R.id.rv_quick_test);
+        rvCalendar = view.findViewById(R.id.recycler_calendar);
 
-        // 2. Tạo danh sách dữ liệu (4 món)
+        // --- XỬ LÝ PHẦN KỸ NĂNG (QUICK TEST) ---
         List<KyNang> listData = new ArrayList<>();
-        // Thay R.drawable.ic_... bằng tên hình ảnh thực tế của bạn
+        // Lưu ý: Đảm bảo bạn có các hình ảnh này trong thư mục drawable
         listData.add(new KyNang("Listening", R.drawable.ic_listening));
         listData.add(new KyNang("Speaking", R.drawable.ic_speaking));
         listData.add(new KyNang("Reading", R.drawable.ic_reading));
         listData.add(new KyNang("Writing", R.drawable.ic_writing));
 
         // 3. Setup Adapter
-        adapter = new KyNangAdapter(this, listData);
+        // Lưu ý: Trong Fragment, dùng getContext() thay cho "this"
+        adapter = new KyNangAdapter(getContext(), listData);
 
         // 4. Setup Layout (Dạng lưới 4 cột)
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+        // Lưu ý: Dùng getContext() thay cho "this"
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
         rvQuickTest.setLayoutManager(gridLayoutManager);
 
         // 5. Gán adapter vào RecyclerView
         rvQuickTest.setAdapter(adapter);
 
-        rvCalendar = findViewById(R.id.recycler_calendar);
 
+        // --- XỬ LÝ PHẦN LỊCH (CALENDAR) ---
         List<ItemNgay> ngayList = new ArrayList<>();
 
         ngayList.add(new ItemNgay("29", "grayMonth"));
@@ -69,9 +81,13 @@ public class TrangChuActivity extends AppCompatActivity {
         ngayList.add(new ItemNgay("1", "grayMonth"));
         ngayList.add(new ItemNgay("2", "grayMonth"));
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 7);
+        // Context: Thay "this" bằng "getContext()"
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
         rvCalendar.setLayoutManager(layoutManager);
+
         NgayAdapter ngayAdapter = new NgayAdapter(ngayList);
         rvCalendar.setAdapter(ngayAdapter);
+
+        return view;
     }
 }
