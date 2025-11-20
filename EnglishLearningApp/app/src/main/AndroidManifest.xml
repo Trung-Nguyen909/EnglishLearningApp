@@ -11,25 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishLearningApp">
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <!-- Activity khởi chạy (màn hình chờ) -->
-        <activity
-            android:name=".EditProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ExerciseProgressActivity"
-            android:exported="false" />
-        <activity android:name=".ProfileActivity" />
+
+
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ExerciseDetailActivity"/>
         <activity android:name=".TestActivity"/>
         <activity android:name=".ExerciseActivity"/>
-        <activity android:name=".SplashActivity"/>
+
+        <activity android:name=".MainActivity"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.EnglishLearningApp.Splash">
             <intent-filter>
