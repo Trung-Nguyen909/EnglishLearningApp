@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.Model.ItemBaiTap;
+import com.example.englishlearningapp.Model.ItemNgay;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView rvQuickTest;
+    private RecyclerView rvQuickTest, rvCalendar;
     private ItemBaiTapAdapter adapter;
 
     @Override
@@ -40,5 +41,37 @@ public class MainActivity extends AppCompatActivity {
 
         // 5. Gán adapter vào RecyclerView
         rvQuickTest.setAdapter(adapter);
+
+        rvCalendar = findViewById(R.id.recycler_calendar);
+
+        List<ItemNgay> ngayList = new ArrayList<>();
+
+        ngayList.add(new ItemNgay("29", "grayMonth"));
+        ngayList.add(new ItemNgay("30", "grayMonth"));
+
+        // Ngày 1-19: Blue
+        for (int i = 1; i <= 19; i++) {
+            ngayList.add(new ItemNgay(String.valueOf(i), "blue"));
+        }
+
+        // Ngày 20, 21: Red
+        ngayList.add(new ItemNgay("20", "red"));
+        ngayList.add(new ItemNgay("21", "red"));
+
+        // Ngày 22: Gray
+        ngayList.add(new ItemNgay("22", "gray"));
+
+        // Ngày 23-31: Normal
+        for (int i = 23; i <= 31; i++) {
+            ngayList.add(new ItemNgay(String.valueOf(i), "normal"));
+        }
+
+        ngayList.add(new ItemNgay("1", "grayMonth"));
+        ngayList.add(new ItemNgay("2", "grayMonth"));
+
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 7);
+        rvCalendar.setLayoutManager(layoutManager);
+        NgayAdapter ngayAdapter = new NgayAdapter(ngayList);
+        rvCalendar.setAdapter(ngayAdapter);
     }
 }
