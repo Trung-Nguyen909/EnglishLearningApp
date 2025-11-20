@@ -26,25 +26,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Test"
+            android:text="Bài tập"
+            android:textColor="#2563EB"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginStart="8dp" />
 
-        <TextView
-            android:id="@+id/timer_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="4dp"
-            android:text="00:02"
-            android:paddingStart="12dp"
-            android:paddingTop="4dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="4dp"
-            android:background="@drawable/rounded_timer_background"
-            app:drawableStartCompat="@drawable/ic_timer"
-            android:textColor="#007AFF"
-            android:textStyle="bold" />
+<!--        <TextView-->
+<!--            android:id="@+id/timer_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:drawablePadding="4dp"-->
+<!--            android:text="00:02"-->
+<!--            android:paddingStart="12dp"-->
+<!--            android:paddingTop="4dp"-->
+<!--            android:paddingEnd="12dp"-->
+<!--            android:paddingBottom="4dp"-->
+<!--            android:background="@drawable/rounded_timer_background"-->
+<!--            app:drawableStartCompat="@drawable/ic_timer"-->
+<!--            android:textColor="#007AFF"-->
+<!--            android:textStyle="bold" />-->
     </LinearLayout>
 
     <LinearLayout
