@@ -19,7 +19,7 @@ public class TrangChuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_trang_chu);
 
         // 1. Ánh xạ RecyclerView từ layout activity_main.xml
         rvQuickTest = findViewById(R.id.rv_quick_test);

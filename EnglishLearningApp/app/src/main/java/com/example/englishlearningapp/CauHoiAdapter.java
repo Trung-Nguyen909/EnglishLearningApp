@@ -10,13 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.Question;
+import com.example.englishlearningapp.Model.CauHoi;
 
 import java.util.List;
 
-public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
+public class CauHoiAdapter extends RecyclerView.Adapter<CauHoiAdapter.ViewHolder> {
 
-    private final List<Question> questions;
+    private final List<CauHoi> cauHois;
     private final OnAnswerSelectedListener listener;
     // Đảm bảo bạn có file R.layout.item_question_option trong dự án
 
@@ -24,8 +24,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         void onAnswerSelected(int questionId, String selectedAnswer);
     }
 
-    public QuestionAdapter(List<Question> questions, OnAnswerSelectedListener listener) {
-        this.questions = questions;
+    public CauHoiAdapter(List<CauHoi> cauHois, OnAnswerSelectedListener listener) {
+        this.cauHois = cauHois;
         this.listener = listener;
     }
 
@@ -40,19 +40,19 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Question question = questions.get(position);
-        holder.bind(question);
+        CauHoi cauHoi = cauHois.get(position);
+        holder.bind(cauHoi);
     }
 
     @Override
     public int getItemCount() {
-        return questions.size();
+        return cauHois.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView instructionText;
-        private final TextView sentenceText;
-        private final LinearLayout optionsContainer;
+        private final TextView tv_HuongDan;
+        private final TextView tv_NoiDungCauHoi;
+        private final LinearLayout khungLuaChon;
         private final Context context;
         // KHÔNG CÓ Ánh xạ Views ProgressBar và Count Text ở đây
 
@@ -60,24 +60,24 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             super(itemView);
             context = itemView.getContext();
             // Ánh xạ các Views nội dung câu hỏi
-            instructionText = itemView.findViewById(R.id.instruction_text);
-            sentenceText = itemView.findViewById(R.id.question_sentence_text);
-            optionsContainer = itemView.findViewById(R.id.options_container);
+            tv_HuongDan = itemView.findViewById(R.id.instruction_text);
+            tv_NoiDungCauHoi = itemView.findViewById(R.id.question_sentence_text);
+            khungLuaChon = itemView.findViewById(R.id.options_container);
 
             // Đã xóa Ánh xạ: itemQuestionCountText, itemProgressPercentText, itemMainProgressBar
         }
 
-        public void bind(Question question) {
+        public void bind(CauHoi cauHoi) {
             // KHÔNG CÓ LOGIC CẬP NHẬT PROGRESS BAR Ở ĐÂY
 
-            instructionText.setText(question.getInstruction());
-            sentenceText.setText(question.getSentence());
+            tv_HuongDan.setText(cauHoi.getInstruction());
+            tv_NoiDungCauHoi.setText(cauHoi.getSentence());
 
-            optionsContainer.removeAllViews();
+            khungLuaChon.removeAllViews();
 
-            for (String option : question.getOptions()) {
+            for (String option : cauHoi.getOptions()) {
                 // Sử dụng R.layout.item_question_option (cần tạo file này)
-                View optionView = LayoutInflater.from(context).inflate(R.layout.item_question_option, optionsContainer, false);
+                View optionView = LayoutInflater.from(context).inflate(R.layout.item_question_option, khungLuaChon, false);
 
                 TextView optionText = optionView.findViewById(R.id.option_text);
                 RadioButton optionRadio = optionView.findViewById(R.id.option_radio);
@@ -86,19 +86,19 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
                 // Thiết lập trạng thái và style (Cần file drawable)
                 optionView.setBackgroundResource(R.drawable.option_background_selector);
-                optionRadio.setChecked(option.equals(question.getSelectedAnswer()));
+                optionRadio.setChecked(option.equals(cauHoi.getSelectedAnswer()));
 
                 // Xử lý click
                 optionView.setOnClickListener(v -> {
-                    questions.get(getAdapterPosition()).setSelectedAnswer(option);
+                    cauHois.get(getAdapterPosition()).setSelectedAnswer(option);
                     if (listener != null) {
                         // Gọi Activity để cập nhật ProgressBar toàn cục
-                        listener.onAnswerSelected(question.getId(), option);
+                        listener.onAnswerSelected(cauHoi.getId(), option);
                     }
                     notifyItemChanged(getAdapterPosition());
                 });
 
-                optionsContainer.addView(optionView);
+                khungLuaChon.addView(optionView);
             }
         }
     }

@@ -16,16 +16,16 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.Question;
+import com.example.englishlearningapp.Model.CauHoi;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class BaiTapNgheActivity extends AppCompatActivity implements QuestionAdapter.OnAnswerSelectedListener {
+public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapter.OnAnswerSelectedListener {
 
-    private List<Question> questions;
+    private List<CauHoi> questions;
     private Button completeButton;
     private ProgressBar mainProgressBar;
     private TextView questionCountText;
@@ -86,7 +86,7 @@ public class BaiTapNgheActivity extends AppCompatActivity implements QuestionAda
     private void setupQuestionsRecyclerView() {
         RecyclerView questionsRecyclerView = findViewById(R.id.questions_recycler_view_nghe);
 
-         QuestionAdapter adapter = new QuestionAdapter(questions, this);
+         CauHoiAdapter adapter = new CauHoiAdapter(questions, this);
 
         questionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         questionsRecyclerView.setAdapter(adapter);
@@ -203,11 +203,11 @@ public class BaiTapNgheActivity extends AppCompatActivity implements QuestionAda
         }
     }
 
-    private List<Question> createListeningQuestions() {
+    private List<CauHoi> createListeningQuestions() {
         return Arrays.asList(
-                new Question(1, "Instruction: Listen and choose.", "Where are they going?", Arrays.asList("Cinema", "Museum", "Park", "School"), "Museum"),
-                new Question(2, "Instruction: Listen to detail.", "What time is it?", Arrays.asList("7:00", "7:30", "8:00", "9:00"), "7:30"),
-                new Question(3, "Instruction: Inferring.", "How does the man feel?", Arrays.asList("Happy", "Sad", "Angry", "Tired"), "Happy")
+                new CauHoi(1, "Instruction: Listen and choose.", "Where are they going?", Arrays.asList("Cinema", "Museum", "Park", "School"), "Museum"),
+                new CauHoi(2, "Instruction: Listen to detail.", "What time is it?", Arrays.asList("7:00", "7:30", "8:00", "9:00"), "7:30"),
+                new CauHoi(3, "Instruction: Inferring.", "How does the man feel?", Arrays.asList("Happy", "Sad", "Angry", "Tired"), "Happy")
         );
     }
 
