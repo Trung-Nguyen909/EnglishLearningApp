@@ -94,7 +94,7 @@ public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             // >>>>>> BẮT SỰ KIỆN CLICK VÀO BÀI HỌC TẠI ĐÂY <<<<<<
             subHolder.itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(context, ExerciseActivity.class);
+                Intent intent = new Intent(context, BaihocActivity.class);
 
                 // Gửi dữ liệu sang màn hình Exercise
                 // LƯU Ý: Bạn cần cập nhật Model SubItem thêm phương thức getId() như mình đã nhắc ở bước trước

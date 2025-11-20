@@ -11,10 +11,10 @@ import com.example.englishlearningapp.Model.Lesson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseActivity extends AppCompatActivity {
+public class BaihocActivity extends AppCompatActivity {
 
     private RecyclerView lessonsRecyclerView;
-    private LessonAdapter lessonAdapter;
+    private BaihocAdapter lessonAdapter;
     private List<Lesson> lessonList;
     private TextView tvHeaderTitle;
     private ImageView btnBack;
@@ -32,12 +32,12 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
 
-        lessonsRecyclerView = findViewById(R.id.lessons_recycler_view); // Check lại ID trong XML nhé
+        lessonsRecyclerView = findViewById(R.id.lessons_recycler_view);
         tvHeaderTitle = findViewById(R.id.course_title);
         lessonsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         btnBack = findViewById(R.id.back_button);
 
-        // --- NHẬN DỮ LIỆU ---
+        // --- NHẬN DỮ LIỆU (Code cũ) ---
         Intent intent = getIntent();
         int subItemId = -1;
         String subItemName = "Bài học";
@@ -49,28 +49,50 @@ public class ExerciseActivity extends AppCompatActivity {
 
         if (subItemName != null) tvHeaderTitle.setText(subItemName);
 
-        // --- TẠO DỮ LIỆU ---
+        // --- TẠO DỮ LIỆU (Code cũ) ---
         lessonList = new ArrayList<>();
-
-        // Gọi hàm nạp dữ liệu dựa trên ID
         loadDataByTopicId(subItemId, subItemName);
 
-        lessonAdapter = new LessonAdapter(this, lessonList);
+        // Khởi tạo Adapter
+        lessonAdapter = new BaihocAdapter(this, lessonList);
+
+        // >>>>>> PHẦN MỚI THÊM VÀO: SỰ KIỆN CLICK <<<<<<
+        // Sử dụng đúng tên hàm tiếng Việt đã tạo trong Adapter
+        lessonAdapter.datSuKienClick(new BaihocAdapter.SuKienClickItem() {
+            @Override
+            public void khiAnVaoItem(Lesson baiHoc) {
+                // Chuyển sang trang Chi tiết (ExerciseDetailActivity)
+                // Nếu bạn đã đổi tên trang chi tiết thành ChitietBaihocActivity thì nhớ sửa lại tên class ở đây nhé
+                Intent intentDetail = new Intent(BaihocActivity.this, ExerciseDetailActivity.class);
+
+                // Gửi dữ liệu sang trang chi tiết
+                intentDetail.putExtra("TITLE", baiHoc.getTitle());
+                intentDetail.putExtra("TYPE", baiHoc.getType());
+                intentDetail.putExtra("LEVEL", baiHoc.getLevel());
+                intentDetail.putExtra("TIME", baiHoc.getTime());
+
+                startActivity(intentDetail);
+            }
+        });
+        // >>>>>> KẾT THÚC PHẦN THÊM MỚI <<<<<<
+
         lessonsRecyclerView.setAdapter(lessonAdapter);
         btnBack.setOnClickListener(v -> finish());
     }
+
+    // --- CÁC HÀM DƯỚI GIỮ NGUYÊN KHÔNG SỬA ---
 
     // Hàm chính để chọn nội dung theo ID
     private void loadDataByTopicId(int id, String defaultName) {
         switch (id) {
             case 1: // Family Members
                 addFullLessonSet(
-                        "Các thành viên trong gia đình",  // Vocab
-                        "Sở hữu cách (Possessive's)",     // Grammar
-                        "Giới thiệu về gia đình bạn",     // Speaking
-                        "Đoạn hội thoại hàng ngày",       // Listening
-                        "Truyền thống gia đình",          // Reading
-                        "Viết thư kể về gia đình"         // Writing
+                        "Các thành viên trong gia đình",
+                        "Sở hữu cách (Possessive's)",
+                        "Giới thiệu về gia đình bạn",
+                        "Đoạn hội thoại hàng ngày",
+                        "Truyền thống gia đình",
+                        "Viết thư kể về gia đình"
                 );
                 break;
 
@@ -97,14 +119,11 @@ public class ExerciseActivity extends AppCompatActivity {
                 break;
 
             default:
-                // Nếu chưa có dữ liệu cụ thể, tự động tạo nội dung chung chung theo tên Topic
                 addGenericLessons(defaultName);
                 break;
         }
     }
 
-    // --- HÀM HỖ TRỢ 1: Thêm nhanh 6 bài học chuẩn ---
-    // Bạn chỉ cần truyền 6 cái tên bài vào là xong, đỡ phải viết new Lesson() nhiều lần
     private void addFullLessonSet(String vocabTitle, String grammarTitle, String speakTitle,
                                   String listenTitle, String readTitle, String writeTitle) {
 
@@ -116,7 +135,6 @@ public class ExerciseActivity extends AppCompatActivity {
         lessonList.add(new Lesson("Writing", writeTitle, "Intermediate", "18 min", COLOR_WRITING));
     }
 
-    // --- HÀM HỖ TRỢ 2: Tạo dữ liệu mặc định (chống trống trang) ---
     private void addGenericLessons(String topicName) {
         lessonList.add(new Lesson("Vocabulary", "Từ vựng về " + topicName, "Beginner", "10 min", COLOR_VOCABULARY));
         lessonList.add(new Lesson("Grammar", "Ngữ pháp liên quan", "Beginner", "12 min", COLOR_GRAMMAR));
