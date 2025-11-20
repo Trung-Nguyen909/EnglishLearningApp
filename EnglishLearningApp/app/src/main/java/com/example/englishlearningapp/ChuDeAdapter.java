@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.englishlearningapp.Model.SubItem;
-import com.example.englishlearningapp.Model.Topic;
+import com.example.englishlearningapp.Model.ChuDe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +25,9 @@ public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private final Context context;
     private final List<Object> displayList = new ArrayList<>();
-    private final List<Topic> topicOriginalList;
+    private final List<ChuDe> topicOriginalList;
 
-    public TopicAdapter(Context context, List<Topic> topicList) {
+    public TopicAdapter(Context context, List<ChuDe> topicList) {
         this.context = context;
         this.topicOriginalList = topicList;
         displayList.addAll(topicList);
@@ -35,7 +35,7 @@ public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
-        if (displayList.get(position) instanceof Topic) return TYPE_TOPIC;
+        if (displayList.get(position) instanceof ChuDe) return TYPE_TOPIC;
         else return TYPE_SUB_ITEM;
     }
 
@@ -57,7 +57,7 @@ public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_TOPIC) {
             // --- XỬ LÝ TOPIC (CHA) ---
-            Topic topic = (Topic) displayList.get(position);
+            ChuDe topic = (ChuDe) displayList.get(position);
             TopicViewHolder topicHolder = (TopicViewHolder) holder;
 
             topicHolder.topicName.setText(topic.getName());
