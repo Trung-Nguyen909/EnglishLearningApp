@@ -1,5 +1,6 @@
 package com.example.englishlearningapp;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,45 +40,63 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
     private Handler audioHandler = new Handler();
     private boolean isPlaying = false;
 
+    // Biến lưu Level hiện tại để gửi sang trang kết quả (phục vụ nút Làm lại)
+    private String currentLevel = "Basic";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bai_tap_nghe);
 
-        // 1. Ánh xạ Views
+        // 1. NHẬN DỮ LIỆU LEVEL TỪ MÀN HÌNH TRƯỚC
+        if (getIntent() != null) {
+            String level = getIntent().getStringExtra("SELECTED_LEVEL");
+            if (level != null) {
+                currentLevel = level;
+            }
+        }
+
         initViews();
 
-        // 2. Khởi tạo dữ liệu câu hỏi (QUAN TRỌNG: Phải có dữ liệu trước khi setup Adapter)
         questions = createListeningQuestions();
 
-        // 3. Setup RecyclerView (Danh sách câu hỏi)
         setupQuestionsRecyclerView();
-
-        // 4. Setup Audio Player (Trình phát nhạc)
         setupAudioPlayer();
 
-        // 5. Thiết lập trạng thái tiến độ ban đầu
         mainProgressBar.setMax(questions.size());
         updateProgressState();
 
-        // Sự kiện nút Back
         findViewById(R.id.back_button).setOnClickListener(v -> finish());
 
-        // Sự kiện nút Hoàn thành
+        // --- XỬ LÝ NÚT HOÀN THÀNH ---
         completeButton.setOnClickListener(v -> {
-            Toast.makeText(this, "Bạn đã hoàn thành bài nghe!", Toast.LENGTH_SHORT).show();
-            // Code chuyển màn hình hoặc lưu điểm ở đây
+            // Chuyển sang trang Kết quả
+            chuyenSangTrangKetQua();
         });
     }
 
+    private void chuyenSangTrangKetQua() {
+        Intent intent = new Intent(BaiTapNgheActivity.this, TestResultActivity.class);
+
+        // Truyền số câu đã làm (coi như là điểm số hoàn thành)
+        intent.putExtra(TestResultActivity.EXTRA_CORRECT_ANSWERS, answeredQuestionIds.size());
+        intent.putExtra(TestResultActivity.EXTRA_TOTAL_QUESTIONS, questions.size());
+        intent.putExtra(TestResultActivity.EXTRA_TIME_SPENT, 0); // Thời gian (tùy chọn)
+
+        // QUAN TRỌNG: Gửi Topic và Level để nút "Làm lại" ở trang kia biết quay về đây
+        intent.putExtra(TestResultActivity.EXTRA_TOPIC, "Listening");
+        intent.putExtra(TestResultActivity.EXTRA_LEVEL, currentLevel);
+
+        startActivity(intent);
+        finish(); // Đóng màn hình hiện tại để khi bấm Back không quay lại đây
+    }
+
     private void initViews() {
-        // UI Bài tập
         completeButton = findViewById(R.id.complete_button);
         mainProgressBar = findViewById(R.id.main_progress_bar);
         questionCountText = findViewById(R.id.question_count_text);
         progressPercentText = findViewById(R.id.progress_percent_text);
 
-        // UI Audio
         btnPlayAudio = findViewById(R.id.btn_play_audio);
         seekbarAudio = findViewById(R.id.seekbar_audio);
         tvAudioDuration = findViewById(R.id.tv_audio_duration);
@@ -85,15 +104,15 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
 
     private void setupQuestionsRecyclerView() {
         RecyclerView questionsRecyclerView = findViewById(R.id.questions_recycler_view_nghe);
-
-         CauHoiAdapter adapter = new CauHoiAdapter(questions, this);
-
+        CauHoiAdapter adapter = new CauHoiAdapter(questions, this);
         questionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         questionsRecyclerView.setAdapter(adapter);
     }
 
+    // --- PHẦN XỬ LÝ AUDIO (GIỮ NGUYÊN) ---
     private void setupAudioPlayer() {
         try {
+            // Đảm bảo file audio_sample.mp3 có trong res/raw
             mediaPlayer = MediaPlayer.create(this, R.raw.audio_sample);
         } catch (Exception e) {
             e.printStackTrace();
@@ -172,9 +191,10 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
         return String.format("%02d:%02d", minutes, seconds);
     }
 
-    // --- LOGIC CẬP NHẬT TIẾN ĐỘ (Giống BaiTapActivity) ---
+    // --- LOGIC CẬP NHẬT TIẾN ĐỘ ---
     @Override
     public void onAnswerSelected(int questionId, String selectedAnswer) {
+        // Chỉ cần biết là đã chọn, không cần check đúng sai
         if (selectedAnswer != null) {
             answeredQuestionIds.add(questionId);
         } else {
@@ -192,6 +212,7 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
         progressPercentText.setText(progressPercent + "%");
         mainProgressBar.setProgress(answeredCount);
 
+        // Hiện nút hoàn thành khi làm hết (hoặc luôn hiện tùy bạn)
         if (answeredCount == total) {
             completeButton.setEnabled(true);
             completeButton.setVisibility(View.VISIBLE);
