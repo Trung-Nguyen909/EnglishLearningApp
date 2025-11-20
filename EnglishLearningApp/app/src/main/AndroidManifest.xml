@@ -20,7 +20,7 @@
         <activity android:name=".TestActivity" />
         <activity android:name=".ExerciseActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".BaiTapNgheActivity"
             android:exported="true"
             android:theme="@style/Theme.EnglishLearningApp.Splash">
             <intent-filter>

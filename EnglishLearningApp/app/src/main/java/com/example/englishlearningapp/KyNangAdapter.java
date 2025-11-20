@@ -7,28 +7,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.englishlearningapp.Model.ItemBaiTap;
+import com.example.englishlearningapp.Model.KyNang;
 import java.util.List;
 
-public class ItemBaiTapAdapter extends RecyclerView.Adapter<ItemBaiTapAdapter.TestViewHolder> {
+public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.TestViewHolder> {
     private Context context;
-    private List<ItemBaiTap> mList;
+    private List<KyNang> mList;
 
-    public ItemBaiTapAdapter(Context context, List<ItemBaiTap> mList) {
+    public KyNangAdapter(Context context, List<KyNang> mList) {
         this.context = context;
         this.mList = mList;
     }
 
     @NonNull
     @Override
-    public ItemBaiTapAdapter.TestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_baitap, parent, false);
+    public KyNangAdapter.TestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_kynang, parent, false);
         return new TestViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemBaiTapAdapter.TestViewHolder holder, int position) {
-        ItemBaiTap item = mList.get(position);
+    public void onBindViewHolder(@NonNull KyNangAdapter.TestViewHolder holder, int position) {
+        KyNang item = mList.get(position);
         if (item == null) return;
 
         // Gán dữ liệu vào View
