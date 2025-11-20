@@ -1,23 +1,36 @@
 package com.example.englishlearningapp.Model;
 
-
 import java.util.List;
 
-public class Topic {
-    private String name;
-    private int iconResId;
-    private List<SubItem> subItems;
-    private boolean isExpanded = false;
+public class ChuDe {
+    private String tenChuDe;
+    private int idIcon;
+    private List<ChuDePhu> danhSachMucCon;
+    private boolean moRong = false;
 
-    public Topic(String name, int iconResId, List<SubItem> subItems) {
-        this.name = name;
-        this.iconResId = iconResId;
-        this.subItems = subItems;
+    public ChuDe(String tenChuDe, int idIcon, List<ChuDePhu> danhSachMucCon) {
+        this.tenChuDe = tenChuDe;
+        this.idIcon = idIcon;
+        this.danhSachMucCon = danhSachMucCon;
     }
 
-    public String getName() { return name; }
-    public int getIconResId() { return iconResId; }
-    public List<SubItem> getSubItems() { return subItems; }
-    public boolean isExpanded() { return isExpanded; }
-    public void setExpanded(boolean expanded) { isExpanded = expanded; }
+    public String getTenChuDe() {
+        return tenChuDe;
+    }
+
+    public int getIdIcon() {
+        return idIcon;
+    }
+
+    public List<ChuDePhu> getDanhSachMucCon() {
+        return danhSachMucCon;
+    }
+
+    public boolean isMoRong() {
+        return moRong;
+    }
+
+    public void setMoRong(boolean moRong) {
+        this.moRong = moRong;
+    }
 }

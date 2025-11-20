@@ -1,7 +1,7 @@
 package com.example.englishlearningapp;
 
 import android.content.Context;
-import android.content.Intent; // <--- THÊM DÒNG NÀY
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,95 +12,98 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.englishlearningapp.Model.SubItem;
+
+import com.example.englishlearningapp.Model.ChuDePhu;
 import com.example.englishlearningapp.Model.ChuDe;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int TYPE_TOPIC = 0;
-    private static final int TYPE_SUB_ITEM = 1;
+    private static final int TYPE_CHU_DE = 0;
+    private static final int TYPE_MUC_CON = 1;
 
     private final Context context;
-    private final List<Object> displayList = new ArrayList<>();
-    private final List<ChuDe> topicOriginalList;
+    private final List<Object> danhSachHienThi = new ArrayList<>();
+    private final List<ChuDe> danhSachChuDeGoc;
 
-    public TopicAdapter(Context context, List<ChuDe> topicList) {
+    public ChuDeAdapter(Context context, List<ChuDe> danhSachChuDe) {
         this.context = context;
-        this.topicOriginalList = topicList;
-        displayList.addAll(topicList);
+        this.danhSachChuDeGoc = danhSachChuDe;
+        danhSachHienThi.addAll(danhSachChuDe);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (displayList.get(position) instanceof ChuDe) return TYPE_TOPIC;
-        else return TYPE_SUB_ITEM;
+        if (danhSachHienThi.get(position) instanceof ChuDe) return TYPE_CHU_DE;
+        else return TYPE_MUC_CON;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == TYPE_TOPIC) {
+        if (viewType == TYPE_CHU_DE) {
             View view = LayoutInflater.from(context)
                     .inflate(R.layout.item_category_row_course, parent, false);
-            return new TopicViewHolder(view);
+            return new ChuDeViewHolder(view);
         } else {
             View view = LayoutInflater.from(context)
                     .inflate(R.layout.item_sub_category_row, parent, false);
-            return new SubItemViewHolder(view);
+            return new MucConViewHolder(view);
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == TYPE_TOPIC) {
-            // --- XỬ LÝ TOPIC (CHA) ---
-            ChuDe topic = (ChuDe) displayList.get(position);
-            TopicViewHolder topicHolder = (TopicViewHolder) holder;
 
-            topicHolder.topicName.setText(topic.getName());
-            topicHolder.topicIcon.setImageResource(topic.getIconResId());
+        if (getItemViewType(position) == TYPE_CHU_DE) {
 
-            int topicIndex = topicOriginalList.indexOf(topic);
-            int bgColor = (topicIndex % 2 == 0) ?
-                    ContextCompat.getColor(context, R.color.even_item_color) :
-                    ContextCompat.getColor(context, R.color.odd_item_color);
-            topicHolder.itemLayout.setBackgroundColor(bgColor);
+            // --- XỬ LÝ CHỦ ĐỀ (MỤC CHA) ---
+            ChuDe chuDe = (ChuDe) danhSachHienThi.get(position);
+            ChuDeViewHolder h = (ChuDeViewHolder) holder;
 
-            topicHolder.dropdownIcon.setOnClickListener(v -> {
-                int index = displayList.indexOf(topic);
-                if (!topic.isExpanded()) {
-                    topic.setExpanded(true);
-                    displayList.addAll(index + 1, topic.getSubItems());
-                    notifyItemRangeInserted(index + 1, topic.getSubItems().size());
+            h.tenChuDe.setText(chuDe.getTenChuDe());
+            h.iconChuDe.setImageResource(chuDe.getIdIcon());
+
+            int indexChuDe = danhSachChuDeGoc.indexOf(chuDe);
+            int mauNen = (indexChuDe % 2 == 0)
+                    ? ContextCompat.getColor(context, R.color.even_item_color)
+                    : ContextCompat.getColor(context, R.color.odd_item_color);
+
+            h.khungItem.setBackgroundColor(mauNen);
+
+            h.iconDropdown.setOnClickListener(v -> {
+                int index = danhSachHienThi.indexOf(chuDe);
+
+                if (!chuDe.isMoRong()) {
+                    chuDe.setMoRong(true);
+                    danhSachHienThi.addAll(index + 1, chuDe.getDanhSachMucCon());
+                    notifyItemRangeInserted(index + 1, chuDe.getDanhSachMucCon().size());
                 } else {
-                    topic.setExpanded(false);
-                    int subItemCount = topic.getSubItems().size();
-                    for (int i = 0; i < subItemCount; i++) displayList.remove(index + 1);
-                    notifyItemRangeRemoved(index + 1, subItemCount);
+                    chuDe.setMoRong(false);
+                    int soLuong = chuDe.getDanhSachMucCon().size();
+                    for (int i = 0; i < soLuong; i++) danhSachHienThi.remove(index + 1);
+                    notifyItemRangeRemoved(index + 1, soLuong);
                 }
             });
 
         } else {
-            // --- XỬ LÝ SUB-ITEM (CON - BÀI HỌC) ---
-            SubItem subItem = (SubItem) displayList.get(position);
-            SubItemViewHolder subHolder = (SubItemViewHolder) holder;
-            subHolder.subName.setText(subItem.getName());
-            subHolder.subIcon.setImageResource(subItem.getIconResId());
 
-            subHolder.itemLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.sub_item_color));
+            // --- XỬ LÝ MỤC CON (BÀI HỌC) ---
+            ChuDePhu mucCon = (ChuDePhu) danhSachHienThi.get(position);
+            MucConViewHolder h = (MucConViewHolder) holder;
 
-            // >>>>>> BẮT SỰ KIỆN CLICK VÀO BÀI HỌC TẠI ĐÂY <<<<<<
-            subHolder.itemView.setOnClickListener(v -> {
+            h.tenMucCon.setText(mucCon.getTenChuDePhu());
+            h.iconMucCon.setImageResource(mucCon.getMaChuDePhu());
+
+            h.khungItem.setBackgroundColor(ContextCompat.getColor(context, R.color.sub_item_color));
+
+            // >>> CLICK VÀO BÀI HỌC <<<
+            h.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(context, ExerciseActivity.class);
-
-                // Gửi dữ liệu sang màn hình Exercise
-                // LƯU Ý: Bạn cần cập nhật Model SubItem thêm phương thức getId() như mình đã nhắc ở bước trước
-                intent.putExtra("SUB_ITEM_ID", subItem.getId());
-                intent.putExtra("SUB_ITEM_NAME", subItem.getName());
-
+                intent.putExtra("SUB_ITEM_ID", mucCon.getMaChuDePhu());
+                intent.putExtra("SUB_ITEM_NAME", mucCon.getTenChuDePhu());
                 context.startActivity(intent);
             });
         }
@@ -108,35 +111,36 @@ public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return displayList.size();
+        return danhSachHienThi.size();
     }
 
-    // Các Class ViewHolder giữ nguyên
-    public static class TopicViewHolder extends RecyclerView.ViewHolder {
-        final LinearLayout itemLayout;
-        final TextView topicName;
-        final ImageView topicIcon;
-        final ImageView dropdownIcon;
+    // ViewHolder CHỦ ĐỀ
+    public static class ChuDeViewHolder extends RecyclerView.ViewHolder {
+        final LinearLayout khungItem;
+        final TextView tenChuDe;
+        final ImageView iconChuDe;
+        final ImageView iconDropdown;
 
-        public TopicViewHolder(View itemView) {
+        public ChuDeViewHolder(View itemView) {
             super(itemView);
-            itemLayout = itemView.findViewById(R.id.linear_layout_container);
-            topicName = itemView.findViewById(R.id.text_category_name);
-            topicIcon = itemView.findViewById(R.id.icon_category);
-            dropdownIcon = itemView.findViewById(R.id.icon_dropdown);
+            khungItem = itemView.findViewById(R.id.linear_layout_container);
+            tenChuDe = itemView.findViewById(R.id.text_category_name);
+            iconChuDe = itemView.findViewById(R.id.icon_category);
+            iconDropdown = itemView.findViewById(R.id.icon_dropdown);
         }
     }
 
-    public static class SubItemViewHolder extends RecyclerView.ViewHolder {
-        final LinearLayout itemLayout;
-        final TextView subName;
-        final ImageView subIcon;
+    // ViewHolder MỤC CON
+    public static class MucConViewHolder extends RecyclerView.ViewHolder {
+        final LinearLayout khungItem;
+        final TextView tenMucCon;
+        final ImageView iconMucCon;
 
-        public SubItemViewHolder(View itemView) {
+        public MucConViewHolder(View itemView) {
             super(itemView);
-            itemLayout = itemView.findViewById(R.id.linear_layout_container);
-            subName = itemView.findViewById(R.id.text_category_name);
-            subIcon = itemView.findViewById(R.id.icon_category);
+            khungItem = itemView.findViewById(R.id.linear_layout_container);
+            tenMucCon = itemView.findViewById(R.id.text_category_name);
+            iconMucCon = itemView.findViewById(R.id.icon_category);
         }
     }
 }

@@ -1,17 +1,25 @@
 package com.example.englishlearningapp.Model;
 
-public class SubItem {
-    private int id;
-    private String name;
-    private int iconResId;
+public class ChuDePhu {
+    private int maChuDePhu;
+    private String tenChuDePhu;
+    private int maIcon;
 
-    public SubItem(int id, String name, int iconResId) {
-        this.id = id;
-        this.name = name;
-        this.iconResId = iconResId;
+    public ChuDePhu(int maChuDePhu, String tenChuDePhu, int maIcon) {
+        this.maChuDePhu = maChuDePhu;
+        this.tenChuDePhu = tenChuDePhu;
+        this.maIcon = maIcon;
     }
 
-    public int getId() { return id; } // <-- Getter
-    public String getName() { return name; }
-    public int getIconResId() { return iconResId; }
+    public int getMaChuDePhu() {
+        return maChuDePhu;
+    }
+
+    public String getTenChuDePhu() {
+        return tenChuDePhu;
+    }
+
+    public int getMaIcon() {
+        return maIcon;
+    }
 }
