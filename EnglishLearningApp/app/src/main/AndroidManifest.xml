@@ -13,13 +13,8 @@
         android:theme="@style/Theme.EnglishLearningApp">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
+        <!-- Activity khởi chạy (màn hình chờ) -->
         <activity
             android:name=".EditProfileActivity"
             android:exported="false" />
@@ -29,14 +24,20 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ExerciseDetailActivity" />
-        <activity android:name=".TestActivity" />
-        <activity android:name=".ExerciseActivity" />
-        <activity android:name=".CourseActivity" />
+        <activity android:name=".ExerciseDetailActivity"/>
+        <activity android:name=".TestActivity"/>
+        <activity android:name=".ExerciseActivity"/>
+        <activity android:name=".CourseActivity"/>
         <activity
             android:name=".SplashActivity"
-            android:exported="false"
-            android:theme="@style/Theme.EnglishLearningApp.Splash"></activity>
+            android:exported="true"
+            android:theme="@style/Theme.EnglishLearningApp.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
