@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/lesson_type_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Vocabulary"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/rounded_type_bg" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lesson_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Family Members"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/bookmark_icon"
+            app:layout_constraintTop_toBottomOf="@id/lesson_type_label" />
+
+        <ImageView
+            android:id="@+id/bookmark_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/img_ic_book" android:contentDescription="Lưu bài học"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/level_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_bar_chart_black_24dp" android:contentDescription="Cấp độ"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lesson_title" />
+
+        <TextView
+            android:id="@+id/lesson_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Beginner"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/level_icon"
+            app:layout_constraintTop_toTopOf="@id/level_icon"
+            app:layout_constraintBottom_toBottomOf="@id/level_icon" />
+
+        <ImageView
+            android:id="@+id/time_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_access_time_black_24dp" android:contentDescription="Thời gian"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/lesson_level"
+            app:layout_constraintTop_toTopOf="@id/level_icon" />
+
+        <TextView
+            android:id="@+id/lesson_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="10 min"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/time_icon"
+            app:layout_constraintTop_toTopOf="@id/time_icon"
+            app:layout_constraintBottom_toBottomOf="@id/time_icon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
