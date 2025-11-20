@@ -31,7 +31,7 @@
 
                 <!-- Trophy Icon -->
                 <ImageView
-                    android:id="@+id/ivTrophy"
+                    android:id="@+id/imgCup"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:src="@drawable/ic_trophy"
@@ -39,7 +39,7 @@
 
                 <!-- Title -->
                 <TextView
-                    android:id="@+id/tvTitle"
+                    android:id="@+id/tvTieude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hoàn thành!"
@@ -50,7 +50,7 @@
 
                 <!-- Subtitle -->
                 <TextView
-                    android:id="@+id/tvSubtitle"
+                    android:id="@+id/tvPhude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bạn đã hoàn thành bài test"
@@ -76,7 +76,7 @@
 
                         <!-- Score -->
                         <TextView
-                            android:id="@+id/tvScore"
+                            android:id="@+id/tvdiem"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0/1"
@@ -86,7 +86,7 @@
 
                         <!-- Score Label -->
                         <TextView
-                            android:id="@+id/tvScoreLabel"
+                            android:id="@+id/tvNhandiem"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Số câu đúng (trắc nghiệm)"
@@ -111,7 +111,7 @@
                                 android:gravity="center">
 
                                 <TextView
-                                    android:id="@+id/tvAccuracyLabel"
+                                    android:id="@+id/tvNhanTiledung"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Tỷ lệ đúng"
@@ -119,7 +119,7 @@
                                     android:textColor="#6B7280" />
 
                                 <TextView
-                                    android:id="@+id/tvAccuracy"
+                                    android:id="@+id/tvTiledung"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="0%"
@@ -144,7 +144,7 @@
                                 android:gravity="center">
 
                                 <TextView
-                                    android:id="@+id/tvTimeLabel"
+                                    android:id="@+id/tvNhanThoigian"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Thời gian"
@@ -152,7 +152,7 @@
                                     android:textColor="#6B7280" />
 
                                 <TextView
-                                    android:id="@+id/tvTime"
+                                    android:id="@+id/tvThoigian"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="00:01"
@@ -183,18 +183,18 @@
                         android:layout_marginEnd="12dp" />
 
                     <TextView
-                        android:id="@+id/tvInfoText"
+                        android:id="@+id/tvThongtin"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Câu hỏi writing sẽ được giáo viên chấm riêng"
+                        android:text="Câu hỏi writing sẽ được AI chấm"
                         android:textSize="14sp"
                         android:textColor="#92400E" />
                 </LinearLayout>
 
                 <!-- Retry Button -->
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnRetry"
+                    android:id="@+id/btnLamlai"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="24dp"
@@ -204,11 +204,13 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textAllCaps="false" />
+
+                <!-- Exit Button -->
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnthoat"
+                    android:id="@+id/btnThoat"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/bg_button_outlined"
                     android:text="Thoát"
                     android:textColor="#2563EB"

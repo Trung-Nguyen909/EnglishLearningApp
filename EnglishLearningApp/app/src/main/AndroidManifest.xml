@@ -25,8 +25,9 @@
         <activity android:name=".TestActivity"/>
         <activity android:name=".ExerciseActivity"/>
         <activity android:name=".CourseActivity"/>
+        <activity android:name=".TestResultActivity"/>
         <activity
-            android:name=".TestResultActivity"
+            android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.EnglishLearningApp.Splash">
             <intent-filter>

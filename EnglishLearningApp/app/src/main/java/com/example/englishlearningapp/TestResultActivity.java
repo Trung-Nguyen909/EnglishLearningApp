@@ -10,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 public class TestResultActivity extends AppCompatActivity {
 
     // Khai báo các View
-    private TextView tvScore;
-    private TextView tvAccuracy;
-    private TextView tvTime;
-    private Button btnRetry;
+    private TextView tvdiem;
+    private TextView tvTiledung;
+    private TextView tvThoigian;
+    private Button btnLamlai;
+    private Button btnThoat;
 
+    // Constants cho Intent extras
     public static final String EXTRA_CORRECT_ANSWERS = "CORRECT_ANSWERS";
     public static final String EXTRA_TOTAL_QUESTIONS = "TOTAL_QUESTIONS";
     public static final String EXTRA_TIME_SPENT = "TIME_SPENT";
@@ -30,10 +32,11 @@ public class TestResultActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        tvScore = findViewById(R.id.tvScore);
-        tvAccuracy = findViewById(R.id.tvAccuracy);
-        tvTime = findViewById(R.id.tvTime);
-        btnRetry = findViewById(R.id.btnRetry);
+        tvdiem = findViewById(R.id.tvdiem);
+        tvTiledung = findViewById(R.id.tvTiledung);
+        tvThoigian = findViewById(R.id.tvThoigian);
+        btnLamlai = findViewById(R.id.btnLamlai);
+        btnThoat = findViewById(R.id.btnThoat);
     }
 
     private void loadResults() {
@@ -44,17 +47,17 @@ public class TestResultActivity extends AppCompatActivity {
         int timeSpent = intent.getIntExtra(EXTRA_TIME_SPENT, 1); // thời gian tính bằng giây
 
         // Hiển thị điểm số
-        tvScore.setText(correctAnswers + "/" + totalQuestions);
+        tvdiem.setText(correctAnswers + "/" + totalQuestions);
 
         // Tính và hiển thị tỷ lệ đúng
         int accuracy = 0;
         if (totalQuestions > 0) {
             accuracy = (correctAnswers * 100) / totalQuestions;
         }
-        tvAccuracy.setText(accuracy + "%");
+        tvTiledung.setText(accuracy + "%");
 
         // Hiển thị thời gian
-        tvTime.setText(formatTime(timeSpent));
+        tvThoigian.setText(formatTime(timeSpent));
     }
 
     private String formatTime(int seconds) {
@@ -64,10 +67,18 @@ public class TestResultActivity extends AppCompatActivity {
     }
 
     private void setupListeners() {
-        btnRetry.setOnClickListener(new View.OnClickListener() {
+        btnLamlai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Quay lại màn hình test hoặc trang chủ
+                // Quay lại màn hình test hoặc làm lại bài test
+                finish();
+            }
+        });
+
+        btnThoat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Thoát về màn hình chính
                 finish();
             }
         });
