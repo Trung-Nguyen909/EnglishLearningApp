@@ -97,13 +97,15 @@
         android:id="@+id/questions_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clipToPadding="false"
         android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/global_progress_container"
-        app:layout_constraintBottom_toTopOf="@id/complete_button"
-        tools:listitem="@layout/item_question"
         android:paddingTop="8dp"
-        android:clipToPadding="false"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/complete_button"
+        app:layout_constraintTop_toBottomOf="@id/global_progress_container"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp"
+        tools:listitem="@layout/item_question" />
 
     <Button
         android:id="@+id/complete_button"

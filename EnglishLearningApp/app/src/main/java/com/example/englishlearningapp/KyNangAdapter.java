@@ -1,4 +1,5 @@
 package com.example.englishlearningapp;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,18 @@ public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.TestViewHo
     private Context context;
     private List<KyNang> mList;
 
+    // 1. Khai báo Interface để lắng nghe sự kiện
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(KyNang kyNang);
+    }
+
+    // 2. Hàm để Fragment gọi set sự kiện
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
     public KyNangAdapter(Context context, List<KyNang> mList) {
         this.context = context;
         this.mList = mList;
@@ -22,6 +35,7 @@ public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.TestViewHo
     @NonNull
     @Override
     public KyNangAdapter.TestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Lưu ý: Bạn đang dùng layout item_kynang
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_kynang, parent, false);
         return new TestViewHolder(view);
     }
@@ -31,9 +45,15 @@ public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.TestViewHo
         KyNang item = mList.get(position);
         if (item == null) return;
 
-        // Gán dữ liệu vào View
-        holder.tvTitle.setText(item.getTitle());
-        holder.imgIcon.setImageResource(item.getIconResId());
+        holder.tvTitle.setText(item.getTitle()); // Hoặc getTenKyNang() tùy model của bạn
+        holder.imgIcon.setImageResource(item.getIconResId()); // Hoặc getResourceId()
+
+        // 3. BẮT SỰ KIỆN CLICK VÀO ITEM
+        holder.itemView.setOnClickListener(v -> {
+            if (mListener != null) {
+                mListener.onItemClick(item); // Gửi item được chọn ra ngoài
+            }
+        });
     }
 
     @Override
@@ -48,9 +68,9 @@ public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.TestViewHo
 
         public TestViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Ánh xạ ID trong file item_baitap.xml
-            imgIcon = itemView.findViewById(R.id.img_icon);
-            tvTitle = itemView.findViewById(R.id.tv_title);
+            // Đảm bảo ID khớp với file xml item_kynang của bạn
+            imgIcon = itemView.findViewById(R.id.img_icon); // Kiểm tra lại ID này trong XML
+            tvTitle = itemView.findViewById(R.id.tv_title);   // Kiểm tra lại ID này trong XML
         }
     }
 }
