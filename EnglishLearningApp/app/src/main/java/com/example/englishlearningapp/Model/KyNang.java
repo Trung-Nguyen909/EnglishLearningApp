@@ -1,10 +1,10 @@
 package com.example.englishlearningapp.Model;
 
-public class ItemBaiTap {
+public class KyNang {
     private String title;
     private int iconResId;
 
-    public ItemBaiTap(String title, int iconResId) {
+    public KyNang(String title, int iconResId) {
         this.title = title;
         this.iconResId = iconResId;
     }
