@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment; // Thay AppCompatActivity bằng Fragment
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,10 +19,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CourseFragment extends Fragment {
+public class Khoahoc_Fragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TopicAdapter adapter;
+    // 1. Khai báo biến cho nút "Kiểm tra"
+    private View btnTestTab;
 
     // Fragment sử dụng onCreateView thay vì onCreate
     @Nullable
@@ -29,10 +32,11 @@ public class CourseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // 1. Thay thế setContentView bằng inflater.inflate
         // Vẫn dùng lại file layout cũ: activity_course
-        View view = inflater.inflate(R.layout.activity_course, container, false);
+        View view = inflater.inflate(R.layout.activity_khoahoc, container, false);
 
         // 2. Ánh xạ View (Phải có biến "view." đứng trước findViewById)
-        recyclerView = view.findViewById(R.id.recycler_view_topics);
+        recyclerView = view.findViewById(R.id.recycler_view_detai);
+        btnTestTab = view.findViewById(R.id.btn_kiemtra);
 
         // 3. Logic khởi tạo dữ liệu giữ nguyên
         List<Topic> topics = createTopicData();
@@ -43,6 +47,26 @@ public class CourseFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        // 3. SỰ KIỆN CLICK: Chuyển sang màn hình Kiểm tra (TestFragment)
+        if (btnTestTab != null) {
+            btnTestTab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Lệnh chuyển Fragment
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+
+                    // Thay thế màn hình hiện tại bằng TestFragment
+                    // R.id.frame_container là cái khung trong MainActivity
+                    transaction.replace(R.id.frame_container, new Kiemtra_Fragment());
+
+                    // Cho phép bấm nút Back để quay lại màn hình Khóa học
+                    transaction.addToBackStack(null);
+
+                    // Thực hiện
+                    transaction.commit();
+                }
+            });
+        }
 
         return view;
     }

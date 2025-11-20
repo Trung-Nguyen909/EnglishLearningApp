@@ -17,10 +17,11 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ExerciseDetailActivity" />
-        <activity android:name=".TestActivity" />
+        <activity android:name=".BaiTapNgheActivity" />
         <activity android:name=".ExerciseActivity" />
+        <activity android:name=".MainActivity"/>
         <activity
-            android:name=".BaiTapNgheActivity"
+            android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.EnglishLearningApp.Splash">
             <intent-filter>

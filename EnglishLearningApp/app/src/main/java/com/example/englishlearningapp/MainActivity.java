@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         initViews();
 
         // 2. Mặc định chọn tab Lessons (Khóa học) khi mở app (hoặc tab nào bạn muốn)
-        loadFragment(new CourseFragment());
+        loadFragment(new Khoahoc_Fragment());
         updateBottomNavUI(btnLessons, iconLessons, dotLessons);
 
         // 3. Bắt sự kiện click
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnLessons.setOnClickListener(v -> {
-            loadFragment(new CourseFragment());
+            loadFragment(new Khoahoc_Fragment());
             updateBottomNavUI(btnLessons, iconLessons, dotLessons);
         });
 
