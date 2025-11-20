@@ -11,17 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishLearningApp">
-
-
+        <activity
+            android:name=".TrangChuActivity"
+            android:exported="false" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ExerciseDetailActivity"/>
-        <activity android:name=".TestActivity"/>
-        <activity android:name=".ExerciseActivity"/>
-
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".ExerciseDetailActivity" />
+        <activity android:name=".TestActivity" />
+        <activity android:name=".ExerciseActivity" />
         <activity
-            android:name=".BaiTapActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.EnglishLearningApp.Splash">
             <intent-filter>
