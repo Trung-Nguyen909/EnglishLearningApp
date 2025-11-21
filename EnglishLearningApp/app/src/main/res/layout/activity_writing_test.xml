@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:06"
-                android:textColor="#4169E1"
+                android:textColor="@color/royalBlue"
                 android:textStyle="bold"/>
         </LinearLayout>
     </RelativeLayout>
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="50%"
-            android:textColor="#4169E1"
+            android:textColor="@color/royalBlue"
             android:textStyle="bold"
             android:layout_alignParentEnd="true"/>
     </RelativeLayout>
@@ -165,7 +165,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Số từ: 0 / 50-100 từ"
-                            android:textColor="#555"
+                            android:textColor="gr"
                             android:textSize="13sp"/>
                     </LinearLayout>
 

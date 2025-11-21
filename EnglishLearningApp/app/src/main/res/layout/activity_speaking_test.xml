@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:45"
-                android:textColor="#4169E1"
+                android:textColor="@color/royalBlue"
                 android:textStyle="bold"/>
         </LinearLayout>
     </RelativeLayout>
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="50%"
-            android:textColor="#4169E1"
+            android:textColor="@color/royalBlue"
             android:textStyle="bold"
             android:layout_alignParentEnd="true"/>
     </RelativeLayout>
