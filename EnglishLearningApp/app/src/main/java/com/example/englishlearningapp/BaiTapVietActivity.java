@@ -36,15 +36,7 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_bai_tap_viet);
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.man_hinh_viet), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
         anhXaView();
         khoiTaoDuLieu();
     }
@@ -74,13 +66,12 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
     private void khoiTaoDuLieu() {
         danhSachCauHoi = new ArrayList<>();
         // Constructor 4 tham số: id, huongDan, noiDung, dapAnGoiY
-        danhSachCauHoi.add(new CauHoi(1, "Writing Task 1", "Describe your daily routine.", ""));
-        danhSachCauHoi.add(new CauHoi(2, "Writing Task 2", "What is your favorite food?", ""));
-        danhSachCauHoi.add(new CauHoi(3, "Writing Task 3", "Write about your last holiday.", ""));
-        danhSachCauHoi.add(new CauHoi(4, "Writing Task 4", "Why do you learn English?", ""));
-        danhSachCauHoi.add(new CauHoi(5, "Writing Task 5", "Describe your best friend.", ""));
+        danhSachCauHoi.add(new CauHoi(1, "Câu 1", "Describe your daily routine.", ""));
+        danhSachCauHoi.add(new CauHoi(2, "Câu 2", "What is your favorite food?", ""));
+        danhSachCauHoi.add(new CauHoi(3, "Câu 3", "Write about your last holiday.", ""));
+        danhSachCauHoi.add(new CauHoi(4, "Câu 4", "Why do you learn English?", ""));
+        danhSachCauHoi.add(new CauHoi(5, "Câu 5", "Describe your best friend.", ""));
 
-        // Sử dụng AdapterBaiViet (bạn đã sửa tên class Adapter rồi đúng không?)
         BaiTapVietAdapter adapter = new BaiTapVietAdapter(danhSachCauHoi, this);
         rcvDanhSachCauHoi.setLayoutManager(new LinearLayoutManager(this));
         rcvDanhSachCauHoi.setAdapter(adapter);
@@ -90,8 +81,6 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
 
     @Override
     public void khiDapAnDuocChon(int maCauHoi, String dapAn) {
-        // Khi người dùng nhập liệu, Adapter sẽ gọi hàm này
-        // Chúng ta chỉ cần kiểm tra lại toàn bộ danh sách để update nút Hoàn thành
         capNhatTrangThai();
     }
 
@@ -134,7 +123,7 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
     private void chuyenSangTrangKetQua() {
         Intent intent = new Intent(BaiTapVietActivity.this, TestResultActivity.class);
 
-        // Tính toán số câu đã làm (chắc chắn là full vì đã check ở trên)
+        // Tính toán số câu đã làm
         int completedCount = 0;
         for (CauHoi q : danhSachCauHoi) {
             if (q.getDapAnDaChon() != null && !q.getDapAnDaChon().trim().isEmpty()) {
@@ -144,7 +133,7 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
 
         intent.putExtra(TestResultActivity.EXTRA_CORRECT_ANSWERS, completedCount);
         intent.putExtra(TestResultActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
-        intent.putExtra(TestResultActivity.EXTRA_TIME_SPENT, 0); // Xử lý thời gian sau nếu cần
+        intent.putExtra(TestResultActivity.EXTRA_TIME_SPENT, 0);
         intent.putExtra(TestResultActivity.EXTRA_TOPIC, "Writing");
 
         String level = getIntent().getStringExtra("SELECTED_LEVEL");
