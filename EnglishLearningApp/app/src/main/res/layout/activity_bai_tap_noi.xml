@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/man_hinh_noi"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,13 +10,12 @@
     android:padding="16dp">
 
     <RelativeLayout
-        android:id="@+id/layout_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp">
 
         <ImageButton
-            android:id="@+id/btn_back"
+            android:id="@+id/nut_quay_lai"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_centerVertical="true"
@@ -24,21 +23,17 @@
             android:src="@drawable/ic_back"
             app:tint="#000000"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
         <TextView
-            android:id="@+id/tv_header_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bài kiểm tra"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_toEndOf="@id/btn_back"
+            android:layout_toEndOf="@id/nut_quay_lai"
             android:layout_marginStart="16dp"
             android:layout_centerVertical="true"/>
-
         <LinearLayout
-            android:id="@+id/layout_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -49,7 +44,6 @@
             android:paddingBottom="6dp"
             android:gravity="center">
             <ImageView
-                android:id="@+id/iv_timer_icon"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_access_time_black_24dp"
@@ -57,39 +51,17 @@
                 android:layout_marginEnd="4dp"
                 tools:ignore="ContentDescription" />
             <TextView
-                android:id="@+id/tv_timer"
+                android:id="@+id/tv_dong_ho"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:45"
-                android:textColor="@color/royalBlue"
+                android:textColor="#4169E1"
                 android:textStyle="bold"/>
         </LinearLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/layout_progress_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp">
-        <TextView
-            android:id="@+id/tv_question_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Câu 2/4"
-            android:textColor="#555"
-            android:textSize="14sp"/>
-        <TextView
-            android:id="@+id/tv_progress_percent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="50%"
-            android:textColor="@color/royalBlue"
-            android:textStyle="bold"
-            android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
-
     <ProgressBar
-        android:id="@+id/progress_bar"
+        android:id="@+id/thanh_tien_do"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="6dp"
@@ -99,7 +71,6 @@
         android:layout_marginBottom="24dp"/>
 
     <ScrollView
-        android:id="@+id/sv_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -107,13 +78,11 @@
         android:scrollbars="none">
 
         <LinearLayout
-            android:id="@+id/layout_content_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cv_question_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
@@ -122,14 +91,12 @@
                 android:layout_marginBottom="16dp">
 
                 <LinearLayout
-                    android:id="@+id/layout_card_inner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="20dp">
 
                     <LinearLayout
-                        android:id="@+id/layout_exercise_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_bg_orange_rounded"
@@ -138,30 +105,26 @@
                         android:layout_marginBottom="20dp">
 
                         <LinearLayout
-                            android:id="@+id/layout_exercise_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:layout_marginBottom="4dp">
                             <ImageView
-                                android:id="@+id/iv_exercise_icon"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 android:src="@android:drawable/ic_btn_speak_now"
-                                app:tint="@color/orange_500"
+                                app:tint="#FF9800"
                                 android:layout_marginEnd="8dp"
                                 tools:ignore="ContentDescription" />
                             <TextView
-                                android:id="@+id/tv_exercise_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Bài tập Nói"
-                                android:textColor="@color/orange_500"
+                                android:textColor="#FF9800"
                                 android:textStyle="bold"
                                 android:textSize="16sp"/>
                         </LinearLayout>
                         <TextView
-                            android:id="@+id/tv_exercise_instruction"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Đọc to câu/đoạn văn bên dưới."
@@ -170,7 +133,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tv_sentence_to_read"
+                        android:id="@+id/tv_cau_mau"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Technology has changed the way we communicate with each other."
@@ -183,14 +146,13 @@
                         android:layout_marginBottom="32dp"/>
 
                     <LinearLayout
-                        android:id="@+id/layout_recording_area"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center">
 
                         <ImageButton
-                            android:id="@+id/btn_record_mic"
+                            android:id="@+id/nut_ghi_am"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_marginBottom="16dp"
@@ -202,7 +164,7 @@
                             tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
                         <TextView
-                            android:id="@+id/tv_recording_status"
+                            android:id="@+id/tv_trang_thai_ghi_am"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Nhấn vào micro để bắt đầu nói"
@@ -211,18 +173,18 @@
                             android:layout_marginBottom="8dp"/>
 
                         <TextView
-                            android:id="@+id/tv_recording_timer"
+                            android:id="@+id/tv_thoi_gian_ghi_am"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00:00 / 00:30"
-                            android:textColor="@color/orange_500"
+                            android:textColor="#FF9800"
                             android:textStyle="bold"
                             android:textSize="16sp"
                             android:visibility="gone"
                             tools:visibility="visible"/>
 
                         <View
-                            android:id="@+id/view_waveform_placeholder"
+                            android:id="@+id/view_song_am"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:background="@drawable/bg_waveform_area"
@@ -233,7 +195,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_post_recording_actions"
+                        android:id="@+id/layout_chuc_nang_sau_ghi_am"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -243,13 +205,13 @@
                         tools:visibility="visible">
 
                         <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btn_playback"
+                            android:id="@+id/nut_nghe_lai"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:layout_marginEnd="16dp"
                             android:background="@drawable/option_default_bg"
                             android:drawableStart="@android:drawable/ic_media_play"
-                            android:drawableTint="@color/orange_500"
+                            android:drawableTint="#FF9800"
                             android:paddingStart="12dp"
                             android:paddingEnd="16dp"
                             android:text="Nghe lại"
@@ -258,17 +220,17 @@
                             tools:ignore="TouchTargetSizeCheck" />
 
                         <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btn_re_record"
+                            android:id="@+id/nut_ghi_lai"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:background="@drawable/option_default_bg"
                             android:drawableStart="@android:drawable/ic_menu_rotate"
-                            android:drawableTint="@color/red_500"
+                            android:drawableTint="#F44336"
                             android:paddingStart="12dp"
                             android:paddingEnd="16dp"
                             android:text="Ghi lại"
                             android:textAllCaps="false"
-                            android:textColor="@color/red_500"
+                            android:textColor="#F44336"
                             tools:ignore="TouchTargetSizeCheck" />
 
                     </LinearLayout>
@@ -279,7 +241,7 @@
     </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_next"
+        android:id="@+id/nut_tiep_theo"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Câu tiếp theo"

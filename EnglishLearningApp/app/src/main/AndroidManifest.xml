@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishLearningApp">
-        <activity android:name=".SpeakingTestActivity" />
-        <activity android:name=".WritingTestActivity" />
+        <activity android:name=".BaiTapNoiActivity" />
+        <activity android:name=".BaiTapVietActivity" />
 
         <activity android:name=".BaiTapDocActivity"/>
         <activity android:name=".LoginActivity" />

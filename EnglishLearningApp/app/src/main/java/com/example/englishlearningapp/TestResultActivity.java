@@ -93,10 +93,10 @@ public class TestResultActivity extends AppCompatActivity {
                             intent = new Intent(TestResultActivity.this, BaiTapNgheActivity.class);
                             break;
                         case "Speaking":
-                            intent = new Intent(TestResultActivity.this, SpeakingTestActivity.class);
+                            intent = new Intent(TestResultActivity.this, BaiTapNoiActivity.class);
                             break;
                         case "Writing":
-                            intent = new Intent(TestResultActivity.this, WritingTestActivity.class);
+                            intent = new Intent(TestResultActivity.this, BaiTapVietActivity.class);
                             break;
                         case "Reading":
                         default:

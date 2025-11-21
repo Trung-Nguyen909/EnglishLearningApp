@@ -102,11 +102,11 @@ public class Kiemtra_Fragment extends Fragment {
                     break;
 
                 case "Speaking":
-                    intent = new Intent(getContext(), SpeakingTestActivity.class);
+                    intent = new Intent(getContext(), BaiTapNoiActivity.class);
                     break;
 
                 case "Writing":
-                    intent = new Intent(getContext(), WritingTestActivity.class);
+                    intent = new Intent(getContext(), BaiTapVietActivity.class);
                     break;
 
                 case "Reading":
