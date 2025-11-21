@@ -7,7 +7,7 @@
     android:background="#FFFFFF">
 
     <LinearLayout
-        android:id="@+id/header_bar"
+        android:id="@+id/thanh_tieu_de"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/back_button"
+            android:id="@+id/nut_quay_lai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_back"
@@ -31,32 +31,17 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginStart="8dp" />
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/timer_text"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:drawablePadding="4dp"-->
-        <!--            android:text="00:02"-->
-        <!--            android:paddingStart="12dp"-->
-        <!--            android:paddingTop="4dp"-->
-        <!--            android:paddingEnd="12dp"-->
-        <!--            android:paddingBottom="4dp"-->
-        <!--            android:background="@drawable/rounded_timer_background"-->
-        <!--            app:drawableStartCompat="@drawable/ic_timer"-->
-        <!--            android:textColor="#007AFF"-->
-        <!--            android:textStyle="bold" />-->
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/global_progress_container"
+        android:id="@+id/khung_chua_tien_do"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/header_bar">
+        app:layout_constraintTop_toBottomOf="@id/thanh_tieu_de">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,7 +49,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/question_count_text"
+                android:id="@+id/tv_dem_so_cau_hoi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Câu 0/N"
@@ -72,7 +57,7 @@
                 android:textColor="#333333"/>
 
             <TextView
-                android:id="@+id/progress_percent_text"
+                android:id="@+id/tv_phan_tram_tien_trinh"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -83,7 +68,7 @@
         </LinearLayout>
 
         <ProgressBar
-            android:id="@+id/main_progress_bar"
+            android:id="@+id/thanh_tien_trinh"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="6dp"
@@ -94,14 +79,14 @@
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_audio_player"
+        android:id="@+id/the_chua_audio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
         app:cardBackgroundColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/global_progress_container"
+        app:layout_constraintTop_toBottomOf="@id/khung_chua_tien_do"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -112,26 +97,26 @@
             android:padding="16dp"
             android:background="@color/white">
             <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@android:drawable/ic_lock_silent_mode_off"
-                app:tint="@color/royalBlue"/>
-
-            <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Listening"
-                android:textColor="@color/royalBlue"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginStart="8dp"/>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:drawable/ic_lock_silent_mode_off"
+                    app:tint="@color/royalBlue"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Listening"
+                    android:textColor="@color/royalBlue"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -141,8 +126,9 @@
                 android:layout_marginTop="12dp"
                 android:background="@drawable/rounded_question_bg"
                 android:padding="8dp">
+
                 <ImageButton
-                    android:id="@+id/btn_play_audio"
+                    android:id="@+id/nut_phat_nhac"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@android:drawable/ic_media_play"
@@ -151,7 +137,7 @@
                     android:contentDescription="Play Audio"/>
 
                 <SeekBar
-                    android:id="@+id/seekbar_audio"
+                    android:id="@+id/thanh_tua_nhac"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -161,7 +147,7 @@
                     android:thumbTint="@color/royalBlue"/>
 
                 <TextView
-                    android:id="@+id/tv_audio_duration"
+                    android:id="@+id/tv_thoi_luong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00"
@@ -183,23 +169,20 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/questions_recycler_view_nghe"
+        android:id="@+id/rcv_danh_sach_cau_hoi_nghe"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:orientation="vertical"
         android:paddingTop="8dp"
-
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-        app:layout_constraintTop_toBottomOf="@id/card_audio_player"
-
-        app:layout_constraintBottom_toTopOf="@id/complete_button"
+        app:layout_constraintTop_toBottomOf="@id/the_chua_audio"
+        app:layout_constraintBottom_toTopOf="@id/btn_hoan_thanh"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_question" />
 
     <Button
-        android:id="@+id/complete_button"
+        android:id="@+id/btn_hoan_thanh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Hoàn thành"

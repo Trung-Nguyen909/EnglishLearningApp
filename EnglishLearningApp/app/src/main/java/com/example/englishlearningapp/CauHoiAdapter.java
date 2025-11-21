@@ -16,23 +16,21 @@ import java.util.List;
 
 public class CauHoiAdapter extends RecyclerView.Adapter<CauHoiAdapter.ViewHolder> {
 
-    private final List<CauHoi> cauHois;
-    private final OnAnswerSelectedListener listener;
-    // Đảm bảo bạn có file R.layout.item_question_option trong dự án
+    private final List<CauHoi> danhSachCauHoi;
+    private final LangNgheSuKienChonDapAn suKienLangNghe;
 
-    public interface OnAnswerSelectedListener {
-        void onAnswerSelected(int questionId, String selectedAnswer);
+    public interface LangNgheSuKienChonDapAn {
+        void khiDapAnDuocChon(int maCauHoi, String dapAnDuocChon);
     }
 
-    public CauHoiAdapter(List<CauHoi> cauHois, OnAnswerSelectedListener listener) {
-        this.cauHois = cauHois;
-        this.listener = listener;
+    public CauHoiAdapter(List<CauHoi> danhSachCauHoi, LangNgheSuKienChonDapAn suKienLangNghe) {
+        this.danhSachCauHoi = danhSachCauHoi;
+        this.suKienLangNghe = suKienLangNghe;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Sử dụng layout item đã được dọn dẹp
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_question, parent, false);
         return new ViewHolder(view);
@@ -40,65 +38,60 @@ public class CauHoiAdapter extends RecyclerView.Adapter<CauHoiAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CauHoi cauHoi = cauHois.get(position);
-        holder.bind(cauHoi);
+        CauHoi cauHoi = danhSachCauHoi.get(position);
+        holder.ganDuLieu(cauHoi);
     }
 
     @Override
     public int getItemCount() {
-        return cauHois.size();
+        return danhSachCauHoi.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView tv_HuongDan;
-        private final TextView tv_NoiDungCauHoi;
-        private final LinearLayout khungLuaChon;
+        private final TextView tvHuongDan;
+        private final TextView tvNoiDungCauHoi;
+        private final LinearLayout khungChuaLuaChon;
         private final Context context;
-        // KHÔNG CÓ Ánh xạ Views ProgressBar và Count Text ở đây
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
-            // Ánh xạ các Views nội dung câu hỏi
-            tv_HuongDan = itemView.findViewById(R.id.instruction_text);
-            tv_NoiDungCauHoi = itemView.findViewById(R.id.question_sentence_text);
-            khungLuaChon = itemView.findViewById(R.id.options_container);
-
-            // Đã xóa Ánh xạ: itemQuestionCountText, itemProgressPercentText, itemMainProgressBar
+            tvHuongDan = itemView.findViewById(R.id.instruction_text);
+            tvNoiDungCauHoi = itemView.findViewById(R.id.question_sentence_text);
+            khungChuaLuaChon = itemView.findViewById(R.id.options_container);
         }
 
-        public void bind(CauHoi cauHoi) {
-            // KHÔNG CÓ LOGIC CẬP NHẬT PROGRESS BAR Ở ĐÂY
+        public void ganDuLieu(CauHoi cauHoi) {
+            // SỬA Ở ĐÂY: Dùng get... thay vì lay...
+            tvHuongDan.setText(cauHoi.getHuongDan());
+            tvNoiDungCauHoi.setText(cauHoi.getNoiDung());
 
-            tv_HuongDan.setText(cauHoi.getInstruction());
-            tv_NoiDungCauHoi.setText(cauHoi.getSentence());
+            khungChuaLuaChon.removeAllViews();
 
-            khungLuaChon.removeAllViews();
+            for (String luaChon : cauHoi.getCacLuaChon()) { // Dùng getCacLuaChon()
+                View viewLuaChon = LayoutInflater.from(context).inflate(R.layout.item_question_option, khungChuaLuaChon, false);
 
-            for (String option : cauHoi.getOptions()) {
-                // Sử dụng R.layout.item_question_option (cần tạo file này)
-                View optionView = LayoutInflater.from(context).inflate(R.layout.item_question_option, khungLuaChon, false);
+                TextView tvNoiDungLuaChon = viewLuaChon.findViewById(R.id.option_text);
+                RadioButton radioNutChon = viewLuaChon.findViewById(R.id.option_radio);
 
-                TextView optionText = optionView.findViewById(R.id.option_text);
-                RadioButton optionRadio = optionView.findViewById(R.id.option_radio);
+                tvNoiDungLuaChon.setText(luaChon);
+                viewLuaChon.setBackgroundResource(R.drawable.option_background_selector);
 
-                optionText.setText(option);
+                // Dùng getDapAnDaChon()
+                radioNutChon.setChecked(luaChon.equals(cauHoi.getDapAnDaChon()));
 
-                // Thiết lập trạng thái và style (Cần file drawable)
-                optionView.setBackgroundResource(R.drawable.option_background_selector);
-                optionRadio.setChecked(option.equals(cauHoi.getSelectedAnswer()));
+                viewLuaChon.setOnClickListener(v -> {
+                    // Dùng setDapAnDaChon()
+                    danhSachCauHoi.get(getAdapterPosition()).setDapAnDaChon(luaChon);
 
-                // Xử lý click
-                optionView.setOnClickListener(v -> {
-                    cauHois.get(getAdapterPosition()).setSelectedAnswer(option);
-                    if (listener != null) {
-                        // Gọi Activity để cập nhật ProgressBar toàn cục
-                        listener.onAnswerSelected(cauHoi.getId(), option);
+                    if (suKienLangNghe != null) {
+                        // Dùng getMaCauHoi()
+                        suKienLangNghe.khiDapAnDuocChon(cauHoi.getMaCauHoi(), luaChon);
                     }
                     notifyItemChanged(getAdapterPosition());
                 });
 
-                khungLuaChon.addView(optionView);
+                khungChuaLuaChon.addView(viewLuaChon);
             }
         }
     }

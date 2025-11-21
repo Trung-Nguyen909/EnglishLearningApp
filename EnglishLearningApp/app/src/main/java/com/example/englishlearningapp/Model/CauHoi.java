@@ -3,31 +3,48 @@ package com.example.englishlearningapp.Model;
 import java.util.List;
 
 public class CauHoi {
-    private final int id;
-    private final String instruction;
-    private final String sentence;
-    private final List<String> options;
-    private final String correctAnswer;
-    private String selectedAnswer;
+    private final int maCauHoi;
+    private final String huongDan;
+    private final String noiDung;
+    private final List<String> cacLuaChon;
+    private final String dapAnDung;
+    private String dapAnDaChon;
 
-    public CauHoi(int id, String instruction, String sentence, List<String> options, String correctAnswer) {
-        this.id = id;
-        this.instruction = instruction;
-        this.sentence = sentence;
-        this.options = options;
-        this.correctAnswer = correctAnswer;
-        this.selectedAnswer = null;
+    // Constructor
+    public CauHoi(int maCauHoi, String huongDan, String noiDung, List<String> cacLuaChon, String dapAnDung) {
+        this.maCauHoi = maCauHoi;
+        this.huongDan = huongDan;
+        this.noiDung = noiDung;
+        this.cacLuaChon = cacLuaChon;
+        this.dapAnDung = dapAnDung;
+        this.dapAnDaChon = null;
     }
 
-    // Getters
-    public int getId() { return id; }
-    public String getInstruction() { return instruction; }
-    public String getSentence() { return sentence; }
-    public List<String> getOptions() { return options; }
-    public String getSelectedAnswer() { return selectedAnswer; }
+    public int getMaCauHoi() {
+        return maCauHoi;
+    }
 
-    // Setter
-    public void setSelectedAnswer(String selectedAnswer) {
-        this.selectedAnswer = selectedAnswer;
+    public String getHuongDan() {
+        return huongDan;
+    }
+
+    public String getNoiDung() {
+        return noiDung;
+    }
+
+    public List<String> getCacLuaChon() {
+        return cacLuaChon;
+    }
+
+    public String getDapAnDung() {
+        return dapAnDung;
+    }
+
+    public String getDapAnDaChon() {
+        return dapAnDaChon;
+    }
+
+    public void setDapAnDaChon(String dapAnDaChon) {
+        this.dapAnDaChon = dapAnDaChon;
     }
 }

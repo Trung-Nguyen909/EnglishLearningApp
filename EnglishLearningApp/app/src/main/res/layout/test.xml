@@ -293,7 +293,7 @@
                                 android:layout_weight="1"
                                 android:lineSpacingExtra="4dp"
                                 android:text="Thi đấu để giành top 1! Điểm số và thời gian làm bài của bạn sẽ được ghi lại trên Bảng xếp hạng"
-                                android:textColor="@android:color/white"
+                                android:textColor="@color/white"
                                 android:textSize="14sp" />
 
                             <TextView

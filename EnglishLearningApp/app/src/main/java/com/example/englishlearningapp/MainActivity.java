@@ -28,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
         initViews();
 
         // 2. Mặc định chọn tab Lessons (Khóa học) khi mở app (hoặc tab nào bạn muốn)
-        loadFragment(new TrangChu_Fragment());
+        loadFragment(new TrangChuFragment());
         updateBottomNavUI(btnHome, iconHome, dotHome);
 
         // 3. Bắt sự kiện click
         btnHome.setOnClickListener(v -> {
-            loadFragment(new TrangChu_Fragment()); // Nhớ tạo HomeFragment
+            loadFragment(new TrangChuFragment()); // Nhớ tạo HomeFragment
             updateBottomNavUI(btnHome, iconHome, dotHome);
         });
 

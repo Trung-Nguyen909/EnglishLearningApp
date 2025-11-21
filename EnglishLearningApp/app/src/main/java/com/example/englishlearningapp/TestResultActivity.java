@@ -100,12 +100,12 @@ public class TestResultActivity extends AppCompatActivity {
                             break;
                         case "Reading":
                         default:
-                            intent = new Intent(TestResultActivity.this, BaiTapActivity.class);
+                            intent = new Intent(TestResultActivity.this, BaiTapDocActivity.class);
                             break;
                     }
                 } else {
                     // Fallback nếu không nhận được topic (Mặc định về bài đọc)
-                    intent = new Intent(TestResultActivity.this, BaiTapActivity.class);
+                    intent = new Intent(TestResultActivity.this, BaiTapDocActivity.class);
                 }
 
                 if (intent != null) {

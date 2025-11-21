@@ -18,21 +18,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class BaiTapActivity extends AppCompatActivity implements CauHoiAdapter.OnAnswerSelectedListener {
+public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapter.LangNgheSuKienChonDapAn {
 
-    private List<CauHoi> cauHois;
-
-    // Global UI Components
-    private Button btn_HoanThanh;
+    private List<CauHoi> danhSachCauHoi;
+    private Button btnHoanThanh;
     private ProgressBar thanhTienTrinh;
-    private TextView tv_demSoCauHoi;
-    private TextView tv_phanTramTienTrinh;
+    private TextView tvDemSoCauHoi;
+    private TextView tvPhanTramTienTrinh;
+    private RecyclerView rcvDanhSachCauHoi;
+    private ImageView nutQuayLai;
 
-    // Logic Tracking
-    private Set<Integer> idCauHoiDaTraLoi = new HashSet<>();
+    // Logic theo dõi
+    private Set<Integer> tapHopIdCauHoiDaTraLoi = new HashSet<>();
 
-    // Biến lưu Level (để gửi cho nút Làm lại)
-    private String currentLevel = "Basic";
+    private String capDoHienTai = "Basic";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,69 +40,70 @@ public class BaiTapActivity extends AppCompatActivity implements CauHoiAdapter.O
 
         // 1. NHẬN LEVEL TỪ MÀN HÌNH TRƯỚC
         if (getIntent() != null) {
-            String level = getIntent().getStringExtra("SELECTED_LEVEL");
-            if (level != null) {
-                currentLevel = level;
+            String levelNhanDuoc = getIntent().getStringExtra("SELECTED_LEVEL");
+            if (levelNhanDuoc != null) {
+                capDoHienTai = levelNhanDuoc;
             }
         }
 
-        // 2. Khởi tạo dữ liệu và ánh xạ Views
-        cauHois = taoCauHoi();
+        // 2. Khởi tạo dữ liệu
+        danhSachCauHoi = taoCauHoi();
 
-        RecyclerView questionsRecyclerView = findViewById(R.id.questions_recycler_view);
-        ImageView backButton = findViewById(R.id.back_button);
+        // 3. Ánh xạ Views
+        rcvDanhSachCauHoi = findViewById(R.id.rcv_danh_sach_cau_hoi);
+        nutQuayLai = findViewById(R.id.nut_quay_lai);
 
-        btn_HoanThanh = findViewById(R.id.complete_button);
-        thanhTienTrinh = findViewById(R.id.main_progress_bar);
-        tv_demSoCauHoi = findViewById(R.id.question_count_text);
-        tv_phanTramTienTrinh = findViewById(R.id.progress_percent_text);
+        btnHoanThanh = findViewById(R.id.btn_hoan_thanh);
+        thanhTienTrinh = findViewById(R.id.thanh_tien_trinh);
+        tvDemSoCauHoi = findViewById(R.id.tv_dem_so_cau_hoi);
+        tvPhanTramTienTrinh = findViewById(R.id.tv_phan_tram_tien_trinh);
 
-        // 3. Thiết lập RecyclerView
-        CauHoiAdapter adapter = new CauHoiAdapter(cauHois, this);
-        questionsRecyclerView.setLayoutManager(
+        // 4. Thiết lập RecyclerView
+        CauHoiAdapter adapter = new CauHoiAdapter(danhSachCauHoi, this);
+        rcvDanhSachCauHoi.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         );
-        questionsRecyclerView.setAdapter(adapter);
+        rcvDanhSachCauHoi.setAdapter(adapter);
 
-        // 4. Thiết lập trạng thái ban đầu
-        thanhTienTrinh.setMax(cauHois.size());
+        // 5. Thiết lập trạng thái ban đầu
+        thanhTienTrinh.setMax(danhSachCauHoi.size());
         capNhatTrangThaiTienTrinh();
 
         // Xử lý sự kiện Back
-        backButton.setOnClickListener(v -> finish());
+        nutQuayLai.setOnClickListener(v -> finish());
 
-        // --- XỬ LÝ NÚT HOÀN THÀNH ---
-        btn_HoanThanh.setOnClickListener(v -> {
+        // Xử lý nút hoàn thành
+        btnHoanThanh.setOnClickListener(v -> {
             chuyenSangTrangKetQua();
         });
     }
 
     private void chuyenSangTrangKetQua() {
-        Intent intent = new Intent(BaiTapActivity.this, TestResultActivity.class);
+        Intent intent = new Intent(BaiTapDocActivity.this, TestResultActivity.class);
 
-        // Truyền số câu đã làm (coi như điểm số)
-        intent.putExtra(TestResultActivity.EXTRA_CORRECT_ANSWERS, idCauHoiDaTraLoi.size());
-        intent.putExtra(TestResultActivity.EXTRA_TOTAL_QUESTIONS, cauHois.size());
+        // Truyền số câu đã làm
+        intent.putExtra(TestResultActivity.EXTRA_CORRECT_ANSWERS, tapHopIdCauHoiDaTraLoi.size());
+        intent.putExtra(TestResultActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
         intent.putExtra(TestResultActivity.EXTRA_TIME_SPENT, 0); // Thời gian tùy chọn
 
-        // QUAN TRỌNG: Gửi Topic là "Reading" để nút Làm lại biết quay về Activity này
+        // Gửi Topic và Level để biết đường quay lại
         intent.putExtra(TestResultActivity.EXTRA_TOPIC, "Reading");
-        intent.putExtra(TestResultActivity.EXTRA_LEVEL, currentLevel);
+        intent.putExtra(TestResultActivity.EXTRA_LEVEL, capDoHienTai);
 
         startActivity(intent);
-        finish(); // Đóng màn hình hiện tại
+        finish();
     }
 
+    // Override hàm từ Interface LangNgheSuKienChonDapAn
     @Override
-    public void onAnswerSelected(int questionId, String selectedAnswer) {
+    public void khiDapAnDuocChon(int maCauHoi, String dapAnDuocChon) {
         // Cập nhật Set theo dõi
-        if (selectedAnswer != null) {
-            idCauHoiDaTraLoi.add(questionId);
+        if (dapAnDuocChon != null) {
+            tapHopIdCauHoiDaTraLoi.add(maCauHoi);
         } else {
-            idCauHoiDaTraLoi.remove(questionId);
+            tapHopIdCauHoiDaTraLoi.remove(maCauHoi);
         }
 
-        // Cập nhật giao diện toàn cục
         capNhatTrangThaiTienTrinh();
     }
 
@@ -111,27 +111,26 @@ public class BaiTapActivity extends AppCompatActivity implements CauHoiAdapter.O
      * Cập nhật ProgressBar, các TextView và trạng thái nút Hoàn thành.
      */
     private void capNhatTrangThaiTienTrinh() {
-        int answeredCount = idCauHoiDaTraLoi.size();
-        int total = cauHois.size();
+        int soCauDaTraLoi = tapHopIdCauHoiDaTraLoi.size();
+        int tongSoCau = danhSachCauHoi.size();
 
         // Tính phần trăm
-        int progressPercent = (total > 0) ? (int) (((float) answeredCount / (float) total) * 100) : 0;
+        int phanTram = (tongSoCau > 0) ? (int) (((float) soCauDaTraLoi / (float) tongSoCau) * 100) : 0;
 
         // 1. Cập nhật TextViews và ProgressBar
-        tv_demSoCauHoi.setText("Câu " + answeredCount + "/" + total);
-        tv_phanTramTienTrinh.setText(progressPercent + "%");
-        thanhTienTrinh.setProgress(answeredCount);
+        tvDemSoCauHoi.setText("Câu " + soCauDaTraLoi + "/" + tongSoCau);
+        tvPhanTramTienTrinh.setText(phanTram + "%");
+        thanhTienTrinh.setProgress(soCauDaTraLoi);
 
         // 2. Điều khiển nút Hoàn thành
-        if (answeredCount == total) {
-            btn_HoanThanh.setEnabled(true);
-            btn_HoanThanh.setVisibility(View.VISIBLE);
-            // Lưu ý: thay R.color.royalBlue bằng màu thực tế của bạn nếu cần
-            btn_HoanThanh.setBackgroundTintList(getColorStateList(R.color.royalBlue));
+        if (soCauDaTraLoi == tongSoCau) {
+            btnHoanThanh.setEnabled(true);
+            btnHoanThanh.setVisibility(View.VISIBLE);
+            btnHoanThanh.setBackgroundTintList(getColorStateList(R.color.royalBlue));
         } else {
-            btn_HoanThanh.setEnabled(false);
-            btn_HoanThanh.setVisibility(View.VISIBLE);
-            btn_HoanThanh.setBackgroundTintList(getColorStateList(android.R.color.darker_gray));
+            btnHoanThanh.setEnabled(false);
+            btnHoanThanh.setVisibility(View.VISIBLE);
+            btnHoanThanh.setBackgroundTintList(getColorStateList(android.R.color.darker_gray));
         }
     }
 

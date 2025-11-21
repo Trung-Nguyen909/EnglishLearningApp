@@ -111,7 +111,7 @@ public class Kiemtra_Fragment extends Fragment {
 
                 case "Reading":
                 default:
-                    intent = new Intent(getContext(), BaiTapActivity.class); // Mặc định
+                    intent = new Intent(getContext(), BaiTapDocActivity.class); // Mặc định
                     break;
             }
 

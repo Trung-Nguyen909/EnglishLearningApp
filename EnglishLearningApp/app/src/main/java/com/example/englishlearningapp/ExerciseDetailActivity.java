@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,7 +48,7 @@ public class ExerciseDetailActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // Tạo Intent chuyển sang trang BaiTapActivity (Trắc nghiệm)
-                    Intent intent = new Intent(ExerciseDetailActivity.this, BaiTapActivity.class);
+                    Intent intent = new Intent(ExerciseDetailActivity.this, BaiTapDocActivity.class);
 
                     // Gửi kèm cấp độ (Ví dụ: Beginner) để trang bài tập biết load câu dễ hay khó
                     if (tvCapDo != null) {

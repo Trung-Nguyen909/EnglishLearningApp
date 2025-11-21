@@ -11,66 +11,71 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.englishlearningapp.Model.KyNang;
 import java.util.List;
 
-public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.TestViewHolder> {
-    private Context context;
-    private List<KyNang> mList;
+public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.KyNangViewHolder> {
 
-    // 1. Khai báo Interface để lắng nghe sự kiện
-    private OnItemClickListener mListener;
+    private Context boiCanh; // context
+    private List<KyNang> danhSachKyNang; // mList
 
-    public interface OnItemClickListener {
-        void onItemClick(KyNang kyNang);
+    // 1. Khai báo Interface để lắng nghe sự kiện (Tiếng Việt)
+    private LangNgheSuKienClick nguoiLangNghe; // mListener
+
+    public interface LangNgheSuKienClick {
+        void khiClickVaoItem(KyNang kyNang);
     }
 
     // 2. Hàm để Fragment gọi set sự kiện
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        mListener = listener;
+    public void setLangNgheSuKienClick(LangNgheSuKienClick nguoiLangNghe) {
+        this.nguoiLangNghe = nguoiLangNghe;
     }
 
-    public KyNangAdapter(Context context, List<KyNang> mList) {
-        this.context = context;
-        this.mList = mList;
+    public KyNangAdapter(Context boiCanh, List<KyNang> danhSachKyNang) {
+        this.boiCanh = boiCanh;
+        this.danhSachKyNang = danhSachKyNang;
     }
 
     @NonNull
     @Override
-    public KyNangAdapter.TestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Lưu ý: Bạn đang dùng layout item_kynang
+    public KyNangViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_kynang, parent, false);
-        return new TestViewHolder(view);
+        return new KyNangViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull KyNangAdapter.TestViewHolder holder, int position) {
-        KyNang item = mList.get(position);
-        if (item == null) return;
+    public void onBindViewHolder(@NonNull KyNangViewHolder holder, int position) {
+        KyNang kyNang = danhSachKyNang.get(position);
+        if (kyNang == null) return;
 
-        holder.tvTitle.setText(item.getTitle()); // Hoặc getTenKyNang() tùy model của bạn
-        holder.imgIcon.setImageResource(item.getIconResId()); // Hoặc getResourceId()
+        // Sử dụng Getter tiếng Việt từ Model KyNang
+        holder.tvTenKyNang.setText(kyNang.getTenKyNang());
+        holder.imgAnhDaiDien.setImageResource(kyNang.getMaHinhAnh());
 
         // 3. BẮT SỰ KIỆN CLICK VÀO ITEM
         holder.itemView.setOnClickListener(v -> {
-            if (mListener != null) {
-                mListener.onItemClick(item); // Gửi item được chọn ra ngoài
+            if (nguoiLangNghe != null) {
+                nguoiLangNghe.khiClickVaoItem(kyNang); // Gửi item được chọn ra ngoài
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if (mList != null) return mList.size();
+        if (danhSachKyNang != null) return danhSachKyNang.size();
         return 0;
     }
 
-    public class TestViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgIcon;
-        private TextView tvTitle;
+    // Đổi tên TestViewHolder -> KyNangViewHolder
+    public class KyNangViewHolder extends RecyclerView.ViewHolder {
+        private ImageView imgAnhDaiDien;
+        private TextView tvTenKyNang;
 
-        public TestViewHolder(@NonNull View itemView) {
+        public KyNangViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Đảm bảo ID khớp với file xml item_kynang của bạn
-            imgIcon = itemView.findViewById(R.id.img_icon); // Kiểm tra lại ID này trong XML
-            tvTitle = itemView.findViewById(R.id.tv_title);   // Kiểm tra lại ID này trong XML
+            // Lưu ý: Bạn cần đảm bảo ID trong file item_kynang.xml khớp với tên ở đây
+            // Ví dụ: android:id="@+id/img_icon"
+            imgAnhDaiDien = itemView.findViewById(R.id.img_icon);
+
+            // Ví dụ: android:id="@+id/tv_title"
+            tvTenKyNang = itemView.findViewById(R.id.tv_title);
         }
     }
 }
