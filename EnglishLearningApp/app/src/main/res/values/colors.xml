@@ -13,7 +13,7 @@
 
     <color name="even_item_color">#DFF5FF</color>
     <color name="odd_item_color">#FFFFFF</color>
-    <color name="sub_item_color">#C3EEFF</color>
+    <color name="sub_item_color">#BEE9FA</color>
 
     <color name="colorPrimary">#007AFF</color>
     <color name="colorGray">#CCCCCC</color>

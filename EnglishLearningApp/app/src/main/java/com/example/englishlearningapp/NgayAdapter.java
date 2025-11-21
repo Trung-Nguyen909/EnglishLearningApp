@@ -9,16 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.ItemNgay;
+import com.example.englishlearningapp.Model.Ngay;
 
 import java.util.List;
 
 public class NgayAdapter extends RecyclerView.Adapter<NgayAdapter.NgayViewHolder> {
 
-    private List<ItemNgay> mList;
+    private List<Ngay> danhSachNgay; // mList -> danhSachNgay
 
-    public NgayAdapter(List<ItemNgay> mList) {
-        this.mList = mList;
+    public NgayAdapter(List<Ngay> danhSachNgay) {
+        this.danhSachNgay = danhSachNgay;
     }
 
     @NonNull
@@ -30,45 +30,52 @@ public class NgayAdapter extends RecyclerView.Adapter<NgayAdapter.NgayViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NgayViewHolder holder, int position) {
-        ItemNgay date = mList.get(position);
+        Ngay ngay = danhSachNgay.get(position);
 
-        holder.tvDay.setText(date.getDay());
+        holder.tvNgay.setText(ngay.getNgay());
 
-        if(date.getStatus().equals("blue")){
-            holder.tvDay.setBackgroundResource(R.drawable.bg_ngaydahoc);
-            holder.tvDay.setTextColor(Color.WHITE);
-        } else if (date.getStatus().equals("red")) {
-            holder.tvDay.setBackgroundResource(R.drawable.bg_ngaynghi);
-            holder.tvDay.setTextColor(Color.WHITE);
-        } else if(date.getStatus().equals("gray")) {
-            holder.tvDay.setBackgroundResource(R.drawable.bg_ngaychuahoc);
-            holder.tvDay.setTextColor(Color.WHITE);
-        } else if (date.getStatus().equals("grayMonth")) {
-            holder.tvDay.setBackground(null);
-            holder.tvDay.setTextColor(Color.GRAY);
+        String trangThai = ngay.getTrangThai();
+
+        // Kiểm tra null để tránh lỗi app bị văng nếu status chưa có dữ liệu
+        if (trangThai == null) {
+            trangThai = "";
+        }
+
+        if(trangThai.equals("blue")){
+            holder.tvNgay.setBackgroundResource(R.drawable.bg_ngaydahoc);
+            holder.tvNgay.setTextColor(Color.WHITE);
+        } else if (trangThai.equals("red")) {
+            holder.tvNgay.setBackgroundResource(R.drawable.bg_ngaynghi);
+            holder.tvNgay.setTextColor(Color.WHITE);
+        } else if(trangThai.equals("gray")) {
+            holder.tvNgay.setBackgroundResource(R.drawable.bg_ngaychuahoc);
+            holder.tvNgay.setTextColor(Color.WHITE);
+        } else if (trangThai.equals("grayMonth")) {
+            holder.tvNgay.setBackground(null);
+            holder.tvNgay.setTextColor(Color.GRAY);
         } else {
             // Ngày bình thường
-            holder.tvDay.setBackground(null);
-            holder.tvDay.setTextColor(Color.parseColor("#2563EB"));
+            holder.tvNgay.setBackground(null);
+            holder.tvNgay.setTextColor(Color.parseColor("#2563EB"));
         }
 
         // Nếu là ô trống thì ẩn text đi
-        if(date.getDay().isEmpty()){
-            holder.tvDay.setBackground(null);
+        if(ngay.getNgay().isEmpty()){
+            holder.tvNgay.setBackground(null);
         }
-
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return danhSachNgay.size();
     }
 
     public class NgayViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDay;
+        TextView tvNgay;
+
         public NgayViewHolder(View view) {
             super(view);
-            tvDay = view.findViewById((R.id.tv_day));
+            tvNgay = view.findViewById(R.id.tv_day);
         }
     }
 }

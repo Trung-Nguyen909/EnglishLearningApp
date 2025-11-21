@@ -18,9 +18,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/btn_back_detail"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back"/> <TextView
+            android:src="@drawable/ic_arrow_back" /> <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
@@ -82,7 +83,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/title_family_members"
+                    android:id="@+id/tv_tieude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -103,7 +104,7 @@
                     android:text="Beginner"
                     android:textColor="@android:color/white"
                     app:drawableStartCompat="@drawable/ic_beginner_level" app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/title_family_members" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_tieude" />
 
                 <TextView
                     android:id="@+id/text_time"
@@ -135,6 +136,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_introduction_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -167,6 +169,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_point_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -191,6 +194,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_point_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -216,6 +220,7 @@
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/tv_example_word"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Basic words"
@@ -224,6 +229,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_example_sentence"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"

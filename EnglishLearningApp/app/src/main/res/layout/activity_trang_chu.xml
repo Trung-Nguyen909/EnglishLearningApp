@@ -6,142 +6,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient">
 
-    <FrameLayout
-        android:id="@+id/bottom_menu_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/transparent"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="16dp"
-        android:clipToPadding="false">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            app:cardCornerRadius="32dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp">
-
-                <LinearLayout
-                    android:id="@+id/btn_home"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/icon_home"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_home"
-                        app:tint="#4169E1" /> <View
-                    android:id="@+id/dot_home"
-                    android:layout_width="4dp"
-                    android:layout_height="4dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/shape_bg_bottom_nav_dot"
-                    android:visibility="visible" /> </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_lessons"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/icon_lessons"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_book"
-                        app:tint="#888888" />
-
-                    <View
-                        android:id="@+id/dot_lessons"
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/shape_bg_bottom_nav_dot"
-                        android:visibility="invisible" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_explore"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/icon_explore"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_progrs"
-                        app:tint="#888888" />
-
-                    <View
-                        android:id="@+id/dot_explore"
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/shape_bg_bottom_nav_dot"
-                        android:visibility="invisible" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_profile"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/icon_profile"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_person"
-                        app:tint="#888888" />
-
-                    <View
-                        android:id="@+id/dot_profile"
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/shape_bg_bottom_nav_dot"
-                        android:visibility="invisible" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </FrameLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_menu_container"
         android:scrollbars="none">
 
         <LinearLayout
@@ -151,17 +18,12 @@
             android:padding="20dp">
 
             <LinearLayout
-                android:id="@+id/layoutHeader"
+                android:id="@+id/khung_tieu_de"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="12dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@id/layoutLoginForm"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -174,13 +36,13 @@
                         android:layout_height="wrap_content">
 
                         <View
-                            android:id="@+id/view2"
+                            android:id="@+id/nen_icon_sach"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:background="@drawable/bg_book_icon" />
 
                         <ImageView
-                            android:id="@+id/imageView"
+                            android:id="@+id/img_icon_sach"
                             android:layout_width="34dp"
                             android:layout_height="31dp"
                             android:layout_gravity="center"
@@ -189,7 +51,7 @@
                     </FrameLayout>
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/tv_ten_ung_dung"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -244,7 +106,7 @@
                     android:padding="20dp">
 
                     <FrameLayout
-                        android:id="@+id/layout_progress"
+                        android:id="@+id/khung_chua_tien_do"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
@@ -271,23 +133,23 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/layout_progress"
+                        android:layout_alignBottom="@+id/khung_chua_tien_do"
                         android:layout_marginStart="23dp"
                         android:layout_marginBottom="14dp"
-                        android:layout_toEndOf="@id/layout_progress"
+                        android:layout_toEndOf="@id/khung_chua_tien_do"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Chương 2"
+                            android:text="Class"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Discovering English"
+                            android:text="School Life"
                             android:textColor="@color/royalBlue"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -299,14 +161,16 @@
                     </LinearLayout>
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_tiep_tuc_hoc"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_below="@id/layout_progress"
+                        android:layout_below="@id/khung_chua_tien_do"
                         android:layout_marginTop="20dp"
+                        android:background="@drawable/shape_button_active_course"
                         android:text="Tiếp tục học"
                         android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:background="@drawable/shape_button_active_course"/> </RelativeLayout>
+                        android:textStyle="bold" />
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -324,7 +188,7 @@
                 android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_quick_test"
+                    android:id="@+id/rcv_kiem_tra_nhanh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -369,7 +233,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="October 2025"
+                            android:text="Tháng 10, 2025"
                             android:textColor="@color/royalBlue"
                             android:textSize="18sp"
                             android:textStyle="bold"/>
@@ -387,64 +251,17 @@
                         android:orientation="horizontal"
                         android:layout_marginTop="16dp"
                         android:weightSum="7">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="T2"
-                            android:textColor="@color/royalBlue"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1" android:gravity="center"
-                            android:text="T3" android:textColor="@color/royalBlue"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="T4"
-                            android:textColor="@color/royalBlue"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="T5"
-                            android:textColor="@color/royalBlue"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="T6"
-                            android:textColor="@color/royalBlue"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="T7"
-                            android:textColor="@color/royalBlue"
-                            android:textStyle="bold"/>
-                        <TextView android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="CN"
-                            android:textColor="@color/royalBlue"
-                            android:textStyle="bold"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T2" android:textColor="@color/royalBlue" android:textStyle="bold"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T3" android:textColor="@color/royalBlue" android:textStyle="bold"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T4" android:textColor="@color/royalBlue" android:textStyle="bold"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T5" android:textColor="@color/royalBlue" android:textStyle="bold"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T6" android:textColor="@color/royalBlue" android:textStyle="bold"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T7" android:textColor="@color/royalBlue" android:textStyle="bold"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="CN" android:textColor="@color/royalBlue" android:textStyle="bold"/>
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_calendar"
+                        android:id="@+id/rcv_lich"
                         android:layout_width="match_parent"
                         android:layout_height="218dp"
                         android:layout_marginTop="10dp"
@@ -455,5 +272,4 @@
 
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>

@@ -58,9 +58,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/header_card"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_card">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,133 +72,133 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="2dp"
                 android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="#D6F0F8">
+                app:cardBackgroundColor="#D6F0F8"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:gravity="center"
+                    android:orientation="horizontal"
                     android:padding="32dp">
 
                     <!-- Basic Level -->
                     <LinearLayout
                         android:id="@+id/btn_basic"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
-                        android:background="?attr/selectableItemBackgroundBorderless">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="70dp"
                             android:layout_height="70dp"
+                            app:cardBackgroundColor="#87CEEB"
                             app:cardCornerRadius="35dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="#87CEEB">
+                            app:cardElevation="4dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:gravity="center"
                                 android:text="10"
-                                android:textSize="28sp"
                                 android:textColor="@android:color/white"
-                                android:textStyle="bold"
-                                android:gravity="center" />
+                                android:textSize="28sp"
+                                android:textStyle="bold" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
                             android:text="Cơ bản"
-                            android:textSize="16sp"
                             android:textColor="#333333"
-                            android:textStyle="bold"
-                            android:layout_marginTop="12dp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Medium Level -->
                     <LinearLayout
                         android:id="@+id/btn_medium"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
-                        android:background="?attr/selectableItemBackgroundBorderless">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="70dp"
                             android:layout_height="70dp"
+                            app:cardBackgroundColor="#4169E1"
                             app:cardCornerRadius="35dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="#4169E1">
+                            app:cardElevation="4dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:gravity="center"
                                 android:text="20"
-                                android:textSize="28sp"
                                 android:textColor="@android:color/white"
-                                android:textStyle="bold"
-                                android:gravity="center" />
+                                android:textSize="28sp"
+                                android:textStyle="bold" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
                             android:text="Trung bình"
-                            android:textSize="16sp"
                             android:textColor="#333333"
-                            android:textStyle="bold"
-                            android:layout_marginTop="12dp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Advanced Level -->
                     <LinearLayout
                         android:id="@+id/btn_advanced"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
-                        android:background="?attr/selectableItemBackgroundBorderless">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="70dp"
                             android:layout_height="70dp"
+                            app:cardBackgroundColor="#2849B8"
                             app:cardCornerRadius="35dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="#2849B8">
+                            app:cardElevation="4dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:gravity="center"
                                 android:text="30"
-                                android:textSize="28sp"
                                 android:textColor="@android:color/white"
-                                android:textStyle="bold"
-                                android:gravity="center" />
+                                android:textSize="28sp"
+                                android:textStyle="bold" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
                             android:text="Cao cấp"
-                            android:textSize="16sp"
                             android:textColor="#333333"
-                            android:textStyle="bold"
-                            android:layout_marginTop="12dp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -207,9 +207,9 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardBackgroundColor="@android:color/white"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -218,41 +218,42 @@
                     android:padding="24dp">
 
                     <TextView
+                        android:id="@+id/tv_header_topic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
                         android:text="Chọn chủ đề(tùy chọn)"
-                        android:textSize="18sp"
                         android:textColor="#4169E1"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="2dp"
                         android:layout_marginBottom="20dp"
-                        app:cardBackgroundColor="@android:color/white">
+                        app:cardBackgroundColor="@android:color/white"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp">
 
                         <LinearLayout
                             android:id="@+id/dropdown_topics"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:paddingStart="16dp"
-                            android:paddingEnd="16dp"
+                            android:background="?attr/selectableItemBackground"
                             android:clickable="true"
                             android:focusable="true"
-                            android:background="?attr/selectableItemBackground">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp">
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Tất cả chủ đề"
-                                android:textSize="16sp"
-                                android:textColor="#4169E1" />
+                                android:textColor="#4169E1"
+                                android:textSize="16sp" />
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -265,42 +266,42 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp"
                         android:layout_marginBottom="20dp"
-                        app:cardBackgroundColor="#4169E1">
+                        app:cardBackgroundColor="#4169E1"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="2dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:padding="20dp"
-                            android:gravity="center_vertical">
+                            android:padding="20dp">
 
                             <TextView
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
+                                android:gravity="center"
                                 android:text="🏆"
-                                android:textSize="32sp"
-                                android:gravity="center" />
+                                android:textSize="32sp" />
 
                             <TextView
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="Thi đấu để giành top 1! Điểm số và thời gian làm bài của bạn sẽ được ghi lại trên Bảng xếp hạng"
-                                android:textSize="14sp"
-                                android:textColor="@android:color/white"
-                                android:lineSpacingExtra="4dp"
                                 android:layout_marginStart="12dp"
-                                android:layout_marginEnd="12dp" />
+                                android:layout_marginEnd="12dp"
+                                android:layout_weight="1"
+                                android:lineSpacingExtra="4dp"
+                                android:text="Thi đấu để giành top 1! Điểm số và thời gian làm bài của bạn sẽ được ghi lại trên Bảng xếp hạng"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
+                                android:gravity="center"
                                 android:text="🎉"
-                                android:textSize="32sp"
-                                android:gravity="center" />
+                                android:textSize="32sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -308,171 +309,25 @@
                         android:id="@+id/btn_start_test"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        app:cardCornerRadius="28dp"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="#4169E1"
                         android:clickable="true"
                         android:focusable="true"
-                        android:foreground="?attr/selectableItemBackground">
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardBackgroundColor="#4169E1"
+                        app:cardCornerRadius="28dp"
+                        app:cardElevation="4dp">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:gravity="center"
                             android:text="Bắt đầu kiểm tra &amp; Tính giờ"
-                            android:textSize="18sp"
                             android:textColor="@android:color/white"
-                            android:textStyle="bold"
-                            android:gravity="center" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
-
-    <!-- Thanh công cụ -->
-    <FrameLayout
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#26D6ECFB"
-        android:paddingTop="8dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="16dp"
-        android:clipToPadding="false"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            app:cardCornerRadius="32dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@android:color/white">
-
-            <LinearLayout
-                android:id="@+id/bottom_bar_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp">
-
-                <LinearLayout
-                    android:id="@+id/btn_home"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="SpeakableTextPresentCheck">
-
-                    <ImageView
-                        android:id="@+id/icon_home"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_home"
-                        app:tint="#888888" />
-
-                    <View
-                        android:id="@+id/dot_home"
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/shape_bg_bottom_nav_dot"
-                        android:visibility="invisible" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_lessons"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="SpeakableTextPresentCheck">
-
-                    <ImageView
-                        android:id="@+id/icon_lessons"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_books"
-                        app:tint="#4169E1" />
-
-                    <View
-                        android:id="@+id/dot_lessons"
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/shape_bg_bottom_nav_dot"
-                        android:visibility="visible" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_explore"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="SpeakableTextPresentCheck">
-
-                    <ImageView
-                        android:id="@+id/icon_explore"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_progrs"
-                        app:tint="#888888" />
-
-                    <View
-                        android:id="@+id/dot_explore"
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/shape_bg_bottom_nav_dot"
-                        android:visibility="invisible" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_profile"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="SpeakableTextPresentCheck">
-
-                    <ImageView
-                        android:id="@+id/icon_profile"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_person"
-                        app:tint="#888888" />
-
-                    <View
-                        android:id="@+id/dot_profile"
-                        android:layout_width="4dp"
-                        android:layout_height="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/shape_bg_bottom_nav_dot"
-                        android:visibility="invisible" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
