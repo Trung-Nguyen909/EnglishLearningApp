@@ -60,26 +60,32 @@ CREATE TABLE BaiHoc (
     FOREIGN KEY (IDKhoaHoc) REFERENCES KhoaHoc(ID)
 );
 
+create table Capdo (
+	ID INT IDENTITY(1,1) PRIMARY KEY,
+    DoKho NVARCHAR(500) NOT NULL,
+)
+-- Tạo bảng Bài Tập
+CREATE TABLE BaiTap (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    IDBaiHoc INT NOT NULL,
+    loaiBaiTap NVARCHAR(50),
+    trangThai NVARCHAR(50),
+    FOREIGN KEY (IDBaiHoc) REFERENCES BaiHoc(ID)
+);
+
 -- Tạo bảng Câu Hỏi
 CREATE TABLE CauHoi (
     ID INT IDENTITY(1,1) PRIMARY KEY,
+	IDCapDo int not null,
+	iDBaiTap int not null,
     CauHoi NVARCHAR(500) NOT NULL,
     A NVARCHAR(200),
     B NVARCHAR(200),
     C NVARCHAR(200),
     D NVARCHAR(200),
     CauTraLoi NVARCHAR(5) -- 'A', 'B', 'C', 'D'
-);
-
--- Tạo bảng Bài Tập
-CREATE TABLE BaiTap (
-    ID INT IDENTITY(1,1) PRIMARY KEY,
-    IDBaiHoc INT NOT NULL,
-    IDCauHoi INT NOT NULL,
-    loaiBaiTap NVARCHAR(50),
-    trangThai NVARCHAR(50),
-    FOREIGN KEY (IDBaiHoc) REFERENCES BaiHoc(ID),
-    FOREIGN KEY (IDCauHoi) REFERENCES CauHoi(ID)
+	foreign key (IDCapDo) REFERENCES Capdo(ID),
+	foreign key (iDBaiTap) REFERENCES BaiTap(ID)
 );
 
 -- Tạo bảng Test
@@ -252,18 +258,43 @@ INSERT INTO BaiHoc (IDKhoaHoc, tenBaiHoc, moTa, noiDung, thuTuBaiHoc, trangThai)
 (1, N'Chào hỏi cơ bản', N'Học cách chào hỏi trong tiếng Anh', N'Hello, Hi, Good morning...', 1, N'Đã hoàn thành'),
 (1, N'Giới thiệu bản thân', N'Học cách giới thiệu về bản thân', N'My name is..., I am from...', 2, N'Đã hoàn thành'),
 (2, N'Thì hiện tại đơn', N'Học về thì hiện tại đơn', N'Present simple tense usage', 1, N'Đã hoàn thành');
-
--- Insert CauHoi
-INSERT INTO CauHoi (CauHoi, A, B, C, D, CauTraLoi) VALUES
-(N'What is your name?', N'My name is John', N'I am fine', N'Thank you', N'Goodbye', 'A'),
-(N'How are you?', N'My name is...', N'I am fine, thank you', N'See you later', N'Nice to meet you', 'B'),
-(N'Where are you from?', N'I am 20 years old', N'I am a student', N'I am from Vietnam', N'I like English', 'C');
+INSERT INTO Capdo (DoKho) 
+VALUES 
+(N'Dễ'),        -- Sẽ có ID là 1 (do identity)
+(N'Trung bình'),-- Sẽ có ID là 2
+(N'Khó');
 
 -- Insert BaiTap
-INSERT INTO BaiTap (IDBaiHoc, IDCauHoi, loaiBaiTap, trangThai) VALUES
-(1, 1, N'Trắc nghiệm', N'Đang Hoàn thành'),
-(1, 2, N'Trắc nghiệm', N'Đang Hoàn thành'),
-(2, 3, N'Trắc nghiệm', N'Đã Hoàn thành');
+INSERT INTO BaiTap (IDBaiHoc, loaiBaiTap, trangThai) VALUES
+(1, N'Listening', N'Đang Hoàn thành'),
+(1, N'Writting', N'Đang Hoàn thành'),
+(2, N'Reading', N'Đã Hoàn thành'),
+(1, N'Speaking', N'Đang Hoàn thành');
+-- Insert CauHoi
+INSERT INTO CauHoi (IDCapDo, IDBaiTap, CauHoi, A, B, C, D, CauTraLoi) 
+VALUES
+-- === CẤP ĐỘ 1: DỄ (Basic Grammar & Vocab) ===
+(1, 1, N'What color is a banana?', N'Red', N'Blue', N'Yellow', N'Black', 'C'),
+(1, 1, N'She _____ a teacher.', N'is', N'are', N'am', N'be', 'A'),
+(1, 1, N'Choose the number: 10', N'One', N'Five', N'Ten', N'Zero', 'C'),
+(1, 1, N'Which animal says "Meow"?', N'Dog', N'Cat', N'Bird', N'Fish', 'B'),
+
+-- === CẤP ĐỘ 2: TRUNG BÌNH (Tenses & Prepositions) ===
+(2, 2, N'Yesterday, I _____ to the cinema.', N'go', N'gone', N'going', N'went', 'D'),
+(2, 2, N'He is interested _____ playing football.', N'on', N'in', N'at', N'with', 'B'),
+(2, 2, N'They _____ lunch right now.', N'are having', N'have', N'had', N'will have', 'A'),
+(2, 2, N'My father drives very ______.', N'careful', N'carefully', N'care', N'caring', 'B'),
+
+-- === CẤP ĐỘ 3: KHÓ (Passive Voice, Conditionals, Phrasal Verbs) ===
+(3, 3, N'I haven''t seen him _____ we left school.', N'for', N'during', N'since', N'when', 'C'),
+(3, 3, N'If I were you, I _____ study harder.', N'will', N'would', N'can', N'shall', 'B'),
+(3, 3, N'The house _____ by my grandfather in 1990.', N'built', N'was built', N'is built', N'has built', 'B'),
+(3, 3, N'Could you please turn _____ the light? It is too dark.', N'on', N'off', N'in', N'out', 'A'),
+
+(1, 4, N'How do you say "Xin chào" in English?', N'Hello', N'Bye', N'Thank you', N'Yes', 'A'),
+(1, 4, N'Choose the correct way to introduce yourself.', N'I am name my John', N'My name is John', N'Name John is my', N'I John name', 'B'),
+(1, 4, N'Which sentence is correct?', N'I speak English good', N'I am speak English', N'I can speak English', N'I speaking English', 'C'),
+(1, 4, N'What do you say when you meet someone for the first time?', N'Good night', N'See you', N'Nice to meet you', N'Go away', 'C');
 
 -- Insert Test
 INSERT INTO Test (IDKhoaHoc, TenBaiTest, SoCauHoi, TgianLam) VALUES
@@ -365,3 +396,11 @@ INSERT INTO PhanHoi (IDNguoiDung, Title, NoiDung, NgayTao) VALUES
 (1, N'Cảm ơn', N'Cảm ơn team đã tạo ra ứng dụng học tập tuyệt vời này!', '2024-01-16 08:15:00');
 
 PRINT N'Tạo database và insert dữ liệu mẫu thành công!';
+select * from CauHoi
+select * from BaiTap
+select * from Capdo
+select ch.*
+from BaiTap bt 
+	join CauHoi ch on ch.IdBaiTap = bt.ID
+	join Capdo c on c.ID = ch.IDCapDo
+where c.ID = 1 and bt.ID = 1

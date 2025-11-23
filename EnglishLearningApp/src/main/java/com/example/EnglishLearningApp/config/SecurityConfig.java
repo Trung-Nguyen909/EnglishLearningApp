@@ -18,7 +18,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class SecurityConfig {
     @Value("${jwt.secretKey}")
     private String secretKey;
-    private final String[] PUBLIC_ENDPOINT = {"/user/*"};
+    private final String[] PUBLIC_ENDPOINT = {"/user/*", "/cauhoi/**"};
     private final String[] PRIVATE_ENDPOINT = {"/user/admin/*"};
 
     @Bean

@@ -40,4 +40,13 @@ public class CauHoiController {
         cauHoiService.deleteCauHoi(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/baihoc/{idBaiHoc}/capdo/{idCapDo}")
+    public ResponseEntity<List<CauHoi>> getCauHoiTheoBaiHocVaCapDo(
+            @PathVariable int idBaiHoc,
+            @PathVariable int idCapDo
+    ) {
+        List<CauHoi> list = cauHoiService.GetCauHoiByBaiHocAndCapDo(idBaiHoc, idCapDo);
+        return ResponseEntity.ok(list);
+    }
 }

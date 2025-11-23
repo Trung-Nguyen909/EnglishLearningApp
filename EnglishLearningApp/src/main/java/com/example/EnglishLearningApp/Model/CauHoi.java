@@ -13,6 +13,9 @@ public class CauHoi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    int IDCapDo;
+
+    int iDBaiTap;
 
     @Column(nullable = false, length = 500)
     private String cauHoi;

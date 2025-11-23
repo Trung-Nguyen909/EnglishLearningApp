@@ -38,4 +38,10 @@ public class CauHoiService {
     public void deleteCauHoi(Integer id) {
         cauHoiRepository.deleteById(id);
     }
+
+
+    public List<CauHoi> GetCauHoiByBaiHocAndCapDo(int IdBaiHoc, int IdCapdo)
+    {
+        return cauHoiRepository.getCauHoiByBaiHocAndCapDo(IdBaiHoc, IdCapdo);
+    }
 }
