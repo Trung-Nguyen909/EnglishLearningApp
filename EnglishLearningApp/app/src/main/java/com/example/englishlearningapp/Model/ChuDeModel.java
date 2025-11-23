@@ -2,13 +2,13 @@ package com.example.englishlearningapp.Model;
 
 import java.util.List;
 
-public class ChuDe {
+public class ChuDeModel {
     private String tenChuDe;
     private int idIcon;
-    private List<ChuDePhu> danhSachMucCon;
+    private List<ChuDePhuModel> danhSachMucCon;
     private boolean moRong = false;
 
-    public ChuDe(String tenChuDe, int idIcon, List<ChuDePhu> danhSachMucCon) {
+    public ChuDeModel(String tenChuDe, int idIcon, List<ChuDePhuModel> danhSachMucCon) {
         this.tenChuDe = tenChuDe;
         this.idIcon = idIcon;
         this.danhSachMucCon = danhSachMucCon;
@@ -22,7 +22,7 @@ public class ChuDe {
         return idIcon;
     }
 
-    public List<ChuDePhu> getDanhSachMucCon() {
+    public List<ChuDePhuModel> getDanhSachMucCon() {
         return danhSachMucCon;
     }
 

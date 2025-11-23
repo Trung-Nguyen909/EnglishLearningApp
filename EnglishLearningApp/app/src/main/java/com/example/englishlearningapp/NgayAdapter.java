@@ -9,15 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.Ngay;
+import com.example.englishlearningapp.Model.NgayModel;
 
 import java.util.List;
 
 public class NgayAdapter extends RecyclerView.Adapter<NgayAdapter.NgayViewHolder> {
 
-    private List<Ngay> danhSachNgay; // mList -> danhSachNgay
+    private List<NgayModel> danhSachNgay; // mList -> danhSachNgay
 
-    public NgayAdapter(List<Ngay> danhSachNgay) {
+    public NgayAdapter(List<NgayModel> danhSachNgay) {
         this.danhSachNgay = danhSachNgay;
     }
 
@@ -30,7 +30,7 @@ public class NgayAdapter extends RecyclerView.Adapter<NgayAdapter.NgayViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NgayViewHolder holder, int position) {
-        Ngay ngay = danhSachNgay.get(position);
+        NgayModel ngay = danhSachNgay.get(position);
 
         holder.tvNgay.setText(ngay.getNgay());
 

@@ -12,16 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.Interface.LangNgheSuKien;
-import com.example.englishlearningapp.Model.CauHoi;
+import com.example.englishlearningapp.Model.CauHoiModel;
 
 import java.util.List;
 
 public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.NguoiGiuView> {
 
-    private List<CauHoi> danhSachCauHoi;
+    private List<CauHoiModel> danhSachCauHoi;
     private LangNgheSuKien nguoiLangNghe;
 
-    public BaiTapVietAdapter(List<CauHoi> danhSach, LangNgheSuKien nguoiLangNghe) {
+    public BaiTapVietAdapter(List<CauHoiModel> danhSach, LangNgheSuKien nguoiLangNghe) {
         this.danhSachCauHoi = danhSach;
         this.nguoiLangNghe = nguoiLangNghe;
     }
@@ -36,7 +36,7 @@ public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.Ng
 
     @Override
     public void onBindViewHolder(@NonNull NguoiGiuView holder, int position) {
-        CauHoi cauHoi = danhSachCauHoi.get(position);
+        CauHoiModel cauHoi = danhSachCauHoi.get(position);
 
         // 1. Set hướng dẫn và nội dung câu hỏi
         holder.tvHuongDan.setText(cauHoi.getHuongDan());

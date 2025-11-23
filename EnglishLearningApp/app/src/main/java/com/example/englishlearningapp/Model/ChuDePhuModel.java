@@ -1,11 +1,11 @@
 package com.example.englishlearningapp.Model;
 
-public class ChuDePhu {
+public class ChuDePhuModel {
     private int maChuDePhu;
     private String tenChuDePhu;
     private int maIcon;
 
-    public ChuDePhu(int maChuDePhu, String tenChuDePhu, int maIcon) {
+    public ChuDePhuModel(int maChuDePhu, String tenChuDePhu, int maIcon) {
         this.maChuDePhu = maChuDePhu;
         this.tenChuDePhu = tenChuDePhu;
         this.maIcon = maIcon;

@@ -9,14 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.Lesson;
+import com.example.englishlearningapp.Model.BaiHocModel;
 
 import java.util.List;
 
-public class BaihocAdapter extends RecyclerView.Adapter<BaihocAdapter.LessonViewHolder> {
-
-    // Đổi tên biến sang tiếng Việt
-    private final List<Lesson> danhSachBaiHoc;
+public class BaiHocAdapter extends RecyclerView.Adapter<BaiHocAdapter.LessonViewHolder> {
+    private final List<BaiHocModel> danhSachBaiHoc;
     private final Context boiCanh;
 
     // 1. Khai báo biến chứa sự kiện click
@@ -24,7 +22,7 @@ public class BaihocAdapter extends RecyclerView.Adapter<BaihocAdapter.LessonView
 
     // 2. Tạo Interface (Giao diện) để lắng nghe sự kiện click
     public interface SuKienClickItem {
-        void khiAnVaoItem(Lesson baiHoc);
+        void khiAnVaoItem(BaiHocModel baiHoc);
     }
 
     // 3. Hàm để gán sự kiện click từ bên ngoài vào
@@ -33,7 +31,7 @@ public class BaihocAdapter extends RecyclerView.Adapter<BaihocAdapter.LessonView
     }
 
     // Constructor (Hàm khởi tạo)
-    public BaihocAdapter(Context context, List<Lesson> danhSach) {
+    public BaiHocAdapter(Context context, List<BaiHocModel> danhSach) {
         this.boiCanh = context;
         this.danhSachBaiHoc = danhSach;
     }
@@ -41,28 +39,28 @@ public class BaihocAdapter extends RecyclerView.Adapter<BaihocAdapter.LessonView
     @NonNull
     @Override
     public LessonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(boiCanh).inflate(R.layout.item_exercise, parent, false);
+        View view = LayoutInflater.from(boiCanh).inflate(R.layout.item_bai_hoc, parent, false);
         return new LessonViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull LessonViewHolder holder, int position) {
-        Lesson baiHoc = danhSachBaiHoc.get(position);
+        BaiHocModel baiHoc = danhSachBaiHoc.get(position);
 
-        // Gán dữ liệu (Đã đổi tên biến holder sang tiếng Việt ở dưới)
-        holder.nhanLoai.setText(baiHoc.getType());
-        holder.tieuDe.setText(baiHoc.getTitle());
-        holder.capDo.setText(baiHoc.getLevel());
-        holder.thoiGian.setText(baiHoc.getTime());
+        // Gán dữ liệu
+        holder.nhanLoai.setText(baiHoc.getLoaiBaiHoc());
+        holder.tieuDe.setText(baiHoc.getTieuDe());
+        holder.capDo.setText(baiHoc.getCapDo());
+        holder.thoiGian.setText(baiHoc.getThoiGian());
 
         // Thay đổi màu nền của nhãn
         GradientDrawable nenNhan = (GradientDrawable) holder.nhanLoai.getBackground();
-        nenNhan.setColor(boiCanh.getColor(baiHoc.getTypeColor()));
+        nenNhan.setColor(boiCanh.getColor(baiHoc.getMauSacLoai()));
 
-        // 4. XỬ LÝ SỰ KIỆN CLICK (QUAN TRỌNG)
+        // 4. XỬ LÝ SỰ KIỆN CLICK
         holder.itemView.setOnClickListener(v -> {
             if (suKienClick != null) {
-                suKienClick.khiAnVaoItem(baiHoc); // Gửi bài học được chọn ra ngoài
+                suKienClick.khiAnVaoItem(baiHoc);
             }
         });
     }
@@ -71,21 +69,18 @@ public class BaihocAdapter extends RecyclerView.Adapter<BaihocAdapter.LessonView
     public int getItemCount() {
         return danhSachBaiHoc.size();
     }
-
-    // ViewHolder - Đổi tên biến thành tiếng Việt
     public static class LessonViewHolder extends RecyclerView.ViewHolder {
-        TextView nhanLoai; // typeLabel cũ
-        TextView tieuDe;   // title cũ
-        TextView capDo;    // level cũ
-        TextView thoiGian; // time cũ
-
+        TextView nhanLoai;
+        TextView tieuDe;
+        TextView capDo;
+        TextView thoiGian;
         public LessonViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Ánh xạ View (ID giữ nguyên theo file XML của bạn)
-            nhanLoai = itemView.findViewById(R.id.lesson_type_label);
-            tieuDe = itemView.findViewById(R.id.lesson_title);
-            capDo = itemView.findViewById(R.id.lesson_level);
-            thoiGian = itemView.findViewById(R.id.lesson_time);
+            // Ánh xạ View
+            nhanLoai = itemView.findViewById(R.id.tv_loai_bai_hoc);
+            tieuDe = itemView.findViewById(R.id.tv_tieu_de_bai_hoc);
+            capDo = itemView.findViewById(R.id.tv_cap_do);
+            thoiGian = itemView.findViewById(R.id.tv_thoi_gian);
         }
     }
 }

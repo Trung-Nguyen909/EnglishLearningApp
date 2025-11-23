@@ -1,10 +1,10 @@
 package com.example.englishlearningapp.Model;
 
-public class KyNang {
-    private String tenKyNang; // title
-    private int maHinhAnh;    // iconResId
+public class KyNangModel {
+    private String tenKyNang;
+    private int maHinhAnh;
 
-    public KyNang(String tenKyNang, int maHinhAnh) {
+    public KyNangModel(String tenKyNang, int maHinhAnh) {
         this.tenKyNang = tenKyNang;
         this.maHinhAnh = maHinhAnh;
     }

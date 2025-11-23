@@ -10,20 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.CauHoi;
+import com.example.englishlearningapp.Model.CauHoiModel;
 
 import java.util.List;
 
 public class CauHoiAdapter extends RecyclerView.Adapter<CauHoiAdapter.ViewHolder> {
 
-    private final List<CauHoi> danhSachCauHoi;
+    private final List<CauHoiModel> danhSachCauHoi;
     private final LangNgheSuKienChonDapAn suKienLangNghe;
 
     public interface LangNgheSuKienChonDapAn {
         void khiDapAnDuocChon(int maCauHoi, String dapAnDuocChon);
     }
 
-    public CauHoiAdapter(List<CauHoi> danhSachCauHoi, LangNgheSuKienChonDapAn suKienLangNghe) {
+    public CauHoiAdapter(List<CauHoiModel> danhSachCauHoi, LangNgheSuKienChonDapAn suKienLangNghe) {
         this.danhSachCauHoi = danhSachCauHoi;
         this.suKienLangNghe = suKienLangNghe;
     }
@@ -38,7 +38,7 @@ public class CauHoiAdapter extends RecyclerView.Adapter<CauHoiAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CauHoi cauHoi = danhSachCauHoi.get(position);
+        CauHoiModel cauHoi = danhSachCauHoi.get(position);
         holder.ganDuLieu(cauHoi);
     }
 
@@ -61,7 +61,7 @@ public class CauHoiAdapter extends RecyclerView.Adapter<CauHoiAdapter.ViewHolder
             khungChuaLuaChon = itemView.findViewById(R.id.options_container);
         }
 
-        public void ganDuLieu(CauHoi cauHoi) {
+        public void ganDuLieu(CauHoiModel cauHoi) {
             // SỬA Ở ĐÂY: Dùng get... thay vì lay...
             tvHuongDan.setText(cauHoi.getHuongDan());
             tvNoiDungCauHoi.setText(cauHoi.getNoiDung());

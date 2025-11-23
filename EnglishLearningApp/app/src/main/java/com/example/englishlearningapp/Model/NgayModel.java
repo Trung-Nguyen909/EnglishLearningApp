@@ -1,10 +1,10 @@
 package com.example.englishlearningapp.Model;
 
-public class Ngay {
+public class NgayModel {
     private String ngay;
     private String trangThai;
 
-    public Ngay(String ngay, String trangThai) {
+    public NgayModel(String ngay, String trangThai) {
         this.ngay = ngay;
         this.trangThai = trangThai;
     }

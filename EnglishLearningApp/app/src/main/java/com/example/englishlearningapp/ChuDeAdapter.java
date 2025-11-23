@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.ChuDePhu;
-import com.example.englishlearningapp.Model.ChuDe;
+import com.example.englishlearningapp.Model.ChuDePhuModel;
+import com.example.englishlearningapp.Model.ChuDeModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +26,9 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private final Context context;
     private final List<Object> danhSachHienThi = new ArrayList<>();
-    private final List<ChuDe> danhSachChuDeGoc;
+    private final List<ChuDeModel> danhSachChuDeGoc;
 
-    public ChuDeAdapter(Context context, List<ChuDe> danhSachChuDe) {
+    public ChuDeAdapter(Context context, List<ChuDeModel> danhSachChuDe) {
         this.context = context;
         this.danhSachChuDeGoc = danhSachChuDe;
         danhSachHienThi.addAll(danhSachChuDe);
@@ -36,7 +36,7 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
-        if (danhSachHienThi.get(position) instanceof ChuDe) return TYPE_CHU_DE;
+        if (danhSachHienThi.get(position) instanceof ChuDeModel) return TYPE_CHU_DE;
         else return TYPE_MUC_CON;
     }
 
@@ -60,7 +60,7 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (getItemViewType(position) == TYPE_CHU_DE) {
 
             // --- XỬ LÝ CHỦ ĐỀ (MỤC CHA) ---
-            ChuDe chuDe = (ChuDe) danhSachHienThi.get(position);
+            ChuDeModel chuDe = (ChuDeModel) danhSachHienThi.get(position);
             ChuDeViewHolder h = (ChuDeViewHolder) holder;
 
             h.tenChuDe.setText(chuDe.getTenChuDe());
@@ -112,7 +112,7 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         } else {
 
             // --- XỬ LÝ MỤC CON (BÀI HỌC) ---
-            ChuDePhu mucCon = (ChuDePhu) danhSachHienThi.get(position);
+            ChuDePhuModel mucCon = (ChuDePhuModel) danhSachHienThi.get(position);
             MucConViewHolder h = (MucConViewHolder) holder;
 
             h.tenMucCon.setText(mucCon.getTenChuDePhu());
@@ -127,7 +127,7 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             // >>> CLICK VÀO BÀI HỌC <<<
             h.itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(context, BaihocActivity.class);
+                Intent intent = new Intent(context, BaiHocActivity.class);
                 intent.putExtra("SUB_ITEM_ID", mucCon.getMaChuDePhu());
                 intent.putExtra("SUB_ITEM_NAME", mucCon.getTenChuDePhu());
                 context.startActivity(intent);

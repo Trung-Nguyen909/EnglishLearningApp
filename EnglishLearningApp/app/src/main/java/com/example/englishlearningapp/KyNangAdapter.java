@@ -8,19 +8,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.englishlearningapp.Model.KyNang;
+import com.example.englishlearningapp.Model.KyNangModel;
 import java.util.List;
 
 public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.KyNangViewHolder> {
 
     private Context boiCanh; // context
-    private List<KyNang> danhSachKyNang; // mList
+    private List<KyNangModel> danhSachKyNang; // mList
 
     // 1. Khai báo Interface để lắng nghe sự kiện (Tiếng Việt)
     private LangNgheSuKienClick nguoiLangNghe; // mListener
 
     public interface LangNgheSuKienClick {
-        void khiClickVaoItem(KyNang kyNang);
+        void khiClickVaoItem(KyNangModel kyNang);
     }
 
     // 2. Hàm để Fragment gọi set sự kiện
@@ -28,7 +28,7 @@ public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.KyNangView
         this.nguoiLangNghe = nguoiLangNghe;
     }
 
-    public KyNangAdapter(Context boiCanh, List<KyNang> danhSachKyNang) {
+    public KyNangAdapter(Context boiCanh, List<KyNangModel> danhSachKyNang) {
         this.boiCanh = boiCanh;
         this.danhSachKyNang = danhSachKyNang;
     }
@@ -42,7 +42,7 @@ public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.KyNangView
 
     @Override
     public void onBindViewHolder(@NonNull KyNangViewHolder holder, int position) {
-        KyNang kyNang = danhSachKyNang.get(position);
+        KyNangModel kyNang = danhSachKyNang.get(position);
         if (kyNang == null) return;
 
         // Sử dụng Getter tiếng Việt từ Model KyNang

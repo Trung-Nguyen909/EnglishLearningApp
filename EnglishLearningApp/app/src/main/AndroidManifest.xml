@@ -20,7 +20,7 @@
         <activity android:name=".TestResultActivity"/>
         <activity android:name=".ExerciseDetailActivity" />
         <activity android:name=".BaiTapNgheActivity" />
-        <activity android:name=".BaihocActivity" />
+        <activity android:name=".BaiHocActivity" />
         <activity android:name=".MainActivity"/>
         <activity
             android:name=".SplashActivity"

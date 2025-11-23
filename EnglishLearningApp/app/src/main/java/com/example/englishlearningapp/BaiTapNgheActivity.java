@@ -1,7 +1,6 @@
 package com.example.englishlearningapp;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,7 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.CauHoi;
+import com.example.englishlearningapp.Model.CauHoiModel;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -27,7 +26,7 @@ import java.util.Set;
 
 public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapter.LangNgheSuKienChonDapAn {
 
-    private List<CauHoi> danhSachCauHoi;
+    private List<CauHoiModel> danhSachCauHoi;
     private Button btnHoanThanh;
     private ProgressBar thanhTienTrinh;
     private TextView tvDemSoCauHoi;
@@ -237,11 +236,11 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
         }
     }
 
-    private List<CauHoi> taoCauHoiNghe() {
+    private List<CauHoiModel> taoCauHoiNghe() {
         return Arrays.asList(
-                new CauHoi(1, "Instruction: Listen and choose.", "Where are they going?", Arrays.asList("Cinema", "Museum", "Park", "School"), "Museum"),
-                new CauHoi(2, "Instruction: Listen to detail.", "What time is it?", Arrays.asList("7:00", "7:30", "8:00", "9:00"), "7:30"),
-                new CauHoi(3, "Instruction: Inferring.", "How does the man feel?", Arrays.asList("Happy", "Sad", "Angry", "Tired"), "Happy")
+                new CauHoiModel(1, "Instruction: Listen and choose.", "Where are they going?", Arrays.asList("Cinema", "Museum", "Park", "School"), "Museum"),
+                new CauHoiModel(2, "Instruction: Listen to detail.", "What time is it?", Arrays.asList("7:00", "7:30", "8:00", "9:00"), "7:30"),
+                new CauHoiModel(3, "Instruction: Inferring.", "How does the man feel?", Arrays.asList("Happy", "Sad", "Angry", "Tired"), "Happy")
         );
     }
 

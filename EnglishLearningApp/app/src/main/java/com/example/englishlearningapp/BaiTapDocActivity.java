@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.CauHoi;
+import com.example.englishlearningapp.Model.CauHoiModel;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -20,7 +20,7 @@ import java.util.Set;
 
 public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapter.LangNgheSuKienChonDapAn {
 
-    private List<CauHoi> danhSachCauHoi;
+    private List<CauHoiModel> danhSachCauHoi;
     private Button btnHoanThanh;
     private ProgressBar thanhTienTrinh;
     private TextView tvDemSoCauHoi;
@@ -36,7 +36,7 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_baitap);
+        setContentView(R.layout.activity_bai_tap_doc);
 
         // 1. NHẬN LEVEL TỪ MÀN HÌNH TRƯỚC
         if (getIntent() != null) {
@@ -134,18 +134,18 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
         }
     }
 
-    private List<CauHoi> taoCauHoi() {
+    private List<CauHoiModel> taoCauHoi() {
         return Arrays.asList(
-                new CauHoi(1, "Choose the correct word to complete the sentence:", "She ____ to the store yesterday.", Arrays.asList("go", "goes", "went", "going"), "went"),
-                new CauHoi(2, "Vocabulary: Choose the word with the opposite meaning.", "The word 'difficult' is the opposite of ____.", Arrays.asList("hard", "easy", "long", "bad"), "easy"),
-                new CauHoi(3, "Grammar: Present Continuous tense", "She ____ dinner right now.", Arrays.asList("cooks", "is cooking", "cook", "was cooking"), "is cooking"),
-                new CauHoi(4, "Communication: What is the polite way to ask for help?", "You say: ____", Arrays.asList("Help me!", "Give me that!", "Could you help me, please?", "You must help me!"), "Could you help me, please?"),
-                new CauHoi(5, "Vocabulary: Choose the correct meaning.", "The word 'improve' means ____.", Arrays.asList("làm tệ hơn", "cải thiện", "phá hỏng", "bắt đầu"), "cải thiện"),
-                new CauHoi(6, "Grammar: Choose the correct past tense form.", "They ____ a movie last night.", Arrays.asList("watch", "watched", "watching", "watches"), "watched"),
-                new CauHoi(7, "Pronunciation: Which word has a different vowel sound?", "Choose the odd one out.", Arrays.asList("beat", "seat", "great", "heat"), "great"),
-                new CauHoi(8, "Vocabulary: Choose the correct preposition.", "I am interested ____ learning English.", Arrays.asList("on", "in", "with", "to"), "in"),
-                new CauHoi(9, "Reading: Choose the best answer.", "‘I usually study English in the evening.’ What does ‘usually’ mean?", Arrays.asList("luôn luôn", "thỉnh thoảng", "thường xuyên", "hiếm khi"), "thường xuyên"),
-                new CauHoi(10, "Grammar: Articles", "She bought ____ umbrella yesterday.", Arrays.asList("a", "an", "the", "no article"), "an")
+                new CauHoiModel(1, "Choose the correct word to complete the sentence:", "She ____ to the store yesterday.", Arrays.asList("go", "goes", "went", "going"), "went"),
+                new CauHoiModel(2, "Vocabulary: Choose the word with the opposite meaning.", "The word 'difficult' is the opposite of ____.", Arrays.asList("hard", "easy", "long", "bad"), "easy"),
+                new CauHoiModel(3, "Grammar: Present Continuous tense", "She ____ dinner right now.", Arrays.asList("cooks", "is cooking", "cook", "was cooking"), "is cooking"),
+                new CauHoiModel(4, "Communication: What is the polite way to ask for help?", "You say: ____", Arrays.asList("Help me!", "Give me that!", "Could you help me, please?", "You must help me!"), "Could you help me, please?"),
+                new CauHoiModel(5, "Vocabulary: Choose the correct meaning.", "The word 'improve' means ____.", Arrays.asList("làm tệ hơn", "cải thiện", "phá hỏng", "bắt đầu"), "cải thiện"),
+                new CauHoiModel(6, "Grammar: Choose the correct past tense form.", "They ____ a movie last night.", Arrays.asList("watch", "watched", "watching", "watches"), "watched"),
+                new CauHoiModel(7, "Pronunciation: Which word has a different vowel sound?", "Choose the odd one out.", Arrays.asList("beat", "seat", "great", "heat"), "great"),
+                new CauHoiModel(8, "Vocabulary: Choose the correct preposition.", "I am interested ____ learning English.", Arrays.asList("on", "in", "with", "to"), "in"),
+                new CauHoiModel(9, "Reading: Choose the best answer.", "‘I usually study English in the evening.’ What does ‘usually’ mean?", Arrays.asList("luôn luôn", "thỉnh thoảng", "thường xuyên", "hiếm khi"), "thường xuyên"),
+                new CauHoiModel(10, "Grammar: Articles", "She bought ____ umbrella yesterday.", Arrays.asList("a", "an", "the", "no article"), "an")
         );
     }
 }

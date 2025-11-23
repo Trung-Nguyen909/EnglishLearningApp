@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".ExerciseActivity">
+    tools:context=".BaiHocActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header_layout"
+        android:id="@+id/khung_tieu_de"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/royalBlue"
@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
-            android:id="@+id/back_button"
+            android:id="@+id/nut_quay_lai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -35,23 +35,23 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/back_button"
+            app:layout_constraintStart_toEndOf="@id/nut_quay_lai"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/profile_section"
+        android:id="@+id/khung_thong_tin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:background="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/header_layout"
+        app:layout_constraintTop_toBottomOf="@id/khung_tieu_de"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:id="@+id/course_icon"
+            android:id="@+id/img_khoa_hoc"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:contentDescription="Icon Khóa học"
@@ -61,31 +61,31 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/course_title"
+            android:id="@+id/tv_tieu_de_khoa_hoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Family Member"
+            android:text="Thành viên gia đình"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/royalBlue"
             android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@id/course_icon"
-            app:layout_constraintTop_toTopOf="@id/course_icon" />
+            app:layout_constraintStart_toEndOf="@id/img_khoa_hoc"
+            app:layout_constraintTop_toTopOf="@id/img_khoa_hoc" />
 
         <TextView
-            android:id="@+id/course_details"
+            android:id="@+id/tv_chi_tiet_khoa_hoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Level: Easy | Complete: 0/6"
+            android:text="Cấp độ: Dễ | Hoàn thành: 0/6"
             android:textSize="14sp"
             android:textColor="@color/royalBlue"
-            app:layout_constraintStart_toStartOf="@id/course_title"
-            app:layout_constraintTop_toBottomOf="@id/course_title" />
+            app:layout_constraintStart_toStartOf="@id/tv_tieu_de_khoa_hoc"
+            app:layout_constraintTop_toBottomOf="@id/tv_tieu_de_khoa_hoc" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lessons_recycler_view"
+        android:id="@+id/rcv_danh_sach_bai_hoc"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
@@ -95,8 +95,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_section"
+        app:layout_constraintTop_toBottomOf="@id/khung_thong_tin"
         app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/item_exercise" />
+        tools:listitem="@layout/item_bai_hoc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

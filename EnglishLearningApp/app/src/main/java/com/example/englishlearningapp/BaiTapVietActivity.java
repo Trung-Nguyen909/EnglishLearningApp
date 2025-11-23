@@ -8,18 +8,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.Interface.LangNgheSuKien;
-import com.example.englishlearningapp.Model.CauHoi;
+import com.example.englishlearningapp.Model.CauHoiModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +26,7 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
     private ImageButton nutQuayLai;
     private ProgressBar thanhTienDo;
     private TextView tvDemCau, tvPhanTram;
-    private List<CauHoi> danhSachCauHoi;
+    private List<CauHoiModel> danhSachCauHoi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +61,11 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
     private void khoiTaoDuLieu() {
         danhSachCauHoi = new ArrayList<>();
         // Constructor 4 tham số: id, huongDan, noiDung, dapAnGoiY
-        danhSachCauHoi.add(new CauHoi(1, "Câu 1", "Describe your daily routine.", ""));
-        danhSachCauHoi.add(new CauHoi(2, "Câu 2", "What is your favorite food?", ""));
-        danhSachCauHoi.add(new CauHoi(3, "Câu 3", "Write about your last holiday.", ""));
-        danhSachCauHoi.add(new CauHoi(4, "Câu 4", "Why do you learn English?", ""));
-        danhSachCauHoi.add(new CauHoi(5, "Câu 5", "Describe your best friend.", ""));
+        danhSachCauHoi.add(new CauHoiModel(1, "Câu 1", "Describe your daily routine.", ""));
+        danhSachCauHoi.add(new CauHoiModel(2, "Câu 2", "What is your favorite food?", ""));
+        danhSachCauHoi.add(new CauHoiModel(3, "Câu 3", "Write about your last holiday.", ""));
+        danhSachCauHoi.add(new CauHoiModel(4, "Câu 4", "Why do you learn English?", ""));
+        danhSachCauHoi.add(new CauHoiModel(5, "Câu 5", "Describe your best friend.", ""));
 
         BaiTapVietAdapter adapter = new BaiTapVietAdapter(danhSachCauHoi, this);
         rcvDanhSachCauHoi.setLayoutManager(new LinearLayoutManager(this));
@@ -88,7 +83,7 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
         int soCauDaLam = 0;
         int tongSoCau = danhSachCauHoi.size();
 
-        for (CauHoi cauHoi : danhSachCauHoi) {
+        for (CauHoiModel cauHoi : danhSachCauHoi) {
             if (cauHoi.getDapAnDaChon() != null && !cauHoi.getDapAnDaChon().trim().isEmpty()) {
                 soCauDaLam++;
             }
@@ -125,7 +120,7 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
 
         // Tính toán số câu đã làm
         int completedCount = 0;
-        for (CauHoi q : danhSachCauHoi) {
+        for (CauHoiModel q : danhSachCauHoi) {
             if (q.getDapAnDaChon() != null && !q.getDapAnDaChon().trim().isEmpty()) {
                 completedCount++;
             }
