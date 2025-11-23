@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-public class Kiemtra_Fragment extends Fragment {
+public class KiemTraFragment extends Fragment {
 
     private ImageView btnBack;
     private LinearLayout btnBasic, btnMedium, btnAdvanced;

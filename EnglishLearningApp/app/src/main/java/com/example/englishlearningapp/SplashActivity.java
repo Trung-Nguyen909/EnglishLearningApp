@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                Intent intent = new Intent(SplashActivity.this, DangNhapActivity.class);
                 startActivity(intent);
                 finish(); // đóng SplashActivity để không quay lại khi bấm Back
             }

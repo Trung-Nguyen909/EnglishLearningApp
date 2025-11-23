@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnLessons.setOnClickListener(v -> {
-            loadFragment(new Khoahoc_Fragment());
+            loadFragment(new KhoaHocFragment());
             updateBottomNavUI(btnLessons, iconLessons, dotLessons);
         });
 

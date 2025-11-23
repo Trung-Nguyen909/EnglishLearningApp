@@ -23,7 +23,7 @@
             android:padding="20dp">
 
             <TextView
-                android:id="@+id/instruction_text"
+                android:id="@+id/tv_huong_dan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Choose the correct word to complete the sentence:"
@@ -33,7 +33,7 @@
                 android:layout_marginBottom="16dp" />
 
             <TextView
-                android:id="@+id/question_sentence_text"
+                android:id="@+id/tv_noi_dung_cau_hoi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="She ____ to the store yesterday."
@@ -44,7 +44,7 @@
                 android:layout_marginBottom="24dp" />
 
             <LinearLayout
-                android:id="@+id/options_container"
+                android:id="@+id/khung_chua_lua_chon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"/>

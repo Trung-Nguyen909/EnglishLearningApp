@@ -36,7 +36,7 @@ public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.KyNangView
     @NonNull
     @Override
     public KyNangViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_kynang, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ky_nang, parent, false);
         return new KyNangViewHolder(view);
     }
 

@@ -63,7 +63,7 @@
             android:layout_marginBottom="12dp"/>
 
         <EditText
-            android:id="@+id/et_cau_tra_loi"
+            android:id="@+id/edt_cau_tra_loi"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@drawable/option_selected_bg"

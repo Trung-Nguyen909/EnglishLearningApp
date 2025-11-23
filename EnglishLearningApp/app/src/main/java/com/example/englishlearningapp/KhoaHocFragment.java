@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Khoahoc_Fragment extends Fragment {
+public class KhoaHocFragment extends Fragment {
 
     private RecyclerView recyclerView;
     // 1. Khai báo biến cho nút "Kiểm tra"
@@ -57,7 +57,7 @@ public class Khoahoc_Fragment extends Fragment {
 
                     // Thay thế màn hình hiện tại bằng TestFragment
                     // R.id.frame_container là cái khung trong MainActivity
-                    transaction.replace(R.id.frame_container, new Kiemtra_Fragment());
+                    transaction.replace(R.id.frame_container, new KiemTraFragment());
 
                     // Cho phép bấm nút Back để quay lại màn hình Khóa học
                     transaction.addToBackStack(null);

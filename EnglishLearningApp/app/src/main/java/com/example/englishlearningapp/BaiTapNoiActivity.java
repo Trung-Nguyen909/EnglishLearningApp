@@ -17,128 +17,126 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.SpeakingQuestion;
+import com.example.englishlearningapp.Model.CauHoiNoiModel;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class BaiTapNoiActivity extends AppCompatActivity {
-
-    private ImageButton btnBack;
-    private TextView tvTimer, tvQuestionCounter, tvProgressPercentage;
-    private ProgressBar progressBar;
-    private RecyclerView rvSpeakingQuestions;
+    private ImageButton nutQuayLai;
+    private TextView tvDongHo, tvDemSoCau, tvPhanTramTienTrinh;
+    private ProgressBar thanhTienTrinh;
+    private RecyclerView rcvCauHoiNoi;
     private Button btnHoanThanh;
+    private BaiTapNoiAdapter adapterNoi;
+    private List<CauHoiNoiModel> danhSachCauHoi;
+    private TextToSpeech mayDoc;
 
-    // Logic Variables
-    private SpeakingAdapter adapter;
-    private List<SpeakingQuestion> questionList;
-    private TextToSpeech textToSpeech;
-
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private Handler boXuLy = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bai_tap_noi);
 
-        initViews();
-        createDummyData();
-        setupAdapter();
-        setupTextToSpeech();
+        anhXaView();
+        taoDuLieuGia();
+        caiDatAdapter();
+        caiDatMayDoc();
 
-        updateProgress();
+        capNhatTienDo();
     }
 
-    private void initViews() {
-        btnBack = findViewById(R.id.btn_back);
-        tvTimer = findViewById(R.id.tv_timer);
-        tvQuestionCounter = findViewById(R.id.tv_question_counter);
-        tvProgressPercentage = findViewById(R.id.tv_progress_percentage);
-        progressBar = findViewById(R.id.progress_bar);
-        rvSpeakingQuestions = findViewById(R.id.rv_speaking_questions);
+    private void anhXaView() {
+        nutQuayLai = findViewById(R.id.nut_quay_lai);
+        tvDongHo = findViewById(R.id.tv_dong_ho);
+        tvDemSoCau = findViewById(R.id.tv_dem_so_cau);
+        tvPhanTramTienTrinh = findViewById(R.id.tv_phan_tram_tien_trinh);
+        thanhTienTrinh = findViewById(R.id.thanh_tien_trinh);
+        rcvCauHoiNoi = findViewById(R.id.rcv_cau_hoi_noi);
         btnHoanThanh = findViewById(R.id.btn_hoan_thanh);
 
-        rvSpeakingQuestions.setLayoutManager(new LinearLayoutManager(this));
+        rcvCauHoiNoi.setLayoutManager(new LinearLayoutManager(this));
 
-        tvTimer.setText("00:20");
+        tvDongHo.setText("00:20");
 
-        btnBack.setOnClickListener(v -> finish());
+        nutQuayLai.setOnClickListener(v -> finish());
 
         btnHoanThanh.setOnClickListener(v -> {
             chuyenSangTrangKetQua();
         });
     }
 
-    private void createDummyData() {
-        questionList = new ArrayList<>();
-        questionList.add(new SpeakingQuestion("Good morning"));
-        questionList.add(new SpeakingQuestion("How are you?"));
-        questionList.add(new SpeakingQuestion("I like learning English"));
-        questionList.add(new SpeakingQuestion("What is your name?"));
-        questionList.add(new SpeakingQuestion("Nice to meet you"));
+    private void taoDuLieuGia() {
+        danhSachCauHoi = new ArrayList<>();
+        danhSachCauHoi.add(new CauHoiNoiModel("Good morning"));
+        danhSachCauHoi.add(new CauHoiNoiModel("How are you?"));
+        danhSachCauHoi.add(new CauHoiNoiModel("I like learning English"));
+        danhSachCauHoi.add(new CauHoiNoiModel("What is your name?"));
+        danhSachCauHoi.add(new CauHoiNoiModel("Nice to meet you"));
     }
 
-    private void setupAdapter() {
-        adapter = new SpeakingAdapter(this, questionList, new SpeakingAdapter.OnItemClickListener() {
+    private void caiDatAdapter() {
+        adapterNoi = new BaiTapNoiAdapter(this, danhSachCauHoi, new BaiTapNoiAdapter.LangNgheSuKienItem() {
             @Override
-            public void onRecordClick(int position) {
-                simulateRecording(position);
+            public void khiAnGhiAm(int viTri) {
+                giaLapGhiAm(viTri);
             }
 
             @Override
-            public void onListenClick(String text) {
-                speakText(text);
+            public void khiAnNghe(String noiDung) {
+                docVanBan(noiDung);
             }
         });
-        rvSpeakingQuestions.setAdapter(adapter);
+        rcvCauHoiNoi.setAdapter(adapterNoi);
     }
 
     // --- HÀM GIẢ LẬP GHI ÂM 3 GIÂY ---
-    private void simulateRecording(int position) {
+    private void giaLapGhiAm(int viTri) {
         Toast.makeText(this, "Đang ghi âm...", Toast.LENGTH_SHORT).show();
 
-        handler.postDelayed(new Runnable() {
+        boXuLy.postDelayed(new Runnable() {
             @Override
             public void run() {
-                completeQuestion(position);
+                hoanThanhCauHoi(viTri);
             }
         }, 3000);
     }
 
-    private void completeQuestion(int position) {
-        if (position >= 0 && position < questionList.size()) {
-            SpeakingQuestion question = questionList.get(position);
+    private void hoanThanhCauHoi(int viTri) {
+        if (viTri >= 0 && viTri < danhSachCauHoi.size()) {
+            CauHoiNoiModel cauHoi = danhSachCauHoi.get(viTri);
 
-            question.setUserAnswer(question.getSentence());
-            question.setCorrect(true);
+            // Giả lập: Người dùng nói đúng câu mẫu
+            cauHoi.setDapAnNguoiDung(cauHoi.getCauMau());
+            cauHoi.setChinhXac(true);
 
-            adapter.notifyItemChanged(position);
+            adapterNoi.notifyItemChanged(viTri);
 
-            updateProgress();
+            capNhatTienDo();
 
             Toast.makeText(this, "Đã xác nhận đúng!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void updateProgress() {
-        int total = questionList.size();
-        int completed = 0;
-        for (SpeakingQuestion q : questionList) {
-            if (q.isCorrect()) {
-                completed++;
+    private void capNhatTienDo() {
+        int tongSoCau = danhSachCauHoi.size();
+        int soCauHoanThanh = 0;
+        for (CauHoiNoiModel q : danhSachCauHoi) {
+            if (q.isChinhXac()) {
+                soCauHoanThanh++;
             }
         }
 
         // Cập nhật ProgressBar
-        int percent = (total > 0) ? (int) (((float) completed / total) * 100) : 0;
-        progressBar.setProgress(percent);
-        tvProgressPercentage.setText(percent + "%");
-        tvQuestionCounter.setText("Câu " + completed + "/" + total + " hoàn thành");
+        int phanTram = (tongSoCau > 0) ? (int) (((float) soCauHoanThanh / tongSoCau) * 100) : 0;
+        thanhTienTrinh.setProgress(phanTram);
+        tvPhanTramTienTrinh.setText(phanTram + "%");
+        tvDemSoCau.setText("Câu " + soCauHoanThanh + "/" + tongSoCau + " hoàn thành");
 
         // Logic nút Hoàn thành
-        if (completed == total) {
+        if (soCauHoanThanh == tongSoCau) {
             btnHoanThanh.setEnabled(true);
             btnHoanThanh.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4169E1")));
         } else {
@@ -148,47 +146,47 @@ public class BaiTapNoiActivity extends AppCompatActivity {
     }
 
     // --- MÁY ĐỌC (TTS) ---
-    private void setupTextToSpeech() {
-        textToSpeech = new TextToSpeech(this, status -> {
-            if (status == TextToSpeech.SUCCESS) {
-                textToSpeech.setLanguage(Locale.US);
+    private void caiDatMayDoc() {
+        mayDoc = new TextToSpeech(this, trangThai -> {
+            if (trangThai == TextToSpeech.SUCCESS) {
+                mayDoc.setLanguage(Locale.US);
             }
         });
     }
 
-    private void speakText(String text) {
-        if (textToSpeech != null) {
-            textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+    private void docVanBan(String noiDung) {
+        if (mayDoc != null) {
+            mayDoc.speak(noiDung, TextToSpeech.QUEUE_FLUSH, null, null);
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (textToSpeech != null) {
-            textToSpeech.stop();
-            textToSpeech.shutdown();
+        if (mayDoc != null) {
+            mayDoc.stop();
+            mayDoc.shutdown();
         }
         // Xóa các luồng đếm giờ nếu thoát app đột ngột
-        handler.removeCallbacksAndMessages(null);
+        boXuLy.removeCallbacksAndMessages(null);
     }
+
     private void chuyenSangTrangKetQua() {
         Intent intent = new Intent(BaiTapNoiActivity.this, TestResultActivity.class);
 
-        // Tính số câu đúng (Dựa trên thuộc tính isCorrect của SpeakingQuestion)
-        int correctCount = 0;
-        for (SpeakingQuestion q : questionList) {
-            if (q.isCorrect()) {
-                correctCount++;
+        // Tính số câu đúng
+        int soCauDung = 0;
+        for (CauHoiNoiModel q : danhSachCauHoi) {
+            if (q.isChinhXac()) {
+                soCauDung++;
             }
         }
 
         // Truyền dữ liệu sang màn hình kết quả
-        // Lưu ý: Đảm bảo các biến static EXTRA_... bên TestResultActivity là public
-        intent.putExtra(TestResultActivity.EXTRA_CORRECT_ANSWERS, correctCount);
-        intent.putExtra(TestResultActivity.EXTRA_TOTAL_QUESTIONS, questionList.size());
-        intent.putExtra(TestResultActivity.EXTRA_TIME_SPENT, 0); // Thời gian tạm để 0
-        intent.putExtra(TestResultActivity.EXTRA_TOPIC, "Speaking"); // Đổi chủ đề thành Speaking
+        intent.putExtra(TestResultActivity.EXTRA_CORRECT_ANSWERS, soCauDung);
+        intent.putExtra(TestResultActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
+        intent.putExtra(TestResultActivity.EXTRA_TIME_SPENT, 0);
+        intent.putExtra(TestResultActivity.EXTRA_TOPIC, "Speaking");
 
         // Lấy level từ Intent cũ chuyển sang (nếu có)
         String level = getIntent().getStringExtra("SELECTED_LEVEL");

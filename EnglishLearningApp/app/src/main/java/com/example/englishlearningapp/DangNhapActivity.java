@@ -7,17 +7,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class LoginActivity extends AppCompatActivity {
+public class DangNhapActivity extends AppCompatActivity {
     Button btnDangKy, btnDangNhapTC;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_dang_nhap);
         btnDangKy = findViewById(R.id.btnDangKy);
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent intent = new Intent(DangNhapActivity.this, DangKyActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         btnDangNhapTC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -64,7 +64,7 @@ public class TrangChuFragment extends Fragment {
                 String tenKyNang = kyNang.getTenKyNang();
 
                 // 1. Tạo Fragment
-                Kiemtra_Fragment kiemtraFragment = new Kiemtra_Fragment();
+                KiemTraFragment kiemtraFragment = new KiemTraFragment();
 
                 // 2. Đóng gói dữ liệu để gửi sang Fragment kia
                 Bundle goiDuLieu = new Bundle();

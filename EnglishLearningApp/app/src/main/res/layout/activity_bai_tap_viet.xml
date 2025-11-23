@@ -10,15 +10,16 @@
     android:fitsSystemWindows="true">
 
     <RelativeLayout
-        android:id="@+id/header_layout"
+        android:id="@+id/khung_tieu_de"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
+
         <ImageButton
-            android:id="@+id/btn_back"
+            android:id="@+id/nut_quay_lai"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_centerVertical="true"
@@ -28,19 +29,19 @@
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <TextView
-            android:id="@+id/tv_header_title"
+            android:id="@+id/tv_tieu_de_man_hinh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bài kiểm tra viết"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/royalBlue"
-            android:layout_toEndOf="@id/btn_back"
+            android:layout_toEndOf="@id/nut_quay_lai"
             android:layout_marginStart="16dp"
             android:layout_centerVertical="true"/>
 
         <LinearLayout
-            android:id="@+id/timer_layout"
+            android:id="@+id/khung_dong_ho"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -52,7 +53,7 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/iv_timer_icon"
+                android:id="@+id/img_icon_dong_ho"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_access_time_black_24dp"
@@ -60,7 +61,7 @@
                 android:layout_marginEnd="4dp"/>
 
             <TextView
-                android:id="@+id/tv_timer"
+                android:id="@+id/tv_dong_ho"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:06"
@@ -70,21 +71,23 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/progress_layout"
+        android:id="@+id/khung_thong_tin_tien_do"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
+
         <TextView
-            android:id="@+id/tv_question_counter"
+            android:id="@+id/tv_dem_so_cau"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Câu 1/2"
             android:textColor="#555"
             android:textSize="14sp"/>
+
         <TextView
-            android:id="@+id/tv_progress_percentage"
+            android:id="@+id/tv_phan_tram_tien_trinh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="50%"
@@ -94,7 +97,7 @@
     </RelativeLayout>
 
     <ProgressBar
-        android:id="@+id/progress_bar"
+        android:id="@+id/thanh_tien_trinh"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="6dp"
@@ -106,7 +109,7 @@
         android:layout_marginBottom="18dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/questions_recycler_view"
+        android:id="@+id/rcv_danh_sach_cau_hoi_viet"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

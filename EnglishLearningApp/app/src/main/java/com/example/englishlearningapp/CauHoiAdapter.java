@@ -56,13 +56,12 @@ public class CauHoiAdapter extends RecyclerView.Adapter<CauHoiAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
-            tvHuongDan = itemView.findViewById(R.id.instruction_text);
-            tvNoiDungCauHoi = itemView.findViewById(R.id.question_sentence_text);
-            khungChuaLuaChon = itemView.findViewById(R.id.options_container);
+            tvHuongDan = itemView.findViewById(R.id.tv_huong_dan);
+            tvNoiDungCauHoi = itemView.findViewById(R.id.tv_noi_dung_cau_hoi);
+            khungChuaLuaChon = itemView.findViewById(R.id.khung_chua_lua_chon);
         }
 
         public void ganDuLieu(CauHoiModel cauHoi) {
-            // SỬA Ở ĐÂY: Dùng get... thay vì lay...
             tvHuongDan.setText(cauHoi.getHuongDan());
             tvNoiDungCauHoi.setText(cauHoi.getNoiDung());
 
@@ -77,15 +76,12 @@ public class CauHoiAdapter extends RecyclerView.Adapter<CauHoiAdapter.ViewHolder
                 tvNoiDungLuaChon.setText(luaChon);
                 viewLuaChon.setBackgroundResource(R.drawable.option_background_selector);
 
-                // Dùng getDapAnDaChon()
                 radioNutChon.setChecked(luaChon.equals(cauHoi.getDapAnDaChon()));
 
                 viewLuaChon.setOnClickListener(v -> {
-                    // Dùng setDapAnDaChon()
                     danhSachCauHoi.get(getAdapterPosition()).setDapAnDaChon(luaChon);
 
                     if (suKienLangNghe != null) {
-                        // Dùng getMaCauHoi()
                         suKienLangNghe.khiDapAnDuocChon(cauHoi.getMaCauHoi(), luaChon);
                     }
                     notifyItemChanged(getAdapterPosition());

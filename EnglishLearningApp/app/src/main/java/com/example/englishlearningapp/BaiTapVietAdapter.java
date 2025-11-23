@@ -11,31 +11,34 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Interface.LangNgheSuKien;
 import com.example.englishlearningapp.Model.CauHoiModel;
 
 import java.util.List;
 
-public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.NguoiGiuView> {
+public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.BaiTapVietViewHolder> {
 
     private List<CauHoiModel> danhSachCauHoi;
-    private LangNgheSuKien nguoiLangNghe;
+    private LangNgheSuKienViet nguoiLangNghe;
 
-    public BaiTapVietAdapter(List<CauHoiModel> danhSach, LangNgheSuKien nguoiLangNghe) {
+    // 1. Định nghĩa Interface ngay trong Adapter (Giống BaiTapNoiAdapter)
+    public interface LangNgheSuKienViet {
+        void khiDapAnDuocChon(int maCauHoi, String dapAn);
+    }
+
+    public BaiTapVietAdapter(List<CauHoiModel> danhSach, LangNgheSuKienViet nguoiLangNghe) {
         this.danhSachCauHoi = danhSach;
         this.nguoiLangNghe = nguoiLangNghe;
     }
 
     @NonNull
     @Override
-    public NguoiGiuView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Gọi layout item_cau_hoi_viet
+    public BaiTapVietViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cau_hoi_viet, parent, false);
-        return new NguoiGiuView(view);
+        return new BaiTapVietViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NguoiGiuView holder, int position) {
+    public void onBindViewHolder(@NonNull BaiTapVietViewHolder holder, int position) {
         CauHoiModel cauHoi = danhSachCauHoi.get(position);
 
         // 1. Set hướng dẫn và nội dung câu hỏi
@@ -50,6 +53,9 @@ public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.Ng
         // Hiển thị lại đáp án cũ
         holder.etCauTraLoi.setText(cauHoi.getDapAnDaChon());
 
+        // Cập nhật số từ ban đầu
+        capNhatDemTu(holder, cauHoi.getDapAnDaChon());
+
         // 3. Tạo bộ theo dõi mới
         holder.boTheoDoiVanBan = new TextWatcher() {
             @Override
@@ -59,24 +65,34 @@ public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.Ng
 
             @Override
             public void afterTextChanged(Editable s) {
-                String vanBan = s.toString().trim();
+                String vanBan = s.toString(); // Không trim ngay để giữ trải nghiệm gõ
 
                 // Lưu vào model
                 cauHoi.setDapAnDaChon(vanBan);
 
                 // Cập nhật số từ
-                int soTu = vanBan.isEmpty() ? 0 : vanBan.split("\\s+").length;
-                holder.tvDemTu.setText("Số từ: " + soTu + " / 50-100 từ");
+                capNhatDemTu(holder, vanBan);
 
-                // Gửi sự kiện về Activity
-                if (!vanBan.isEmpty()) {
-                    nguoiLangNghe.khiDapAnDuocChon(cauHoi.getMaCauHoi(), vanBan);
-                } else {
-                    nguoiLangNghe.khiDapAnDuocChon(cauHoi.getMaCauHoi(), null);
+                // Gửi sự kiện về Activity (Trim khi gửi đi để check rỗng)
+                if (nguoiLangNghe != null) {
+                    if (!vanBan.trim().isEmpty()) {
+                        nguoiLangNghe.khiDapAnDuocChon(cauHoi.getMaCauHoi(), vanBan.trim());
+                    } else {
+                        nguoiLangNghe.khiDapAnDuocChon(cauHoi.getMaCauHoi(), null);
+                    }
                 }
             }
         };
         holder.etCauTraLoi.addTextChangedListener(holder.boTheoDoiVanBan);
+    }
+
+    private void capNhatDemTu(BaiTapVietViewHolder holder, String text) {
+        if (text == null || text.trim().isEmpty()) {
+            holder.tvDemTu.setText("Số từ: 0 / 50-100 từ");
+        } else {
+            int soTu = text.trim().split("\\s+").length;
+            holder.tvDemTu.setText("Số từ: " + soTu + " / 50-100 từ");
+        }
     }
 
     @Override
@@ -84,20 +100,17 @@ public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.Ng
         if (danhSachCauHoi != null) return danhSachCauHoi.size();
         return 0;
     }
-
-    // Class ViewHolder đổi tên thành Tiếng Việt: NguoiGiuView
-    public static class NguoiGiuView extends RecyclerView.ViewHolder {
+    public static class BaiTapVietViewHolder extends RecyclerView.ViewHolder {
         TextView tvHuongDan, tvNoiDung, tvDemTu;
         EditText etCauTraLoi;
         TextWatcher boTheoDoiVanBan;
 
-        public NguoiGiuView(@NonNull View itemView) {
+        public BaiTapVietViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Ánh xạ đúng ID tiếng Việt trong XML
             tvHuongDan = itemView.findViewById(R.id.tv_tieu_de_bai_tap);
             tvNoiDung = itemView.findViewById(R.id.tv_noi_dung_cau_hoi);
             tvDemTu = itemView.findViewById(R.id.tv_dem_tu);
-            etCauTraLoi = itemView.findViewById(R.id.et_cau_tra_loi);
+            etCauTraLoi = itemView.findViewById(R.id.edt_cau_tra_loi);
         }
     }
 }

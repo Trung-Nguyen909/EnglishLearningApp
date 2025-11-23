@@ -117,10 +117,6 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             h.tenMucCon.setText(mucCon.getTenChuDePhu());
 
-            // --- SỬA LỖI CRASH HÌNH ẢNH ---
-            // Bạn KHÔNG được dùng getMaChuDePhu() (vì nó trả về số 1, 2, 3...)
-            // Bạn PHẢI dùng getter trả về R.drawable... (Ví dụ: getIdHinhAnh() hoặc getIconResId())
-            // Hãy đảm bảo Model ChuDePhu của bạn có hàm getIdHinhAnh() trả về int resource
             h.iconMucCon.setImageResource(mucCon.getMaIcon());
 
             h.khungItem.setBackgroundColor(ContextCompat.getColor(context, R.color.sub_item_color));

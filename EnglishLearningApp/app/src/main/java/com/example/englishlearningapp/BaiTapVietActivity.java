@@ -13,13 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Interface.LangNgheSuKien;
 import com.example.englishlearningapp.Model.CauHoiModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuKien {
+public class BaiTapVietActivity extends AppCompatActivity implements BaiTapVietAdapter.LangNgheSuKienViet {
 
     private RecyclerView rcvDanhSachCauHoi;
     private Button nutHoanThanh;
@@ -37,12 +36,12 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
     }
 
     private void anhXaView() {
-        rcvDanhSachCauHoi = findViewById(R.id.questions_recycler_view);
+        rcvDanhSachCauHoi = findViewById(R.id.rcv_danh_sach_cau_hoi_viet);
         nutHoanThanh = findViewById(R.id.btn_hoan_thanh);
-        nutQuayLai = findViewById(R.id.btn_back);
-        thanhTienDo = findViewById(R.id.progress_bar);
-        tvDemCau = findViewById(R.id.tv_question_counter);
-        tvPhanTram = findViewById(R.id.tv_progress_percentage);
+        nutQuayLai = findViewById(R.id.nut_quay_lai);
+        thanhTienDo = findViewById(R.id.thanh_tien_trinh);
+        tvDemCau = findViewById(R.id.tv_dem_so_cau);
+        tvPhanTram = findViewById(R.id.tv_phan_tram_tien_trinh);
 
         if (nutQuayLai != null) {
             nutQuayLai.setOnClickListener(v -> finish());
@@ -51,16 +50,16 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
         if (nutHoanThanh != null) {
             nutHoanThanh.setText("Hoàn thành");
             nutHoanThanh.setEnabled(false);
-            nutHoanThanh.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E0E0E0")));
+            nutHoanThanh.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E0E0E0"))); // Màu xám
 
             nutHoanThanh.setOnClickListener(v -> {
                 chuyenSangTrangKetQua();
             });
         }
     }
+
     private void khoiTaoDuLieu() {
         danhSachCauHoi = new ArrayList<>();
-        // Constructor 4 tham số: id, huongDan, noiDung, dapAnGoiY
         danhSachCauHoi.add(new CauHoiModel(1, "Câu 1", "Describe your daily routine.", ""));
         danhSachCauHoi.add(new CauHoiModel(2, "Câu 2", "What is your favorite food?", ""));
         danhSachCauHoi.add(new CauHoiModel(3, "Câu 3", "Write about your last holiday.", ""));
@@ -92,26 +91,18 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
         thanhTienDo.setMax(danhSachCauHoi.size());
         thanhTienDo.setProgress(soCauDaLam);
 
-        // Chỉ cho phép nộp khi làm đủ tất cả câu hỏi
-        if (soCauDaLam == danhSachCauHoi.size()) {
-            nutHoanThanh.setEnabled(true);
-            nutHoanThanh.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4169E1")));
-        } else {
-            nutHoanThanh.setEnabled(false);
-            nutHoanThanh.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E0E0E0")));
-        }
         tvDemCau.setText("Câu " + soCauDaLam + "/" + tongSoCau);
 
-        int phanTram = (int) (((float) soCauDaLam / tongSoCau) * 100);
+        int phanTram = (tongSoCau > 0) ? (int) (((float) soCauDaLam / tongSoCau) * 100) : 0;
         tvPhanTram.setText(phanTram + "%");
 
-        // Logic nút Hoàn thành (giữ nguyên)
+        // Logic nút Hoàn thành
         if (soCauDaLam == tongSoCau) {
             nutHoanThanh.setEnabled(true);
-            nutHoanThanh.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4169E1")));
+            nutHoanThanh.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4169E1"))); // Màu xanh
         } else {
             nutHoanThanh.setEnabled(false);
-            nutHoanThanh.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E0E0E0")));
+            nutHoanThanh.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E0E0E0"))); // Màu xám
         }
     }
 
@@ -119,14 +110,14 @@ public class BaiTapVietActivity extends AppCompatActivity implements LangNgheSuK
         Intent intent = new Intent(BaiTapVietActivity.this, TestResultActivity.class);
 
         // Tính toán số câu đã làm
-        int completedCount = 0;
+        int soCauHoanThanh = 0;
         for (CauHoiModel q : danhSachCauHoi) {
             if (q.getDapAnDaChon() != null && !q.getDapAnDaChon().trim().isEmpty()) {
-                completedCount++;
+                soCauHoanThanh++;
             }
         }
 
-        intent.putExtra(TestResultActivity.EXTRA_CORRECT_ANSWERS, completedCount);
+        intent.putExtra(TestResultActivity.EXTRA_CORRECT_ANSWERS, soCauHoanThanh);
         intent.putExtra(TestResultActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
         intent.putExtra(TestResultActivity.EXTRA_TIME_SPENT, 0);
         intent.putExtra(TestResultActivity.EXTRA_TOPIC, "Writing");
