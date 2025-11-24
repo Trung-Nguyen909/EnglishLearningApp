@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="32dp"
-    android:layout_marginEnd="16dp"
     android:layout_marginBottom="8dp"
-    app:cardCornerRadius="32dp"
+    app:cardCornerRadius="12dp"
     app:cardElevation="0dp"
     android:clipToPadding="false"
     android:background="@android:color/transparent">
@@ -15,7 +14,6 @@
         android:id="@+id/linear_layout_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_boder_course"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="8dp">
@@ -24,7 +22,7 @@
             android:id="@+id/icon_category"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
             android:contentDescription="Sub Item Icon"
             android:scaleType="centerCrop"
             android:src="@drawable/img_ic_family" />
@@ -33,11 +31,11 @@
             android:id="@+id/text_category_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
+            android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:text="Sub Item"
-            android:textColor="#4169E1"
-            android:textSize="20sp"
+            android:textColor="@color/royalBlue"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

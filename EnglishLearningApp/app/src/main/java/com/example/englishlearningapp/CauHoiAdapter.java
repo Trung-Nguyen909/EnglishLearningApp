@@ -32,7 +32,7 @@ public class CauHoiAdapter extends RecyclerView.Adapter<CauHoiAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_question, parent, false);
+                .inflate(R.layout.item_cauhoi, parent, false);
         return new ViewHolder(view);
     }
 
@@ -68,7 +68,7 @@ public class CauHoiAdapter extends RecyclerView.Adapter<CauHoiAdapter.ViewHolder
             khungChuaLuaChon.removeAllViews();
 
             for (String luaChon : cauHoi.getCacLuaChon()) { // Dùng getCacLuaChon()
-                View viewLuaChon = LayoutInflater.from(context).inflate(R.layout.item_question_option, khungChuaLuaChon, false);
+                View viewLuaChon = LayoutInflater.from(context).inflate(R.layout.item_luachon_cauhoi, khungChuaLuaChon, false);
 
                 TextView tvNoiDungLuaChon = viewLuaChon.findViewById(R.id.option_text);
                 RadioButton radioNutChon = viewLuaChon.findViewById(R.id.option_radio);

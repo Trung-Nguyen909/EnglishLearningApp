@@ -79,16 +79,16 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
     }
 
     private void chuyenSangTrangKetQua() {
-        Intent intent = new Intent(BaiTapDocActivity.this, TestResultActivity.class);
+        Intent intent = new Intent(BaiTapDocActivity.this, KetQuaActivity.class);
 
         // Truyền số câu đã làm
-        intent.putExtra(TestResultActivity.EXTRA_CORRECT_ANSWERS, tapHopIdCauHoiDaTraLoi.size());
-        intent.putExtra(TestResultActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
-        intent.putExtra(TestResultActivity.EXTRA_TIME_SPENT, 0); // Thời gian tùy chọn
+        intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, tapHopIdCauHoiDaTraLoi.size());
+        intent.putExtra(KetQuaActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
+        intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, 0); // Thời gian tùy chọn
 
         // Gửi Topic và Level để biết đường quay lại
-        intent.putExtra(TestResultActivity.EXTRA_TOPIC, "Reading");
-        intent.putExtra(TestResultActivity.EXTRA_LEVEL, capDoHienTai);
+        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Reading");
+        intent.putExtra(KetQuaActivity.EXTRA_LEVEL, capDoHienTai);
 
         startActivity(intent);
         finish();

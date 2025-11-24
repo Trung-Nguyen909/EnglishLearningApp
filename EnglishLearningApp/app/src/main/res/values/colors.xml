@@ -11,9 +11,9 @@
     <color name="yellow_500">#D1B700</color>
     <color name="blue_500">#2196F3</color>
 
-    <color name="even_item_color">#DFF5FF</color>
-    <color name="odd_item_color">#FFFFFF</color>
-    <color name="sub_item_color">#BEE9FA</color>
+<!--    <color name="even_item_color">#DFF5FF</color>-->
+<!--    <color name="odd_item_color">#FFFFFF</color>-->
+    <color name="sub_item_color">#62EFF7FF</color>
 
     <color name="colorPrimary">#007AFF</color>
     <color name="colorGray">#CCCCCC</color>

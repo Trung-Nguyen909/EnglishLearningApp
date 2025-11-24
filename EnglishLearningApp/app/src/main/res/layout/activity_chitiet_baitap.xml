@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="@drawable/bg_gradient">
 
     <LinearLayout
         android:id="@+id/top_bar"
@@ -24,7 +24,7 @@
             android:src="@drawable/ic_arrow_back" /> <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back"
+        android:text="Quay lại"
         android:textColor="#2563EB"
         android:textSize="16sp"
         android:layout_marginStart="8dp"/>
@@ -75,7 +75,7 @@
                 android:paddingEnd="12dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
-                android:text="Vocabulary"
+                android:text="Từ vựng"
                 android:textColor="#0D47A1"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="Family Members"
+                    android:text="Thành viên trong gia đình"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -101,7 +101,7 @@
                     android:layout_marginTop="16dp"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
-                    android:text="Beginner"
+                    android:text="Người mới bắt đầu"
                     android:textColor="@android:color/white"
                     app:drawableStartCompat="@drawable/ic_beginner_level" app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_tieude" />
@@ -113,7 +113,7 @@
                     android:layout_marginStart="24dp"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
-                    android:text="10 min"
+                    android:text="10 phút"
                     android:textColor="@android:color/white"
                     app:drawableStartCompat="@drawable/ic_clock" app:layout_constraintBottom_toBottomOf="@id/text_beginner"
                     app:layout_constraintStart_toEndOf="@id/text_beginner"
@@ -130,7 +130,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Introduction"
+                    android:text="Giới thiệu"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Basic English vocabulary for describing family relationships."
+                    android:text="Từ vựng tiếng Anh cơ bản để mô tả mối quan hệ gia đình."
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
@@ -148,7 +148,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Key Points"
+                    android:text="
+Điểm chính"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -173,7 +174,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="Immediate family (father, mother...)"
+                        android:text="Immediate family (father, mother...) - Gia đình trực hệ (bố, mẹ...)"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -198,7 +199,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="Extended family (uncle, aunt...)"
+                        android:text="Extended family (uncle, aunt...) - Gia đình mở rộng (chú, dì...)"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -207,7 +208,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Examples"
+                    android:text="Ví dụ"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -223,7 +224,7 @@
                         android:id="@+id/tv_example_word"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Basic words"
+                        android:text="Giới thiệu công việc của bố"
                         android:textColor="#2563EB"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -248,7 +249,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Describing family"
+                        android:text="Miêu tả bà"
                         android:textColor="#2563EB"
                         android:textSize="16sp"
                         android:textStyle="bold" />

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F0F4F8">
+    android:background="@drawable/bg_gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:src="@drawable/ic_back"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Back Button"
-            app:tint="#4169E1" />
+            app:tint="@color/royalBlue" />
 
         <TextView
             android:layout_width="0dp"
@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:text="Chỉnh sửa thông tin"
-            android:textColor="#4169E1"
+            android:textColor="@color/royalBlue"
             android:gravity="center"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -41,7 +41,7 @@
             android:src="@drawable/ic_book"
             android:contentDescription="App Icon"
             android:layout_marginRight="15dp"
-            app:tint="#4169E1" />
+            app:tint="@color/royalBlue" />
     </LinearLayout>
 
     <ScrollView
@@ -234,15 +234,15 @@
                             android:textAllCaps="false"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            app:strokeColor="#4169E1"
-                            android:textColor="#4169E1"/>
+                            app:strokeColor="@color/royalBlue"
+                            android:textColor="@color/royalBlue"/>
                         <Button
                             android:id="@+id/btnSave"
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
                             android:text="Lưu"
-                            android:backgroundTint="#4169E1"
+                            android:backgroundTint="@color/royalBlue"
                             app:cornerRadius="99dp"
                             android:textAllCaps="false"
                             app:strokeColor="#FFFFFF"

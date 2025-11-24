@@ -5,23 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#F0F4F8">
+    android:background="@drawable/bg_gradient">
 
     <FrameLayout
         android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="#FFFFFF"
-        android:fitsSystemWindows="true">
+        android:background="#FFFFFF">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:text="Thông Tin Cá Nhân"
-            android:textColor="#4169E1"
+            android:text="Thông tin cá nhân"
+            android:textColor="@color/royalBlue"
             android:textSize="20sp"
             android:textStyle="bold" />
     </FrameLayout>
@@ -102,8 +101,8 @@
                         android:id="@+id/btnEdit"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:text="Chỉnh Sửa thông tin"
-                        android:backgroundTint="#4169E1"
+                        android:text="Chỉnh sửa thông tin"
+                        android:backgroundTint="@color/royalBlue"
                         app:cornerRadius="16dp"
                         android:textAllCaps="false"/>
                 </LinearLayout>
@@ -383,7 +382,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vocabulary"
+                            android:text="Từ vựng"
                             android:textColor="#555"
                             android:textStyle="bold"
                             android:layout_alignParentStart="true"/>
@@ -409,14 +408,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Grammar"
+                            android:text="Ngữ pháp"
                             android:textStyle="bold"
                             android:textColor="#555"
                             android:layout_alignParentStart="true"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="level 0/10"
+                            android:text="cấp 0/10"
                             android:textColor="#888"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
@@ -435,14 +434,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Listening"
+                            android:text="Nghe"
                             android:textStyle="bold"
                             android:textColor="#555"
                             android:layout_alignParentStart="true"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="level 0/10"
+                            android:text="cấp 0/10"
                             android:textColor="#888"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
@@ -461,14 +460,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Speaking"
+                            android:text="Đọc"
                             android:textStyle="bold"
                             android:textColor="#555"
                             android:layout_alignParentStart="true"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="level 0/10"
+                            android:text="cấp 0/10"
                             android:textColor="#888"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
@@ -518,7 +517,7 @@
                             android:layout_marginEnd="16dp"
                             android:padding="8dp"
                             android:src="@android:drawable/ic_menu_agenda"
-                            app:tint="#4169E1" />
+                            app:tint="@color/royalBlue" />
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -545,7 +544,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="+ 100"
-                            android:textColor="#4169E1" android:textSize="15sp"
+                            android:textColor="@color/royalBlue" android:textSize="15sp"
                             android:textStyle="bold"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true" />
@@ -565,7 +564,7 @@
                             android:layout_marginEnd="16dp"
                             android:padding="8dp"
                             android:src="@drawable/ic_complete"
-                            app:tint="#4169E1" />
+                            app:tint="@color/royalBlue" />
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -595,7 +594,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="+ 100"
-                            android:textColor="#4169E1"
+                            android:textColor="@color/royalBlue"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:layout_alignParentEnd="true"
@@ -615,7 +614,7 @@
                             android:layout_marginEnd="16dp"
                             android:padding="8dp"
                             android:src="@drawable/ic_bow"
-                            app:tint="#4169E1" />
+                            app:tint="@color/royalBlue" />
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -645,7 +644,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="+ 100"
-                            android:textColor="#4169E1"
+                            android:textColor="@color/royalBlue"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:layout_alignParentEnd="true"
@@ -769,7 +768,7 @@
                 android:textSize="16sp"
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/button_white"
-                android:textColor="#4169E1"
+                android:textColor="@color/royalBlue"
                 android:drawableStart="@drawable/ic_setting"
                 android:gravity="start|center_vertical"
                 android:drawablePadding="16dp"

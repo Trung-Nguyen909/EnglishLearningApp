@@ -42,17 +42,17 @@ public class TrangChuFragment extends Fragment {
             btnTiepTucHoc.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), BaiHocActivity.class);
                 intent.putExtra("SUB_ITEM_ID", 1);
-                intent.putExtra("SUB_ITEM_NAME", "Family Members");
+                intent.putExtra("SUB_ITEM_NAME", "Thành viên trong gia đình");
                 startActivity(intent);
             });
         }
 
         // --- XỬ LÝ PHẦN KỸ NĂNG (QUICK TEST) ---
         List<KyNangModel> danhSachKyNang = new ArrayList<>();
-        danhSachKyNang.add(new KyNangModel("Listening", R.drawable.ic_listening));
-        danhSachKyNang.add(new KyNangModel("Speaking", R.drawable.ic_speaking));
-        danhSachKyNang.add(new KyNangModel("Reading", R.drawable.ic_reading));
-        danhSachKyNang.add(new KyNangModel("Writing", R.drawable.ic_writing));
+        danhSachKyNang.add(new KyNangModel("Nghe", R.drawable.ic_listening));
+        danhSachKyNang.add(new KyNangModel("Nói", R.drawable.ic_speaking));
+        danhSachKyNang.add(new KyNangModel("Đọc", R.drawable.ic_reading));
+        danhSachKyNang.add(new KyNangModel("Viết", R.drawable.ic_writing));
 
         adapterKyNang = new KyNangAdapter(getContext(), danhSachKyNang);
 

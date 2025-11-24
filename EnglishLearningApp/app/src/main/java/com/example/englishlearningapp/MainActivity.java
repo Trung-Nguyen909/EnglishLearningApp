@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnExplore.setOnClickListener(v -> {
-            loadFragment(new ExerciseProgressFragment()); // Bỏ comment khi tạo Fragment này
+            loadFragment(new TienDoBaiTapFragment()); // Bỏ comment khi tạo Fragment này
             updateBottomNavUI(btnExplore, iconExplore, dotExplore);
         });
 
         btnProfile.setOnClickListener(v -> {
-            loadFragment(new ProfileFragment());
+            loadFragment(new HoSoFragment());
             updateBottomNavUI(btnProfile, iconProfile, dotProfile);
         });
     }

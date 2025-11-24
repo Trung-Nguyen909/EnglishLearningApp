@@ -172,7 +172,7 @@ public class BaiTapNoiActivity extends AppCompatActivity {
     }
 
     private void chuyenSangTrangKetQua() {
-        Intent intent = new Intent(BaiTapNoiActivity.this, TestResultActivity.class);
+        Intent intent = new Intent(BaiTapNoiActivity.this, KetQuaActivity.class);
 
         // Tính số câu đúng
         int soCauDung = 0;
@@ -183,14 +183,14 @@ public class BaiTapNoiActivity extends AppCompatActivity {
         }
 
         // Truyền dữ liệu sang màn hình kết quả
-        intent.putExtra(TestResultActivity.EXTRA_CORRECT_ANSWERS, soCauDung);
-        intent.putExtra(TestResultActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
-        intent.putExtra(TestResultActivity.EXTRA_TIME_SPENT, 0);
-        intent.putExtra(TestResultActivity.EXTRA_TOPIC, "Speaking");
+        intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, soCauDung);
+        intent.putExtra(KetQuaActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
+        intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, 0);
+        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Speaking");
 
         // Lấy level từ Intent cũ chuyển sang (nếu có)
         String level = getIntent().getStringExtra("SELECTED_LEVEL");
-        intent.putExtra(TestResultActivity.EXTRA_LEVEL, level != null ? level : "Basic");
+        intent.putExtra(KetQuaActivity.EXTRA_LEVEL, level != null ? level : "Basic");
 
         startActivity(intent);
         finish();

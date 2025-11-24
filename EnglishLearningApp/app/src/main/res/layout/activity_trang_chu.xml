@@ -142,14 +142,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Class"
+                            android:text="Lớp học"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="School Life"
+                            android:text="Cuộc sống học đường"
                             android:textColor="@color/royalBlue"
                             android:textSize="16sp"
                             android:textStyle="bold" />

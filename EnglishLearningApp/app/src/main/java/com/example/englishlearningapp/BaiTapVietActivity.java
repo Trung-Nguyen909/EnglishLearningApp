@@ -107,7 +107,7 @@ public class BaiTapVietActivity extends AppCompatActivity implements BaiTapVietA
     }
 
     private void chuyenSangTrangKetQua() {
-        Intent intent = new Intent(BaiTapVietActivity.this, TestResultActivity.class);
+        Intent intent = new Intent(BaiTapVietActivity.this, KetQuaActivity.class);
 
         // Tính toán số câu đã làm
         int soCauHoanThanh = 0;
@@ -117,13 +117,13 @@ public class BaiTapVietActivity extends AppCompatActivity implements BaiTapVietA
             }
         }
 
-        intent.putExtra(TestResultActivity.EXTRA_CORRECT_ANSWERS, soCauHoanThanh);
-        intent.putExtra(TestResultActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
-        intent.putExtra(TestResultActivity.EXTRA_TIME_SPENT, 0);
-        intent.putExtra(TestResultActivity.EXTRA_TOPIC, "Writing");
+        intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, soCauHoanThanh);
+        intent.putExtra(KetQuaActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
+        intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, 0);
+        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Writing");
 
         String level = getIntent().getStringExtra("SELECTED_LEVEL");
-        intent.putExtra(TestResultActivity.EXTRA_LEVEL, level != null ? level : "Basic");
+        intent.putExtra(KetQuaActivity.EXTRA_LEVEL, level != null ? level : "Basic");
 
         startActivity(intent);
         finish();

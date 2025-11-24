@@ -37,8 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="She ____ to the store yesterday."
-                android:textSize="22sp"
-                android:textColor="#333333"
+                android:textSize="20sp"
+                android:textColor="#000000"
                 android:padding="16dp"
                 android:background="@drawable/rounded_question_bg"
                 android:layout_marginBottom="24dp" />

@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.ChuDePhuModel;
-import com.example.englishlearningapp.Model.ChuDeModel;
+import com.example.englishlearningapp.Model.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,11 +45,11 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == TYPE_CHU_DE) {
             View view = LayoutInflater.from(context)
-                    .inflate(R.layout.item_category_row_course, parent, false);
+                    .inflate(R.layout.item_chude, parent, false);
             return new ChuDeViewHolder(view);
         } else {
             View view = LayoutInflater.from(context)
-                    .inflate(R.layout.item_sub_category_row, parent, false);
+                    .inflate(R.layout.item_chude_phu, parent, false);
             return new MucConViewHolder(view);
         }
     }
@@ -66,12 +66,12 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             h.tenChuDe.setText(chuDe.getTenChuDe());
             h.iconChuDe.setImageResource(chuDe.getIdIcon());
 
-            int indexChuDe = danhSachChuDeGoc.indexOf(chuDe);
-            int mauNen = (indexChuDe % 2 == 0)
-                    ? ContextCompat.getColor(context, R.color.even_item_color)
-                    : ContextCompat.getColor(context, R.color.odd_item_color);
-
-            h.khungItem.setBackgroundColor(mauNen);
+//            int indexChuDe = danhSachChuDeGoc.indexOf(chuDe);
+//            int mauNen = (indexChuDe % 2 == 0)
+//                    ? ContextCompat.getColor(context, R.color.even_item_color)
+//                    : ContextCompat.getColor(context, R.color.odd_item_color);
+//
+//            h.khungItem.setBackgroundColor(mauNen);
 
             // --- SỬA LỖI MỞ RỘNG TẠI ĐÂY ---
             // Nên cho phép bấm vào cả cái khung (khungItem) hoặc iconDropdown

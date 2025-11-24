@@ -17,8 +17,8 @@
         <activity android:name=".BaiTapDocActivity"/>
         <activity android:name=".DangNhapActivity" />
         <activity android:name=".DangKyActivity" />
-        <activity android:name=".TestResultActivity"/>
-        <activity android:name=".ExerciseDetailActivity" />
+        <activity android:name=".KetQuaActivity"/>
+        <activity android:name=".ChiTietBaiTapActivity" />
         <activity android:name=".BaiTapNgheActivity" />
         <activity android:name=".BaiHocActivity" />
         <activity android:name=".MainActivity"/>

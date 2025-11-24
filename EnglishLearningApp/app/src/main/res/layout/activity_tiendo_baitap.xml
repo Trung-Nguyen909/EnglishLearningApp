@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F0F4F8">
+    android:background="@drawable/bg_gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/transparent"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
 
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_back"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back"
-            app:tint="#4169E1" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/btn_back"-->
+<!--            android:layout_width="48dp"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:src="@drawable/ic_back"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--            android:contentDescription="Back"-->
+<!--            app:tint="#4169E1" />-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Exercise progress"
+            android:text="Tiến độ bài tập"
+
             android:textColor="#4169E1"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -72,14 +71,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Family"
+                        android:text="Gia đình"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="20 vocabulary words"
+                        android:text="20 từ vựng"
                         android:textColor="#888888"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -128,14 +127,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fruits &amp; Vegetables"
+                        android:text="Trái cây &amp; rau quả"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="24 vocabulary words"
+                        android:text="24 từ vựng"
                         android:textColor="#888888"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -179,14 +178,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Travel Destinations"
+                        android:text="Điểm đến du lịch"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="18 vocabulary words"
+                        android:text="18 từ vựng"
                         android:textColor="#888888"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -200,7 +199,7 @@
                     android:paddingEnd="8dp"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"
-                    android:text="Premium 👑"
+                    android:text="Nâng cấp 👑"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -230,14 +229,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Transportation"
+                        android:text="Vận tải"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15 vocabulary words"
+                        android:text="15 từ vựng"
                         android:textColor="#888888"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -250,7 +249,7 @@
                     android:paddingEnd="12dp"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="Premium 👑"
+                    android:text="Nâng cấp 👑"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     android:textStyle="bold"/>

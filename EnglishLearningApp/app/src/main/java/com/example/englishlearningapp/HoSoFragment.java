@@ -31,19 +31,19 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-public class ProfileFragment extends Fragment {
+public class HoSoFragment extends Fragment {
 
     Button btnEdit;
     AppCompatButton btnSettings;
 
-    public ProfileFragment() {
+    public HoSoFragment() {
         // Constructor rỗng
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_profile, container, false);
+        return inflater.inflate(R.layout.activity_hoso, container, false);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ProfileFragment extends Fragment {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditProfileFragment editProfileFragment = new EditProfileFragment();
+                ChinhSuaHoSoFragment editProfileFragment = new ChinhSuaHoSoFragment();
 
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
 
@@ -88,7 +88,7 @@ public class ProfileFragment extends Fragment {
     private void showSettingsDialog() {
         final Dialog dialog = new Dialog(requireContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_settings);
+        dialog.setContentView(R.layout.dialog_caidat);
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

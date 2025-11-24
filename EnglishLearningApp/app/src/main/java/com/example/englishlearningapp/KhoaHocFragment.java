@@ -12,8 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.ChuDePhuModel;
-import com.example.englishlearningapp.Model.ChuDeModel;
+import com.example.englishlearningapp.Model.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,51 +76,51 @@ public class KhoaHocFragment extends Fragment {
 
         // 1. Family (Các ID: 1, 2, 3)
         List<ChuDePhuModel> familySubs = Arrays.asList(
-                new ChuDePhuModel(1, "Family members", R.drawable.img_ic_family_member),
-                new ChuDePhuModel(2, "Daily activities", R.drawable.img_ic_family_activityday),
-                new ChuDePhuModel(3, "Relationship", R.drawable.img_ic_family_relative)
+                new ChuDePhuModel(1, "Thành viên trong gia đình", R.drawable.img_ic_family_member),
+                new ChuDePhuModel(2, "Hoạt động hằng ngày", R.drawable.img_ic_family_activityday),
+                new ChuDePhuModel(3, "Họ hàng", R.drawable.img_ic_family_relative)
         );
-        list.add(new ChuDeModel("Family", R.drawable.img_ic_family_course, familySubs));
+        list.add(new ChuDeModel("Gia đình", R.drawable.img_ic_family_course, familySubs));
 
         // 2. School Life (Các ID: 4, 5, 6)
         List<ChuDePhuModel> schoolSubs = Arrays.asList(
-                new ChuDePhuModel(4, "Class", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(5, "Teacher", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(6, "Homework", R.drawable.img_ic_family_course)
+                new ChuDePhuModel(4, "Lớp học", R.drawable.img_ic_family_course),
+                new ChuDePhuModel(5, "Giáo viên", R.drawable.img_ic_family_course),
+                new ChuDePhuModel(6, "Bài tập về nhà", R.drawable.img_ic_family_course)
         );
-        list.add(new ChuDeModel("School Life", R.drawable.img_ic_schoollife_course, schoolSubs));
+        list.add(new ChuDeModel("Cuộc sống học đường", R.drawable.img_ic_schoollife_course, schoolSubs));
 
         // 3. Food & Drink (Các ID: 7, 8, 9)
         List<ChuDePhuModel> foodSubs = Arrays.asList(
-                new ChuDePhuModel(7, "Fruits", R.drawable.img_ic_fruits),
-                new ChuDePhuModel(8, "Vegetables", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(9, "Drinks", R.drawable.img_ic_family_course)
+                new ChuDePhuModel(7, "Trái cây", R.drawable.img_ic_fruits),
+                new ChuDePhuModel(8, "Rau củ", R.drawable.img_ic_family_course),
+                new ChuDePhuModel(9, "Đồ ăn nhanh", R.drawable.img_ic_family_course)
         );
-        list.add(new ChuDeModel("Food & Drink", R.drawable.img_ic_fooddrink_course, foodSubs));
+        list.add(new ChuDeModel("Thức ăn & Đồ uống", R.drawable.img_ic_fooddrink_course, foodSubs));
 
         // 4. House & Home
         List<ChuDePhuModel> homeSubs = Arrays.asList(
-                new ChuDePhuModel(10, "Kitchen", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(11, "Bedroom", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(12, "Living Room", R.drawable.img_ic_family_course)
+                new ChuDePhuModel(10, "Phòng bếp", R.drawable.img_ic_family_course),
+                new ChuDePhuModel(11, "Phòng tắm", R.drawable.img_ic_family_course),
+                new ChuDePhuModel(12, "Phòng khách", R.drawable.img_ic_family_course)
         );
-        list.add(new ChuDeModel("House & Home", R.drawable.img_ic_househome_course, homeSubs));
+        list.add(new ChuDeModel("Nhà của tôi", R.drawable.img_ic_househome_course, homeSubs));
 
         // 5. Shopping
         List<ChuDePhuModel> shoppingSubs = Arrays.asList(
-                new ChuDePhuModel(13, "Clothes", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(14, "Shoes", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(15, "Accessories", R.drawable.img_ic_family_course)
+                new ChuDePhuModel(13, "Áo quần", R.drawable.img_ic_family_course),
+                new ChuDePhuModel(14, "Giày", R.drawable.img_ic_family_course),
+                new ChuDePhuModel(15, "Phụ kiện", R.drawable.img_ic_family_course)
         );
-        list.add(new ChuDeModel("Shopping", R.drawable.img_ic_shopping_course, shoppingSubs));
+        list.add(new ChuDeModel("Mua sắm", R.drawable.img_ic_shopping_course, shoppingSubs));
 
         // 6. Animal
         List<ChuDePhuModel> animalSubs = Arrays.asList(
-                new ChuDePhuModel(16, "Dog", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(17, "Cat", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(18, "Bird", R.drawable.img_ic_family_course)
+                new ChuDePhuModel(16, "Lớp thú", R.drawable.img_ic_family_course),
+                new ChuDePhuModel(17, "Lớp chim", R.drawable.img_ic_family_course),
+                new ChuDePhuModel(18, "Lớp bò sát", R.drawable.img_ic_family_course)
         );
-        list.add(new ChuDeModel("Animal", R.drawable.img_ic_animal_course, animalSubs));
+        list.add(new ChuDeModel("Động vật", R.drawable.img_ic_animal_course, animalSubs));
 
         return list;
     }

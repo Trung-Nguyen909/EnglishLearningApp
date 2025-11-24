@@ -15,20 +15,20 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
-public class EditProfileFragment extends Fragment {
+public class ChinhSuaHoSoFragment extends Fragment {
 
     // Khai báo biến (Chỉ giữ lại những nút CÓ trong XML hiện tại)
     Button btnCancel, btnSave;
     ImageButton btnBack;
 
-    public EditProfileFragment() {
+    public ChinhSuaHoSoFragment() {
         // Constructor rỗng
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_edit_profile, container, false);
+        return inflater.inflate(R.layout.activity_chinhsua_hoso, container, false);
     }
 
     @Override

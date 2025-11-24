@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 
-public class ExerciseDetailActivity extends AppCompatActivity {
+public class ChiTietBaiTapActivity extends AppCompatActivity {
 
     // Khai báo các biến giao diện (View)
     private TextView tvLoaiBai, tvTieuDe, tvCapDo, tvThoiGian;
@@ -22,7 +22,7 @@ public class ExerciseDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise_detail);
+        setContentView(R.layout.activity_chitiet_baitap);
 
         // 1. Ánh xạ các View
         anhXaView();
@@ -48,7 +48,7 @@ public class ExerciseDetailActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // Tạo Intent chuyển sang trang BaiTapActivity (Trắc nghiệm)
-                    Intent intent = new Intent(ExerciseDetailActivity.this, BaiTapDocActivity.class);
+                    Intent intent = new Intent(ChiTietBaiTapActivity.this, BaiTapDocActivity.class);
 
                     // Gửi kèm cấp độ (Ví dụ: Beginner) để trang bài tập biết load câu dễ hay khó
                     if (tvCapDo != null) {

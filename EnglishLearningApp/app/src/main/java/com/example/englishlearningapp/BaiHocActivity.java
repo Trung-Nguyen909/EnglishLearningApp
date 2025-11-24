@@ -64,7 +64,7 @@ public class BaiHocActivity extends AppCompatActivity {
             @Override
             public void khiAnVaoItem(BaiHocModel baiHoc) {
                 // Giữ nguyên logic: Chuyển sang ExerciseDetailActivity
-                Intent intentChiTiet = new Intent(BaiHocActivity.this, ExerciseDetailActivity.class);
+                Intent intentChiTiet = new Intent(BaiHocActivity.this, ChiTietBaiTapActivity.class);
 
                 // Gửi dữ liệu sang trang chi tiết
                 intentChiTiet.putExtra("TITLE", baiHoc.getTieuDe());

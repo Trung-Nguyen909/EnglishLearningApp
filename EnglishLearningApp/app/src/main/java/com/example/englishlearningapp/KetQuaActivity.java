@@ -7,7 +7,7 @@ import android.widget.Button; // Hoặc android.widget.AppCompatButton
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TestResultActivity extends AppCompatActivity {
+public class KetQuaActivity extends AppCompatActivity {
 
     // Khai báo các View
     private TextView tvdiem;
@@ -32,7 +32,7 @@ public class TestResultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_result);
+        setContentView(R.layout.activity_ketqua);
 
         initViews();
         loadResults();
@@ -90,22 +90,22 @@ public class TestResultActivity extends AppCompatActivity {
                 if (receivedTopic != null) {
                     switch (receivedTopic) {
                         case "Listening":
-                            intent = new Intent(TestResultActivity.this, BaiTapNgheActivity.class);
+                            intent = new Intent(KetQuaActivity.this, BaiTapNgheActivity.class);
                             break;
                         case "Speaking":
-                            intent = new Intent(TestResultActivity.this, BaiTapNoiActivity.class);
+                            intent = new Intent(KetQuaActivity.this, BaiTapNoiActivity.class);
                             break;
                         case "Writing":
-                            intent = new Intent(TestResultActivity.this, BaiTapVietActivity.class);
+                            intent = new Intent(KetQuaActivity.this, BaiTapVietActivity.class);
                             break;
                         case "Reading":
                         default:
-                            intent = new Intent(TestResultActivity.this, BaiTapDocActivity.class);
+                            intent = new Intent(KetQuaActivity.this, BaiTapDocActivity.class);
                             break;
                     }
                 } else {
                     // Fallback nếu không nhận được topic (Mặc định về bài đọc)
-                    intent = new Intent(TestResultActivity.this, BaiTapDocActivity.class);
+                    intent = new Intent(KetQuaActivity.this, BaiTapDocActivity.class);
                 }
 
                 if (intent != null) {
