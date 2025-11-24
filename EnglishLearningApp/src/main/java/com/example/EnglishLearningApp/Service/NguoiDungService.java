@@ -97,7 +97,7 @@ public class NguoiDungService {
         List<String> allowed = Arrays.asList(".png", ".jpg", ".jpeg", ".webp");
         if (!allowed.contains(extension)) throw new RuntimeException("File type not allowed");
 
-        String fileName = tokenUser.getID() + "_ava" + extension;
+        String fileName = tokenUser.getId() + "_ava" + extension;
         Path path = Paths.get("img_user/user_avatar", fileName);
         Files.createDirectories(path.getParent());
         Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);

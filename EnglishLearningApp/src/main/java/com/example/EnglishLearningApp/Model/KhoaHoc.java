@@ -1,26 +1,29 @@
 package com.example.EnglishLearningApp.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
-
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "KhoaHoc")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(toBuilder = true)
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 public class KhoaHoc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String tenKhoaHoc;
-    String moTa;
-    String trinhDo;
-    LocalDate ngayTao;
+    private Integer id;
+
+    @Column(name = "tenKhoaHoc", nullable = false, length = 100)
+    private String tenKhoaHoc;
+
+    @Column(name = "moTa", length = 500)
+    private String moTa;
+
+    @Column(name = "trinhDo", length = 50)
+    private String trinhDo;
+
+    @Column(name = "ngayTao", nullable = false)
+    private LocalDate ngayTao;
 }

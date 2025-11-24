@@ -27,6 +27,7 @@ public class BaiHoc {
     @Column(name = "noiDung")
     private String noiDung;
 
+    @Column(name = "thuTuBaiHoc")
     private Integer thuTuBaiHoc;
 
     @Column(name = "trangThai", length = 50)

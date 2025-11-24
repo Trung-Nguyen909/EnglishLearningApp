@@ -2,6 +2,7 @@ package com.example.EnglishLearningApp.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.sql.Time;
 
 @Entity
 @Table(name = "Test")
@@ -24,5 +25,5 @@ public class Test {
     private Integer soCauHoi;
 
     @Column(name = "TgianLam")
-    private java.time.LocalTime tgianLam;
+    private Time tgianLam;
 }

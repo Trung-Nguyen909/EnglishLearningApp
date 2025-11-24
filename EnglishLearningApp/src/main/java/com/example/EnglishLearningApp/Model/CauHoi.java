@@ -13,25 +13,28 @@ public class CauHoi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    int IDCapDo;
 
-    int iDBaiTap;
+    @Column(name = "IDCapDo", nullable = false)
+    private Integer idCapDo;
 
-    @Column(nullable = false, length = 500)
-    private String cauHoi;
+    @Column(name = "IDBaiTap")
+    private Integer idBaiTap; // Có thể null nếu dùng cho Test riêng
 
-    @Column(length = 200)
-    private String a;
+    @Lob // Báo hiệu đây là đoạn văn bản dài
+    @Column(name = "NoiDungCauHoi", nullable = false)
+    private String noiDungCauHoi;
 
-    @Column(length = 200)
-    private String b;
+    @Column(name = "LoaiCauHoi", nullable = false, length = 50)
+    private String loaiCauHoi; // 'ABCD', 'Listening', 'FillBlank'
 
-    @Column(length = 200)
-    private String c;
+    @Lob
+    @Column(name = "DuLieuDapAn", nullable = false)
+    private String duLieuDapAn; // Lưu JSON String
 
-    @Column(length = 200)
-    private String d;
+    @Lob
+    @Column(name = "GiaiThich")
+    private String giaiThich;
 
-    @Column(length = 5)
-    private String cauTraLoi;
+    @Column(name = "Audio_URL")
+    private String audioUrl;
 }

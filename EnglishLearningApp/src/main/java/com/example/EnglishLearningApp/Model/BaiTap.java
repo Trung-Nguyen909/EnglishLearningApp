@@ -1,10 +1,7 @@
 package com.example.EnglishLearningApp.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "BaiTap")
@@ -15,11 +12,14 @@ import lombok.NoArgsConstructor;
 public class BaiTap {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ID;
+    private Integer id;
 
-    private Integer IDBaiHoc;
+    @Column(name = "IDBaiHoc", nullable = false)
+    private Integer idBaiHoc;
 
+    @Column(name = "loaiBaiTap", length = 50)
     private String loaiBaiTap;
 
+    @Column(name = "trangThai", length = 50)
     private String trangThai;
 }
