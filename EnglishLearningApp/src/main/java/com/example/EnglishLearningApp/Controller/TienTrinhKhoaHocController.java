@@ -1,7 +1,7 @@
 package com.example.EnglishLearningApp.Controller;
 
-import com.example.EnglishLearningApp.Model.BinhLuan;
-import com.example.EnglishLearningApp.Service.BinhLuanService;
+import com.example.EnglishLearningApp.Model.TienTrinhKhoaHoc;
+import com.example.EnglishLearningApp.Service.TienTrinhKhoaHocService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,32 +9,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/binhluan")
+@RequestMapping("/tientrinhkhoahoc")
 @RequiredArgsConstructor
-public class BinhLuanController {
-
-    private final BinhLuanService service;
+public class TienTrinhKhoaHocController {
+    private final TienTrinhKhoaHocService service;
 
     @GetMapping
-    public List<BinhLuan> getAll() {
+    public List<TienTrinhKhoaHoc> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BinhLuan> getById(@PathVariable Integer id) {
+    public ResponseEntity<TienTrinhKhoaHoc> getById(@PathVariable Integer id) {
         return service.getById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public BinhLuan create(@RequestBody BinhLuan binhLuan) {
-        return service.create(binhLuan);
+    public TienTrinhKhoaHoc create(@RequestBody TienTrinhKhoaHoc tienTrinh) {
+        return service.create(tienTrinh);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BinhLuan> update(@PathVariable Integer id, @RequestBody BinhLuan binhLuan) {
-        return ResponseEntity.ok(service.update(id, binhLuan));
+    public TienTrinhKhoaHoc update(@PathVariable Integer id, @RequestBody TienTrinhKhoaHoc tienTrinh) {
+        return service.update(id, tienTrinh);
     }
 
     @DeleteMapping("/{id}")

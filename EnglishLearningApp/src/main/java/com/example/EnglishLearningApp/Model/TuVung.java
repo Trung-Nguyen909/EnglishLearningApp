@@ -1,17 +1,23 @@
 package com.example.EnglishLearningApp.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "TuVung")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class TuVung {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include // Key chính
     private Integer id;
 
     @Column(name = "IDBaiHoc", nullable = false)
@@ -31,4 +37,8 @@ public class TuVung {
 
     @Column(name = "amThanhPhienAm", length = 255)
     private String amThanhPhienAm;
+
+    @ManyToMany(mappedBy = "tuVungs")
+    @JsonBackReference
+    private Set<NguoiDung> nguoiDungs = new HashSet<>();
 }

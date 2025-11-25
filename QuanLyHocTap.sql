@@ -21,8 +21,10 @@ CREATE TABLE NguoiDung (
     anhDaiDien NVARCHAR(255),
     LastLogin DATETIME,
     Streak INT DEFAULT 0,
-    role VARCHAR(30) DEFAULT 'USER'
+    role VARCHAR(30) DEFAULT 'USER',
+    TongThoiGianHoatDong INT DEFAULT 0
 );
+
 
 -- 2. BẢNG KHÓA HỌC
 CREATE TABLE KhoaHoc (
@@ -219,9 +221,9 @@ CREATE TABLE NguoiDung_ThanhTich (
 );
 
 CREATE TABLE TuVungYeuThich (
-    ID INT IDENTITY(1,1) PRIMARY KEY,
     IDNguoiDung INT NOT NULL,
     IDTuVung INT NOT NULL,
+	primary key (IDNguoiDung, IDTuVung),
     FOREIGN KEY (IDNguoiDung) REFERENCES NguoiDung(ID),
     FOREIGN KEY (IDTuVung) REFERENCES TuVung(ID)
 );
@@ -241,10 +243,12 @@ ALTER TABLE DanhGiaKyNang ADD CONSTRAINT CK_Diem_DanhGiaKyNang CHECK (Diem >= 0 
 SET DATEFORMAT YMD;
 
 -- 1. Insert NguoiDung
-INSERT INTO NguoiDung (tenDangNhap, matKhau, email, anhDaiDien, LastLogin, Streak, role) VALUES
-('user1', '$2a$10$PLLK1jr5F0hDTVVoKFSGj.T7nhAKhH/Qo563lNtuaaEMndxZwy.Ky', 'ttuankhanh4@gmail.com', 'avatar1.jpg', '2024-01-15 08:30:00', 5, 'ADMIN'),
-('user2', '$2a$10$OgyHCP.YQ4xoGGXFpD6z3O01TwJNIhUG8t60Tu82HnwFkThK7BrUy', 'chientranminh355@gmail.com', 'avatar2.jpg', '2024-01-14 10:15:00', 3, 'USER'),
-('user3', '$2a$10$l7GqvKZDYVsReEiGCc0LpeGoGgy0beEJ2yrAmSvzOM2BcOWUfStDC', 'user3@gmail.com', 'avatar3.jpg', '2024-01-13 14:20:00', 7, 'USER');
+INSERT INTO NguoiDung 
+(tenDangNhap, matKhau, email, anhDaiDien, LastLogin, Streak, role, TongThoiGianHoatDong)
+VALUES
+('user1', '$2a$10$PLLK1jr5F0hDTVVoKFSGj.T7nhAKhH/Qo563lNtuaaEMndxZwy.Ky', 'ttuankhanh4@gmail.com', 'U0001_ava.jpg', '2024-01-15 08:30:00', 5, 'ADMIN', 3600),
+('user2', '$2a$10$OgyHCP.YQ4xoGGXFpD6z3O01TwJNIhUG8t60Tu82HnwFkThK7BrUy', 'chientranminh355@gmail.com', 'U0002_ava.jpg', '2024-01-14 10:15:00', 3, 'USER', 1800),
+('user3', '$2a$10$l7GqvKZDYVsReEiGCc0LpeGoGgy0beEJ2yrAmSvzOM2BcOWUfStDC', 'user3@gmail.com', 'U0003_ava.jpg', '2024-01-13 14:20:00', 7, 'USER', 7200);
 
 -- 2. Insert KhoaHoc
 INSERT INTO KhoaHoc (tenKhoaHoc, moTa, trinhDo, ngayTao) VALUES
@@ -333,6 +337,8 @@ INSERT INTO NguoiDung_ThanhTich (IDNguoiDung, IDThanhTich) VALUES (1, 1);
 
 INSERT INTO PhanHoi (IDNguoiDung, Title, NoiDung) VALUES (1, N'Góp ý', N'Thêm bài tập nhé.');
 
+insert into TuVungYeuThich (IDNguoiDung,IDTuVung) values (1,1);
+
 PRINT N'Cập nhật Database thành công theo ERD mới!';
 
 -- TEST QUERY: Lấy lịch sử làm bài và chi tiết câu hỏi
@@ -352,3 +358,6 @@ JOIN CauHoi ch ON ct.IDCauHoi = ch.ID;
 select * from CauHoi
 select * from KhoaHoc k left join  BaiHoc b on k.ID = b.IDKhoaHoc
 select * from BaiTap
+select * from NguoiDung_ThanhTich
+select * from ThanhTich
+select * from TuVungYeuThich

@@ -1,7 +1,11 @@
 package com.example.EnglishLearningApp.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "ThanhTich")
@@ -22,4 +26,9 @@ public class ThanhTich {
 
     @Column(name = "bieuTuong", length = 255)
     private String bieuTuong;
+
+    @OneToMany(mappedBy = "thanhTich")
+    @JsonIgnore
+    private Set<NguoiDungThanhTich> nguoiDungs = new HashSet<>();
+
 }
