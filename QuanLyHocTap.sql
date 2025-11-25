@@ -55,8 +55,11 @@ CREATE TABLE CapDo (
 CREATE TABLE BaiTap (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     IDBaiHoc INT NOT NULL,
+	TenBaiTap nvarchar(max),
     loaiBaiTap NVARCHAR(50), -- Listening, Speaking, Reading...
     trangThai NVARCHAR(50),
+	capdo nvarchar(100),
+	thoigian Time
     FOREIGN KEY (IDBaiHoc) REFERENCES BaiHoc(ID)
 );
 
@@ -257,9 +260,11 @@ INSERT INTO BaiHoc (IDKhoaHoc, tenBaiHoc, moTa, noiDung, thuTuBaiHoc, trangThai)
 INSERT INTO CapDo (DoKho) VALUES (N'Dễ'), (N'Trung bình'), (N'Khó');
 
 -- 5. Insert BaiTap
-INSERT INTO BaiTap (IDBaiHoc, loaiBaiTap, trangThai) VALUES
-(1, N'Trắc nghiệm', N'Đang Hoàn thành'),
-(1, N'Nghe hiểu', N'Đang Hoàn thành');
+INSERT INTO BaiTap (IDBaiHoc, TenBaiTap, loaiBaiTap, trangThai, capdo, thoigian) 
+VALUES
+(1, N'Ôn tập từ vựng Unit 1', N'Trắc nghiệm', N'Đang hoàn thành', N'Cơ bản', '00:15:00'),
+(1, N'Nghe đoạn hội thoại Daily Life', N'Nghe hiểu', N'Chưa làm', N'Trung bình', '00:20:00'),
+(1, N'Luyện phát âm nguyên âm', N'Speaking', N'Đã hoàn thành', N'Nâng cao', '00:10:00');
 
 -- 6. Insert CauHoi (SỬ DỤNG JSON)
 -- Lưu ý: IDBaiTap = 1 (Trắc nghiệm), IDBaiTap = 2 (Nghe hiểu)
@@ -345,3 +350,5 @@ LEFT JOIN BaiTap bt ON ls.IDBaiTap = bt.ID
 JOIN ChiTietBaiLam ct ON ct.IDLichSuBaiLam = ls.ID
 JOIN CauHoi ch ON ct.IDCauHoi = ch.ID;
 select * from CauHoi
+select * from KhoaHoc k left join  BaiHoc b on k.ID = b.IDKhoaHoc
+select * from BaiTap

@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -59,9 +60,10 @@ public class NguoiDungService {
         String token = jwtService.createToken(nguoiDung);
         UserResponse userResponse = userResponseMapper.toUserResponse(nguoiDung);
         String userEmail = nguoiDung.getEmail();
-        GmailSender.sendEmail(userEmail,
+        gmailSender.sendEmail(userEmail,
                 "Thông báo đăng nhập",
                 "Bạn vừa đăng nhập thành công vào hệ thống!");
+        updateStreak(nguoiDung.getId());
         return AuthResponse .builder()
                 .token(token)
                 .user(userResponse)
@@ -107,4 +109,21 @@ public class NguoiDungService {
         nguoiDungRepository.save(tokenUser);
         return avatarUrl;
     }
+
+    public void updateStreak(int idUser) {
+        NguoiDung nguoiDung = nguoiDungRepository.findById(idUser)
+                .orElseThrow(() -> new AppException(ErrorCode.Not_Found));
+
+        LocalDateTime lastLogin = nguoiDung.getLastLogin();
+        LocalDateTime now = LocalDateTime.now();
+
+        if (lastLogin == null || lastLogin.plusDays(1).isBefore(now)) {
+            nguoiDung.setStreak(1);
+        } else if (lastLogin.plusDays(1).isAfter(now)) {
+            nguoiDung.setStreak(nguoiDung.getStreak() + 1);
+        }
+        nguoiDung.setLastLogin(now);
+        nguoiDungRepository.save(nguoiDung);
+    }
+
 }

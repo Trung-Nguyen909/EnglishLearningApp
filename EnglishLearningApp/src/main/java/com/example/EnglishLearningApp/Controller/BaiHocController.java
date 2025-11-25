@@ -43,4 +43,9 @@ public class BaiHocController {
         baiHocService.deleteBaiHoc(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/khoahoc/{idKhoaHoc}")
+    public ResponseEntity<List<BaiHoc>> getBaiHocByKhoaHoc(@PathVariable Integer idKhoaHoc) {
+        return ResponseEntity.ok(baiHocService.getBaiHocByKhoaHocId(idKhoaHoc));
+    }
 }

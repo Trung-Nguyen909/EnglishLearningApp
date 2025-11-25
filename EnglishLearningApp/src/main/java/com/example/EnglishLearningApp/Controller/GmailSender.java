@@ -1,5 +1,6 @@
 package com.example.EnglishLearningApp.Controller;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Properties;
@@ -9,7 +10,8 @@ import javax.mail.internet.*;
 @Component
 public class GmailSender {
 
-    public static void sendEmail(String toEmail, String subject, String body) {
+    @Async
+    public void sendEmail(String toEmail, String subject, String body) {
         final String fromEmail = "chientranminh355@gmail.com"; // Gmail của bạn
         final String password = "iwmr uhjw rine vfxu"; // App Password (không phải mật khẩu chính)
 

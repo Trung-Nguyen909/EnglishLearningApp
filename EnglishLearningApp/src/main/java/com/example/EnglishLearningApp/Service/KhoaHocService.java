@@ -2,11 +2,8 @@ package com.example.EnglishLearningApp.Service;
 
 import com.example.EnglishLearningApp.Mapper.KhoahocMapper;
 import com.example.EnglishLearningApp.Model.KhoaHoc;
-import com.example.EnglishLearningApp.Model.NguoiDung;
 import com.example.EnglishLearningApp.Repository.KhoaHocRepository;
-import com.example.EnglishLearningApp.Repository.NguoiDungRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +14,7 @@ import java.util.Optional;
 public class KhoaHocService {
    private final KhoaHocRepository khoaHocRepository ;
    private final KhoahocMapper khoahocMapper;
+    private final BaiHocService baiHocService;
 
    public List<KhoaHoc> getAllKhoaHoc(){
        return khoaHocRepository.findAll();

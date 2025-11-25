@@ -40,4 +40,8 @@ public class BaiHocService {
     public void deleteBaiHoc(Integer id) {
         baiHocRepository.deleteById(id);
     }
+
+    public List<BaiHoc> getBaiHocByKhoaHocId(Integer khoaHocId) {
+        return baiHocRepository.findByIdKhoaHoc(khoaHocId);
+    }
 }
