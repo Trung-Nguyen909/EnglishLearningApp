@@ -57,7 +57,6 @@ public class HoSoFragment extends Fragment {
             return insets;
         });
 
-        // --- ĐÃ XÓA: btn_explore vì nút này nằm trên thanh Bottom Navigation (đã xử lý ở MainActivity hoặc đã xóa khỏi XML) ---
 
         // Ánh xạ nút chỉnh sửa
         btnEdit = view.findViewById(R.id.btnEdit);
@@ -69,8 +68,6 @@ public class HoSoFragment extends Fragment {
                 ChinhSuaHoSoFragment editProfileFragment = new ChinhSuaHoSoFragment();
 
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-
-                // Lưu ý: Đảm bảo R.id.frame_container là đúng ID của khung chứa Fragment trong MainActivity
                 transaction.replace(R.id.frame_container, editProfileFragment);
 
                 // Thêm vào BackStack để ấn nút Back điện thoại sẽ quay lại trang Profile
@@ -217,7 +214,7 @@ public class HoSoFragment extends Fragment {
                         //            editor.apply();
 
                         // BƯỚC 2: Chuyển màn hình và Xóa lịch sử (Quan trọng!)
-                        Intent intent = new Intent(requireContext(), SplashActivity.class);
+                        Intent intent = new Intent(requireContext(), ManHinhChoActivity.class);
 
                         // Hai cờ (Flag) này giúp xóa sạch các Activity cũ,
                         // làm cho SplashActivity trở thành màn hình duy nhất trong ngăn xếp.

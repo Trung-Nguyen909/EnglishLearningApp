@@ -10,10 +10,10 @@
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_nav_wrapper" />
+        android:layout_above="@id/thanh_dieu_huong" />
 
     <FrameLayout
-        android:id="@+id/bottom_nav_wrapper"
+        android:id="@+id/thanh_dieu_huong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -32,7 +32,7 @@
             app:cardBackgroundColor="@android:color/white">
 
             <LinearLayout
-                android:id="@+id/bottom_bar_container"
+                android:id="@+id/hop_chua_tdh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
@@ -69,7 +69,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btn_lessons"
+                    android:id="@+id/btn_baihoc"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -81,14 +81,14 @@
                     tools:ignore="SpeakableTextPresentCheck">
 
                     <ImageView
-                        android:id="@+id/icon_lessons"
+                        android:id="@+id/icon_baihoc"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:src="@drawable/ic_books"
                         app:tint="#4169E1" />
 
                     <View
-                        android:id="@+id/dot_lessons"
+                        android:id="@+id/dot_baihoc"
                         android:layout_width="4dp"
                         android:layout_height="4dp"
                         android:layout_marginTop="4dp"
@@ -97,7 +97,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btn_explore"
+                    android:id="@+id/btn_tientrinh"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -109,14 +109,14 @@
                     tools:ignore="SpeakableTextPresentCheck">
 
                     <ImageView
-                        android:id="@+id/icon_explore"
+                        android:id="@+id/icon_tientrinh"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:src="@drawable/ic_progrs"
                         app:tint="#888888" />
 
                     <View
-                        android:id="@+id/dot_explore"
+                        android:id="@+id/dot_tientrinh"
                         android:layout_width="4dp"
                         android:layout_height="4dp"
                         android:layout_marginTop="4dp"
@@ -125,7 +125,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btn_profile"
+                    android:id="@+id/btn_hoso"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -137,14 +137,14 @@
                     tools:ignore="SpeakableTextPresentCheck">
 
                     <ImageView
-                        android:id="@+id/icon_profile"
+                        android:id="@+id/icon_hoso"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:src="@drawable/ic_person"
                         app:tint="#888888" />
 
                     <View
-                        android:id="@+id/dot_profile"
+                        android:id="@+id/dot_hoso"
                         android:layout_width="4dp"
                         android:layout_height="4dp"
                         android:layout_marginTop="4dp"

@@ -24,7 +24,7 @@ public class KiemTraFragment extends Fragment {
     private TextView tvTenChuDe;
 
     private String selectedLevel = "";
-    private String currentTopic = "Reading"; // Mặc định
+    private String currentTopic = "Đọc"; // Mặc định
 
     @Nullable
     @Override
@@ -97,19 +97,19 @@ public class KiemTraFragment extends Fragment {
 
             // Kiểm tra tên kỹ năng để chuyển đúng trang
             switch (currentTopic) {
-                case "Listening":
+                case "Nghe":
                     intent = new Intent(getContext(), BaiTapNgheActivity.class);
                     break;
 
-                case "Speaking":
+                case "Nói":
                     intent = new Intent(getContext(), BaiTapNoiActivity.class);
                     break;
 
-                case "Writing":
+                case "Viết":
                     intent = new Intent(getContext(), BaiTapVietActivity.class);
                     break;
 
-                case "Reading":
+                case "Đọc":
                 default:
                     intent = new Intent(getContext(), BaiTapDocActivity.class); // Mặc định
                     break;

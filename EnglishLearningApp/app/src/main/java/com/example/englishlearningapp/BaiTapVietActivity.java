@@ -120,7 +120,7 @@ public class BaiTapVietActivity extends AppCompatActivity implements BaiTapVietA
         intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, soCauHoanThanh);
         intent.putExtra(KetQuaActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
         intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, 0);
-        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Writing");
+        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Viết");
 
         String level = getIntent().getStringExtra("SELECTED_LEVEL");
         intent.putExtra(KetQuaActivity.EXTRA_LEVEL, level != null ? level : "Basic");

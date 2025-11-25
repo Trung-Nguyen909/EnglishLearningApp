@@ -23,7 +23,7 @@
         <activity android:name=".BaiHocActivity" />
         <activity android:name=".MainActivity"/>
         <activity
-            android:name=".SplashActivity"
+            android:name=".ManHinhChoActivity"
             android:exported="true"
             android:theme="@style/Theme.EnglishLearningApp.Splash">
             <intent-filter>

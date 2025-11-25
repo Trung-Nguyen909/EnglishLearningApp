@@ -56,21 +56,21 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         // Containers
         btnHome = findViewById(R.id.btn_home);
-        btnLessons = findViewById(R.id.btn_lessons);
-        btnExplore = findViewById(R.id.btn_explore);
-        btnProfile = findViewById(R.id.btn_profile);
+        btnLessons = findViewById(R.id.btn_baihoc);
+        btnExplore = findViewById(R.id.btn_tientrinh);
+        btnProfile = findViewById(R.id.btn_hoso);
 
         // Icons
         iconHome = findViewById(R.id.icon_home);
-        iconLessons = findViewById(R.id.icon_lessons);
-        iconExplore = findViewById(R.id.icon_explore);
-        iconProfile = findViewById(R.id.icon_profile);
+        iconLessons = findViewById(R.id.icon_baihoc);
+        iconExplore = findViewById(R.id.icon_tientrinh);
+        iconProfile = findViewById(R.id.icon_hoso);
 
         // Dots
         dotHome = findViewById(R.id.dot_home);
-        dotLessons = findViewById(R.id.dot_lessons);
-        dotExplore = findViewById(R.id.dot_explore);
-        dotProfile = findViewById(R.id.dot_profile);
+        dotLessons = findViewById(R.id.dot_baihoc);
+        dotExplore = findViewById(R.id.dot_tientrinh);
+        dotProfile = findViewById(R.id.dot_hoso);
     }
 
     // Hàm nạp Fragment

@@ -70,8 +70,8 @@ public class CauHoiAdapter extends RecyclerView.Adapter<CauHoiAdapter.ViewHolder
             for (String luaChon : cauHoi.getCacLuaChon()) { // Dùng getCacLuaChon()
                 View viewLuaChon = LayoutInflater.from(context).inflate(R.layout.item_luachon_cauhoi, khungChuaLuaChon, false);
 
-                TextView tvNoiDungLuaChon = viewLuaChon.findViewById(R.id.option_text);
-                RadioButton radioNutChon = viewLuaChon.findViewById(R.id.option_radio);
+                TextView tvNoiDungLuaChon = viewLuaChon.findViewById(R.id.thongtin_luachon);
+                RadioButton radioNutChon = viewLuaChon.findViewById(R.id.nut_lua_chon);
 
                 tvNoiDungLuaChon.setText(luaChon);
                 viewLuaChon.setBackgroundResource(R.drawable.option_background_selector);

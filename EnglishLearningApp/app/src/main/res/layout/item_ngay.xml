@@ -7,7 +7,7 @@
     android:padding="4dp">
 
     <TextView
-        android:id="@+id/tv_day"
+        android:id="@+id/tv_ngay"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:gravity="center"

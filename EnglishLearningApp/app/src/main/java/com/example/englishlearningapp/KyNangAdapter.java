@@ -75,7 +75,7 @@ public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.KyNangView
             imgAnhDaiDien = itemView.findViewById(R.id.img_icon);
 
             // Ví dụ: android:id="@+id/tv_title"
-            tvTenKyNang = itemView.findViewById(R.id.tv_title);
+            tvTenKyNang = itemView.findViewById(R.id.tv_tieude);
         }
     }
 }

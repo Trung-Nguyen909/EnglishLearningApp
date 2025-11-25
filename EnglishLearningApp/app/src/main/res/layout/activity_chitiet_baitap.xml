@@ -37,7 +37,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:text="Do exercise"
+        android:text="Làm bài tập"
         android:backgroundTint="#2563EB"
         android:paddingTop="14dp"
         android:paddingBottom="14dp"

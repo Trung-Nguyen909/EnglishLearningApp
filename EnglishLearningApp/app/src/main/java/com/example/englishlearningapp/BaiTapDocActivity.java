@@ -87,7 +87,7 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
         intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, 0); // Thời gian tùy chọn
 
         // Gửi Topic và Level để biết đường quay lại
-        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Reading");
+        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Đọc");
         intent.putExtra(KetQuaActivity.EXTRA_LEVEL, capDoHienTai);
 
         startActivity(intent);
