@@ -186,7 +186,7 @@ public class BaiTapNoiActivity extends AppCompatActivity {
         intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, soCauDung);
         intent.putExtra(KetQuaActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
         intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, 0);
-        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Speaking");
+        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Nói");
 
         // Lấy level từ Intent cũ chuyển sang (nếu có)
         String level = getIntent().getStringExtra("SELECTED_LEVEL");

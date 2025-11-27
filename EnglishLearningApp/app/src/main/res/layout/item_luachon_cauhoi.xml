@@ -9,7 +9,7 @@
     android:gravity="center_vertical">
 
     <RadioButton
-        android:id="@+id/option_radio"
+        android:id="@+id/nut_lua_chon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="false"
@@ -17,7 +17,7 @@
         android:focusable="false" />
 
     <TextView
-        android:id="@+id/option_text"
+        android:id="@+id/thongtin_luachon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

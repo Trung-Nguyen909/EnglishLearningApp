@@ -10,14 +10,9 @@ import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Khai báo các nút bấm (Layout cha)
-    private LinearLayout btnHome, btnLessons, btnExplore, btnProfile;
-
-    // Khai báo các Icon để đổi màu
-    private ImageView iconHome, iconLessons, iconExplore, iconProfile;
-
-    // Khai báo các dấu chấm (dot) để hiện/ẩn
-    private View dotHome, dotLessons, dotExplore, dotProfile;
+    private LinearLayout btnTrangChu, btnKhoaHoc, btnTienDo, btnHoSo;
+    private ImageView iconTrangChu, iconKhoaHoc, iconTienDo, iconHoSo;
+    private View dotTrangChu, dotKhoaHoc, dotTienDo, dotHoSo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,56 +20,59 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 1. Ánh xạ View
-        initViews();
+        anhXaView();
 
-        // 2. Mặc định chọn tab Lessons (Khóa học) khi mở app (hoặc tab nào bạn muốn)
-        loadFragment(new TrangChuFragment());
-        updateBottomNavUI(btnHome, iconHome, dotHome);
+        // 2. Mặc định chọn tab Trang chủ khi mở app
+        napFragment(new TrangChuFragment());
+        capNhatGiaoDienMenuDuoi(btnTrangChu, iconTrangChu, dotTrangChu);
 
         // 3. Bắt sự kiện click
-        btnHome.setOnClickListener(v -> {
-            loadFragment(new TrangChuFragment()); // Nhớ tạo HomeFragment
-            updateBottomNavUI(btnHome, iconHome, dotHome);
+        btnTrangChu.setOnClickListener(v -> {
+            napFragment(new TrangChuFragment());
+            capNhatGiaoDienMenuDuoi(btnTrangChu, iconTrangChu, dotTrangChu);
         });
 
-        btnLessons.setOnClickListener(v -> {
-            loadFragment(new KhoaHocFragment());
-            updateBottomNavUI(btnLessons, iconLessons, dotLessons);
+        btnKhoaHoc.setOnClickListener(v -> {
+            // Chuyển sang Fragment Khóa học
+            napFragment(new KhoaHocFragment());
+            capNhatGiaoDienMenuDuoi(btnKhoaHoc, iconKhoaHoc, dotKhoaHoc);
         });
 
-        btnExplore.setOnClickListener(v -> {
-            loadFragment(new TienDoBaiTapFragment()); // Bỏ comment khi tạo Fragment này
-            updateBottomNavUI(btnExplore, iconExplore, dotExplore);
+        btnTienDo.setOnClickListener(v -> {
+            // Chuyển sang Fragment Tiến độ
+            napFragment(new TienDoBaiTapFragment());
+            capNhatGiaoDienMenuDuoi(btnTienDo, iconTienDo, dotTienDo);
         });
 
-        btnProfile.setOnClickListener(v -> {
-            loadFragment(new HoSoFragment());
-            updateBottomNavUI(btnProfile, iconProfile, dotProfile);
+        btnHoSo.setOnClickListener(v -> {
+            // Chuyển sang Fragment Hồ sơ
+            napFragment(new HoSoFragment());
+            capNhatGiaoDienMenuDuoi(btnHoSo, iconHoSo, dotHoSo);
         });
     }
 
-    private void initViews() {
-        // Containers
-        btnHome = findViewById(R.id.btn_home);
-        btnLessons = findViewById(R.id.btn_lessons);
-        btnExplore = findViewById(R.id.btn_explore);
-        btnProfile = findViewById(R.id.btn_profile);
+    private void anhXaView() {
+        // Nút bấm (Container)
+        btnTrangChu = findViewById(R.id.btn_home);
+        btnKhoaHoc = findViewById(R.id.btn_baihoc);
+        btnTienDo = findViewById(R.id.btn_tientrinh);
+        btnHoSo = findViewById(R.id.btn_hoso);
 
-        // Icons
-        iconHome = findViewById(R.id.icon_home);
-        iconLessons = findViewById(R.id.icon_lessons);
-        iconExplore = findViewById(R.id.icon_explore);
-        iconProfile = findViewById(R.id.icon_profile);
+        // Biểu tượng (Icon)
+        iconTrangChu = findViewById(R.id.icon_home);
+        iconKhoaHoc = findViewById(R.id.icon_baihoc);
+        iconTienDo = findViewById(R.id.icon_tientrinh);
+        iconHoSo = findViewById(R.id.icon_hoso);
 
-        // Dots
-        dotHome = findViewById(R.id.dot_home);
-        dotLessons = findViewById(R.id.dot_lessons);
-        dotExplore = findViewById(R.id.dot_explore);
-        dotProfile = findViewById(R.id.dot_profile);
+        // Dấu chấm (Dot)
+        dotTrangChu = findViewById(R.id.dot_home);
+        dotKhoaHoc = findViewById(R.id.dot_baihoc);
+        dotTienDo = findViewById(R.id.dot_tientrinh);
+        dotHoSo = findViewById(R.id.dot_hoso);
     }
 
-    // Hàm nạp Fragment
-    private void loadFragment(Fragment fragment) {
+    // Hàm nạp Fragment vào FrameLayout
+    private void napFragment(Fragment fragment) {
         if (fragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -84,24 +82,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Hàm cập nhật giao diện Bottom Nav (Đổi màu + Hiện dấu chấm)
-    private void updateBottomNavUI(LinearLayout selectedBtn, ImageView selectedIcon, View selectedDot) {
-        // Màu sắc
-        int colorActive = ContextCompat.getColor(this, R.color.royalBlue); // Màu xanh chủ đạo (hoặc #4169E1)
-        int colorInactive = ContextCompat.getColor(this, android.R.color.darker_gray); // Màu xám
+    private void capNhatGiaoDienMenuDuoi(LinearLayout btnDuocChon, ImageView iconDuocChon, View dotDuocChon) {
+        // Lấy màu sắc từ tài nguyên
+        int mauKichHoat = ContextCompat.getColor(this, R.color.royalBlue); // Màu xanh chủ đạo
+        int mauVoHieu = ContextCompat.getColor(this, android.R.color.darker_gray); // Màu xám
 
         // 1. Reset tất cả về trạng thái chưa chọn (Màu xám, ẩn dấu chấm)
-        iconHome.setColorFilter(colorInactive);
-        iconLessons.setColorFilter(colorInactive);
-        iconExplore.setColorFilter(colorInactive);
-        iconProfile.setColorFilter(colorInactive);
+        iconTrangChu.setColorFilter(mauVoHieu);
+        iconKhoaHoc.setColorFilter(mauVoHieu);
+        iconTienDo.setColorFilter(mauVoHieu);
+        iconHoSo.setColorFilter(mauVoHieu);
 
-        dotHome.setVisibility(View.INVISIBLE);
-        dotLessons.setVisibility(View.INVISIBLE);
-        dotExplore.setVisibility(View.INVISIBLE);
-        dotProfile.setVisibility(View.INVISIBLE);
+        dotTrangChu.setVisibility(View.INVISIBLE);
+        dotKhoaHoc.setVisibility(View.INVISIBLE);
+        dotTienDo.setVisibility(View.INVISIBLE);
+        dotHoSo.setVisibility(View.INVISIBLE);
 
         // 2. Set trạng thái cho tab ĐƯỢC CHỌN (Màu xanh, hiện dấu chấm)
-        selectedIcon.setColorFilter(colorActive);
-        selectedDot.setVisibility(View.VISIBLE);
+        iconDuocChon.setColorFilter(mauKichHoat);
+        dotDuocChon.setVisibility(View.VISIBLE);
     }
 }

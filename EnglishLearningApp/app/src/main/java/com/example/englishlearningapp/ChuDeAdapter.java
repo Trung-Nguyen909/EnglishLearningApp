@@ -145,10 +145,10 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         public ChuDeViewHolder(View itemView) {
             super(itemView);
-            khungItem = itemView.findViewById(R.id.linear_layout_container);
-            tenChuDe = itemView.findViewById(R.id.text_category_name);
-            iconChuDe = itemView.findViewById(R.id.icon_category);
-            iconDropdown = itemView.findViewById(R.id.icon_dropdown);
+            khungItem = itemView.findViewById(R.id.khungchua_item);
+            tenChuDe = itemView.findViewById(R.id.tv_ten_danhmuc);
+            iconChuDe = itemView.findViewById(R.id.icon_danhmuc);
+            iconDropdown = itemView.findViewById(R.id.icon_muiten);
         }
     }
 
@@ -160,9 +160,9 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         public MucConViewHolder(View itemView) {
             super(itemView);
-            khungItem = itemView.findViewById(R.id.linear_layout_container);
-            tenMucCon = itemView.findViewById(R.id.text_category_name);
-            iconMucCon = itemView.findViewById(R.id.icon_category);
+            khungItem = itemView.findViewById(R.id.khungchua_item);
+            tenMucCon = itemView.findViewById(R.id.tv_ten_danhmuc);
+            iconMucCon = itemView.findViewById(R.id.icon_danhmuc);
         }
     }
 }

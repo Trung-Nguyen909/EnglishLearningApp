@@ -21,34 +21,25 @@ import java.util.List;
 public class KhoaHocFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    // 1. Khai báo biến cho nút "Kiểm tra"
-    private View btnTestTab;
+    private View btn_TrangKiemTra;
     private ChuDeAdapter adapter;
 
-    // Fragment sử dụng onCreateView thay vì onCreate
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // 1. Thay thế setContentView bằng inflater.inflate
-        // Vẫn dùng lại file layout cũ: activity_course
         View view = inflater.inflate(R.layout.activity_khoahoc, container, false);
+        recyclerView = view.findViewById(R.id.rcv_chitiet);
+        btn_TrangKiemTra = view.findViewById(R.id.btn_kiemtra);
 
-        // 2. Ánh xạ View (Phải có biến "view." đứng trước findViewById)
-        recyclerView = view.findViewById(R.id.recycler_view_detai);
-        btnTestTab = view.findViewById(R.id.btn_kiemtra);
-
-        // 3. Logic khởi tạo dữ liệu giữ nguyên
         List<ChuDeModel> topics = createTopicData();
 
-        // 4. Thiết lập Adapter
-        // Lưu ý: Trong Fragment, dùng getContext() thay cho "this"
         adapter = new ChuDeAdapter(getContext(), topics);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        // 3. SỰ KIỆN CLICK: Chuyển sang màn hình Kiểm tra (TestFragment)
-        if (btnTestTab != null) {
-            btnTestTab.setOnClickListener(new View.OnClickListener() {
+        // SỰ KIỆN CLICK: Chuyển sang màn hình Kiểm tra (TestFragment)
+        if (btn_TrangKiemTra != null) {
+            btn_TrangKiemTra.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Lệnh chuyển Fragment
@@ -69,8 +60,6 @@ public class KhoaHocFragment extends Fragment {
 
         return view;
     }
-
-    // --- Hàm tạo dữ liệu GIỮ NGUYÊN 100% như cũ ---
     private List<ChuDeModel> createTopicData() {
         List<ChuDeModel> list = new ArrayList<>();
 

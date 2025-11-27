@@ -113,7 +113,7 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
         intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, 0);
 
         // Gửi Topic và Level để nút "Làm lại"
-        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Listening");
+        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Nghe");
         intent.putExtra(KetQuaActivity.EXTRA_LEVEL, capDoHienTai);
 
         startActivity(intent);

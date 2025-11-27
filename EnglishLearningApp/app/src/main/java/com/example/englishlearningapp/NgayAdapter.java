@@ -75,7 +75,7 @@ public class NgayAdapter extends RecyclerView.Adapter<NgayAdapter.NgayViewHolder
 
         public NgayViewHolder(View view) {
             super(view);
-            tvNgay = view.findViewById(R.id.tv_day);
+            tvNgay = view.findViewById(R.id.tv_ngay);
         }
     }
 }

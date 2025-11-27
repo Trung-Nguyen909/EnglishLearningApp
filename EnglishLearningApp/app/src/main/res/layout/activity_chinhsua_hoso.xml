@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_edit_profile_layout"
+    android:id="@+id/layout_chinh_sua_ho_so"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_gradient">
+    android:background="@drawable/bg_trangchu">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:padding="8dp">
 
         <ImageButton
-            android:id="@+id/btn_back"
+            android:id="@+id/nut_quay_lai"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_back"
@@ -56,12 +56,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_gradient"
+            android:background="@drawable/bg_trangchu"
             android:paddingTop="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:paddingBottom="10dp"
-            >
+            android:paddingBottom="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,17 +79,17 @@
                     android:layout_marginBottom="8dp">
 
                     <ImageView
-                        android:id="@+id/imgProfile"
+                        android:id="@+id/img_anh_dai_dien"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_person"
+                        android:src="@drawable/ic_nguoidung"
                         android:scaleType="centerCrop"
                         android:padding="8dp"
                         android:background="@drawable/shape_background_avt"
                         android:contentDescription="Profile Avatar" />
 
                     <ImageButton
-                        android:id="@+id/btnChangeImage"
+                        android:id="@+id/nut_doi_anh"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_alignParentEnd="true"
@@ -134,7 +133,7 @@
                         android:textStyle="bold"
                         android:layout_marginBottom="4dp"/>
                     <EditText
-                        android:id="@+id/etFullName"
+                        android:id="@+id/et_ho_ten"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:hint="Huỳnh Lê Tiến Hiển"
@@ -155,7 +154,7 @@
                         android:textStyle="bold"
                         android:layout_marginBottom="4dp"/>
                     <EditText
-                        android:id="@+id/etEmail"
+                        android:id="@+id/et_email"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:hint="huynhtientienhien@gmail.com"
@@ -182,7 +181,7 @@
                         android:background="@drawable/bg_edittext"
                         android:layout_marginBottom="16dp">
                         <Spinner
-                            android:id="@+id/spLevel"
+                            android:id="@+id/sp_cap_do"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:spinnerMode="dropdown"
@@ -191,7 +190,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-
+                            android:src="@drawable/ic_arrow_down"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="12dp"
@@ -208,7 +207,7 @@
                         android:textStyle="bold"
                         android:layout_marginBottom="4dp"/>
                     <EditText
-                        android:id="@+id/etBio"
+                        android:id="@+id/et_gioi_thieu"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:hint="Bạn sẽ không bao giờ can đảm nếu bạn không bị thương..."
@@ -224,7 +223,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <Button
-                            android:id="@+id/btnCancel"
+                            android:id="@+id/btn_huy"
                             style="@style/Widget.Material3.Button.OutlinedButton"
                             android:layout_width="0dp"
                             android:layout_height="50dp"
@@ -237,7 +236,7 @@
                             app:strokeColor="@color/royalBlue"
                             android:textColor="@color/royalBlue"/>
                         <Button
-                            android:id="@+id/btnSave"
+                            android:id="@+id/btn_luu"
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"

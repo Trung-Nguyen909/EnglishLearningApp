@@ -11,7 +11,7 @@
     android:background="@android:color/transparent">
 
     <LinearLayout
-        android:id="@+id/linear_layout_container"
+        android:id="@+id/khungchua_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -19,7 +19,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/icon_category"
+            android:id="@+id/icon_danhmuc"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginLeft="20dp"
@@ -28,7 +28,7 @@
             android:src="@drawable/img_ic_family" />
 
         <TextView
-            android:id="@+id/text_category_name"
+            android:id="@+id/tv_ten_danhmuc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

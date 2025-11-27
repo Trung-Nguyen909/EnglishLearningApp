@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient">
+    android:background="@drawable/bg_trangchu">
 
     <LinearLayout
         android:layout_marginTop="30dp"
@@ -38,7 +38,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:text="Do exercise"
+        android:text="Làm bài tập"
         android:backgroundTint="#2563EB"
         android:paddingTop="14dp"
         android:paddingBottom="14dp"
