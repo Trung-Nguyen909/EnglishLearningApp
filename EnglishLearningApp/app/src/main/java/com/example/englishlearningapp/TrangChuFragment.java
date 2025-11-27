@@ -71,6 +71,9 @@ public class TrangChuFragment extends Fragment {
                 goiDuLieu.putString("TEN_CHU_DE", tenKyNang);
                 kiemtraFragment.setArguments(goiDuLieu);
 
+                // --- THÊM DÒNG NÀY ĐỂ BÁO HIỆU ---
+                goiDuLieu.putBoolean("TU_TRANG_CHU", true);
+
                 // 3. Thực hiện chuyển đổi Fragment
                 if (getParentFragmentManager() != null) {
                     getParentFragmentManager().beginTransaction()

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,86 +17,112 @@ import androidx.fragment.app.Fragment;
 
 public class KiemTraFragment extends Fragment {
 
-    private ImageView btnBack;
-    private LinearLayout btnBasic, btnMedium, btnAdvanced;
-    private LinearLayout dropdownTopics;
-    private CardView btnStartTest;
-    private TextView tvTenChuDe;
+    private boolean denTuTrangChu = false;
+    private LinearLayout btnCoBan, btnTrungBinh, btnNangCao;
 
-    private String selectedLevel = "";
-    private String currentTopic = "Đọc"; // Mặc định
+    private Button btnKhoaHoc, btnKiemTra;
+    private CardView btnBatDauKiemTra;
+    private LinearLayout khungChonChuDe;
+    private TextView tvTieuDeChuDe;
 
+    private String mucDoDaChon = "";
+    private String chuDeHienTai = "Đọc";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_kiemtra, container, false);
 
-        initViews(view);
+        anhXaView(view);
 
-        // Nhận dữ liệu tên kỹ năng từ trang trước
+        // Nhận dữ liệu từ trang trước
         if (getArguments() != null) {
-            String skillName = getArguments().getString("TEN_CHU_DE");
-            if (skillName != null) {
-                currentTopic = skillName;
-                if (tvTenChuDe != null) {
-                    tvTenChuDe.setText(currentTopic);
+            String tenKyNang = getArguments().getString("TEN_CHU_DE");
+            if (tenKyNang != null) {
+                chuDeHienTai = tenKyNang;
+                if (tvTieuDeChuDe != null) {
+                    tvTieuDeChuDe.setText(chuDeHienTai);
                 }
             }
+
+            denTuTrangChu = getArguments().getBoolean("TU_TRANG_CHU", false);
         }
 
-        setupListeners();
+        caiDatSuKien();
         return view;
     }
 
-    private void initViews(View view) {
-        btnBack = view.findViewById(R.id.btn_back);
-        btnBasic = view.findViewById(R.id.btn_basic);
-        btnMedium = view.findViewById(R.id.btn_medium);
-        btnAdvanced = view.findViewById(R.id.btn_advanced);
-        dropdownTopics = view.findViewById(R.id.dropdown_topics);
-        btnStartTest = view.findViewById(R.id.btn_start_test);
-        tvTenChuDe = view.findViewById(R.id.tv_header_topic);
+    private void anhXaView(View view) {
+        // Ánh xạ các nút chọn mức độ
+        btnCoBan = view.findViewById(R.id.btn_co_ban);
+        btnTrungBinh = view.findViewById(R.id.btn_trung_binh);
+        btnNangCao = view.findViewById(R.id.btn_nang_cao);
+
+        // Ánh xạ các nút điều hướng
+        btnKhoaHoc = view.findViewById(R.id.btn_khoa_hoc);
+        btnKiemTra = view.findViewById(R.id.btn_kiem_tra);
+
+        // Nút bắt đầu
+        btnBatDauKiemTra = view.findViewById(R.id.btn_bat_dau_kiem_tra);
+
+        // Ánh xạ các view khác
+        khungChonChuDe = view.findViewById(R.id.khung_chon_chu_de);
+        tvTieuDeChuDe = view.findViewById(R.id.tv_tieu_de_chu_de);
     }
 
-    private void setupListeners() {
-        // Nút Back
-        btnBack.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                getActivity().getSupportFragmentManager().popBackStack();
-            }
+    private void caiDatSuKien() {
+
+        // --- XỬ LÝ NÚT KHÓA HỌC / QUAY LẠI ---
+        if (denTuTrangChu) {
+            // Trường hợp 1: Đến từ trang chủ (Click icon) -> Nút thành "Quay lại"
+            btnKhoaHoc.setText("Quay lại");
+
+            btnKhoaHoc.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+            });
+        } else {
+            // Trường hợp 2: Mặc định (Click tab menu) -> Nút là "Khóa học"
+            btnKhoaHoc.setText("Khóa học");
+
+            btnKhoaHoc.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+            });
+        }
+
+        // Chọn Mức độ (Level)
+        btnCoBan.setOnClickListener(v -> {
+            mucDoDaChon = "Basic";
+            Toast.makeText(getContext(), "Đã chọn: Cơ bản", Toast.LENGTH_SHORT).show();
         });
 
-        // Chọn Level (Giữ nguyên logic cũ của bạn)
-        btnBasic.setOnClickListener(v -> {
-            selectedLevel = "Basic";
-            Toast.makeText(getContext(), "Đã chọn: Basic", Toast.LENGTH_SHORT).show();
+        btnTrungBinh.setOnClickListener(v -> {
+            mucDoDaChon = "Medium";
+            Toast.makeText(getContext(), "Đã chọn: Trung bình", Toast.LENGTH_SHORT).show();
         });
 
-        btnMedium.setOnClickListener(v -> {
-            selectedLevel = "Medium";
-            Toast.makeText(getContext(), "Đã chọn: Medium", Toast.LENGTH_SHORT).show();
+        btnNangCao.setOnClickListener(v -> {
+            mucDoDaChon = "Advanced";
+            Toast.makeText(getContext(), "Đã chọn: Nâng cao", Toast.LENGTH_SHORT).show();
         });
 
-        btnAdvanced.setOnClickListener(v -> {
-            selectedLevel = "Advanced";
-            Toast.makeText(getContext(), "Đã chọn: Advanced", Toast.LENGTH_SHORT).show();
+        khungChonChuDe.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Đang chọn chủ đề: " + chuDeHienTai, Toast.LENGTH_SHORT).show();
         });
 
-        dropdownTopics.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Đang chọn chủ đề: " + currentTopic, Toast.LENGTH_SHORT).show();
-        });
-
-        // >>>>>> SỰ KIỆN QUAN TRỌNG: BẮT ĐẦU KIỂM TRA <<<<<<
-        btnStartTest.setOnClickListener(v -> {
-            if (selectedLevel.isEmpty()) {
+        // >>>>>> BẮT ĐẦU KIỂM TRA <<<<<<
+        btnBatDauKiemTra.setOnClickListener(v -> {
+            if (mucDoDaChon.isEmpty()) {
                 Toast.makeText(getContext(), "Vui lòng chọn mức độ!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             Intent intent = null;
 
-            // Kiểm tra tên kỹ năng để chuyển đúng trang
-            switch (currentTopic) {
+            // Kiểm tra tên kỹ năng
+            switch (chuDeHienTai) {
                 case "Nghe":
                     intent = new Intent(getContext(), BaiTapNgheActivity.class);
                     break;
@@ -111,14 +137,13 @@ public class KiemTraFragment extends Fragment {
 
                 case "Đọc":
                 default:
-                    intent = new Intent(getContext(), BaiTapDocActivity.class); // Mặc định
+                    intent = new Intent(getContext(), BaiTapDocActivity.class);
                     break;
             }
 
             if (intent != null) {
-                // Gửi kèm dữ liệu cần thiết
-                intent.putExtra("SELECTED_LEVEL", selectedLevel);
-                intent.putExtra("SELECTED_TOPIC", currentTopic);
+                intent.putExtra("SELECTED_LEVEL", mucDoDaChon);
+                intent.putExtra("SELECTED_TOPIC", chuDeHienTai);
 
                 startActivity(intent);
             }

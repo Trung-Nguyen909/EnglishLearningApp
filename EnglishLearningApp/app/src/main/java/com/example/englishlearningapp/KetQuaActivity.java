@@ -16,14 +16,12 @@ public class KetQuaActivity extends AppCompatActivity {
     private Button btnLamlai;
     private Button btnThoat;
 
-    // Constants cho Intent extras (Dữ liệu nhận vào)
     public static final String EXTRA_CORRECT_ANSWERS = "CORRECT_ANSWERS";
     public static final String EXTRA_TOTAL_QUESTIONS = "TOTAL_QUESTIONS";
     public static final String EXTRA_TIME_SPENT = "TIME_SPENT";
 
-    // >>> THÊM 2 HẰNG SỐ NÀY ĐỂ NHẬN BIẾT BÀI TẬP NÀO <<<
-    public static final String EXTRA_TOPIC = "TOPIC"; // Ví dụ: "Listening"
-    public static final String EXTRA_LEVEL = "LEVEL"; // Ví dụ: "Basic"
+    public static final String EXTRA_TOPIC = "TOPIC";
+    public static final String EXTRA_LEVEL = "LEVEL";
 
     // Biến lưu trữ để dùng cho nút Làm lại
     private String receivedTopic = "";
@@ -86,7 +84,6 @@ public class KetQuaActivity extends AppCompatActivity {
                 Intent intent = null;
 
                 // Kiểm tra chủ đề cũ là gì để mở lại đúng Activity đó
-                // Lưu ý: Các chuỗi này phải khớp với chuỗi bạn gửi từ Kiemtra_Fragment
                 if (receivedTopic != null) {
                     switch (receivedTopic) {
                         case "Listening":
