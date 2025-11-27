@@ -140,7 +140,7 @@
                         android:id="@+id/icon_hoso"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:src="@drawable/ic_person"
+                        android:src="@drawable/ic_nguoidung"
                         app:tint="#888888" />
 
                     <View

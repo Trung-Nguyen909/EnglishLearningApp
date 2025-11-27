@@ -86,18 +86,18 @@ public class KetQuaActivity extends AppCompatActivity {
                 // Kiểm tra chủ đề cũ là gì để mở lại đúng Activity đó
                 if (receivedTopic != null) {
                     switch (receivedTopic) {
-                        case "Listening":
+                        case "Nghe":
                             intent = new Intent(KetQuaActivity.this, BaiTapNgheActivity.class);
                             break;
-                        case "Speaking":
+                        case "Nói":
                             intent = new Intent(KetQuaActivity.this, BaiTapNoiActivity.class);
                             break;
-                        case "Writing":
-                            intent = new Intent(KetQuaActivity.this, BaiTapVietActivity.class);
-                            break;
-                        case "Reading":
-                        default:
+                        case "Đọc":
                             intent = new Intent(KetQuaActivity.this, BaiTapDocActivity.class);
+                            break;
+                        case "Viết":
+                        default:
+                            intent = new Intent(KetQuaActivity.this, BaiTapVietActivity.class);
                             break;
                     }
                 } else {

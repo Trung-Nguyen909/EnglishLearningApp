@@ -5,7 +5,7 @@
     android:id="@+id/login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient">
+    android:background="@drawable/bg_trangchu">
 
     <LinearLayout
         android:id="@+id/layoutHeader"
@@ -150,8 +150,8 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/bg_edittext"
-                android:drawableStart="@drawable/ic_password"
-                android:drawableEnd="@drawable/ic_eye"
+                android:drawableStart="@drawable/ic_matkhau"
+                android:drawableEnd="@drawable/ic_matdong"
                 android:drawablePadding="8dp"
                 android:ems="10"
                 android:hint="Nhập mật khẩu"

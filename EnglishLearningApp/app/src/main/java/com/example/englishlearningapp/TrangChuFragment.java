@@ -49,10 +49,10 @@ public class TrangChuFragment extends Fragment {
 
         // --- XỬ LÝ PHẦN KỸ NĂNG (QUICK TEST) ---
         List<KyNangModel> danhSachKyNang = new ArrayList<>();
-        danhSachKyNang.add(new KyNangModel("Nghe", R.drawable.ic_listening));
-        danhSachKyNang.add(new KyNangModel("Nói", R.drawable.ic_speaking));
-        danhSachKyNang.add(new KyNangModel("Đọc", R.drawable.ic_reading));
-        danhSachKyNang.add(new KyNangModel("Viết", R.drawable.ic_writing));
+        danhSachKyNang.add(new KyNangModel("Nghe", R.drawable.ic_nghe));
+        danhSachKyNang.add(new KyNangModel("Nói", R.drawable.ic_noi));
+        danhSachKyNang.add(new KyNangModel("Đọc", R.drawable.ic_doc));
+        danhSachKyNang.add(new KyNangModel("Viết", R.drawable.ic_viet));
 
         adapterKyNang = new KyNangAdapter(getContext(), danhSachKyNang);
 
