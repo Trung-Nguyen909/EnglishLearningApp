@@ -8,6 +8,7 @@
     tools:context=".BaiHocActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="30dp"
         android:id="@+id/khung_tieu_de"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"

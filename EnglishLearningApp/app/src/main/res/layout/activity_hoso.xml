@@ -9,6 +9,7 @@
 
     <FrameLayout
         android:id="@+id/top_toolbar"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
