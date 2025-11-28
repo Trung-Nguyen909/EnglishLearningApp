@@ -131,25 +131,25 @@
                     </FrameLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="210dp"
+                        android:layout_height="90dp"
                         android:layout_alignBottom="@+id/khung_chua_tien_do"
                         android:layout_marginStart="23dp"
-                        android:layout_marginBottom="14dp"
+                        android:layout_marginBottom="-1dp"
                         android:layout_toEndOf="@id/khung_chua_tien_do"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Lớp học"
+                            android:text="Thành viên trong gia đình"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Cuộc sống học đường"
+                            android:text="Gia đình"
                             android:textColor="@color/royalBlue"
                             android:textSize="16sp"
                             android:textStyle="bold" />
