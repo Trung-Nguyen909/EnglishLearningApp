@@ -2,15 +2,18 @@ package com.example.EnglishLearningApp.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "PhanHoi")
-@Data
+@Table(name = "NhatKyHoatDong")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PhanHoi {
+public class NhatKyHoatDong {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,12 +21,12 @@ public class PhanHoi {
     @Column(name = "IDNguoiDung", nullable = false)
     private Integer idNguoiDung;
 
-    @Column(name = "Title", nullable = false, length = 200)
-    private String title;
+    @Column(name = "NgayHoatDong", nullable = false)
+    private LocalDate ngayHoatDong;
 
-    @Column(name = "NoiDung", length = 1000)
-    private String noiDung;
+    @Column(name = "SoPhutHoc")
+    private Integer soPhutHoc = 0;
 
-    @Column(name = "NgayTao")
-    private LocalDateTime ngayTao;
+    @Column(name = "TongSoBaiDaLam")
+    private Integer tongSoBaiDaLam = 0;
 }

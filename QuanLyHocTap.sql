@@ -124,18 +124,36 @@ CREATE TABLE ChiTietBaiLam (
     FOREIGN KEY (IDCauHoi) REFERENCES CauHoi(ID)
 );
 
--- CÁC BẢNG PHỤ KHÁC (Giữ nguyên logic cũ)
-CREATE TABLE TienTrinh (
+CREATE TABLE TienTrinhKhoaHoc (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    IDNguoiDung INT NOT NULL,
-    IDKhoaHoc INT NOT NULL,
-    ngayLam DATE NOT NULL,
-    DaLamDuocBaoNhieu Decimal(4,2) DEFAULT 0,
-    TgianLam TIME,
-    TrangThai NVARCHAR(50),
-    SoLanLam INT DEFAULT 0,
-    FOREIGN KEY (IDNguoiDung) REFERENCES NguoiDung(ID),
-    FOREIGN KEY (IDKhoaHoc) REFERENCES KhoaHoc(ID)
+    IdKhoaHoc INT NOT NULL,
+    IdUser INT NOT NULL,       -- Trong ảnh là IdUser, tham chiếu tới bảng NguoiDung
+    trangthai NVARCHAR(50),    -- Ví dụ: 'DangHoc', 'HoanThanh'
+    PhanTram DECIMAL(5, 2) DEFAULT 0, -- Lưu phần trăm (ví dụ: 50.50)
+    LanLamGanNhat DATETIME DEFAULT GETDATE(),
+    Tgianhoc INT,              -- Tổng thời gian học (tính bằng phút hoặc giây)
+    NgayBatDau DATETIME DEFAULT GETDATE(),
+    NgayHoanThanh DATETIME,
+
+    -- Khóa ngoại
+    CONSTRAINT FK_TTKH_KhoaHoc FOREIGN KEY (IdKhoaHoc) REFERENCES KhoaHoc(ID),
+    CONSTRAINT FK_TTKH_NguoiDung FOREIGN KEY (IdUser) REFERENCES NguoiDung(ID)
+);
+
+-- 2. Tạo bảng Tiến Trình Bài Học (Chi tiết từng bài học trong khóa đó)
+CREATE TABLE TienTrinhBaiHoc (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    IdTienTrinhKhoaHoc INT NOT NULL, -- Liên kết với bảng cha ở trên
+    IDBaiHoc INT NOT NULL,           -- Tham chiếu tới bảng BaiHoc
+    status NVARCHAR(50),             -- Ví dụ: 'Completed', 'Failed'
+    Ngaybatdau DATETIME DEFAULT GETDATE(),
+    Ngayketthuc DATETIME,
+    solanlam INT DEFAULT 0,
+    tgianlam INT,                    -- Thời gian làm bài (giây hoặc phút)
+
+    -- Khóa ngoại
+    CONSTRAINT FK_TTBH_TienTrinhKhoaHoc FOREIGN KEY (IdTienTrinhKhoaHoc) REFERENCES TienTrinhKhoaHoc(ID) ON DELETE CASCADE,
+    CONSTRAINT FK_TTBH_BaiHoc FOREIGN KEY (IDBaiHoc) REFERENCES BaiHoc(ID)
 );
 
 CREATE TABLE TuVung (
@@ -158,35 +176,15 @@ CREATE TABLE NguPhap (
     FOREIGN KEY (IDBaiHoc) REFERENCES BaiHoc(ID)
 );
 
-CREATE TABLE BinhLuan (
+CREATE TABLE NhatKyHoatDong (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    IDKhoaHoc INT NOT NULL,
     IDNguoiDung INT NOT NULL,
-    NgayLam DATE NOT NULL,
-    NoiDung NVARCHAR(1000),
-    LikeCount INT DEFAULT 0,
-    DislikeCount INT DEFAULT 0,
+    NgayHoatDong DATE NOT NULL, -- Chỉ lưu ngày (yyyy-MM-dd), không lưu giờ
+    SoPhutHoc INT DEFAULT 0,
+    TongSoBaiDaLam INT DEFAULT 0,
+    
     FOREIGN KEY (IDNguoiDung) REFERENCES NguoiDung(ID),
-    FOREIGN KEY (IDKhoaHoc) REFERENCES KhoaHoc(ID)
-);
-
-CREATE TABLE NguoiDung_BinhLuan (
-    ID INT IDENTITY(1,1) PRIMARY KEY,
-    IDNguoiDung INT NOT NULL,
-    IDBinhLuan INT NOT NULL,
-    Type NVARCHAR(20),
-    NgayTao DATE DEFAULT GETDATE(),
-    FOREIGN KEY (IDNguoiDung) REFERENCES NguoiDung(ID),
-    FOREIGN KEY (IDBinhLuan) REFERENCES BinhLuan(ID)
-);
-
-CREATE TABLE PhanHoi (
-    ID INT IDENTITY(1,1) PRIMARY KEY,
-    IDNguoiDung INT NOT NULL,
-    Title NVARCHAR(200) NOT NULL,
-    NoiDung NVARCHAR(1000),
-    NgayTao DATETIME DEFAULT GETDATE(),
-    FOREIGN KEY (IDNguoiDung) REFERENCES NguoiDung(ID)
+    CONSTRAINT UQ_NhatKy_User_Date UNIQUE (IDNguoiDung, NgayHoatDong) 
 );
 
 CREATE TABLE KyNang (
@@ -229,11 +227,8 @@ CREATE TABLE TuVungYeuThich (
 );
 
 -- CONSTRAINTS
-ALTER TABLE TienTrinh ADD CONSTRAINT CK_DaLamDuocBN_TienTrinh CHECK (DaLamDuocBaoNhieu >= 0 AND DaLamDuocBaoNhieu <= 100);
-ALTER TABLE TienTrinh ADD CONSTRAINT CK_TrangThai_TienTrinh CHECK (TrangThai IN (N'Đã hoàn thành', N'Đang Hoàn thành', N'Chưa làm'));
 ALTER TABLE BaiHoc ADD CONSTRAINT CK_TrangThai_BaiHoc CHECK (TrangThai IN (N'Đã hoàn thành', N'Đang Hoàn thành', N'Chưa làm'));
 ALTER TABLE BaiTap ADD CONSTRAINT CK_TrangThai_BaiTap CHECK (TrangThai IN (N'Đã hoàn thành', N'Đang Hoàn thành', N'Chưa làm'));
-ALTER TABLE NguoiDung_BinhLuan ADD CONSTRAINT CK_Type_NguoiDung_BinhLuan CHECK (Type IN ('Like', 'Dislike'));
 ALTER TABLE DanhGiaKyNang ADD CONSTRAINT CK_Diem_DanhGiaKyNang CHECK (Diem >= 0 AND Diem <= 100);
 
 -- =============================================
@@ -324,9 +319,6 @@ INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanh
 INSERT INTO NguPhap (IDBaiHoc, tenNguPhap, giaiThich, viDu) VALUES
 (1, N'Động từ TO BE', N'Am, is, are...', 'I am a student.');
 
-INSERT INTO BinhLuan (IDKhoaHoc, IDNguoiDung, NgayLam, NoiDung) VALUES
-(1, 1, '2024-01-15', N'Khóa học rất hay!');
-
 INSERT INTO KyNang (TenKyNang) VALUES (N'Nghe'), (N'Nói'), (N'Đọc'), (N'Viết');
 
 INSERT INTO DanhGiaKyNang (IDKyNang, IDNguoiDung, diem) VALUES (1, 1, 7.5);
@@ -335,9 +327,22 @@ INSERT INTO ThanhTich (tenThanhTich, moTa, bieuTuong) VALUES (N'Người mới b
 
 INSERT INTO NguoiDung_ThanhTich (IDNguoiDung, IDThanhTich) VALUES (1, 1);
 
-INSERT INTO PhanHoi (IDNguoiDung, Title, NoiDung) VALUES (1, N'Góp ý', N'Thêm bài tập nhé.');
-
 insert into TuVungYeuThich (IDNguoiDung,IDTuVung) values (1,1);
+INSERT INTO NhatKyHoatDong (IDNguoiDung, NgayHoatDong, SoPhutHoc, TongSoBaiDaLam)
+VALUES 
+(1, DATEADD(day, -1, GETDATE()), 45, 2),
+(1, GETDATE(), 30, 1),
+(2, GETDATE(), 15, 0);
+INSERT INTO TienTrinhKhoaHoc (IdKhoaHoc, IdUser, trangthai, PhanTram, LanLamGanNhat, Tgianhoc, NgayBatDau)
+VALUES 
+(1, 1, N'Đang học', 50.00, GETDATE(), 3600, '2024-01-10 08:00:00'),
+(1, 2, N'Mới bắt đầu', 0.00, GETDATE(), 0, GETDATE());
+
+INSERT INTO TienTrinhBaiHoc (IdTienTrinhKhoaHoc, IDBaiHoc, status, Ngaybatdau, Ngayketthuc, solanlam, tgianlam)
+VALUES 
+(1, 1, N'Completed', '2024-01-10 08:05:00', '2024-01-10 08:30:00', 1, 1500),
+(1, 2, N'In Progress', '2024-01-11 09:00:00', NULL, 2, 600);
+
 
 PRINT N'Cập nhật Database thành công theo ERD mới!';
 
@@ -361,3 +366,18 @@ select * from BaiTap
 select * from NguoiDung_ThanhTich
 select * from ThanhTich
 select * from TuVungYeuThich
+select * from ChiTietBaiLam
+select * from LichSuBaiLam
+--lấy lịch sử làm bài của user
+select *
+from LichSuBaiLam l 
+where l.IDNguoiDung = 1
+--lấy chi tiết bài cụ thể của user
+select IDTest, l.IDBaiTap, LoaiBai, DiemSo, ch.ID as IdBaitap, NoiDungCauHoi, LoaiBai, DuLieuDapAn, GiaiThich, Audio_URL, UserAns, IsCorrect
+from ChiTietBaiLam c 
+	join LichSuBaiLam l on c.IDLichSuBaiLam = l.ID
+	join CauHoi ch on c.IDCauHoi = ch.ID
+where l.ID =1
+select * from TienTrinhBaiHoc
+select * from TienTrinhKhoaHoc
+select * from NhatKyHoatDong
