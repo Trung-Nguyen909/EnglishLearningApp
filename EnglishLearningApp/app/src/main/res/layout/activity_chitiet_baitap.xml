@@ -22,7 +22,7 @@
             android:id="@+id/btn_back_detail"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back" /> <TextView
+            android:src="@drawable/ic_muitenxanh" /> <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quay lại"
@@ -42,7 +42,7 @@
         android:backgroundTint="#2563EB"
         android:paddingTop="14dp"
         android:paddingBottom="14dp"
-        app:icon="@drawable/ic_play_arrow" app:iconGravity="textStart"
+        app:icon="@drawable/ic_muitenbatdau" app:iconGravity="textStart"
         app:cornerRadius="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:padding="20dp"
-                android:background="@drawable/blue_header_background"> <TextView
+                android:background="@drawable/bg_xanhduong"> <TextView
                 android:id="@+id/tag_vocabulary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
                     <TextView
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/number_circle_background" android:gravity="center"
+                        android:background="@drawable/hinhtronxanhnhat" android:gravity="center"
                         android:text="1"
                         android:textColor="#2563EB"
                         android:textStyle="bold" />
@@ -190,7 +190,7 @@
                     <TextView
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/number_circle_background" android:gravity="center"
+                        android:background="@drawable/hinhtronxanhnhat" android:gravity="center"
                         android:text="2"
                         android:textColor="#2563EB"
                         android:textStyle="bold" />
@@ -218,7 +218,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/example_card_background" android:orientation="vertical"
+                    android:background="@drawable/bg_thevidu" android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
@@ -244,7 +244,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:background="@drawable/example_card_background" android:orientation="vertical"
+                    android:background="@drawable/bg_thevidu" android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView

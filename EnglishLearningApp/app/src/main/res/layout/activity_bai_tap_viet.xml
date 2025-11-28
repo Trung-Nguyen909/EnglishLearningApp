@@ -24,7 +24,7 @@
             android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/ic_muitenxanh"
             app:tint="@color/royalBlue"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
@@ -56,7 +56,7 @@
                 android:id="@+id/img_icon_dong_ho"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@drawable/ic_access_time_black_24dp"
+                android:src="@drawable/ic_dongho"
                 app:tint="@color/royalBlue"
                 android:layout_marginEnd="4dp"/>
 

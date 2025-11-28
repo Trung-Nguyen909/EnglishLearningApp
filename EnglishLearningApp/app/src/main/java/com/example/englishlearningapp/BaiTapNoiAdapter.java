@@ -56,10 +56,10 @@ public class BaiTapNoiAdapter extends RecyclerView.Adapter<BaiTapNoiAdapter.BaiT
 
             if (cauHoi.isChinhXac()) {
                 nguoiGiu.tvKetQuaNguoiDung.setTextColor(Color.parseColor("#4CAF50"));
-                nguoiGiu.anhTrangThai.setImageResource(R.drawable.ic_check_circle);
+                nguoiGiu.anhTrangThai.setImageResource(R.drawable.ic_tick);
             } else {
                 nguoiGiu.tvKetQuaNguoiDung.setTextColor(Color.parseColor("#F44336"));
-                nguoiGiu.anhTrangThai.setImageResource(R.drawable.ic_error);
+                nguoiGiu.anhTrangThai.setImageResource(R.drawable.ic_loi);
             }
         } else {
             nguoiGiu.tvKetQuaNguoiDung.setVisibility(View.GONE);

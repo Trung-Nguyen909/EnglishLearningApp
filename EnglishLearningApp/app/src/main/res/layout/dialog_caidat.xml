@@ -247,7 +247,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_arrow_down"
+                    android:src="@drawable/ic_muitenxuong"
                     android:rotation="-90"
                     app:tint="#888"
                     android:layout_alignParentEnd="true"
@@ -295,7 +295,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="Xong"
-            android:background="@drawable/bg_book_icon"
+            android:background="@drawable/bg_xanhduong"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:textStyle="bold"

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="16dp"
-            android:src="@drawable/ic_arrow_back_white_24dp"
+            android:src="@drawable/ic_muitentrang"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +57,7 @@
             android:layout_height="60dp"
             android:contentDescription="Icon Khóa học"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_family_member"
+            android:src="@drawable/ic_thanhviengiadinh"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

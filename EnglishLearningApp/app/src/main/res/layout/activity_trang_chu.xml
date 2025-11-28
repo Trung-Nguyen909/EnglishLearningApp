@@ -39,7 +39,7 @@
                             android:id="@+id/nen_icon_sach"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:background="@drawable/bg_book_icon" />
+                            android:background="@drawable/bg_xanhduong" />
 
                         <ImageView
                             android:id="@+id/img_icon_sach"
@@ -65,7 +65,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/bg_edittext">
+                android:background="@drawable/bg_nhapdulieu">
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -227,7 +227,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_back" />
+                            android:src="@drawable/ic_muitenxanh" />
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -242,7 +242,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:rotationY="170"
-                            android:src="@drawable/ic_arrow_back" />
+                            android:src="@drawable/ic_muitenxanh" />
                     </LinearLayout>
 
                     <LinearLayout

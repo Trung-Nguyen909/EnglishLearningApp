@@ -34,7 +34,7 @@
                     android:id="@+id/imgCup"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ic_trophy"
+                    android:src="@drawable/ic_huychuong"
                     android:contentDescription="Trophy icon" />
 
                 <!-- Title -->
@@ -170,7 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:background="@drawable/bg_info_banner"
+                    android:background="@drawable/bg_thongbao"
                     android:padding="16dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
@@ -198,7 +198,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="24dp"
-                    android:background="@drawable/bg_button"
+                    android:background="@drawable/bg_xanhduong"
                     android:text="Làm lại"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
@@ -211,7 +211,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="12dp"
-                    android:background="@drawable/bg_button_outlined"
+                    android:background="@drawable/bg_trangvienxanh"
                     android:text="Thoát"
                     android:textColor="#2563EB"
                     android:textSize="16sp"

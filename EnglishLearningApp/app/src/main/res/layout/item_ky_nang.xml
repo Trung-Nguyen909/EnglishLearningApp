@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="@drawable/bg_blue_rounded">
+        android:background="@drawable/bg_xanhduong">
         <ImageView
         android:id="@+id/img_icon"
         android:layout_width="30dp"

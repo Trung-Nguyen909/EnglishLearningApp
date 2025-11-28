@@ -8,6 +8,7 @@
     android:background="@drawable/bg_trangchu">
 
     <FrameLayout
+        android:layout_marginTop="30dp"
         android:id="@+id/khung_tieu_de"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -153,7 +154,7 @@
                         android:padding="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/button_white">
+                        android:background="@drawable/bg_khungtrang">
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -205,7 +206,7 @@
                         android:padding="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/button_white">
+                        android:background="@drawable/bg_khungtrang">
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -257,7 +258,7 @@
                         android:padding="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/button_white">
+                        android:background="@drawable/bg_khungtrang">
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -309,7 +310,7 @@
                         android:padding="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/button_white">
+                        android:background="@drawable/bg_khungtrang">
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -370,7 +371,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/royalBlue"
-                        android:drawableStart="@drawable/ic_devlop"
+                        android:drawableStart="@drawable/ic_muitenphattrien"
                         app:drawableTint="#5F77C8"
                         android:drawablePadding="8dp"
                         android:layout_marginBottom="20dp"/>
@@ -563,7 +564,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="16dp"
                             android:padding="8dp"
-                            android:src="@drawable/ic_complete"
+                            android:src="@drawable/ic_hoanthanh"
                             app:tint="@color/royalBlue" />
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -719,7 +720,7 @@
                             <ImageView
                                 android:layout_width="56dp"
                                 android:layout_height="56dp"
-                                android:src="@drawable/ic_complete"
+                                android:src="@drawable/ic_hoanthanh"
                                 android:padding="14dp"
                                 android:layout_marginBottom="8dp"
                                 android:contentDescription="100 Lessons Achievement"/>
@@ -768,9 +769,9 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginBottom="24dp"
-                android:background="@drawable/button_white"
+                android:background="@drawable/bg_khungtrang"
                 android:textColor="@color/royalBlue"
-                android:drawableStart="@drawable/ic_setting"
+                android:drawableStart="@drawable/ic_caidat"
                 android:gravity="start|center_vertical"
                 android:drawablePadding="16dp"
                 android:paddingStart="24dp"

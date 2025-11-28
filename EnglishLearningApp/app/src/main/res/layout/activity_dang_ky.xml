@@ -37,7 +37,7 @@
                     android:id="@+id/view2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/bg_book_icon" />
+                    android:background="@drawable/bg_xanhduong" />
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -77,7 +77,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/bg_book_border"
+        android:background="@drawable/bg_khungtrang"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -99,7 +99,7 @@
                 android:layout_height="40dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_white"
+                android:background="@drawable/bg_khungtrang"
                 android:text="Đăng nhập"
                 android:textColor="@color/royalBlue"
                 app:backgroundTint="@null" />
@@ -110,7 +110,7 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_book_icon"
+                android:background="@drawable/bg_xanhduong"
                 android:text="Đăng ký"
                 app:backgroundTint="@null" />
         </LinearLayout>
@@ -135,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_nhapdulieu"
                 android:drawableStart="@drawable/ic_email"
                 android:drawablePadding="8dp"
                 android:ems="10"
@@ -158,7 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_nhapdulieu"
                 android:drawableStart="@drawable/ic_user"
                 android:drawablePadding="8dp"
                 android:hint="Nhập tên đăng nhập"
@@ -180,7 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_nhapdulieu"
                 android:drawableStart="@drawable/ic_matkhau"
                 android:drawableEnd="@drawable/ic_matdong"
                 android:drawablePadding="8dp"
@@ -205,7 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_nhapdulieu"
                 android:drawableStart="@drawable/ic_matkhau"
                 android:drawableEnd="@drawable/ic_matdong"
                 android:drawablePadding="8dp"
@@ -225,7 +225,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_book_icon"
+            android:background="@drawable/bg_xanhduong"
             android:text="Tạo tài khoản"
             android:textSize="17dp"
             android:textColor="@color/white"
