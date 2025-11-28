@@ -159,7 +159,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Listen to the conversation and answer the questions below."
+                android:text="Hãy nghe cuộc trò chuyện và trả lời các câu hỏi bên dưới."
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"

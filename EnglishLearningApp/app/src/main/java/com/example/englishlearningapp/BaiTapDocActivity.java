@@ -136,16 +136,17 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
 
     private List<CauHoiModel> taoCauHoi() {
         return Arrays.asList(
-                new CauHoiModel(1, "Choose the correct word to complete the sentence:", "She ____ to the store yesterday.", Arrays.asList("go", "goes", "went", "going"), "went"),
-                new CauHoiModel(2, "Vocabulary: Choose the word with the opposite meaning.", "The word 'difficult' is the opposite of ____.", Arrays.asList("hard", "easy", "long", "bad"), "easy"),
-                new CauHoiModel(3, "Grammar: Present Continuous tense", "She ____ dinner right now.", Arrays.asList("cooks", "is cooking", "cook", "was cooking"), "is cooking"),
-                new CauHoiModel(4, "Communication: What is the polite way to ask for help?", "You say: ____", Arrays.asList("Help me!", "Give me that!", "Could you help me, please?", "You must help me!"), "Could you help me, please?"),
-                new CauHoiModel(5, "Vocabulary: Choose the correct meaning.", "The word 'improve' means ____.", Arrays.asList("làm tệ hơn", "cải thiện", "phá hỏng", "bắt đầu"), "cải thiện"),
-                new CauHoiModel(6, "Grammar: Choose the correct past tense form.", "They ____ a movie last night.", Arrays.asList("watch", "watched", "watching", "watches"), "watched"),
-                new CauHoiModel(7, "Pronunciation: Which word has a different vowel sound?", "Choose the odd one out.", Arrays.asList("beat", "seat", "great", "heat"), "great"),
-                new CauHoiModel(8, "Vocabulary: Choose the correct preposition.", "I am interested ____ learning English.", Arrays.asList("on", "in", "with", "to"), "in"),
-                new CauHoiModel(9, "Reading: Choose the best answer.", "‘I usually study English in the evening.’ What does ‘usually’ mean?", Arrays.asList("luôn luôn", "thỉnh thoảng", "thường xuyên", "hiếm khi"), "thường xuyên"),
-                new CauHoiModel(10, "Grammar: Articles", "She bought ____ umbrella yesterday.", Arrays.asList("a", "an", "the", "no article"), "an")
+                new CauHoiModel(1, "Chọn từ đúng để hoàn thành câu sau:", "She ____ to the store yesterday.", Arrays.asList("go", "goes", "went", "going"), "went"),
+                new CauHoiModel(2, "Từ vựng: Chọn từ có nghĩa trái ngược.", "Từ 'difficult' có nghĩa trái ngược với ____.", Arrays.asList("hard", "easy", "long", "bad"), "easy"),
+                new CauHoiModel(3, "Ngữ pháp: Thì Hiện tại tiếp diễn", "She ____ dinner right now.", Arrays.asList("cooks", "is cooking", "cook", "was cooking"), "is cooking"),
+                new CauHoiModel(4, "Giao tiếp: Cách lịch sự để nhờ giúp đỡ là gì?", "Bạn nói: ____", Arrays.asList("Help me!", "Give me that!", "Could you help me, please?", "You must help me!"), "Could you help me, please?"),
+                new CauHoiModel(5, "Từ vựng: Chọn nghĩa đúng.", "Từ 'improve' có nghĩa là ____.", Arrays.asList("làm tệ hơn", "cải thiện", "phá hỏng", "bắt đầu"), "cải thiện"),
+                new CauHoiModel(6, "Ngữ pháp: Chọn dạng quá khứ đúng.", "They ____ a movie last night.", Arrays.asList("watch", "watched", "watching", "watches"), "watched"),
+                new CauHoiModel(7, "Phát âm: Từ nào có nguyên âm khác?", "Chọn từ khác loại.", Arrays.asList("beat", "seat", "great", "heat"), "great"),
+                new CauHoiModel(8, "Từ vựng: Chọn giới từ đúng.", "I am interested ____ learning English.", Arrays.asList("on", "in", "with", "to"), "in"),
+                new CauHoiModel(9, "Đọc hiểu: Chọn câu trả lời đúng.", "‘I usually study English in the evening.’ Từ ‘usually’ có nghĩa là gì?", Arrays.asList("luôn luôn", "thỉnh thoảng", "thường xuyên", "hiếm khi"), "thường xuyên"),
+                new CauHoiModel(10, "Ngữ pháp: Mạo từ (articles)", "She bought ____ umbrella yesterday.", Arrays.asList("a", "an", "the", "no article"), "an")
         );
     }
+
 }

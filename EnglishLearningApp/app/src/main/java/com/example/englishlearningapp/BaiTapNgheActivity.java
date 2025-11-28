@@ -238,11 +238,12 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
 
     private List<CauHoiModel> taoCauHoiNghe() {
         return Arrays.asList(
-                new CauHoiModel(1, "Instruction: Listen and choose.", "Where are they going?", Arrays.asList("Cinema", "Museum", "Park", "School"), "Museum"),
-                new CauHoiModel(2, "Instruction: Listen to detail.", "What time is it?", Arrays.asList("7:00", "7:30", "8:00", "9:00"), "7:30"),
-                new CauHoiModel(3, "Instruction: Inferring.", "How does the man feel?", Arrays.asList("Happy", "Sad", "Angry", "Tired"), "Happy")
+                new CauHoiModel(1, "Hướng dẫn: Nghe và chọn đáp án.", "Where are they going?", Arrays.asList("Cinema", "Museum", "Park", "School"), "Museum"),
+                new CauHoiModel(2, "Hướng dẫn: Nghe chi tiết.", "What time is it?", Arrays.asList("7:00", "7:30", "8:00", "9:00"), "7:30"),
+                new CauHoiModel(3, "Hướng dẫn: Suy luận khi nghe.", "How does the man feel?", Arrays.asList("Happy", "Sad", "Angry", "Tired"), "Happy")
         );
     }
+
 
     @Override
     protected void onDestroy() {

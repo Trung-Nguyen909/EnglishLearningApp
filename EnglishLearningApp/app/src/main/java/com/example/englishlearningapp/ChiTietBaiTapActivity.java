@@ -104,41 +104,42 @@ public class ChiTietBaiTapActivity extends AppCompatActivity {
 
     private void hienThiNoiDungChiTiet(String tenBaiHoc) {
         if (tenBaiHoc.contains("thành viên") || tenBaiHoc.contains("Family")) {
-            setTextSafe(tvGioiThieu, "Basic English vocabulary for describing family relationships.");
-            setTextSafe(tvDiemChinh1, "Immediate family (father, mother, sister, brother)");
-            setTextSafe(tvDiemChinh2, "Extended family (uncle, aunt, cousin, grandparents)");
+            setTextSafe(tvGioiThieu, "Từ vựng tiếng Anh cơ bản về các mối quan hệ trong gia đình.");
+            setTextSafe(tvDiemChinh1, "Gia đình ruột thịt (bố, mẹ, anh, chị, em).");
+            setTextSafe(tvDiemChinh2, "Họ hàng (cậu, dì, chú, bác, anh em họ, ông bà).");
             setTextSafe(tvViDuTu, "Father / Mother");
-            setTextSafe(tvViDuCau, "\"My father works in a hospital.\"");
+            setTextSafe(tvViDuCau, "\"My father works in a hospital.\" – Bố tôi làm việc trong một bệnh viện.");
 
         } else if (tenBaiHoc.contains("Sở hữu cách") || tenBaiHoc.contains("Possessive")) {
-            setTextSafe(tvGioiThieu, "Learn how to use apostrophe s ('s) to show possession.");
-            setTextSafe(tvDiemChinh1, "Singular nouns: Add 's (e.g., John's car)");
-            setTextSafe(tvDiemChinh2, "Plural nouns ending in s: Add ' (e.g., Students' books)");
-            setTextSafe(tvViDuTu, "Rule Example");
-            setTextSafe(tvViDuCau, "\"This is my brother's house.\"");
+            setTextSafe(tvGioiThieu, "Học cách dùng 's để thể hiện sự sở hữu trong tiếng Anh.");
+            setTextSafe(tvDiemChinh1, "Danh từ số ít: thêm 's (VD: John's car – xe của John).");
+            setTextSafe(tvDiemChinh2, "Danh từ số nhiều tận cùng bằng s: thêm ' (VD: Students' books – sách của học sinh).");
+            setTextSafe(tvViDuTu, "Ví dụ về quy tắc.");
+            setTextSafe(tvViDuCau, "\"This is my brother's house.\" – Đây là nhà của anh trai tôi.");
 
         } else if (tenBaiHoc.contains("Giới thiệu")) {
-            setTextSafe(tvGioiThieu, "Phrases and sentences to introduce your family members to others.");
-            setTextSafe(tvDiemChinh1, "Using 'This is...' to introduce someone.");
-            setTextSafe(tvDiemChinh2, "Describing age, jobs, and hobbies.");
-            setTextSafe(tvViDuTu, "Introduction");
-            setTextSafe(tvViDuCau, "\"There are 4 people in my family: my parents, my sister and me.\"");
+            setTextSafe(tvGioiThieu, "Cụm từ và câu dùng để giới thiệu các thành viên gia đình.");
+            setTextSafe(tvDiemChinh1, "Dùng 'This is...' để giới thiệu ai đó.");
+            setTextSafe(tvDiemChinh2, "Mô tả tuổi, nghề nghiệp và sở thích.");
+            setTextSafe(tvViDuTu, "Giới thiệu.");
+            setTextSafe(tvViDuCau, "\"There are 4 people in my family...\" – Gia đình tôi có 4 người...");
 
         } else if (tenBaiHoc.contains("Hoạt động buổi sáng")) {
-            setTextSafe(tvGioiThieu, "Vocabulary related to daily morning routines.");
-            setTextSafe(tvDiemChinh1, "Verbs: wake up, brush teeth, have breakfast.");
-            setTextSafe(tvDiemChinh2, "Time expressions: at 7 AM, in the morning.");
-            setTextSafe(tvViDuTu, "Wake up");
-            setTextSafe(tvViDuCau, "\"I usually wake up at 6 o'clock.\"");
+            setTextSafe(tvGioiThieu, "Từ vựng liên quan đến các hoạt động buổi sáng hằng ngày.");
+            setTextSafe(tvDiemChinh1, "Các động từ: wake up (thức dậy), brush teeth (đánh răng), have breakfast (ăn sáng).");
+            setTextSafe(tvDiemChinh2, "Các cụm chỉ thời gian: at 7 AM (lúc 7 giờ sáng), in the morning (vào buổi sáng).");
+            setTextSafe(tvViDuTu, "Wake up – thức dậy.");
+            setTextSafe(tvViDuCau, "\"I usually wake up at 6 o'clock.\" – Tôi thường thức dậy lúc 6 giờ.");
 
         } else {
             setTextSafe(tvGioiThieu, "Nội dung bài học đang được cập nhật...");
-            setTextSafe(tvDiemChinh1, "Key point 1");
-            setTextSafe(tvDiemChinh2, "Key point 2");
-            setTextSafe(tvViDuTu, "Example");
-            setTextSafe(tvViDuCau, "Example sentence.");
+            setTextSafe(tvDiemChinh1, "Ý chính 1.");
+            setTextSafe(tvDiemChinh2, "Ý chính 2.");
+            setTextSafe(tvViDuTu, "Ví dụ từ.");
+            setTextSafe(tvViDuCau, "Ví dụ câu.");
         }
     }
+
 
     private void setTextSafe(TextView tv, String text) {
         if (tv != null) {
