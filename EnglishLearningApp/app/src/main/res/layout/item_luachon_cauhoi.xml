@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:padding="16dp"
     android:layout_marginBottom="8dp"
-    android:background="@drawable/option_default_bg"
+    android:background="@drawable/bg_luachon"
     android:gravity="center_vertical">
 
     <RadioButton

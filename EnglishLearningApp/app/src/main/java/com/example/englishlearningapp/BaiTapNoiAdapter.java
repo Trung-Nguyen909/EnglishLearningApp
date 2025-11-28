@@ -34,7 +34,7 @@ public class BaiTapNoiAdapter extends RecyclerView.Adapter<BaiTapNoiAdapter.BaiT
     @NonNull
     @Override
     public BaiTapNoiViewHolder onCreateViewHolder(@NonNull ViewGroup nhomCha, int kieuView) {
-        View giaoDien = LayoutInflater.from(boiCanh).inflate(R.layout.item_speaking, nhomCha, false);
+        View giaoDien = LayoutInflater.from(boiCanh).inflate(R.layout.item_luyennoi, nhomCha, false);
         return new BaiTapNoiViewHolder(giaoDien);
     }
 
