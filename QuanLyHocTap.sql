@@ -381,3 +381,4 @@ where l.ID =1
 select * from TienTrinhBaiHoc
 select * from TienTrinhKhoaHoc
 select * from NhatKyHoatDong
+select * from NguoiDung

@@ -24,7 +24,7 @@ public class NhatKyHoatDongService {
 
     // Hàm lấy danh sách theo User ID (hỗ trợ vẽ biểu đồ)
     public List<NhatKyHoatDong> getNhatKyByUserId(Integer userId) {
-        return nhatKyHoatDongRepository.findByNguoiDung_Id(userId);
+        return nhatKyHoatDongRepository.findByIdNguoiDung(userId);
     }
 
     public NhatKyHoatDong createNhatKy(NhatKyHoatDong nhatKy) {

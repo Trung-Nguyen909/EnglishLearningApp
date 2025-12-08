@@ -48,7 +48,7 @@ public class NguoiDungService {
     public NguoiDung createUser(UserRegisterRequest nguoiDung){
 
         NguoiDung nguoiDung1 =  nguoiDungMapper.toNguoiDung(nguoiDung);
-        nguoiDung.setMatKhau(passwordEncoder.encode(nguoiDung.getMatKhau()));
+        nguoiDung1.setMatKhau(passwordEncoder.encode(nguoiDung.getMatKhau()));
         return nguoiDungRepository.save(nguoiDung1);
     }
 

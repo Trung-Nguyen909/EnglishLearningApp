@@ -10,8 +10,8 @@ import java.util.List;
 public interface NhatKyHoatDongRepository extends JpaRepository<NhatKyHoatDong, Integer> {
 
     // Hàm mở rộng: Tìm tất cả nhật ký của 1 user cụ thể (Rất hay dùng để vẽ biểu đồ)
-    List<NhatKyHoatDong> findByNguoiDung_Id(Integer idNguoiDung);
+    List<NhatKyHoatDong> findByIdNguoiDung(Integer idNguoiDung);
 
     // Hàm mở rộng: Tìm nhật ký của user trong 1 ngày cụ thể (để check xem hôm nay học chưa)
-    NhatKyHoatDong findByNguoiDung_IdAndNgayHoatDong(Integer idNguoiDung, java.time.LocalDate ngayHoatDong);
+    NhatKyHoatDong findByIdNguoiDungAndNgayHoatDong(Integer idNguoiDung, java.time.LocalDate ngayHoatDong);
 }
