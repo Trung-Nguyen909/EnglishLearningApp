@@ -216,56 +216,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
-                    <LinearLayout
+                    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                        android:id="@+id/calendarView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_muitenxanh" />
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Tháng 10, 2025"
-                            android:textColor="@color/royalBlue"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:rotationY="170"
-                            android:src="@drawable/ic_muitenxanh" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="16dp"
-                        android:weightSum="7">
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T2" android:textColor="@color/royalBlue" android:textStyle="bold"/>
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T3" android:textColor="@color/royalBlue" android:textStyle="bold"/>
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T4" android:textColor="@color/royalBlue" android:textStyle="bold"/>
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T5" android:textColor="@color/royalBlue" android:textStyle="bold"/>
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T6" android:textColor="@color/royalBlue" android:textStyle="bold"/>
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T7" android:textColor="@color/royalBlue" android:textStyle="bold"/>
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="CN" android:textColor="@color/royalBlue" android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rcv_lich"
-                        android:layout_width="match_parent"
-                        android:layout_height="218dp"
-                        android:layout_marginTop="10dp"
-                        android:overScrollMode="never" />
+                        app:mcv_showOtherDates="all"
+                        app:mcv_selectionColor="@color/royalBlue"
+                        app:mcv_headerTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                        app:mcv_weekDayTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                        app:mcv_dateTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                        />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
