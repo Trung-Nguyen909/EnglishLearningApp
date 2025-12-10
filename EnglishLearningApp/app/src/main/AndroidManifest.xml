@@ -16,7 +16,7 @@
         android:theme="@style/Theme.EnglishLearningApp">
         <activity android:name=".BaiTapNoiActivity" />
         <activity android:name=".BaiTapVietActivity" />
-
+        <activity android:name=".LichSuLamBaiActivity" />
         <activity android:name=".BaiTapDocActivity"/>
         <activity android:name=".DangNhapActivity" />
         <activity android:name=".DangKyActivity" />

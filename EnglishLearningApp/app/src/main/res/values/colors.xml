@@ -17,6 +17,8 @@
 
     <color name="colorPrimary">#007AFF</color>
     <color name="colorGray">#CCCCCC</color>
-
+    <color name="colorSuccess">#1abc9c</color>
+    <color name="colorError">#e74c3c</color>
+    <color name="colorCompleted">#95a5a6</color>
 
 </resources>

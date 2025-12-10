@@ -76,6 +76,15 @@ public class HoSoFragment extends Fragment {
         btnCaiDat.setOnClickListener(v -> {
             hienThiHopThoaiCaiDat();
         });
+
+        // Click listener for "Hoạt động gần đây" section to navigate to exercise history
+        androidx.cardview.widget.CardView theHoatDongGanDay = view.findViewById(R.id.the_hoat_dong_gan_day);
+        if (theHoatDongGanDay != null) {
+            theHoatDongGanDay.setOnClickListener(v -> {
+                Intent intent = new Intent(requireContext(), LichSuLamBaiActivity.class);
+                startActivity(intent);
+            });
+        }
     }
     private void hienThiHopThoaiCaiDat() {
         final Dialog hopThoai = new Dialog(requireContext());
