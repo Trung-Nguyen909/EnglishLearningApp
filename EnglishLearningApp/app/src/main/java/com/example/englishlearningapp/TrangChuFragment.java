@@ -89,21 +89,16 @@ public class TrangChuFragment extends Fragment {
         return view;
     }
 
-    // --- HÀM GỌI API ---
     private void callApiLayLichHoatDong(int userId) {
         SharedPreferences prefs = getActivity().getSharedPreferences("APP_PREFS", Context.MODE_PRIVATE);
         String token = prefs.getString("TOKEN", null);
 
         if (token == null) {
-            // Chưa đăng nhập -> Ẩn lịch hoặc báo lỗi
             return;
         }
 
-        // Ví dụ:
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        String fullToken = "Bearer " + token; // Nhớ thêm Bearer nếu Backend yêu cầu
-
-        Call<List<NhatKyHoatDong>> call = apiService.getUserActivityLog(fullToken);
+        ApiService apiService = ApiClient.getClient(getContext()).create(ApiService.class);
+        Call<List<NhatKyHoatDong>> call = apiService.getUserActivityLog();
 
         call.enqueue(new Callback<List<NhatKyHoatDong>>() {
             @Override

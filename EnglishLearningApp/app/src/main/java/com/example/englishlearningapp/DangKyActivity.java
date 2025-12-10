@@ -65,7 +65,7 @@ public class DangKyActivity extends AppCompatActivity {
             // Tạo request gửi server
             UserRegisterRequest request = new UserRegisterRequest(email, password, username);
 
-            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+            ApiService apiService = ApiClient.getClient(DangKyActivity.this).create(ApiService.class);
             apiService.register(request).enqueue(new Callback<NguoiDungRespone>() {
                 @Override
                 public void onResponse(Call<NguoiDungRespone> call, Response<NguoiDungRespone> response) {

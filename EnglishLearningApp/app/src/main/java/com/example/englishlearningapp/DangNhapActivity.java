@@ -11,7 +11,10 @@ import android.widget.Toast;
 
 import com.example.englishlearningapp.DTO.Request.UserLoginRequest;
 import com.example.englishlearningapp.DTO.Response.AuthResponse;
+import com.example.englishlearningapp.Retrofit.ApiResponse;
 import com.example.englishlearningapp.Retrofit.ApiService;
+import com.google.android.material.snackbar.Snackbar;
+
 
 import retrofit2.Call;
 
@@ -43,7 +46,7 @@ public class DangNhapActivity extends AppCompatActivity {
                     return;
                 }
 
-                ApiService apiService = ApiClient.getClient().create(ApiService.class);
+                ApiService apiService = ApiClient.getClient(DangNhapActivity.this).create(ApiService.class);
                 UserLoginRequest loginRequest = new UserLoginRequest(email, password);
 
                 apiService.login(loginRequest).enqueue(new retrofit2.Callback<AuthResponse>() {
@@ -51,12 +54,12 @@ public class DangNhapActivity extends AppCompatActivity {
                     public void onResponse(Call<AuthResponse> call, retrofit2.Response<AuthResponse> response) {
                         if(response.isSuccessful() && response.body() != null){
                             AuthResponse auth = response.body();
-                            Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công: " + auth.getUser(), Toast.LENGTH_SHORT).show();
                             getSharedPreferences("APP_PREFS", MODE_PRIVATE)
                                     .edit()
                                     .putString("TOKEN", auth.getToken())
                                     .apply();
-
+                            createTodayLog();
+                            Toast.makeText(DangNhapActivity.this, "Xin chào " + auth.getUser().getTenDangNhap(), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -73,4 +76,36 @@ public class DangNhapActivity extends AppCompatActivity {
             }
         });
     }
+    private void createTodayLog() {
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+
+        apiService.createTodayActivityLog().enqueue(new retrofit2.Callback<ApiResponse<Object>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<Object>> call, retrofit2.Response<ApiResponse<Object>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ApiResponse<Object> apiRes = response.body();
+
+                    String message = apiRes.getMessage();
+
+                    android.util.Log.d("API", "Message từ BE: " + message);
+                    Snackbar.make(findViewById(android.R.id.content),
+                            message,
+                            Snackbar.LENGTH_LONG
+                    ).show();
+                }else {
+                    Snackbar.make(findViewById(android.R.id.content),
+                            "Không nhận được dữ liệu từ server",
+                            Snackbar.LENGTH_LONG
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<Object>> call, Throwable t) {
+                android.util.Log.e("API_ERROR", "Lỗi khi tạo nhật ký: " + t.getMessage());
+            }
+        });
+    }
+
 }
+

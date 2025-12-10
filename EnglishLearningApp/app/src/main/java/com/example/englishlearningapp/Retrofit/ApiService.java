@@ -11,16 +11,22 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiService {
     @POST("user/login")
+    @Headers("No-Authentication: true")
     Call<AuthResponse> login(@Body UserLoginRequest user);
 
     @POST("user/register")
+    @Headers("No-Authentication: true")
     Call<NguoiDungRespone> register(@Body UserRegisterRequest user);
 
     @GET("nhatkyhoatdong/my-activity-log")
-    Call<List<NhatKyHoatDong>> getUserActivityLog(@Header("Authorization") String token);
+    Call<List<NhatKyHoatDong>> getUserActivityLog();
+
+    @POST("/nhatkyhoatdong")
+    Call<ApiResponse<Object>> createTodayActivityLog();
 }
