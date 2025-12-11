@@ -1,6 +1,8 @@
 package com.example.englishlearningapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,19 @@ public class LichSuLamBaiActivity extends AppCompatActivity {
         // Set adapter
         adapter = new LichSuLamBaiAdapter(this, baiTapList);
         recyclerViewLichSu.setAdapter(adapter);
+
+        // Set click listener for items
+        adapter.setOnItemClickListener((baiTap, position) -> {
+            try {
+                Log.d("LichSuLamBai", "Item clicked: " + position);
+                Intent intent = new Intent(LichSuLamBaiActivity.this, TestResultActivity.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                Log.e("LichSuLamBai", "Error on item click: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+
 
         // Handle back button
         btnBack.setOnClickListener(new View.OnClickListener() {

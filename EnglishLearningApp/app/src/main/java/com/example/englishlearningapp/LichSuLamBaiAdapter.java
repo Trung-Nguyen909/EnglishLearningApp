@@ -1,6 +1,7 @@
 package com.example.englishlearningapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,9 +70,12 @@ public class LichSuLamBaiAdapter extends RecyclerView.Adapter<LichSuLamBaiAdapte
         }
 
         // Set click listener
-        holder.cardView.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
+            Log.d("LichSuLamBaiAdapter", "Item clicked at position: " + position);
             if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(baiTap, position);
+            } else {
+                Log.e("LichSuLamBaiAdapter", "onItemClickListener is null");
             }
         });
     }

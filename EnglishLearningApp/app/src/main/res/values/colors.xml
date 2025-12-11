@@ -21,4 +21,8 @@
     <color name="colorError">#e74c3c</color>
     <color name="colorCompleted">#95a5a6</color>
 
+    <!-- Filter Button Colors -->
+    <color name="blue_primary">#0B69FF</color>
+    <color name="gray_400">#9CA3AF</color>
+
 </resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="16dp">
+
+    <!-- Question Title -->
+    <TextView
+        android:id="@+id/tv_question_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Question 1 of 10"
+        android:textColor="#6B7280"
+        android:textSize="13sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Question Text -->
+    <TextView
+        android:id="@+id/tv_question_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Yesterday, I ______ to the new café downtown."
+        android:textColor="#111827"
+        android:textSize="15sp"
+        android:lineSpacingExtra="2dp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Wrong Answer (if exists) -->
+    <LinearLayout
+        android:id="@+id/layout_wrong_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_answer_wrong"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_close"
+            android:tint="#EF4444"
+            android:contentDescription="Wrong" />
+
+        <TextView
+            android:id="@+id/tv_wrong_answer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:text="losed"
+            android:textColor="#991B1B"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Correct Answer -->
+    <LinearLayout
+        android:id="@+id/layout_correct_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_answer_correct"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:layout_marginBottom="8dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_check"
+            android:tint="#10B981"
+            android:contentDescription="Correct" />
+
+        <TextView
+            android:id="@+id/tv_correct_answer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:text="went"
+            android:textColor="#065F46"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Show Explanation Button (only for wrong answers) -->
+    <TextView
+        android:id="@+id/tv_show_explanation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Explanation"
+        android:textColor="#0B69FF"
+        android:textSize="14sp"
+        android:drawableEnd="@drawable/ic_arrow_down"
+        android:drawablePadding="6dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:visibility="gone" />
+
+</LinearLayout>
