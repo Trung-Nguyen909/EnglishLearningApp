@@ -176,6 +176,7 @@
                                 android:layout_height="24dp"/>
                         </RelativeLayout>
                         <TextView
+                            android:id="@+id/tv_streak"
                             android:text="0"
                             android:textStyle="bold"
                             android:textSize="28sp"
@@ -212,7 +213,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp">
                             <TextView
-                                android:text="Điểm"
+                                android:text="Thành Tựu"
                                 android:textSize="14sp"
                                 android:textColor="#888"
                                 android:layout_alignParentStart="true"
@@ -228,6 +229,7 @@
                                 android:layout_height="24dp"/>
                         </RelativeLayout>
                         <TextView
+                            android:id="@+id/tv_achive"
                             android:text="0"
                             android:textStyle="bold"
                             android:textSize="28sp"
@@ -235,7 +237,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <TextView
-                            android:text="Điểm"
+                            android:text="Cái"
                             android:textSize="14sp"
                             android:textColor="#888"
                             android:layout_width="wrap_content"
@@ -280,6 +282,7 @@
                                 android:layout_height="24dp"/>
                         </RelativeLayout>
                         <TextView
+                            android:id="@+id/tv_lessons"
                             android:text="0"
                             android:textStyle="bold"
                             android:textSize="28sp"
@@ -332,6 +335,7 @@
                                 android:layout_height="24dp"/>
                         </RelativeLayout>
                         <TextView
+                            android:id="@+id/tv_time"
                             android:text="0"
                             android:textStyle="bold"
                             android:textSize="28sp"
@@ -383,22 +387,26 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Từ vựng"
+                            android:text="Nói"
                             android:textColor="#555"
                             android:textStyle="bold"
                             android:layout_alignParentStart="true"/>
                         <TextView
+                            android:id="@+id/tv_noi_score"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0/100"
+                            android:text="0/10"
                             android:textColor="#888"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
                     <ProgressBar
+                        android:id="@+id/thanhnoi"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
+                        android:max="10"
                         android:progress="0"
+                        android:progressTint="@color/royalBlue"
                         android:progressDrawable="@drawable/shape_custom_progress_bar"
                         android:layout_marginBottom="16dp"/>
 
@@ -409,21 +417,25 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ngữ pháp"
+                            android:text="Viết"
                             android:textStyle="bold"
                             android:textColor="#555"
                             android:layout_alignParentStart="true"/>
                         <TextView
+                            android:id="@+id/tv_viet_score"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="cấp 0/10"
+                            android:text="0/10"
                             android:textColor="#888"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
                     <ProgressBar
+                        android:id="@+id/thanhviet"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
+                        android:max="10"
+                        android:progressTint="@color/royalBlue"
                         android:progress="0"
                         android:progressDrawable="@drawable/shape_custom_progress_bar"
                         android:layout_marginBottom="16dp"/>
@@ -440,16 +452,20 @@
                             android:textColor="#555"
                             android:layout_alignParentStart="true"/>
                         <TextView
+                            android:id="@+id/tv_nghe_score"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="cấp 0/10"
+                            android:text="0/10"
                             android:textColor="#888"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
                     <ProgressBar
+                        android:id="@+id/thanhnghe"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
+                        android:max="10"
+                        android:progressTint="@color/royalBlue"
                         android:progress="0"
                         android:progressDrawable="@drawable/shape_custom_progress_bar"
                         android:layout_marginBottom="16dp"/>
@@ -466,17 +482,21 @@
                             android:textColor="#555"
                             android:layout_alignParentStart="true"/>
                         <TextView
+                            android:id="@+id/tv_doc_score"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="cấp 0/10"
+                            android:text="0/10"
                             android:textColor="#888"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
                     <ProgressBar
+                        android:id="@+id/thanhdoc"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
                         android:progress="0"
+                        android:max="10"
+                        android:progressTint="@color/royalBlue"
                         android:progressDrawable="@drawable/shape_custom_progress_bar"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

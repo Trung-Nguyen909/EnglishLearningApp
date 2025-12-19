@@ -50,4 +50,5 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation("com.github.prolificinteractive:material-calendarview:2.0.1")
     implementation("com.jakewharton.threetenabp:threetenabp:1.3.1") // Thư viện hỗ trợ xử lý ngày tháng chuẩn
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

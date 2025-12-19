@@ -4,6 +4,7 @@ import com.example.englishlearningapp.DTO.Request.UserRegisterRequest;
 import com.example.englishlearningapp.DTO.Response.AuthResponse;
 import com.example.englishlearningapp.DTO.Response.NguoiDungRespone;
 import com.example.englishlearningapp.DTO.Response.NhatKyHoatDong;
+import com.example.englishlearningapp.DTO.Response.UserSummaryDto;
 
 import java.util.List;
 
@@ -29,4 +30,7 @@ public interface ApiService {
 
     @POST("/nhatkyhoatdong")
     Call<ApiResponse<Object>> createTodayActivityLog();
+
+    @GET("user/summary")
+    Call<UserSummaryDto> GetInfoUser();
 }
