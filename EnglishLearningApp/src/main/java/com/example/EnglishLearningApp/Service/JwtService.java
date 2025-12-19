@@ -26,7 +26,7 @@ public class JwtService {
         Date expirateDate = Date.from(Instant.now().plus(expirationMs, ChronoUnit.MILLIS));
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS256);
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(nguoiDung.getEmail())
+                .subject(nguoiDung.getId().toString())
                 .issuer("EnglishApp")
                 .issueTime(Date.from(Instant.now()))
                 .expirationTime(expirateDate)

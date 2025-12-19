@@ -321,11 +321,37 @@ INSERT INTO NguPhap (IDBaiHoc, tenNguPhap, giaiThich, viDu) VALUES
 
 INSERT INTO KyNang (TenKyNang) VALUES (N'Nghe'), (N'Nói'), (N'Đọc'), (N'Viết');
 
-INSERT INTO DanhGiaKyNang (IDKyNang, IDNguoiDung, diem) VALUES (1, 1, 7.5);
+INSERT INTO DanhGiaKyNang (IDKyNang, IDNguoiDung, diem) VALUES
+  (1, 2, 2.5),
+  (2, 2, 9.5),
+  (3, 2, 3.5),
+  (4, 2, 6.5),
+  (1, 1, 7.5),
+  (2, 1, 7.5),
+  (1, 3, 7.5);
 
-INSERT INTO ThanhTich (tenThanhTich, moTa, bieuTuong) VALUES (N'Người mới bắt đầu', N'Hoàn thành bài đầu', 'badge.png');
+INSERT INTO ThanhTich (tenThanhTich, moTa, bieuTuong) VALUES 
+(N'Người mới bắt đầu', N'Hoàn thành bài đầu', 'badge.png'),
+(N'Chăm chỉ mỗi ngày', N'Hoàn thành bài học 3 ngày liên tiếp', 'streak_3.png'),
+(N'Bậc thầy từ vựng', N'Học thuộc 100 từ mới', 'vocab_master.png'),
+(N'Thợ săn điểm số', N'Đạt điểm tối đa trong một bài kiểm tra', 'score_hunter.png'),
+(N'Người kiên trì', N'Hoàn thành 10 bài học', 'persistent.png'),
+(N'Thành viên tích cực', N'Đã tham gia ứng dụng hơn 1 tuần', 'active_member.png'),
+(N'Tay đua tốc độ', N'Hoàn thành bài thi dưới 1 phút', 'speed_racer.png'),
+(N'Thần đồng ngôn ngữ', N'Đạt tổng 1000 điểm tích lũy', 'genius.png'),
+(N'Người kết nối', N'Đã cập nhật ảnh đại diện thành công', 'avatar_connected.png');
 
-INSERT INTO NguoiDung_ThanhTich (IDNguoiDung, IDThanhTich) VALUES (1, 1);
+INSERT INTO NguoiDung_ThanhTich (IDNguoiDung, IDThanhTich) VALUES 
+(2, 1),
+(2, 2), -- Chăm chỉ mỗi ngày
+(2, 3), -- Bậc thầy từ vựng
+(2, 4), -- Thợ săn điểm số
+(2, 5), -- Người kiên trì
+(2, 6), -- Thành viên tích cực
+(2, 7), -- Tay đua tốc độ
+(1, 1), -- Người mới bắt đầu
+(1, 2), -- Chăm chỉ mỗi ngày
+(1, 3); -- Bậc thầy từ vựng
 
 insert into TuVungYeuThich (IDNguoiDung,IDTuVung) values (1,1);
 INSERT INTO NhatKyHoatDong (IDNguoiDung, NgayHoatDong, SoPhutHoc, TongSoBaiDaLam)
@@ -336,7 +362,7 @@ VALUES
 INSERT INTO TienTrinhKhoaHoc (IdKhoaHoc, IdUser, trangthai, PhanTram, LanLamGanNhat, Tgianhoc, NgayBatDau)
 VALUES 
 (1, 1, N'Đang học', 50.00, GETDATE(), 3600, '2024-01-10 08:00:00'),
-(1, 2, N'Mới bắt đầu', 0.00, GETDATE(), 0, GETDATE());
+(1, 2, N'Đang học', 0.00, GETDATE(), 0, GETDATE());
 
 INSERT INTO TienTrinhBaiHoc (IdTienTrinhKhoaHoc, IDBaiHoc, status, Ngaybatdau, Ngayketthuc, solanlam, tgianlam)
 VALUES 
@@ -368,6 +394,7 @@ select * from ThanhTich
 select * from TuVungYeuThich
 select * from ChiTietBaiLam
 select * from LichSuBaiLam
+select * from DanhGiaKyNang
 --lấy lịch sử làm bài của user
 select *
 from LichSuBaiLam l 
@@ -382,3 +409,16 @@ select * from TienTrinhBaiHoc
 select * from TienTrinhKhoaHoc
 select * from NhatKyHoatDong
 select * from NguoiDung
+select * from NhatKyHoatDong
+--lấy số thành tích, điểm các kỹ năng, số bài học
+select count(*) soThanhTuu
+from nguoiDung n join NguoiDung_ThanhTich nd on n.ID = nd.IDNguoiDung
+where n.ID = 1
+select k.TenKyNang, dg.diem
+from nguoiDung n 
+	join DanhGiaKyNang dg on n.ID = dg.IDNguoiDung
+	join KyNang k on k.ID = dg.IDKyNang
+where n.ID =1
+select count(*) SoBaiHoc
+from nguoiDung n join TienTrinhKhoaHoc t on t.IdUser = n.ID
+where t.IdUser = 1 and (t.trangthai = N'Đang học' or t.trangthai = N'Đã học')

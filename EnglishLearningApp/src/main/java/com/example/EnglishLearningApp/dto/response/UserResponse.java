@@ -1,21 +1,22 @@
 package com.example.EnglishLearningApp.dto.response;
 
-import jakarta.annotation.Nullable;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserResponse {
-    int ID;
+    int id;
     String tenDangNhap;
     String email;
     String anhDaiDien;
-    LocalDate LastLogin;
+    LocalDateTime LastLogin;
     int Streak;
+    int tongThoiGianHoatDong;
 }

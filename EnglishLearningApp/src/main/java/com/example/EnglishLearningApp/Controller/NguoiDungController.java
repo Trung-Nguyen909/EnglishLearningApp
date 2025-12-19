@@ -8,6 +8,7 @@ import com.example.EnglishLearningApp.dto.request.UserLoginRequest;
 import com.example.EnglishLearningApp.dto.request.UserRegisterRequest;
 import com.example.EnglishLearningApp.dto.response.ApiResponse;
 import com.example.EnglishLearningApp.dto.response.AuthResponse;
+import com.example.EnglishLearningApp.dto.response.UserSummaryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +63,12 @@ public class NguoiDungController {
                         .code(1000)
                         .message("update thành công")
                         .build());
+    }
+    @GetMapping("/summary")
+    public ResponseEntity<UserSummaryDto> getInforUser(Authentication authentication) {
+        System.out.println(authentication.getName());
+        UserSummaryDto dto = nguoiDungService.getInfoUser(Integer.parseInt(authentication.getName()));
+        return ResponseEntity.ok(dto);
     }
     @PostMapping("/upAva")
     public ResponseEntity<ApiResponse<String>> updateAvatar(

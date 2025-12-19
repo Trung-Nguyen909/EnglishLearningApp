@@ -27,8 +27,19 @@ public class NhatKyHoatDongService {
         return nhatKyHoatDongRepository.findByIdNguoiDung(userId);
     }
 
-    public NhatKyHoatDong createNhatKy(NhatKyHoatDong nhatKy) {
-        return nhatKyHoatDongRepository.save(nhatKy);
+    public Boolean createNhatKy(Integer iduser) {
+        NhatKyHoatDong existingNhatKy = nhatKyHoatDongRepository.findByIdNguoiDungAndNgayHoatDong(iduser, java.time.LocalDate.now());
+        if (existingNhatKy == null) {
+            NhatKyHoatDong newNhatky = NhatKyHoatDong.builder()
+                    .idNguoiDung(iduser)
+                    .ngayHoatDong(java.time.LocalDate.now())
+                    .soPhutHoc(0)
+                    .tongSoBaiDaLam(0)
+                    .build();
+            nhatKyHoatDongRepository.save(newNhatky);
+            return true;
+        }
+        return false;
     }
 
     public NhatKyHoatDong updateNhatKy(Integer id, NhatKyHoatDong nhatKyDetails) {
