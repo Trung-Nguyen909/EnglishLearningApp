@@ -78,8 +78,31 @@ public class TrangChuFragment extends Fragment {
         danhSachKyNang.add(new KyNangModel("Viết", R.drawable.ic_viet));
 
         adapterKyNang = new KyNangAdapter(getContext(), danhSachKyNang);
-        adapterKyNang.setLangNgheSuKienClick(kyNang -> {
-            // Logic chuyển trang giữ nguyên...
+        adapterKyNang.setLangNgheSuKienClick(new KyNangAdapter.LangNgheSuKienClick() {
+            @Override
+            public void khiClickVaoItem(KyNangModel kyNang) {
+                // Lấy tên kỹ năng (Listening, Reading, Speaking, Writing)
+                String tenKyNang = kyNang.getTenKyNang();
+
+                // 1. Tạo Fragment
+                KiemTraFragment kiemtraFragment = new KiemTraFragment();
+
+                // 2. Đóng gói dữ liệu để gửi sang Fragment kia
+                Bundle goiDuLieu = new Bundle();
+                goiDuLieu.putString("TEN_CHU_DE", tenKyNang);
+                kiemtraFragment.setArguments(goiDuLieu);
+
+                // --- THÊM DÒNG NÀY ĐỂ BÁO HIỆU ---
+                goiDuLieu.putBoolean("TU_TRANG_CHU", true);
+
+                // 3. Thực hiện chuyển đổi Fragment
+                if (getParentFragmentManager() != null) {
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.frame_container, kiemtraFragment) // Thay thế layout hiện tại
+                            .addToBackStack(null) // Cho phép ấn Back để quay lại
+                            .commit();
+                }
+            }
         });
 
         GridLayoutManager gridManagerKyNang = new GridLayoutManager(getContext(), 4);
