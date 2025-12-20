@@ -44,4 +44,8 @@ public class CauHoiService {
     {
         return cauHoiRepository.getCauHoiByBaiHocAndCapDo(IdBaiHoc, IdCapdo);
     }
+
+    public List<CauHoi> getCauHoiByBaiTapId(Integer idBaiTap) {
+        return cauHoiRepository.findByIdBaiTap(idBaiTap);
+    }
 }

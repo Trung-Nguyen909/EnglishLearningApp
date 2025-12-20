@@ -61,7 +61,7 @@ CREATE TABLE BaiTap (
     loaiBaiTap NVARCHAR(50), -- Listening, Speaking, Reading...
     trangThai NVARCHAR(50),
 	capdo nvarchar(100),
-	thoigian Time
+	thoigian Time,
     FOREIGN KEY (IDBaiHoc) REFERENCES BaiHoc(ID)
 );
 
@@ -243,7 +243,7 @@ INSERT INTO NguoiDung
 VALUES
 ('user1', '$2a$10$PLLK1jr5F0hDTVVoKFSGj.T7nhAKhH/Qo563lNtuaaEMndxZwy.Ky', 'ttuankhanh4@gmail.com', 'U0001_ava.jpg', '2024-01-15 08:30:00', 5, 'ADMIN', 3600),
 ('user2', '$2a$10$OgyHCP.YQ4xoGGXFpD6z3O01TwJNIhUG8t60Tu82HnwFkThK7BrUy', 'chientranminh355@gmail.com', 'U0002_ava.jpg', '2024-01-14 10:15:00', 3, 'USER', 1800),
-('user3', '$2a$10$l7GqvKZDYVsReEiGCc0LpeGoGgy0beEJ2yrAmSvzOM2BcOWUfStDC', 'user3@gmail.com', 'U0003_ava.jpg', '2024-01-13 14:20:00', 7, 'USER', 7200);
+('user3', '$2a$10$l7GqvKZDYVsReEiGCc0LpeGoGgy0beEJ2yrAmSvzOM2BcOWUfStDC', 'huynhletienhien@gmail.com', 'U0003_ava.jpg', '2024-01-13 14:20:00', 7, 'USER', 7200);
 
 -- 2. Insert KhoaHoc
 INSERT INTO KhoaHoc (tenKhoaHoc, moTa, trinhDo, ngayTao) VALUES
@@ -261,9 +261,21 @@ INSERT INTO CapDo (DoKho) VALUES (N'Dễ'), (N'Trung bình'), (N'Khó');
 -- 5. Insert BaiTap
 INSERT INTO BaiTap (IDBaiHoc, TenBaiTap, loaiBaiTap, trangThai, capdo, thoigian) 
 VALUES
-(1, N'Ôn tập từ vựng Unit 1', N'Trắc nghiệm', N'Đang hoàn thành', N'Cơ bản', '00:15:00'),
-(1, N'Nghe đoạn hội thoại Daily Life', N'Nghe hiểu', N'Chưa làm', N'Trung bình', '00:20:00'),
-(1, N'Luyện phát âm nguyên âm', N'Speaking', N'Đã hoàn thành', N'Nâng cao', '00:10:00');
+(1, N'Ôn tập từ vựng Unit 1', N'Đọc', N'Đang hoàn thành', N'Cơ bản', '00:15:00'),
+(1, N'Nghe đoạn hội thoại Daily Life', N'Nghe', N'Chưa làm', N'Trung bình', '00:20:00'),
+(1, N'Luyện phát âm nguyên âm', N'Nói', N'Đã hoàn thành', N'Nâng cao', '00:10:00'),
+(1, N'Đọc hiểu chủ đề Gia đình', N'Đọc', N'Chưa làm', N'Cơ bản', '00:12:00'),
+(1, N'Đọc bài văn Môi trường sống', N'Đọc', N'Đang hoàn thành', N'Trung bình', '00:18:00'),
+(1, N'Đọc bài phân tích nhân vật', N'Đọc', N'Đã hoàn thành', N'Nâng cao', '00:25:00'),
+(1, N'Nghe từ vựng chủ đề Trường học', N'Nghe', N'Đang hoàn thành', N'Cơ bản', '00:10:00'),
+(1, N'Nghe bản tin thời tiết', N'Nghe', N'Chưa làm', N'Trung bình', '00:17:00'),
+(1, N'Nghe phỏng vấn nhân vật nổi tiếng', N'Nghe', N'Đã hoàn thành', N'Nâng cao', '00:22:00'),
+(1, N'Nói mô tả tranh', N'Nói', N'Chưa làm', N'Cơ bản', '00:08:00'),
+(1, N'Luyện nói về sở thích cá nhân', N'Nói', N'Đang hoàn thành', N'Trung bình', '00:15:00'),
+(1, N'Thuyết trình chủ đề Công nghệ', N'Nói', N'Đã hoàn thành', N'Nâng cao', '00:20:00'),
+(1, N'Viết câu mô tả người', N'Viết', N'Chưa làm', N'Cơ bản', '00:10:00'),
+(1, N'Viết đoạn văn về kỳ nghỉ hè', N'Viết', N'Đang hoàn thành', N'Trung bình', '00:18:00'),
+(1, N'Viết essay tranh luận', N'Viết', N'Đã hoàn thành', N'Nâng cao', '00:25:00');
 
 -- 6. Insert CauHoi (SỬ DỤNG JSON)
 -- Lưu ý: IDBaiTap = 1 (Trắc nghiệm), IDBaiTap = 2 (Nghe hiểu)
@@ -422,3 +434,109 @@ where n.ID =1
 select count(*) SoBaiHoc
 from nguoiDung n join TienTrinhKhoaHoc t on t.IdUser = n.ID
 where t.IdUser = 1 and (t.trangthai = N'Đang học' or t.trangthai = N'Đã học')
+
+USE QuanLyHocTap;
+GO
+
+-- ========================================================
+-- INSERT THÊM CÂU HỎI VÀO CÁC BÀI TẬP ĐÃ CÓ (ID 4, 7, 10, 13)
+-- ========================================================
+
+-- 1. THÊM VÀO BÀI TẬP 4: Đọc hiểu chủ đề Gia đình (IDBaiTap = 4)
+INSERT INTO CauHoi (IDCapDo, IDBaiTap, NoiDungCauHoi, LoaiCauHoi, DuLieuDapAn, GiaiThich) VALUES
+(1, 4, N'Read: "My father is a doctor." What does the father do?', 'ABCD', 
+N'{"A": "Teacher", "B": "Doctor", "C": "Farmer", "D": "Driver", "Correct": "B"}', 
+N'Dựa vào câu: My father is a doctor.'),
+
+(1, 4, N'Who is your mother''s sister?', 'ABCD', 
+N'{"A": "Aunt", "B": "Uncle", "C": "Grandma", "D": "Cousin", "Correct": "A"}', 
+N'Chị/em gái của mẹ là Dì (Aunt).'),
+
+(1, 4, N'Opposite word: What is the opposite of "Old"?', 'ABCD', 
+N'{"A": "Young", "B": "Big", "C": "Small", "D": "Tall", "Correct": "A"}', 
+N'Trái nghĩa với Già (Old) là Trẻ (Young).'),
+
+(1, 4, N'Grammar: He _____ (have) two sisters.', 'ABCD', 
+N'{"A": "have", "B": "has", "C": "having", "D": "had", "Correct": "B"}', 
+N'Ngôi He dùng has.'),
+
+(1, 4, N'Family: Your brother''s son is your ______.', 'ABCD', 
+N'{"A": "Niece", "B": "Nephew", "C": "Uncle", "D": "Father", "Correct": "B"}', 
+N'Con trai của anh/em trai là Cháu trai (Nephew).');
+
+-- 2. THÊM VÀO BÀI TẬP 7: Nghe từ vựng Trường học (IDBaiTap = 7)
+INSERT INTO CauHoi (IDCapDo, IDBaiTap, NoiDungCauHoi, LoaiCauHoi, DuLieuDapAn, GiaiThich) VALUES
+(1, 7, N'Listen: What object is this?', 'Listening', 
+N'{"A": "Pen", "B": "Ruler", "C": "Book", "D": "Eraser", "Correct": "C", "Audio": "book.mp3"}', 
+N'Audio đọc là Book.'),
+
+(1, 7, N'Listen: Which subject does he like?', 'Listening', 
+N'{"A": "Math", "B": "Music", "C": "Art", "D": "English", "Correct": "A", "Audio": "math.mp3"}', 
+N'Audio nhắc đến Math.'),
+
+(1, 7, N'Listen: Where is the teacher?', 'Listening', 
+N'{"A": "In the library", "B": "In the classroom", "C": "At home", "D": "In the garden", "Correct": "B", "Audio": "classroom.mp3"}', 
+N'Teacher is in the classroom.'),
+
+(1, 7, N'Listen: What time does school start?', 'Listening', 
+N'{"A": "7:00", "B": "8:00", "C": "9:00", "D": "6:30", "Correct": "A", "Audio": "7am.mp3"}', 
+N'Seven o''clock.'),
+
+(1, 7, N'Listen: Choose the correct word.', 'Listening', 
+N'{"A": "Student", "B": "Teacher", "C": "Doctor", "D": "Nurse", "Correct": "A", "Audio": "student.mp3"}', 
+N'Audio đọc Student.');
+
+-- 3. THÊM VÀO BÀI TẬP 10: Nói mô tả tranh (IDBaiTap = 10)
+INSERT INTO CauHoi (IDCapDo, IDBaiTap, NoiDungCauHoi, LoaiCauHoi, DuLieuDapAn, GiaiThich) VALUES
+(1, 10, N'Read aloud: "The sky is blue."', 'Speaking', 
+N'{"Correct": "The sky is blue"}', 
+N'Phát âm rõ từ blue.'),
+
+(1, 10, N'Describe: What do you see in the picture?', 'Speaking', 
+N'{"Correct": "I see a..."}', 
+N'Mô tả các vật thể chính.'),
+
+(1, 10, N'Read aloud: "She is happy."', 'Speaking', 
+N'{"Correct": "She is happy"}', 
+N'Chú ý ngữ điệu vui vẻ.'),
+
+(1, 10, N'Answer: What color is the cat?', 'Speaking', 
+N'{"Correct": "It is black"}', 
+N'Trả lời màu sắc.'),
+
+(1, 10, N'Pronounce: "Picture"', 'Speaking', 
+N'{"Correct": "Picture"}', 
+N'Nhấn âm đầu Pic-ture.');
+
+-- 4. THÊM VÀO BÀI TẬP 13: Viết câu mô tả người (IDBaiTap = 13)
+INSERT INTO CauHoi (IDCapDo, IDBaiTap, NoiDungCauHoi, LoaiCauHoi, DuLieuDapAn, GiaiThich) VALUES
+(1, 13, N'She (be) _____ tall and beautiful.', 'FillBlank', 
+N'{"Correct": "is"}', N'Động từ to be với She.'),
+
+(1, 13, N'He (have) _____ short hair.', 'FillBlank', 
+N'{"Correct": "has"}', N'Động từ have với He.'),
+
+(1, 13, N'They (wear) _____ glasses.', 'FillBlank', 
+N'{"Correct": "wear"}', N'Hiện tại đơn với They giữ nguyên.'),
+
+(1, 13, N'My mother (cook) _____ very well.', 'FillBlank', 
+N'{"Correct": "cooks"}', N'Thêm s sau động từ.'),
+
+(1, 13, N'Rearrange: is / kind / very / He', 'FillBlank', 
+N'{"Correct": "He is very kind"}', N'Sắp xếp câu.');
+
+PRINT N'Đã thêm xong dữ liệu câu hỏi!';
+
+select * from KyNang
+
+select * from BaiTap
+select * from BaiHoc
+select * from CauHoi
+
+
+
+SELECT bt.ID as ID_BaiTap, bt.TenBaiTap, COUNT(ch.ID) as SoLuongCauHoi
+FROM BaiTap bt
+LEFT JOIN CauHoi ch ON bt.ID = ch.IDBaiTap
+GROUP BY bt.ID, bt.TenBaiTap
+ORDER BY bt.ID;

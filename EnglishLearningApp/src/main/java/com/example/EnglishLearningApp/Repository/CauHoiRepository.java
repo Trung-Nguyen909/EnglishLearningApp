@@ -23,4 +23,5 @@ public interface CauHoiRepository extends JpaRepository<CauHoi, Integer> {
             @Param("idCapDo") int idCapDo
     );
 
+    List<CauHoi> findByIdBaiTap(Integer idBaiTap);
 }
