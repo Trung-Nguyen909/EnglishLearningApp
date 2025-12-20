@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +18,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.Adapter.KyNangAdapter;
+import com.example.englishlearningapp.ApiClient;
+import com.example.englishlearningapp.BaiHocActivity;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 import com.example.englishlearningapp.TrangChu.EventDecorator;
-import com.example.englishlearningapp.Model.KyNangModel;
+import com.example.englishlearningapp.DTO.Response.KyNangResponse;
 import com.example.englishlearningapp.DTO.Response.NhatKyHoatDong; // Import Model
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -80,11 +83,11 @@ public class TrangChuFragment extends Fragment {
     private void goiApiLayDanhSachKyNang() {
         ApiService apiService = ApiClient.getClient(getContext()).create(ApiService.class);
 
-        apiService.getAllKyNang().enqueue(new Callback<List<KyNangModel>>() {
+        apiService.getAllKyNang().enqueue(new Callback<List<KyNangResponse>>() {
             @Override
-            public void onResponse(Call<List<KyNangModel>> call, Response<List<KyNangModel>> response) {
+            public void onResponse(Call<List<KyNangResponse>> call, Response<List<KyNangResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<KyNangModel> listTuApi = response.body();
+                    List<KyNangResponse> listTuApi = response.body();
 
                     // Khởi tạo Adapter với dữ liệu từ API
                     adapterKyNang = new KyNangAdapter(getContext(), listTuApi);
@@ -92,7 +95,7 @@ public class TrangChuFragment extends Fragment {
                     // Setup sự kiện click (Code cũ của bạn chuyển vào đây)
                     adapterKyNang.setLangNgheSuKienClick(new KyNangAdapter.LangNgheSuKienClick() {
                         @Override
-                        public void khiClickVaoItem(KyNangModel kyNang) {
+                        public void khiClickVaoItem(KyNangResponse kyNang) {
                             String tenKyNang = kyNang.getTenKyNang();
 
                             // Chuyển Fragment (Logic cũ của bạn)
@@ -120,7 +123,7 @@ public class TrangChuFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<KyNangModel>> call, Throwable t) {
+            public void onFailure(Call<List<KyNangResponse>> call, Throwable t) {
                 Toast.makeText(getContext(), "Lỗi tải kỹ năng", Toast.LENGTH_SHORT).show();
             }
         });

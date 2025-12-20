@@ -2,17 +2,17 @@ package com.example.englishlearningapp.Retrofit;
 import com.example.englishlearningapp.DTO.Request.UserLoginRequest;
 import com.example.englishlearningapp.DTO.Request.UserRegisterRequest;
 import com.example.englishlearningapp.DTO.Response.AuthResponse;
+import com.example.englishlearningapp.DTO.Response.BaiTapResponse;
 import com.example.englishlearningapp.DTO.Response.NguoiDungRespone;
 import com.example.englishlearningapp.DTO.Response.NhatKyHoatDong;
 import com.example.englishlearningapp.DTO.Response.UserSummaryDto;
-import com.example.englishlearningapp.Model.KyNangModel;
+import com.example.englishlearningapp.DTO.Response.KyNangResponse;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -36,5 +36,8 @@ public interface ApiService {
     Call<UserSummaryDto> GetInfoUser();
 
     @GET("kynang")
-    Call<List<KyNangModel>> getAllKyNang();
+    Call<List<KyNangResponse>> getAllKyNang();
+
+    @GET("baitap/{loaiBT}")
+    Call<List<BaiTapResponse>> getBaiTapByLoai(@Path("loaiBT") String loaiBaiTap);
 }
