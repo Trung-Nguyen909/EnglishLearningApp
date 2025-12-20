@@ -1,26 +1,37 @@
 package com.example.englishlearningapp;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.CauHoiModel;
+import com.example.englishlearningapp.Adapter.CauHoiAdapter;
+// QUAN TRỌNG: Đổi sang dùng CauHoiResponse thay vì CauHoiModel
+import com.example.englishlearningapp.DTO.Response.CauHoiResponse;
+import com.example.englishlearningapp.ApiClient;
+import com.example.englishlearningapp.Retrofit.ApiService;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapter.LangNgheSuKienChonDapAn {
 
-    private List<CauHoiModel> danhSachCauHoi;
+    // --- BIẾN GIAO DIỆN ---
     private Button btnHoanThanh;
     private ProgressBar thanhTienTrinh;
     private TextView tvDemSoCauHoi;
@@ -28,65 +39,117 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
     private RecyclerView rcvDanhSachCauHoi;
     private ImageView nutQuayLai;
 
-    // Logic theo dõi
+    // --- BIẾN DỮ LIỆU ---
+    // Sửa List<CauHoiModel> thành List<CauHoiResponse>
+    private List<CauHoiResponse> danhSachCauHoi = new ArrayList<>();
+    private CauHoiAdapter adapter;
     private Set<Integer> tapHopIdCauHoiDaTraLoi = new HashSet<>();
 
+    // Biến nhận từ màn hình trước
     private String capDoHienTai = "Basic";
+    private int idBaiTapHienTai = -1;
+    private String tenBaiTap = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bai_tap_doc);
 
-        // 1. NHẬN LEVEL TỪ MÀN HÌNH TRƯỚC
+        // 1. NHẬN DỮ LIỆU TỪ INTENT
         if (getIntent() != null) {
-            String levelNhanDuoc = getIntent().getStringExtra("SELECTED_LEVEL");
-            if (levelNhanDuoc != null) {
-                capDoHienTai = levelNhanDuoc;
-            }
+            idBaiTapHienTai = getIntent().getIntExtra("ID_BAI_TAP", -1);
+            capDoHienTai = getIntent().getStringExtra("MUC_DO");
+            tenBaiTap = getIntent().getStringExtra("TEN_BAI_TAP");
         }
 
-        // 2. Khởi tạo dữ liệu
-        danhSachCauHoi = taoCauHoi();
+        // 2. ÁNH XẠ VIEW
+        anhXaView();
 
-        // 3. Ánh xạ Views
+        // 3. THIẾT LẬP RECYCLERVIEW
+        setupRecyclerView();
+
+        // 4. GỌI API LẤY CÂU HỎI
+        if (idBaiTapHienTai != -1) {
+            goiApiLayCauHoi(idBaiTapHienTai);
+        } else {
+            Toast.makeText(this, "Lỗi: Không tìm thấy ID bài tập!", Toast.LENGTH_SHORT).show();
+        }
+
+        // 5. XỬ LÝ SỰ KIỆN
+        xuLySuKien();
+    }
+
+    private void anhXaView() {
         rcvDanhSachCauHoi = findViewById(R.id.rcv_danh_sach_cau_hoi);
         nutQuayLai = findViewById(R.id.nut_quay_lai);
-
         btnHoanThanh = findViewById(R.id.btn_hoan_thanh);
         thanhTienTrinh = findViewById(R.id.thanh_tien_trinh);
         tvDemSoCauHoi = findViewById(R.id.tv_dem_so_cau_hoi);
         tvPhanTramTienTrinh = findViewById(R.id.tv_phan_tram_tien_trinh);
+    }
 
-        // 4. Thiết lập RecyclerView
-        CauHoiAdapter adapter = new CauHoiAdapter(danhSachCauHoi, this);
-        rcvDanhSachCauHoi.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        );
+    private void setupRecyclerView() {
+        // Khởi tạo Adapter với Context và Danh sách Response
+        adapter = new CauHoiAdapter(this, danhSachCauHoi);
+        rcvDanhSachCauHoi.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rcvDanhSachCauHoi.setAdapter(adapter);
+    }
 
-        // 5. Thiết lập trạng thái ban đầu
-        thanhTienTrinh.setMax(danhSachCauHoi.size());
-        capNhatTrangThaiTienTrinh();
-
-        // Xử lý sự kiện Back
+    private void xuLySuKien() {
         nutQuayLai.setOnClickListener(v -> finish());
+        btnHoanThanh.setOnClickListener(v -> chuyenSangTrangKetQua());
+    }
 
-        // Xử lý nút hoàn thành
-        btnHoanThanh.setOnClickListener(v -> {
-            chuyenSangTrangKetQua();
+    // --- GỌI API ---
+    private void goiApiLayCauHoi(int baiTapId) {
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+
+        // Lưu ý: Trong ApiService, bạn phải sửa return type thành Call<List<CauHoiResponse>>
+        apiService.getCauHoiByBaiTapId(baiTapId).enqueue(new Callback<List<CauHoiResponse>>() {
+            @Override
+            public void onResponse(Call<List<CauHoiResponse>> call, Response<List<CauHoiResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    danhSachCauHoi.clear();
+                    List<CauHoiResponse> listTuServer = response.body();
+
+                    // Duyệt qua từng câu hỏi
+                    for (CauHoiResponse ch : listTuServer) {
+                        // QUAN TRỌNG: Gọi hàm có sẵn trong Class để parse JSON
+                        ch.xuLyDuLieu();
+                        danhSachCauHoi.add(ch);
+                    }
+
+                    // Cập nhật giao diện
+                    adapter.notifyDataSetChanged();
+
+                    // Cập nhật thanh tiến trình
+                    thanhTienTrinh.setMax(danhSachCauHoi.size());
+                    capNhatTrangThaiTienTrinh();
+
+                } else {
+                    Toast.makeText(BaiTapDocActivity.this, "Bài tập này chưa có câu hỏi!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CauHoiResponse>> call, Throwable t) {
+                Log.e("API_ERROR", "Lỗi: " + t.getMessage());
+                Toast.makeText(BaiTapDocActivity.this, "Lỗi kết nối server", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
     private void chuyenSangTrangKetQua() {
         Intent intent = new Intent(BaiTapDocActivity.this, KetQuaActivity.class);
 
-        // Truyền số câu đã làm
+        // Gửi kết quả
         intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, tapHopIdCauHoiDaTraLoi.size());
         intent.putExtra(KetQuaActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
-        intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, 0); // Thời gian tùy chọn
 
-        // Gửi Topic và Level để biết đường quay lại
+        // --- DÒNG QUAN TRỌNG CÒN THIẾU ---
+        // Phải gửi ID bài tập hiện tại sang để bên kia biết mà "Làm lại"
+        intent.putExtra("ID_BAI_TAP", idBaiTapHienTai);
+
         intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Đọc");
         intent.putExtra(KetQuaActivity.EXTRA_LEVEL, capDoHienTai);
 
@@ -94,59 +157,33 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
         finish();
     }
 
-    // Override hàm từ Interface LangNgheSuKienChonDapAn
+    // --- SỰ KIỆN TỪ ADAPTER ---
     @Override
     public void khiDapAnDuocChon(int maCauHoi, String dapAnDuocChon) {
-        // Cập nhật Set theo dõi
         if (dapAnDuocChon != null) {
             tapHopIdCauHoiDaTraLoi.add(maCauHoi);
         } else {
             tapHopIdCauHoiDaTraLoi.remove(maCauHoi);
         }
-
         capNhatTrangThaiTienTrinh();
     }
 
-    /**
-     * Cập nhật ProgressBar, các TextView và trạng thái nút Hoàn thành.
-     */
     private void capNhatTrangThaiTienTrinh() {
         int soCauDaTraLoi = tapHopIdCauHoiDaTraLoi.size();
         int tongSoCau = danhSachCauHoi.size();
 
-        // Tính phần trăm
         int phanTram = (tongSoCau > 0) ? (int) (((float) soCauDaTraLoi / (float) tongSoCau) * 100) : 0;
 
-        // 1. Cập nhật TextViews và ProgressBar
         tvDemSoCauHoi.setText("Câu " + soCauDaTraLoi + "/" + tongSoCau);
         tvPhanTramTienTrinh.setText(phanTram + "%");
         thanhTienTrinh.setProgress(soCauDaTraLoi);
 
-        // 2. Điều khiển nút Hoàn thành
-        if (soCauDaTraLoi == tongSoCau) {
+        if (soCauDaTraLoi == tongSoCau && tongSoCau > 0) {
             btnHoanThanh.setEnabled(true);
-            btnHoanThanh.setVisibility(View.VISIBLE);
-            btnHoanThanh.setBackgroundTintList(getColorStateList(R.color.royalBlue));
+            btnHoanThanh.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.royalBlue)));
         } else {
             btnHoanThanh.setEnabled(false);
-            btnHoanThanh.setVisibility(View.VISIBLE);
-            btnHoanThanh.setBackgroundTintList(getColorStateList(android.R.color.darker_gray));
+            btnHoanThanh.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(android.R.color.darker_gray)));
         }
     }
-
-    private List<CauHoiModel> taoCauHoi() {
-        return Arrays.asList(
-                new CauHoiModel(1, "Chọn từ đúng để hoàn thành câu sau:", "She ____ to the store yesterday.", Arrays.asList("go", "goes", "went", "going"), "went"),
-                new CauHoiModel(2, "Từ vựng: Chọn từ có nghĩa trái ngược.", "Từ 'difficult' có nghĩa trái ngược với ____.", Arrays.asList("hard", "easy", "long", "bad"), "easy"),
-                new CauHoiModel(3, "Ngữ pháp: Thì Hiện tại tiếp diễn", "She ____ dinner right now.", Arrays.asList("cooks", "is cooking", "cook", "was cooking"), "is cooking"),
-                new CauHoiModel(4, "Giao tiếp: Cách lịch sự để nhờ giúp đỡ là gì?", "Bạn nói: ____", Arrays.asList("Help me!", "Give me that!", "Could you help me, please?", "You must help me!"), "Could you help me, please?"),
-                new CauHoiModel(5, "Từ vựng: Chọn nghĩa đúng.", "Từ 'improve' có nghĩa là ____.", Arrays.asList("làm tệ hơn", "cải thiện", "phá hỏng", "bắt đầu"), "cải thiện"),
-                new CauHoiModel(6, "Ngữ pháp: Chọn dạng quá khứ đúng.", "They ____ a movie last night.", Arrays.asList("watch", "watched", "watching", "watches"), "watched"),
-                new CauHoiModel(7, "Phát âm: Từ nào có nguyên âm khác?", "Chọn từ khác loại.", Arrays.asList("beat", "seat", "great", "heat"), "great"),
-                new CauHoiModel(8, "Từ vựng: Chọn giới từ đúng.", "I am interested ____ learning English.", Arrays.asList("on", "in", "with", "to"), "in"),
-                new CauHoiModel(9, "Đọc hiểu: Chọn câu trả lời đúng.", "‘I usually study English in the evening.’ Từ ‘usually’ có nghĩa là gì?", Arrays.asList("luôn luôn", "thỉnh thoảng", "thường xuyên", "hiếm khi"), "thường xuyên"),
-                new CauHoiModel(10, "Ngữ pháp: Mạo từ (articles)", "She bought ____ umbrella yesterday.", Arrays.asList("a", "an", "the", "no article"), "an")
-        );
-    }
-
 }

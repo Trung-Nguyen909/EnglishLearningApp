@@ -45,12 +45,18 @@ public class KiemTraFragment extends Fragment {
     private Button btnKhoaHoc, btnKiemTra;
     private CardView btnBatDauKiemTra;
     private TextView tvTieuDeChuDe;
-    private Spinner spinnerChuDe;
+
+    // (MỚI) 2 Spinner
+    private Spinner spinnerKyNang; // Chọn Nghe/Nói...
+    private Spinner spinnerBaiTap; // Chọn bài tập cụ thể
 
     // --- BIẾN DỮ LIỆU ---
-    private String mucDoDaChon = ""; // Biến này rỗng nghĩa là chưa chọn mức độ
-    private String chuDeHienTai = "Đọc";
+    private String mucDoDaChon = "";
+    private String chuDeHienTai = "Đọc"; // Mặc định
     private BaiTapResponse baiTapDangChon = null;
+
+    // Danh sách kỹ năng cứng để nạp vào Spinner trên
+    private String[] danhSachKyNang = {"Nghe", "Nói", "Đọc", "Viết"};
 
     @Nullable
     @Override
@@ -59,17 +65,20 @@ public class KiemTraFragment extends Fragment {
 
         anhXaView(view);
 
+        // Nhận dữ liệu từ trang trước
         if (getArguments() != null) {
             String tenKyNang = getArguments().getString("TEN_CHU_DE");
             if (tenKyNang != null) {
                 chuDeHienTai = tenKyNang;
-                if (tvTieuDeChuDe != null) tvTieuDeChuDe.setText(chuDeHienTai);
             }
             denTuTrangChu = getArguments().getBoolean("TU_TRANG_CHU", false);
         }
 
         caiDatSuKien();
-        goiApiLayBaiTap(chuDeHienTai);
+
+        // 1. Cài đặt Spinner Kỹ năng trước
+        // Khi Spinner này được chọn -> Nó sẽ tự gọi API lấy bài tập
+        caiDatSpinnerKyNang();
 
         return view;
     }
@@ -82,7 +91,10 @@ public class KiemTraFragment extends Fragment {
         btnKiemTra = view.findViewById(R.id.btn_kiem_tra);
         btnBatDauKiemTra = view.findViewById(R.id.btn_bat_dau_kiem_tra);
         tvTieuDeChuDe = view.findViewById(R.id.tv_tieu_de_chu_de);
-        spinnerChuDe = view.findViewById(R.id.spinner_chu_de);
+
+        // Ánh xạ 2 Spinner (Lưu ý ID tiếng Việt trong XML bên dưới)
+        spinnerKyNang = view.findViewById(R.id.spinner_ky_nang);
+        spinnerBaiTap = view.findViewById(R.id.spinner_chu_de); // Spinner chọn bài tập
     }
 
     private void caiDatSuKien() {
@@ -99,7 +111,7 @@ public class KiemTraFragment extends Fragment {
             });
         }
 
-        // --- CHỌN MỨC ĐỘ (Lưu giá trị tiếng Việt không dấu) ---
+        // --- CHỌN MỨC ĐỘ ---
         btnCoBan.setOnClickListener(v -> {
             mucDoDaChon = "CoBan";
             Toast.makeText(getContext(), "Đã chọn: Cơ bản", Toast.LENGTH_SHORT).show();
@@ -115,19 +127,19 @@ public class KiemTraFragment extends Fragment {
 
         // --- NÚT BẮT ĐẦU ---
         btnBatDauKiemTra.setOnClickListener(v -> {
-            // 1. Kiểm tra Bài tập
+            // Kiểm tra Bài tập
             if (baiTapDangChon == null) {
                 Toast.makeText(getContext(), "Vui lòng chọn bài tập!", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            // 2. KIỂM TRA MỨC ĐỘ (MỚI THÊM VÀO)
+            // Kiểm tra Mức độ
             if (mucDoDaChon.isEmpty()) {
-                Toast.makeText(getContext(), "Vui lòng chọn mức độ (Cơ bản/Trung bình/Cao cấp)!", Toast.LENGTH_SHORT).show();
-                return; // Dừng lại, không cho chuyển màn hình
+                Toast.makeText(getContext(), "Vui lòng chọn mức độ!", Toast.LENGTH_SHORT).show();
+                return;
             }
 
             Intent intent = null;
+            // Chuyển màn hình dựa theo Kỹ năng đang chọn (chuDeHienTai)
             switch (chuDeHienTai) {
                 case "Nghe":
                     intent = new Intent(getContext(), BaiTapNgheActivity.class);
@@ -145,7 +157,7 @@ public class KiemTraFragment extends Fragment {
             }
 
             if (intent != null) {
-                // Truyền dữ liệu sang màn hình làm bài (Key Tiếng Việt)
+                // Truyền dữ liệu (Key Tiếng Việt)
                 intent.putExtra("ID_BAI_TAP", baiTapDangChon.getId());
                 intent.putExtra("TEN_BAI_TAP", baiTapDangChon.getTenBaiTap());
                 intent.putExtra("MUC_DO", mucDoDaChon);
@@ -156,18 +168,70 @@ public class KiemTraFragment extends Fragment {
         });
     }
 
-    // --- HÀM GỌI API ---
+    // --- 1. CÀI ĐẶT SPINNER KỸ NĂNG (NGHE, NÓI...) ---
+    private void caiDatSpinnerKyNang() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                getContext(),
+                R.layout.item_spinner_danh_sach,
+                R.id.tv_ten_bai_tap,
+                danhSachKyNang
+        );
+        adapter.setDropDownViewResource(R.layout.item_spinner_danh_sach);
+        spinnerKyNang.setAdapter(adapter);
+
+        // Tìm vị trí của kỹ năng được truyền sang
+        int viTriMacDinh = 0;
+        for (int i = 0; i < danhSachKyNang.length; i++) {
+            if (danhSachKyNang[i].equalsIgnoreCase(chuDeHienTai)) {
+                viTriMacDinh = i;
+                break;
+            }
+        }
+        spinnerKyNang.setSelection(viTriMacDinh);
+
+        if (denTuTrangChu) {
+            // Nếu từ trang chủ vào -> KHÓA KHÔNG CHO CHỌN
+            spinnerKyNang.setEnabled(false);
+            spinnerKyNang.setAlpha(0.5f); // Làm mờ đi một chút để biết là đang khóa
+        } else {
+            // Nếu từ nơi khác vào -> CHO PHÉP CHỌN BÌNH THƯỜNG
+            spinnerKyNang.setEnabled(true);
+            spinnerKyNang.setAlpha(1.0f);
+        }
+        // ============================================================
+
+        spinnerKyNang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                chuDeHienTai = danhSachKyNang[position];
+                if(tvTieuDeChuDe != null) tvTieuDeChuDe.setText(chuDeHienTai);
+
+                // Gọi API lấy bài tập tương ứng
+                goiApiLayBaiTap(chuDeHienTai);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+    }
+
+    // --- 2. GỌI API LẤY BÀI TẬP THEO KỸ NĂNG ---
     private void goiApiLayBaiTap(String kynang) {
         ApiService apiService = ApiClient.getClient(getContext()).create(ApiService.class);
+
         apiService.getBaiTapByLoai(kynang).enqueue(new Callback<List<BaiTapResponse>>() {
             @Override
             public void onResponse(Call<List<BaiTapResponse>> call, Response<List<BaiTapResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    xuLyHienThiLenSpinner(response.body());
+                    List<BaiTapResponse> listBaiTap = response.body();
+                    xuLyHienThiLenSpinnerBaiTap(listBaiTap);
                 } else {
-                    Toast.makeText(getContext(), "Không tìm thấy bài tập nào", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Không có bài tập nào", Toast.LENGTH_SHORT).show();
+                    // Nếu không có bài tập, xóa danh sách cũ đi
+                    xuLyHienThiLenSpinnerBaiTap(new ArrayList<>());
                 }
             }
+
             @Override
             public void onFailure(Call<List<BaiTapResponse>> call, Throwable t) {
                 Log.e("API_ERROR", "Lỗi: " + t.getMessage());
@@ -175,8 +239,8 @@ public class KiemTraFragment extends Fragment {
         });
     }
 
-    // --- HÀM ĐỔ DỮ LIỆU SPINNER (Dùng layout custom) ---
-    private void xuLyHienThiLenSpinner(List<BaiTapResponse> listBaiTap) {
+    // --- 3. ĐỔ DỮ LIỆU VÀO SPINNER BÀI TẬP ---
+    private void xuLyHienThiLenSpinnerBaiTap(List<BaiTapResponse> listBaiTap) {
         List<String> listTenBai = new ArrayList<>();
         for (BaiTapResponse bt : listBaiTap) {
             listTenBai.add(bt.getTenBaiTap());
@@ -184,19 +248,20 @@ public class KiemTraFragment extends Fragment {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getContext(),
-                R.layout.item_spinner_danh_sach, // File layout dòng (Nhớ phải tạo file này rồi nhé)
-                R.id.tv_ten_bai_tap,             // ID trong file đó
+                R.layout.item_spinner_danh_sach,
+                R.id.tv_ten_bai_tap,
                 listTenBai
         );
         adapter.setDropDownViewResource(R.layout.item_spinner_danh_sach);
 
-        if (spinnerChuDe != null) {
-            spinnerChuDe.setAdapter(adapter);
-            spinnerChuDe.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        if (spinnerBaiTap != null) {
+            spinnerBaiTap.setAdapter(adapter);
+            spinnerBaiTap.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     baiTapDangChon = listBaiTap.get(position);
                 }
+
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                     baiTapDangChon = null;

@@ -1,9 +1,11 @@
 package com.example.englishlearningapp;
 
 import android.content.Intent;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,22 +13,31 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.CauHoiModel;
+import com.example.englishlearningapp.Adapter.CauHoiAdapter;
+// IMPORT DTO MỚI
+import com.example.englishlearningapp.DTO.Response.CauHoiResponse;
+import com.example.englishlearningapp.ApiClient;
+import com.example.englishlearningapp.Retrofit.ApiService;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapter.LangNgheSuKienChonDapAn {
 
-    private List<CauHoiModel> danhSachCauHoi;
+    // --- BIẾN UI ---
     private Button btnHoanThanh;
     private ProgressBar thanhTienTrinh;
     private TextView tvDemSoCauHoi;
@@ -34,57 +45,56 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
     private RecyclerView rcvDanhSachCauHoiNghe;
     private ImageView nutQuayLai;
 
+    // --- BIẾN AUDIO ---
     private ImageButton nutPhatNhac;
     private SeekBar thanhTuaNhac;
     private TextView tvThoiLuong;
-
-    // Logic xử lý Audio
     private MediaPlayer mayPhatNhac;
     private Handler boXuLyAmThanh = new Handler();
     private boolean dangPhat = false;
+    private boolean daChuanBiNhac = false; // Biến kiểm tra nhạc đã load xong chưa
 
-    // Logic theo dõi tiến độ
+    // --- BIẾN DỮ LIỆU ---
+    private List<CauHoiResponse> danhSachCauHoi = new ArrayList<>(); // Dùng CauHoiResponse
+    private CauHoiAdapter adapter;
     private Set<Integer> tapHopIdCauHoiDaTraLoi = new HashSet<>();
+
     private String capDoHienTai = "Basic";
+    private int idBaiTapHienTai = -1;
+
+    // BASE URL chứa file nhạc (Nếu server trả về link full thì để rỗng)
+    // Ví dụ: http://192.168.1.5:8080/audio/
+    private static final String BASE_AUDIO_URL = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bai_tap_nghe);
 
-        // 1. Nhận dữ liệu Level
+        // 1. Nhận dữ liệu Level & ID Bài tập
         if (getIntent() != null) {
-            String levelNhanDuoc = getIntent().getStringExtra("SELECTED_LEVEL");
-            if (levelNhanDuoc != null) {
-                capDoHienTai = levelNhanDuoc;
-            }
+            idBaiTapHienTai = getIntent().getIntExtra("ID_BAI_TAP", -1);
+            capDoHienTai = getIntent().getStringExtra("MUC_DO");
         }
 
         // 2. Ánh xạ View
         anhXaView();
 
-        // 3. Khởi tạo dữ liệu
-        danhSachCauHoi = taoCauHoiNghe();
+        // 3. Cài đặt RecyclerView
+        setupRecyclerView();
 
-        // 4. Cài đặt RecyclerView và Audio
-        caiDatDanhSachCauHoi();
-        caiDatTrinhPhatNhac();
+        // 4. Gọi API lấy dữ liệu
+        if (idBaiTapHienTai != -1) {
+            goiApiLayCauHoi(idBaiTapHienTai);
+        } else {
+            Toast.makeText(this, "Lỗi: Không tìm thấy bài tập!", Toast.LENGTH_SHORT).show();
+        }
 
-        // 5. Thiết lập trạng thái ban đầu
-        thanhTienTrinh.setMax(danhSachCauHoi.size());
-        capNhatTrangThaiTienTrinh();
-
-        // Xử lý sự kiện nút Quay lại
-        nutQuayLai.setOnClickListener(v -> finish());
-
-        // Xử lý sự kiện nút Hoàn thành
-        btnHoanThanh.setOnClickListener(v -> {
-            chuyenSangTrangKetQua();
-        });
+        // 5. Cài đặt sự kiện (Nút bấm, Seekbar...)
+        caiDatSuKien();
     }
 
     private void anhXaView() {
-        // Ánh xạ các thành phần chung
         btnHoanThanh = findViewById(R.id.btn_hoan_thanh);
         thanhTienTrinh = findViewById(R.id.thanh_tien_trinh);
         tvDemSoCauHoi = findViewById(R.id.tv_dem_so_cau_hoi);
@@ -92,78 +102,159 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
         rcvDanhSachCauHoiNghe = findViewById(R.id.rcv_danh_sach_cau_hoi_nghe);
         nutQuayLai = findViewById(R.id.nut_quay_lai);
 
-        // Ánh xạ các thành phần Audio
         nutPhatNhac = findViewById(R.id.nut_phat_nhac);
         thanhTuaNhac = findViewById(R.id.thanh_tua_nhac);
         tvThoiLuong = findViewById(R.id.tv_thoi_luong);
+
+        // Mặc định disable nút nhạc đến khi load xong
+        nutPhatNhac.setEnabled(false);
+        nutPhatNhac.setAlpha(0.5f);
     }
 
-    private void caiDatDanhSachCauHoi() {
-        CauHoiAdapter adapter = new CauHoiAdapter(danhSachCauHoi, this);
+    private void setupRecyclerView() {
+        adapter = new CauHoiAdapter(this, danhSachCauHoi);
         rcvDanhSachCauHoiNghe.setLayoutManager(new LinearLayoutManager(this));
         rcvDanhSachCauHoiNghe.setAdapter(adapter);
     }
 
-    private void chuyenSangTrangKetQua() {
-        Intent intent = new Intent(BaiTapNgheActivity.this, KetQuaActivity.class);
+    // --- GỌI API LẤY CÂU HỎI ---
+    private void goiApiLayCauHoi(int baiTapId) {
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
 
-        // Truyền số câu đã làm
-        intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, tapHopIdCauHoiDaTraLoi.size());
-        intent.putExtra(KetQuaActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
-        intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, 0);
+        apiService.getCauHoiByBaiTapId(baiTapId).enqueue(new Callback<List<CauHoiResponse>>() {
+            @Override
+            public void onResponse(Call<List<CauHoiResponse>> call, Response<List<CauHoiResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    danhSachCauHoi.clear();
+                    List<CauHoiResponse> listTuServer = response.body();
 
-        // Gửi Topic và Level để nút "Làm lại"
-        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Nghe");
-        intent.putExtra(KetQuaActivity.EXTRA_LEVEL, capDoHienTai);
+                    for (CauHoiResponse ch : listTuServer) {
+                        ch.xuLyDuLieu(); // Parse JSON đáp án
+                        danhSachCauHoi.add(ch);
+                    }
+                    adapter.notifyDataSetChanged();
 
-        startActivity(intent);
-        finish();
+                    // Cập nhật tiến trình
+                    thanhTienTrinh.setMax(danhSachCauHoi.size());
+                    capNhatTrangThaiTienTrinh();
+
+                    // --- XỬ LÝ AUDIO ---
+                    // Lấy link nhạc từ câu hỏi đầu tiên (hoặc logic tùy bạn)
+                    if (!danhSachCauHoi.isEmpty()) {
+                        String audioUrl = danhSachCauHoi.get(0).getAudioUrl();
+                        if (audioUrl != null && !audioUrl.isEmpty()) {
+                            // Nếu URL chưa có http, ghép với BASE_AUDIO_URL
+                            if (!audioUrl.startsWith("http")) {
+                                audioUrl = BASE_AUDIO_URL + audioUrl;
+                            }
+                            chuanBiBaiHat(audioUrl);
+                        } else {
+                            // Nếu không có link nhạc -> Load nhạc mẫu offline để test không bị lỗi
+                            chuanBiNhacOffline();
+                        }
+                    }
+
+                } else {
+                    Toast.makeText(BaiTapNgheActivity.this, "Không có câu hỏi nào!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CauHoiResponse>> call, Throwable t) {
+                Toast.makeText(BaiTapNgheActivity.this, "Lỗi kết nối API", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    // Phần xử lý phát nhạc
-    private void caiDatTrinhPhatNhac() {
+    // --- LOGIC PHÁT NHẠC ONLINE (STREAMING) ---
+    private void chuanBiBaiHat(String url) {
         try {
-            // Đảm bảo file audio_sample.mp3 có trong res/raw
-            mayPhatNhac = MediaPlayer.create(this, R.raw.audio_sample);
+            if (mayPhatNhac != null) {
+                mayPhatNhac.release();
+            }
+            mayPhatNhac = new MediaPlayer();
+            mayPhatNhac.setAudioAttributes(
+                    new AudioAttributes.Builder()
+                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                            .setUsage(AudioAttributes.USAGE_MEDIA)
+                            .build()
+            );
+            mayPhatNhac.setDataSource(url);
+            mayPhatNhac.prepareAsync(); // Load bất đồng bộ để không đơ ứng dụng
+
+            mayPhatNhac.setOnPreparedListener(mp -> {
+                // Nhạc đã load xong
+                daChuanBiNhac = true;
+                nutPhatNhac.setEnabled(true);
+                nutPhatNhac.setAlpha(1.0f);
+                thanhTuaNhac.setMax(mayPhatNhac.getDuration());
+                tvThoiLuong.setText(dinhDangThoiGian(mayPhatNhac.getDuration()));
+                Toast.makeText(BaiTapNgheActivity.this, "Đã tải audio xong!", Toast.LENGTH_SHORT).show();
+            });
+
+            setupMediaPlayerListeners();
+
         } catch (Exception e) {
             e.printStackTrace();
-            return;
+//            Toast.makeText(this, "Lỗi tải file nhạc: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
 
-        if (mayPhatNhac != null) {
-            thanhTuaNhac.setMax(mayPhatNhac.getDuration());
-            tvThoiLuong.setText(dinhDangThoiGian(mayPhatNhac.getDuration()));
-
-            nutPhatNhac.setOnClickListener(v -> {
-                if (dangPhat) tamDungNhac();
-                else phatNhac();
-            });
-
-            thanhTuaNhac.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    if (fromUser) {
-                        mayPhatNhac.seekTo(progress);
-                        tvThoiLuong.setText(dinhDangThoiGian(progress));
-                    }
-                }
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {}
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {}
-            });
-
-            mayPhatNhac.setOnCompletionListener(mp -> {
-                tamDungNhac();
-                mayPhatNhac.seekTo(0);
-                thanhTuaNhac.setProgress(0);
+    // Fallback: Nếu không có link online thì load file mẫu trong máy
+    private void chuanBiNhacOffline() {
+        try {
+            mayPhatNhac = MediaPlayer.create(this, R.raw.audio_sample); // Đảm bảo bạn có file này trong res/raw
+            if(mayPhatNhac != null) {
+                daChuanBiNhac = true;
+                nutPhatNhac.setEnabled(true);
+                nutPhatNhac.setAlpha(1.0f);
+                thanhTuaNhac.setMax(mayPhatNhac.getDuration());
                 tvThoiLuong.setText(dinhDangThoiGian(mayPhatNhac.getDuration()));
-            });
+                setupMediaPlayerListeners();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    private void setupMediaPlayerListeners() {
+        if (mayPhatNhac == null) return;
+
+        mayPhatNhac.setOnCompletionListener(mp -> {
+            tamDungNhac();
+            mayPhatNhac.seekTo(0);
+            thanhTuaNhac.setProgress(0);
+        });
+    }
+
+    private void caiDatSuKien() {
+        nutQuayLai.setOnClickListener(v -> finish());
+
+        btnHoanThanh.setOnClickListener(v -> chuyenSangTrangKetQua());
+
+        nutPhatNhac.setOnClickListener(v -> {
+            if (!daChuanBiNhac) return;
+            if (dangPhat) tamDungNhac();
+            else phatNhac();
+        });
+
+        thanhTuaNhac.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser && mayPhatNhac != null && daChuanBiNhac) {
+                    mayPhatNhac.seekTo(progress);
+                    tvThoiLuong.setText(dinhDangThoiGian(progress));
+                }
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
     }
 
     private void phatNhac() {
-        if (mayPhatNhac != null) {
+        if (mayPhatNhac != null && daChuanBiNhac) {
             mayPhatNhac.start();
             dangPhat = true;
             nutPhatNhac.setImageResource(android.R.drawable.ic_media_pause);
@@ -180,7 +271,6 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
         }
     }
 
-    // Runnable để cập nhật seekbar liên tục
     private Runnable tacVuCapNhatThanhTua = new Runnable() {
         @Override
         public void run() {
@@ -203,10 +293,9 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
         return String.format("%02d:%02d", phut, giay);
     }
 
-    // --- LOGIC CẬP NHẬT TIẾN ĐỘ
+    // --- LOGIC TIẾN ĐỘ ---
     @Override
     public void khiDapAnDuocChon(int maCauHoi, String dapAnDuocChon) {
-        // Logic: Nếu chọn thì thêm vào Set, bỏ chọn thì xóa khỏi Set
         if (dapAnDuocChon != null) {
             tapHopIdCauHoiDaTraLoi.add(maCauHoi);
         } else {
@@ -224,26 +313,31 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
         tvPhanTramTienTrinh.setText(phanTram + "%");
         thanhTienTrinh.setProgress(soCauDaTraLoi);
 
-        if (soCauDaTraLoi == tongSoCau) {
+        if (soCauDaTraLoi == tongSoCau && tongSoCau > 0) {
             btnHoanThanh.setEnabled(true);
             btnHoanThanh.setVisibility(View.VISIBLE);
-            // Thay đổi màu nút khi hoàn thành
             btnHoanThanh.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.royalBlue));
         } else {
             btnHoanThanh.setEnabled(false);
-            btnHoanThanh.setVisibility(View.VISIBLE);
             btnHoanThanh.setBackgroundTintList(ContextCompat.getColorStateList(this, android.R.color.darker_gray));
         }
     }
 
-    private List<CauHoiModel> taoCauHoiNghe() {
-        return Arrays.asList(
-                new CauHoiModel(1, "Hướng dẫn: Nghe và chọn đáp án.", "Where are they going?", Arrays.asList("Cinema", "Museum", "Park", "School"), "Museum"),
-                new CauHoiModel(2, "Hướng dẫn: Nghe chi tiết.", "What time is it?", Arrays.asList("7:00", "7:30", "8:00", "9:00"), "7:30"),
-                new CauHoiModel(3, "Hướng dẫn: Suy luận khi nghe.", "How does the man feel?", Arrays.asList("Happy", "Sad", "Angry", "Tired"), "Happy")
-        );
-    }
+    private void chuyenSangTrangKetQua() {
+        Intent intent = new Intent(BaiTapNgheActivity.this, KetQuaActivity.class);
 
+        intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, tapHopIdCauHoiDaTraLoi.size());
+        intent.putExtra(KetQuaActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
+
+        // --- DÒNG QUAN TRỌNG CÒN THIẾU ---
+        intent.putExtra("ID_BAI_TAP", idBaiTapHienTai);
+
+        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Nghe");
+        intent.putExtra(KetQuaActivity.EXTRA_LEVEL, capDoHienTai);
+
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     protected void onDestroy() {

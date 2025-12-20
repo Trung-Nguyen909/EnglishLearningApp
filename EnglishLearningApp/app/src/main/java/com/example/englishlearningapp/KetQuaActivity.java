@@ -3,29 +3,34 @@ package com.example.englishlearningapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button; // Hoặc android.widget.AppCompatButton
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class KetQuaActivity extends AppCompatActivity {
 
-    // Khai báo các View
+    // Khai báo View
     private TextView tvdiem;
     private TextView tvTiledung;
     private TextView tvThoigian;
     private Button btnLamlai;
     private Button btnThoat;
 
+    // Các hằng số key để nhận/gửi dữ liệu
     public static final String EXTRA_CORRECT_ANSWERS = "CORRECT_ANSWERS";
     public static final String EXTRA_TOTAL_QUESTIONS = "TOTAL_QUESTIONS";
     public static final String EXTRA_TIME_SPENT = "TIME_SPENT";
 
-    public static final String EXTRA_TOPIC = "TOPIC";
-    public static final String EXTRA_LEVEL = "LEVEL";
+    public static final String EXTRA_TOPIC = "TOPIC"; // Loại bài (Nghe/Đọc...)
+    public static final String EXTRA_LEVEL = "LEVEL"; // Mức độ (Dễ/Trung bình...)
+    public static final String EXTRA_EXERCISE_ID = "ID_BAI_TAP"; // ID bài tập (Cho API)
 
-    // Biến lưu trữ để dùng cho nút Làm lại
+    // Biến lưu trữ dữ liệu để dùng cho nút "Làm lại"
     private String receivedTopic = "";
     private String receivedLevel = "";
+    private int receivedExerciseId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +43,6 @@ public class KetQuaActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        // Đảm bảo ID trong file XML activity_test_result khớp với các dòng này
         tvdiem = findViewById(R.id.tvdiem);
         tvTiledung = findViewById(R.id.tvTiledung);
         tvThoigian = findViewById(R.id.tvThoigian);
@@ -49,24 +53,27 @@ public class KetQuaActivity extends AppCompatActivity {
     private void loadResults() {
         Intent intent = getIntent();
 
-        // 1. Nhận điểm số, thời gian
+        // 1. Nhận thông số kết quả (Điểm, Thời gian)
         int correctAnswers = intent.getIntExtra(EXTRA_CORRECT_ANSWERS, 0);
-        int totalQuestions = intent.getIntExtra(EXTRA_TOTAL_QUESTIONS, 1); // Mặc định là 1 để tránh chia cho 0
+        int totalQuestions = intent.getIntExtra(EXTRA_TOTAL_QUESTIONS, 1); // Mặc định 1 để tránh chia cho 0
         int timeSpent = intent.getIntExtra(EXTRA_TIME_SPENT, 0);
 
-        // 2. >>> QUAN TRỌNG: NHẬN TÊN KỸ NĂNG VÀ LEVEL ĐỂ LÀM LẠI <<<
+        // 2. Nhận thông tin bài tập để phục vụ nút "Làm lại"
         receivedTopic = intent.getStringExtra(EXTRA_TOPIC);
         receivedLevel = intent.getStringExtra(EXTRA_LEVEL);
+        receivedExerciseId = intent.getIntExtra(EXTRA_EXERCISE_ID, -1);
 
         // 3. Hiển thị lên giao diện
         tvdiem.setText(correctAnswers + "/" + totalQuestions);
 
+        // Tính phần trăm
         int accuracy = 0;
         if (totalQuestions > 0) {
-            accuracy = (correctAnswers * 100) / totalQuestions;
+            accuracy = (int) (((float) correctAnswers / totalQuestions) * 100);
         }
         tvTiledung.setText(accuracy + "%");
 
+        // Hiển thị thời gian
         tvThoigian.setText(formatTime(timeSpent));
     }
 
@@ -78,53 +85,72 @@ public class KetQuaActivity extends AppCompatActivity {
 
     private void setupListeners() {
         // --- XỬ LÝ NÚT LÀM LẠI ---
-        btnLamlai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = null;
+        btnLamlai.setOnClickListener(v -> {
+            Intent intent = null;
 
-                // Kiểm tra chủ đề cũ là gì để mở lại đúng Activity đó
-                if (receivedTopic != null) {
-                    switch (receivedTopic) {
-                        case "Nghe":
+            // Kiểm tra Topic để điều hướng về đúng màn hình
+            if (receivedTopic != null) {
+                switch (receivedTopic) {
+                    // --- NHÓM ĐÃ CÓ API (Cần ID_BAI_TAP) ---
+                    case "Nghe":
+                        if (receivedExerciseId != -1) {
                             intent = new Intent(KetQuaActivity.this, BaiTapNgheActivity.class);
-                            break;
-                        case "Nói":
-                            intent = new Intent(KetQuaActivity.this, BaiTapNoiActivity.class);
-                            break;
-                        case "Đọc":
+                            intent.putExtra("ID_BAI_TAP", receivedExerciseId);
+                            intent.putExtra("MUC_DO", receivedLevel);
+                        } else {
+                            Toast.makeText(this, "Lỗi: Không tìm thấy bài tập Nghe!", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+
+                    case "Đọc":
+                        if (receivedExerciseId != -1) {
                             intent = new Intent(KetQuaActivity.this, BaiTapDocActivity.class);
-                            break;
-                        case "Viết":
-                        default:
-                            intent = new Intent(KetQuaActivity.this, BaiTapVietActivity.class);
-                            break;
-                    }
-                } else {
-                    // Fallback nếu không nhận được topic (Mặc định về bài đọc)
-                    intent = new Intent(KetQuaActivity.this, BaiTapDocActivity.class);
-                }
+                            intent.putExtra("ID_BAI_TAP", receivedExerciseId);
+                            intent.putExtra("MUC_DO", receivedLevel);
+                        } else {
+                            Toast.makeText(this, "Lỗi: Không tìm thấy bài tập Đọc!", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
 
-                if (intent != null) {
-                    // Gửi lại Level và Topic để trang bài tập biết tải nội dung gì
-                    intent.putExtra("SELECTED_LEVEL", receivedLevel);
-                    intent.putExtra("SELECTED_TOPIC", receivedTopic);
+                    // --- NHÓM CHƯA CÓ API HOÀN CHỈNH (Nói & Viết) ---
+                    // Giữ nguyên logic cũ hoặc báo đang phát triển
+                    case "Nói":
+                        // Nếu bạn muốn mở lại activity cũ (giả sử BaiTapNoiActivity dùng logic cũ)
+                         intent = new Intent(KetQuaActivity.this, BaiTapNoiActivity.class);
+                         intent.putExtra("SELECTED_LEVEL", receivedLevel);
 
-                    startActivity(intent);
-                    finish(); // Đóng trang kết quả hiện tại
+                        // Hoặc thông báo chưa làm xong:
+//                        Toast.makeText(this, "Chức năng Nói đang được cập nhật API", Toast.LENGTH_SHORT).show();
+                        return;
+
+                    case "Viết":
+                        // Tương tự cho Viết
+                         intent = new Intent(KetQuaActivity.this, BaiTapVietActivity.class);
+                         intent.putExtra("SELECTED_LEVEL", receivedLevel);
+
+//                        Toast.makeText(this, "Chức năng Viết đang được cập nhật API", Toast.LENGTH_SHORT).show();
+                        return;
+
+                    default:
+                        Toast.makeText(this, "Không xác định được loại bài tập!", Toast.LENGTH_SHORT).show();
+                        break;
                 }
+            }
+
+            // Nếu Intent đã được tạo thành công (cho Nghe/Đọc), thì start activity
+            if (intent != null) {
+                // Có thể gửi thêm Topic nếu activity đích cần hiển thị tiêu đề
+                intent.putExtra("TOPIC", receivedTopic);
+
+                startActivity(intent);
+                finish(); // Đóng màn hình kết quả để quay lại bài làm mới
             }
         });
 
         // --- XỬ LÝ NÚT THOÁT ---
-        btnThoat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Khi bấm Thoát, chỉ cần đóng trang Kết quả.
-                // Vì trước đó (ở trang Bài tập), bạn đã gọi finish() rồi,
-                // nên bên dưới trang Kết quả chính là MainActivity (Màn hình Kiểm tra).
-                finish();
-            }
+        btnThoat.setOnClickListener(v -> {
+            // Đóng Activity này -> Quay về màn hình cha (Fragment Kiểm tra hoặc Danh sách bài tập)
+            finish();
         });
     }
 }

@@ -107,9 +107,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -119,24 +116,20 @@
                             app:cardBackgroundColor="#87CEEB"
                             app:cardCornerRadius="35dp"
                             app:cardElevation="4dp">
-
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:text="10"
-                                android:textColor="@android:color/white"
+                                android:textColor="#FFF"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
                         </androidx.cardview.widget.CardView>
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:text="Cơ bản"
-                            android:textColor="#333333"
-                            android:textSize="16sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -145,9 +138,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -157,24 +147,20 @@
                             app:cardBackgroundColor="#4169E1"
                             app:cardCornerRadius="35dp"
                             app:cardElevation="4dp">
-
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:text="20"
-                                android:textColor="@android:color/white"
+                                android:textColor="#FFF"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
                         </androidx.cardview.widget.CardView>
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:text="Trung bình"
-                            android:textColor="#333333"
-                            android:textSize="16sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -183,9 +169,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -195,24 +178,20 @@
                             app:cardBackgroundColor="#2849B8"
                             app:cardCornerRadius="35dp"
                             app:cardElevation="4dp">
-
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:text="30"
-                                android:textColor="@android:color/white"
+                                android:textColor="#FFF"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
                         </androidx.cardview.widget.CardView>
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:text="Cao cấp"
-                            android:textColor="#333333"
-                            android:textSize="16sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
@@ -236,15 +215,49 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:text="Chọn bài tập"
+                        android:text="Đọc"
                         android:textColor="#4169E1"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Chọn kỹ năng:"
+                        android:textColor="#666" />
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="16dp"
+                        app:cardBackgroundColor="@android:color/white"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp">
+
+                        <Spinner
+                            android:id="@+id/spinner_ky_nang"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:background="@color/white"
+                            android:dropDownVerticalOffset="60dp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:popupBackground="@drawable/nen_spinner_tron"
+                            android:spinnerMode="dropdown" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Chọn bài tập:"
+                        android:textColor="#666" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
                         app:cardBackgroundColor="@android:color/white"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="2dp">
@@ -254,54 +267,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="55dp"
                             android:background="@color/white"
+                            android:dropDownVerticalOffset="60dp"
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
-
-                            android:spinnerMode="dropdown"
-                            android:dropDownVerticalOffset="60dp"
-                            android:popupBackground="@drawable/nen_spinner_tron" />
-
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        app:cardBackgroundColor="#4169E1"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:padding="20dp">
-
-                            <TextView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:gravity="center"
-                                android:text="🏆"
-                                android:textSize="32sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:layout_marginEnd="12dp"
-                                android:layout_weight="1"
-                                android:lineSpacingExtra="4dp"
-                                android:text="Thi đấu để giành top 1! Điểm số và thời gian làm bài của bạn sẽ được ghi lại trên Bảng xếp hạng"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:gravity="center"
-                                android:text="🎉"
-                                android:textSize="32sp" />
-                        </LinearLayout>
+                            android:popupBackground="@drawable/nen_spinner_tron"
+                            android:spinnerMode="dropdown" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -329,5 +299,4 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

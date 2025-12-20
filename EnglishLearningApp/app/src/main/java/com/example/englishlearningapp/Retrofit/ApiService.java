@@ -3,6 +3,7 @@ import com.example.englishlearningapp.DTO.Request.UserLoginRequest;
 import com.example.englishlearningapp.DTO.Request.UserRegisterRequest;
 import com.example.englishlearningapp.DTO.Response.AuthResponse;
 import com.example.englishlearningapp.DTO.Response.BaiTapResponse;
+import com.example.englishlearningapp.DTO.Response.CauHoiResponse;
 import com.example.englishlearningapp.DTO.Response.NguoiDungRespone;
 import com.example.englishlearningapp.DTO.Response.NhatKyHoatDong;
 import com.example.englishlearningapp.DTO.Response.UserSummaryDto;
@@ -40,4 +41,7 @@ public interface ApiService {
 
     @GET("baitap/{loaiBT}")
     Call<List<BaiTapResponse>> getBaiTapByLoai(@Path("loaiBT") String loaiBaiTap);
+
+    @GET("cauhoi/baitap/{id}")
+    Call<List<CauHoiResponse>> getCauHoiByBaiTapId(@Path("id") int id);
 }
