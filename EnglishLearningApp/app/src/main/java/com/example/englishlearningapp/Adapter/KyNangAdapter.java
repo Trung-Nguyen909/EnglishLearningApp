@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.englishlearningapp.Model.KyNangModel;
+import com.example.englishlearningapp.R;
+
 import java.util.List;
 
 public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.KyNangViewHolder> {
@@ -43,15 +45,29 @@ public class KyNangAdapter extends RecyclerView.Adapter<KyNangAdapter.KyNangView
         KyNangModel kyNang = danhSachKyNang.get(position);
         if (kyNang == null) return;
 
-        // Sử dụng Getter tiếng Việt từ Model KyNang
+        // Gán tên từ API
         holder.tvTenKyNang.setText(kyNang.getTenKyNang());
-        holder.imgAnhDaiDien.setImageResource(kyNang.getMaHinhAnh());
 
-        // 3. BẮT SỰ KIỆN CLICK VÀO ITEM
+        // --- LOGIC MỚI: TỰ CHỌN ẢNH DỰA TRÊN TÊN ---
+        String ten = kyNang.getTenKyNang().toLowerCase();
+        int resId = R.drawable.ic_loi; // Ảnh mặc định
+
+        if (ten.contains("nghe")) {
+            resId = R.drawable.ic_nghe;
+        } else if (ten.contains("nói")) {
+            resId = R.drawable.ic_noi;
+        } else if (ten.contains("đọc")) {
+            resId = R.drawable.ic_doc;
+        } else if (ten.contains("viết")) {
+            resId = R.drawable.ic_viet;
+        }
+
+        holder.imgAnhDaiDien.setImageResource(resId);
+        // ---------------------------------------------
+
+        // Sự kiện click (Giữ nguyên)
         holder.itemView.setOnClickListener(v -> {
-            if (nguoiLangNghe != null) {
-                nguoiLangNghe.khiClickVaoItem(kyNang); // Gửi item được chọn ra ngoài
-            }
+            if (nguoiLangNghe != null) nguoiLangNghe.khiClickVaoItem(kyNang);
         });
     }
 

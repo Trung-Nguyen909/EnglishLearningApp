@@ -5,6 +5,7 @@ import com.example.englishlearningapp.DTO.Response.AuthResponse;
 import com.example.englishlearningapp.DTO.Response.NguoiDungRespone;
 import com.example.englishlearningapp.DTO.Response.NhatKyHoatDong;
 import com.example.englishlearningapp.DTO.Response.UserSummaryDto;
+import com.example.englishlearningapp.Model.KyNangModel;
 
 import java.util.List;
 
@@ -33,4 +34,7 @@ public interface ApiService {
 
     @GET("user/summary")
     Call<UserSummaryDto> GetInfoUser();
+
+    @GET("kynang")
+    Call<List<KyNangModel>> getAllKyNang();
 }

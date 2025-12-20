@@ -1,27 +1,19 @@
 package com.example.englishlearningapp.Model;
 
-public class KyNangModel {
+import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
+
+public class KyNangModel implements Serializable {
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("tenKyNang")
     private String tenKyNang;
-    private int maHinhAnh;
 
-    public KyNangModel(String tenKyNang, int maHinhAnh) {
-        this.tenKyNang = tenKyNang;
-        this.maHinhAnh = maHinhAnh;
-    }
+    public KyNangModel() {} // Constructor rỗng
 
-    public String getTenKyNang() {
-        return tenKyNang;
-    }
-
-    public int getMaHinhAnh() {
-        return maHinhAnh;
-    }
-
-    public void setMaHinhAnh(int maHinhAnh) {
-        this.maHinhAnh = maHinhAnh;
-    }
-
-    public void setTenKyNang(String tenKyNang) {
-        this.tenKyNang = tenKyNang;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getTenKyNang() { return tenKyNang; }
+    public void setTenKyNang(String tenKyNang) { this.tenKyNang = tenKyNang; }
 }

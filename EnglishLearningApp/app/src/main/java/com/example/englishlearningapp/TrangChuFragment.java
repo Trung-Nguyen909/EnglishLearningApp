@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishlearningapp.Adapter.KyNangAdapter;
 import com.example.englishlearningapp.Retrofit.ApiService;
 import com.example.englishlearningapp.TrangChu.EventDecorator;
 import com.example.englishlearningapp.Model.KyNangModel;
@@ -71,45 +72,58 @@ public class TrangChuFragment extends Fragment {
             });
         }
 
-        List<KyNangModel> danhSachKyNang = new ArrayList<>();
-        danhSachKyNang.add(new KyNangModel("Nghe", R.drawable.ic_nghe));
-        danhSachKyNang.add(new KyNangModel("Nói", R.drawable.ic_noi));
-        danhSachKyNang.add(new KyNangModel("Đọc", R.drawable.ic_doc));
-        danhSachKyNang.add(new KyNangModel("Viết", R.drawable.ic_viet));
+        goiApiLayDanhSachKyNang();
+        return view;
+    }
 
-        adapterKyNang = new KyNangAdapter(getContext(), danhSachKyNang);
-        adapterKyNang.setLangNgheSuKienClick(new KyNangAdapter.LangNgheSuKienClick() {
+    // --- HÀM GỌI API MỚI ---
+    private void goiApiLayDanhSachKyNang() {
+        ApiService apiService = ApiClient.getClient(getContext()).create(ApiService.class);
+
+        apiService.getAllKyNang().enqueue(new Callback<List<KyNangModel>>() {
             @Override
-            public void khiClickVaoItem(KyNangModel kyNang) {
-                // Lấy tên kỹ năng (Listening, Reading, Speaking, Writing)
-                String tenKyNang = kyNang.getTenKyNang();
+            public void onResponse(Call<List<KyNangModel>> call, Response<List<KyNangModel>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<KyNangModel> listTuApi = response.body();
 
-                // 1. Tạo Fragment
-                KiemTraFragment kiemtraFragment = new KiemTraFragment();
+                    // Khởi tạo Adapter với dữ liệu từ API
+                    adapterKyNang = new KyNangAdapter(getContext(), listTuApi);
 
-                // 2. Đóng gói dữ liệu để gửi sang Fragment kia
-                Bundle goiDuLieu = new Bundle();
-                goiDuLieu.putString("TEN_CHU_DE", tenKyNang);
-                kiemtraFragment.setArguments(goiDuLieu);
+                    // Setup sự kiện click (Code cũ của bạn chuyển vào đây)
+                    adapterKyNang.setLangNgheSuKienClick(new KyNangAdapter.LangNgheSuKienClick() {
+                        @Override
+                        public void khiClickVaoItem(KyNangModel kyNang) {
+                            String tenKyNang = kyNang.getTenKyNang();
 
-                // --- THÊM DÒNG NÀY ĐỂ BÁO HIỆU ---
-                goiDuLieu.putBoolean("TU_TRANG_CHU", true);
+                            // Chuyển Fragment (Logic cũ của bạn)
+                            KiemTraFragment kiemtraFragment = new KiemTraFragment();
+                            Bundle goiDuLieu = new Bundle();
+                            goiDuLieu.putString("TEN_CHU_DE", tenKyNang);
+                            goiDuLieu.putInt("ID_KYNANG", kyNang.getId()); // Truyền thêm ID nếu cần
+                            goiDuLieu.putBoolean("TU_TRANG_CHU", true);
+                            kiemtraFragment.setArguments(goiDuLieu);
 
-                // 3. Thực hiện chuyển đổi Fragment
-                if (getParentFragmentManager() != null) {
-                    getParentFragmentManager().beginTransaction()
-                            .replace(R.id.frame_container, kiemtraFragment) // Thay thế layout hiện tại
-                            .addToBackStack(null) // Cho phép ấn Back để quay lại
-                            .commit();
+                            if (getParentFragmentManager() != null) {
+                                getParentFragmentManager().beginTransaction()
+                                        .replace(R.id.frame_container, kiemtraFragment)
+                                        .addToBackStack(null)
+                                        .commit();
+                            }
+                        }
+                    });
+
+                    // Gán vào RecyclerView
+                    GridLayoutManager gridManager = new GridLayoutManager(getContext(), 4);
+                    rcvKiemTraNhanh.setLayoutManager(gridManager);
+                    rcvKiemTraNhanh.setAdapter(adapterKyNang);
                 }
             }
+
+            @Override
+            public void onFailure(Call<List<KyNangModel>> call, Throwable t) {
+                Toast.makeText(getContext(), "Lỗi tải kỹ năng", Toast.LENGTH_SHORT).show();
+            }
         });
-
-        GridLayoutManager gridManagerKyNang = new GridLayoutManager(getContext(), 4);
-        rcvKiemTraNhanh.setLayoutManager(gridManagerKyNang);
-        rcvKiemTraNhanh.setAdapter(adapterKyNang);
-
-        return view;
     }
 
     private void callApiLayLichHoatDong(int userId) {
