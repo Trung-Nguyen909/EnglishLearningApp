@@ -11,4 +11,6 @@ public interface BaiTapRepository extends JpaRepository<BaiTap,Integer> {
     void deleteByIdBaiHoc(Integer idBaiHoc);
 
     List<BaiTap> findByIdBaiHoc(Integer idBaiHoc);
+
+    List<BaiTap>findByLoaiBaiTap(String loaibaitap);
 }

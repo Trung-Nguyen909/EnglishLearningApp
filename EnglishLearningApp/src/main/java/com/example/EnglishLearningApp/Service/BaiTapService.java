@@ -21,4 +21,8 @@ public class BaiTapService {
     public List<BaiTap> GetAllBaiTap(){
         return baiTapRepository.findAll();
     }
+
+    public List<BaiTap> GetBaiTapByLoaiBaiTap(String loaiBT) {
+        return baiTapRepository.findByLoaiBaiTap(loaiBT);
+    }
 }

@@ -26,4 +26,9 @@ public class BaiTapController {
     public List<BaiTap> getAllBaiTap() {
         return baiTapService.GetAllBaiTap();
     }
+
+    @GetMapping("/{loaiBT}")
+    public List<BaiTap> GetBaiTapByLoaiBaitap(@PathVariable String loaiBT){
+        return baiTapService.GetBaiTapByLoaiBaiTap(loaiBT);
+    }
 }
