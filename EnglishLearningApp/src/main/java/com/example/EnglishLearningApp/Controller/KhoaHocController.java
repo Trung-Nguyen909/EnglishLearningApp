@@ -27,7 +27,7 @@ public class KhoaHocController {
     public KhoaHoc createKhoaHoc(@RequestBody KhoaHoc khoaHoc){
         return khoaHocService.taoKhoaHoc(khoaHoc);
     }
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public ResponseEntity<KhoaHoc> updateKhoaHoc(@PathVariable Integer id,@RequestBody KhoaHoc khoaHocChiTiet){
         return ResponseEntity.ok(khoaHocService.capNhatKhoaHoc(id,khoaHocChiTiet));
     }

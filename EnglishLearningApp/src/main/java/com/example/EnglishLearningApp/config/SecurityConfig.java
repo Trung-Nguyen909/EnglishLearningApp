@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -21,7 +22,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class SecurityConfig implements WebMvcConfigurer {
     @Value("${jwt.secretKey}")
     private String secretKey;
-    private final String[] PUBLIC_ENDPOINT = {"/user/**","/kynang/**", "/cauhoi/**", "/img_user/user_avatar/**", "/baitap/**"};
+    private final String[] PUBLIC_ENDPOINT = {"/user/**","/kynang/**", "/cauhoi/**","/KhoaHoc/**","/baihoc/**", "/img_user/user_avatar/**", "/baitap/**"};
     private final String[] PRIVATE_ENDPOINT = {"/user/admin/*", "/user/summary"};
 
     @Bean
@@ -59,5 +60,18 @@ public class SecurityConfig implements WebMvcConfigurer {
         String uploadDir = System.getProperty("user.dir") + "/img_user/user_avatar/";
         registry.addResourceHandler("/img_user/user_avatar/**")
                 .addResourceLocations("file:" + uploadDir);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**") // áp dụng cho TẤT CẢ API
+                .allowedOrigins(
+                        "http://localhost:5500",   // Live Server VSCode
+                        "http://127.0.0.1:5500",
+                        "http://localhost:3000"    // nếu sau này dùng React
+                )
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }
