@@ -1,117 +1,157 @@
 package com.example.englishlearningapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment; // Thay AppCompatActivity bằng Fragment
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishlearningapp.DTO.Response.KhoaHocResponse;
 import com.example.englishlearningapp.Fragment.KiemTraFragment;
-import com.example.englishlearningapp.Model.*;
+import com.example.englishlearningapp.Model.ChuDeModel;
+import com.example.englishlearningapp.Model.ChuDePhuModel;
+import com.example.englishlearningapp.Retrofit.ApiService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class KhoaHocFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private View btn_TrangKiemTra;
     private ChuDeAdapter adapter;
+    private List<ChuDeModel> topics = new ArrayList<>();
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_khoahoc, container, false);
         recyclerView = view.findViewById(R.id.rcv_chitiet);
         btn_TrangKiemTra = view.findViewById(R.id.btn_kiemtra);
 
-        List<ChuDeModel> topics = createTopicData();
-
+        // set adapter với list rỗng trước, sau đó fetch data
         adapter = new ChuDeAdapter(getContext(), topics);
-
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        // SỰ KIỆN CLICK: Chuyển sang màn hình Kiểm tra (TestFragment)
+
+        // SỰ KIỆN CLICK: Chuyển sang màn hình Kiểm tra
         if (btn_TrangKiemTra != null) {
             btn_TrangKiemTra.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Lệnh chuyển Fragment
                     FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-
-                    // Thay thế màn hình hiện tại bằng TestFragment
-                    // R.id.frame_container là cái khung trong MainActivity
                     transaction.replace(R.id.frame_container, new KiemTraFragment());
-
-                    // Cho phép bấm nút Back để quay lại màn hình Khóa học
                     transaction.addToBackStack(null);
-
-                    // Thực hiện
                     transaction.commit();
                 }
             });
         }
 
+        // gọi API để load khóa học
+        loadKhoaHocFromApi();
+
         return view;
     }
-    private List<ChuDeModel> createTopicData() {
-        List<ChuDeModel> list = new ArrayList<>();
 
-        // 1. Family (Các ID: 1, 2, 3)
-        List<ChuDePhuModel> familySubs = Arrays.asList(
-                new ChuDePhuModel(1, "Thành viên trong gia đình", R.drawable.img_ic_family_member),
-                new ChuDePhuModel(2, "Hoạt động hằng ngày", R.drawable.img_ic_family_activityday),
-                new ChuDePhuModel(3, "Họ hàng", R.drawable.img_ic_family_relative)
-        );
-        list.add(new ChuDeModel("Gia đình", R.drawable.img_ic_family_course, familySubs));
+    private void loadKhoaHocFromApi() {
+        ApiService service = ApiClient.getClient(requireContext()).create(ApiService.class);
+        Log.d("KHOAHOC_API", "Bắt đầu gọi API KhoaHoc...");
+        Call<List<KhoaHocResponse>> call = service.getAllKhoaHoc();
+        call.enqueue(new Callback<List<KhoaHocResponse>>() {
+            @Override
+            public void onResponse(Call<List<KhoaHocResponse>> call, Response<List<KhoaHocResponse>> response) {
+                Log.d("KHOAHOC_API", "HTTP CODE: " + response.code());
+                if (response.isSuccessful() && response.body() != null) {
+                    List<KhoaHocResponse> khoaHocs = response.body();
+                    if (khoaHocs.isEmpty()) {
+                        adapter.setData(new ArrayList<>());
+                        return;
+                    }
 
-        // 2. School Life (Các ID: 4, 5, 6)
-        List<ChuDePhuModel> schoolSubs = Arrays.asList(
-                new ChuDePhuModel(4, "Lớp học", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(5, "Giáo viên", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(6, "Bài tập về nhà", R.drawable.img_ic_family_course)
-        );
-        list.add(new ChuDeModel("Cuộc sống học đường", R.drawable.img_ic_schoollife_course, schoolSubs));
+                    // tạo temp list ChuDeModel (chưa có bài học)
+                    List<ChuDeModel> tempList = new ArrayList<>();
+                    for (KhoaHocResponse k : khoaHocs) {
+                        // khởi tạo với danhSachMucCon = empty list (sẽ set sau khi gọi API bài học)
+                        tempList.add(new ChuDeModel(
+                                k.getTenKhoaHoc() != null ? k.getTenKhoaHoc() : "Khóa học",
+                                R.drawable.img_ic_animal_course,
+                                new ArrayList<>()
+                        ));
+                    }
 
-        // 3. Food & Drink (Các ID: 7, 8, 9)
-        List<ChuDePhuModel> foodSubs = Arrays.asList(
-                new ChuDePhuModel(7, "Trái cây", R.drawable.img_ic_fruits),
-                new ChuDePhuModel(8, "Rau củ", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(9, "Đồ ăn nhanh", R.drawable.img_ic_family_course)
-        );
-        list.add(new ChuDeModel("Thức ăn & Đồ uống", R.drawable.img_ic_fooddrink_course, foodSubs));
+                    // map id khoaHoc -> ChuDeModel để dễ set bài học sau
+                    final java.util.Map<Integer, ChuDeModel> mapById = new java.util.HashMap<>();
+                    for (int i = 0; i < khoaHocs.size(); i++) {
+                        mapById.put(khoaHocs.get(i).getId(), tempList.get(i));
+                    }
 
-        // 4. House & Home
-        List<ChuDePhuModel> homeSubs = Arrays.asList(
-                new ChuDePhuModel(10, "Phòng bếp", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(11, "Phòng tắm", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(12, "Phòng khách", R.drawable.img_ic_family_course)
-        );
-        list.add(new ChuDeModel("Nhà của tôi", R.drawable.img_ic_househome_course, homeSubs));
+                    // đếm số API bài học còn chờ
+                    final java.util.concurrent.atomic.AtomicInteger remaining = new java.util.concurrent.atomic.AtomicInteger(khoaHocs.size());
 
-        // 5. Shopping
-        List<ChuDePhuModel> shoppingSubs = Arrays.asList(
-                new ChuDePhuModel(13, "Áo quần", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(14, "Giày", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(15, "Phụ kiện", R.drawable.img_ic_family_course)
-        );
-        list.add(new ChuDeModel("Mua sắm", R.drawable.img_ic_shopping_course, shoppingSubs));
+                    for (KhoaHocResponse k : khoaHocs) {
+                        int idKhoa = k.getId();
+                        Call<List<com.example.englishlearningapp.DTO.Response.BaiHocResponse>> callBaiHoc =
+                                service.getBaiHocByKhoaHoc(idKhoa);
+                        callBaiHoc.enqueue(new Callback<List<com.example.englishlearningapp.DTO.Response.BaiHocResponse>>() {
+                            @Override
+                            public void onResponse(Call<List<com.example.englishlearningapp.DTO.Response.BaiHocResponse>> call, Response<List<com.example.englishlearningapp.DTO.Response.BaiHocResponse>> resp) {
+                                if (resp.isSuccessful() && resp.body() != null) {
+                                    // set danh sách bài học vào ChuDeModel tương ứng
+                                    ChuDeModel cd = mapById.get(idKhoa);
+                                    if (cd != null) {
+                                        cd.setDanhSachMucCon(resp.body());
+                                    }
+                                } else {
+                                    Log.w("KHOAHOC_API", "Không lấy được bài học cho khoahoc " + idKhoa + ", code=" + resp.code());
+                                }
 
-        // 6. Animal
-        List<ChuDePhuModel> animalSubs = Arrays.asList(
-                new ChuDePhuModel(16, "Lớp thú", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(17, "Lớp chim", R.drawable.img_ic_family_course),
-                new ChuDePhuModel(18, "Lớp bò sát", R.drawable.img_ic_family_course)
-        );
-        list.add(new ChuDeModel("Động vật", R.drawable.img_ic_animal_course, animalSubs));
+                                // khi tất cả request bài học hoàn thành -> cập nhật adapter
+                                if (remaining.decrementAndGet() == 0) {
+                                    // cập nhật adapter trên UI thread
+                                    if (getActivity() != null) {
+                                        getActivity().runOnUiThread(() -> adapter.setData(tempList));
+                                    } else {
+                                        adapter.setData(tempList);
+                                    }
+                                }
+                            }
 
-        return list;
+                            @Override
+                            public void onFailure(Call<List<com.example.englishlearningapp.DTO.Response.BaiHocResponse>> call, Throwable t) {
+                                Log.e("KHOAHOC_API", "Lỗi khi lấy bài học cho khoahoc " + idKhoa, t);
+                                if (remaining.decrementAndGet() == 0) {
+                                    if (getActivity() != null) {
+                                        getActivity().runOnUiThread(() -> adapter.setData(tempList));
+                                    } else {
+                                        adapter.setData(tempList);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Lỗi tải khóa học: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<KhoaHocResponse>> call, Throwable t) {
+                Toast.makeText(getContext(), "Không thể kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

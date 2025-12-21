@@ -3,14 +3,26 @@ package com.example.englishlearningapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.englishlearningapp.DTO.Response.BaiTap; // nếu class tên khác, đổi lại
 import com.example.englishlearningapp.Model.BaiHocModel;
+import com.example.englishlearningapp.Retrofit.ApiService;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BaiHocActivity extends AppCompatActivity {
     private RecyclerView rcvDanhSachBaiHoc;
@@ -26,6 +38,7 @@ public class BaiHocActivity extends AppCompatActivity {
     private static final int MAU_LUYEN_NGHE = R.color.red_500;
     private static final int MAU_LUYEN_DOC = R.color.yellow_500;
     private static final int MAU_LUYEN_VIET = R.color.blue_500;
+    private static final String TAG = "BAIHOC_ACTIVITY";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -40,38 +53,32 @@ public class BaiHocActivity extends AppCompatActivity {
 
         rcvDanhSachBaiHoc.setLayoutManager(new LinearLayoutManager(this));
 
-        // --- NHẬN DỮ LIỆU ---
+        // --- NHẬN DỮ LIỆU TỪ INTENT ---
         Intent intent = getIntent();
-        int maChuDeCon = -1;
+        int maBaiHoc = -1;
         String tenChuDeCon = "Bài học";
 
         if (intent != null) {
-            maChuDeCon = intent.getIntExtra("SUB_ITEM_ID", -1);
-            tenChuDeCon = intent.getStringExtra("SUB_ITEM_NAME");
+            maBaiHoc = intent.getIntExtra("SUB_ITEM_ID", -1);
+            String tmp = intent.getStringExtra("SUB_ITEM_NAME");
+            if (tmp != null) tenChuDeCon = tmp;
         }
 
         if (tenChuDeCon != null) tvTieuDeKhoaHoc.setText(tenChuDeCon);
 
-        // --- TẠO DỮ LIỆU ---
+        // --- KHỞI TẠO ADAPTER VỚI LIST RỖNG ---
         danhSachBaiHoc = new ArrayList<>();
-        taiDuLieuTheoIdChuDe(maChuDeCon, tenChuDeCon);
-
-        // Khởi tạo Adapter
         adapterBaiHoc = new BaiHocAdapter(this, danhSachBaiHoc);
 
-        // --- XỬ LÝ SỰ KIỆN CLICK (GIỮ NGUYÊN LOGIC CŨ) ---
+        // Gán sự kiện click (giữ nguyên logic cũ)
         adapterBaiHoc.datSuKienClick(new BaiHocAdapter.SuKienClickItem() {
             @Override
             public void khiAnVaoItem(BaiHocModel baiHoc) {
-                // Giữ nguyên logic: Chuyển sang ExerciseDetailActivity
                 Intent intentChiTiet = new Intent(BaiHocActivity.this, ChiTietBaiTapActivity.class);
-
-                // Gửi dữ liệu sang trang chi tiết
                 intentChiTiet.putExtra("TITLE", baiHoc.getTieuDe());
                 intentChiTiet.putExtra("TYPE", baiHoc.getLoaiBaiHoc());
                 intentChiTiet.putExtra("LEVEL", baiHoc.getCapDo());
                 intentChiTiet.putExtra("TIME", baiHoc.getThoiGian());
-
                 startActivity(intentChiTiet);
             }
         });
@@ -80,11 +87,100 @@ public class BaiHocActivity extends AppCompatActivity {
 
         // Sự kiện nút Quay lại
         nutQuayLai.setOnClickListener(v -> finish());
+
+        // Nếu SUB_ITEM_ID hợp lệ -> gọi API lấy bài tập theo id bài học
+        if (maBaiHoc > 0) {
+            fetchBaiTapByBaiHocId(maBaiHoc);
+        } else {
+            // fallback: dùng dữ liệu cũ (local) nếu id không hợp lệ
+            taiDuLieuTheoIdChuDe(maBaiHoc, tenChuDeCon);
+            adapterBaiHoc.notifyDataSetChanged();
+        }
     }
 
-    // --- CÁC HÀM TẠO DỮ LIỆU
+    // Gọi API lấy danh sách Bài tập của Bài học
+    private void fetchBaiTapByBaiHocId(int idBaiHoc) {
+        ApiService service = ApiClient.getClient(this).create(ApiService.class);
+        Log.d(TAG, "Gọi API getBaiTapByBaiHocId with id=" + idBaiHoc);
+        Call<List<BaiTap>> call = service.getBaiTapByBaiHocId(idBaiHoc);
+        call.enqueue(new Callback<List<BaiTap>>() {
+            @Override
+            public void onResponse(Call<List<BaiTap>> call, Response<List<BaiTap>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<BaiTap> apiList = response.body();
+                    Log.d(TAG, "Số bài tập trả về: " + apiList.size());
+                    List<BaiHocModel> mapped = new ArrayList<>();
+                    for (BaiTap b : apiList) {
+                        int mau = MAU_TU_VUNG;
+                        if (b.getLoaiBaiTap() != null) {
+                            String lower = b.getLoaiBaiTap().toLowerCase();
+                            if (lower.contains("ngữ") || lower.contains("grammar")) mau = MAU_NGU_PHAP;
+                            else if (lower.contains("nói") || lower.contains("speaking")) mau = MAU_LUYEN_NOI;
+                            else if (lower.contains("nghe") || lower.contains("listening")) mau = MAU_LUYEN_NGHE;
+                            else if (lower.contains("đọc") || lower.contains("reading")) mau = MAU_LUYEN_DOC;
+                            else if (lower.contains("viết") || lower.contains("writing")) mau = MAU_LUYEN_VIET;
+                        }
 
+                        mapped.add(new BaiHocModel(
+                                b.getLoaiBaiTap() != null ? b.getLoaiBaiTap() : "Từ vựng",
+                                b.getTenBaiTap() != null ? b.getTenBaiTap() : "Bài tập",
+                                b.getCapdo() != null ? b.getCapdo() : "Cơ bản",
+                                b.getThoigian() != null ? b.getThoigian() : "5 phút",
+                                mau
+                        ));
+                    }
+
+
+                    // cập nhật UI
+                    runOnUiThread(() -> {
+                        danhSachBaiHoc.clear();
+                        danhSachBaiHoc.addAll(mapped);
+                        adapterBaiHoc.notifyDataSetChanged();
+                    });
+
+                } else {
+                    Log.w(TAG, "Lấy bài tập thất bại, code=" + response.code());
+                    runOnUiThread(() -> {
+                        Toast.makeText(BaiHocActivity.this, "Không lấy được bài tập (code " + response.code() + ")", Toast.LENGTH_SHORT).show();
+                        // fallback local sample
+                        taiDuLieuTheoIdChuDe(idBaiHoc, tvTieuDeKhoaHoc.getText().toString());
+                        adapterBaiHoc.notifyDataSetChanged();
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<BaiTap>> call, Throwable t) {
+                Log.e(TAG, "Lỗi khi gọi API bài tập", t);
+                runOnUiThread(() -> {
+                    Toast.makeText(BaiHocActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    // fallback local sample
+                    taiDuLieuTheoIdChuDe(idBaiHoc, tvTieuDeKhoaHoc.getText().toString());
+                    adapterBaiHoc.notifyDataSetChanged();
+                });
+            }
+        });
+    }
+
+    // Reflection helper: cố gọi các method theo danh sách tên, trả về String hoặc null
+    private String safeGetString(Object obj, String... methodNames) {
+        if (obj == null) return null;
+        for (String mName : methodNames) {
+            try {
+                Method m = obj.getClass().getMethod(mName);
+                Object val = m.invoke(obj);
+                if (val != null) return String.valueOf(val);
+            } catch (NoSuchMethodException ignored) {
+            } catch (Exception e) {
+                Log.w(TAG, "safeGetString failed for " + mName, e);
+            }
+        }
+        return null;
+    }
+
+    // --- Các hàm tạo dữ liệu cục bộ cũ (giữ nguyên để fallback) ---
     private void taiDuLieuTheoIdChuDe(int id, String tenMacDinh) {
+        danhSachBaiHoc.clear();
         switch (id) {
             case 1: // Family Members
                 themBoBaiHocDayDu(

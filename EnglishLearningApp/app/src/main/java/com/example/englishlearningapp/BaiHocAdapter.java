@@ -24,6 +24,22 @@ public class BaiHocAdapter extends RecyclerView.Adapter<BaiHocAdapter.LessonView
     public interface SuKienClickItem {
         void khiAnVaoItem(BaiHocModel baiHoc);
     }
+    private String formatThoiGian(String thoigian) {
+        if (thoigian == null || thoigian.isEmpty()) return "";
+        try {
+            // Chia chuỗi "HH:MM:SS"
+            String[] parts = thoigian.split(":");
+            int hours = Integer.parseInt(parts[0]);
+            int minutes = Integer.parseInt(parts[1]);
+            // int seconds = Integer.parseInt(parts[2]); // có thể bỏ qua
+            int totalMinutes = hours * 60 + minutes;
+            return totalMinutes + " phút";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return thoigian; // fallback nếu lỗi
+        }
+    }
+
 
     // 3. Hàm để gán sự kiện click từ bên ngoài vào
     public void datSuKienClick(SuKienClickItem suKien) {
@@ -47,23 +63,23 @@ public class BaiHocAdapter extends RecyclerView.Adapter<BaiHocAdapter.LessonView
     public void onBindViewHolder(@NonNull LessonViewHolder holder, int position) {
         BaiHocModel baiHoc = danhSachBaiHoc.get(position);
 
-        // Gán dữ liệu
         holder.nhanLoai.setText(baiHoc.getLoaiBaiHoc());
         holder.tieuDe.setText(baiHoc.getTieuDe());
         holder.capDo.setText(baiHoc.getCapDo());
-        holder.thoiGian.setText(baiHoc.getThoiGian());
 
-        // Thay đổi màu nền của nhãn
+        // Chuyển đổi thời gian từ "00:10:00" -> "10 phút"
+        holder.thoiGian.setText(formatThoiGian(baiHoc.getThoiGian()));
+
         GradientDrawable nenNhan = (GradientDrawable) holder.nhanLoai.getBackground();
         nenNhan.setColor(boiCanh.getColor(baiHoc.getMauSacLoai()));
 
-        // 4. XỬ LÝ SỰ KIỆN CLICK
         holder.itemView.setOnClickListener(v -> {
             if (suKienClick != null) {
                 suKienClick.khiAnVaoItem(baiHoc);
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
