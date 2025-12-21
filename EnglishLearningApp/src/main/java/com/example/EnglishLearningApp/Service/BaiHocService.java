@@ -28,21 +28,14 @@ public class BaiHocService {
         return baiHocRepository.save(baiHoc);
     }
 
-    public BaiHoc updateBaiHoc(Integer id, BaiHoc req) {
-        BaiHoc old = baiHocRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("BaiHoc not found"));
-
-        // idKhoaHoc NOT NULL
-        old.setIdKhoaHoc(req.getIdKhoaHoc());
-        old.setTenBaiHoc(req.getTenBaiHoc());
-        old.setMoTa(req.getMoTa());
-        old.setNoiDung(req.getNoiDung());
-        old.setThuTuBaiHoc(req.getThuTuBaiHoc());
-        old.setTrangThai(req.getTrangThai());
-
-        return baiHocRepository.save(old);
+    public BaiHoc updateBaiHoc(Integer id, BaiHoc baiHocDetails) {
+        return baiHocRepository.findById(id)
+                .map(b -> {
+                    baihocMapper.updateBaiHoc(baiHocDetails, b);
+                    return baiHocRepository.save(b);
+                })
+                .orElseThrow(() -> new RuntimeException("BaiHoc not found with id " + id));
     }
-
 
     public void deleteBaiHoc(Integer id) {
         baiHocRepository.deleteById(id);
