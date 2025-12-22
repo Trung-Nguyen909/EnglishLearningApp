@@ -6,6 +6,7 @@ import com.example.EnglishLearningApp.Service.NguoiDungService;
 import com.example.EnglishLearningApp.dto.request.ChangePasswordRequest;
 import com.example.EnglishLearningApp.dto.request.UserLoginRequest;
 import com.example.EnglishLearningApp.dto.request.UserRegisterRequest;
+import com.example.EnglishLearningApp.dto.request.UserUpdateRequest;
 import com.example.EnglishLearningApp.dto.response.ApiResponse;
 import com.example.EnglishLearningApp.dto.response.AuthResponse;
 import com.example.EnglishLearningApp.dto.response.UserSummaryDto;
@@ -40,14 +41,19 @@ public class NguoiDungController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NguoiDung> updateUser(@PathVariable Integer id, @RequestBody NguoiDung nguoiDung){
-        return ResponseEntity.ok(nguoiDungService.capNhatNguoiDung(id,nguoiDung));
+    public ResponseEntity<NguoiDung> updateUser(
+            @PathVariable Integer id,
+            @RequestBody UserUpdateRequest req
+    ) {
+        return ResponseEntity.ok(nguoiDungService.capNhatNguoiDung(id, req));
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer id){
         nguoiDungService.xoaNguoiDung(id);
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.noContent().build(); // 204
     }
+
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody UserLoginRequest user) {
         return ResponseEntity.ok(nguoiDungService.Login(user));

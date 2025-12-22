@@ -8,6 +8,7 @@ import com.example.EnglishLearningApp.Model.NguoiDung;
 import com.example.EnglishLearningApp.Repository.NguoiDungRepository;
 import com.example.EnglishLearningApp.dto.request.UserLoginRequest;
 import com.example.EnglishLearningApp.dto.request.UserRegisterRequest;
+import com.example.EnglishLearningApp.dto.request.UserUpdateRequest;
 import com.example.EnglishLearningApp.dto.response.AuthResponse;
 import com.example.EnglishLearningApp.dto.response.SkillDto;
 import com.example.EnglishLearningApp.dto.response.UserResponse;
@@ -78,11 +79,30 @@ public class NguoiDungService {
                 .build();
     }
 
-    public NguoiDung capNhatNguoiDung(Integer id,NguoiDung nguoiDungChiTiet){
-        NguoiDung nguoiDung = nguoiDungRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.Not_Found));
-        nguoiDungMapper.updateUser(nguoiDung, nguoiDungChiTiet);
+    public NguoiDung capNhatNguoiDung(Integer id, UserUpdateRequest req) {
+        NguoiDung nguoiDung = nguoiDungRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.Not_Found));
+
+        if (req.getTenDangNhap() != null && !req.getTenDangNhap().isBlank()) {
+            nguoiDung.setTenDangNhap(req.getTenDangNhap().trim());
+        }
+
+        if (req.getEmail() != null && !req.getEmail().isBlank()) {
+            nguoiDung.setEmail(req.getEmail().trim());
+        }
+
+        if (req.getRole() != null && !req.getRole().isBlank()) {
+            nguoiDung.setRole(req.getRole().trim());
+        }
+
+        //  nếu FE gửi matKhau thì đổi, không gửi thì giữ nguyên
+        if (req.getMatKhau() != null && !req.getMatKhau().isBlank()) {
+            nguoiDung.setMatKhau(passwordEncoder.encode(req.getMatKhau()));
+        }
+
         return nguoiDungRepository.save(nguoiDung);
     }
+
     public void updateMatkhau(String oldPass, String newPass, String email)
     {
         NguoiDung nguoiDung = nguoiDungRepository.findByEmail(email);
