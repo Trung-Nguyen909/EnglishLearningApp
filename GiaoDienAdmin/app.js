@@ -68,7 +68,7 @@ function requireTokenOrGoLogin() {
 /* =========================
    HTTP (debug on)
 ========================= */
-async function http(url, { method = "GET", body } = {}) {
+async function http(url, { method = "GET", body, headers } = {}) {
   const token = getToken();
 
   const reqInit = {
@@ -76,6 +76,7 @@ async function http(url, { method = "GET", body } = {}) {
     headers: {
       ...(body ? { "Content-Type": "application/json" } : {}),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(headers || {}),
     },
     body: body ? JSON.stringify(body) : undefined,
   };
@@ -109,7 +110,7 @@ async function http(url, { method = "GET", body } = {}) {
 }
 
 /* =========================
-   ROUTES (chỉ 3 module)
+   ROUTES
 ========================= */
 const ApiRoutes = {
   courses: {
@@ -130,6 +131,12 @@ const ApiRoutes = {
     update: (id) => `${API_BASE}/cauhoi/${id}`,
     remove: (id) => `${API_BASE}/cauhoi/${id}`,
   },
+  users: {
+    list: () => `${API_BASE}/user/admin/all`,
+    create: () => `${API_BASE}/user/register`,
+    update: (id) => `${API_BASE}/user/${id}`,
+    remove: (id) => `${API_BASE}/user/${id}`,
+  },
 };
 
 /* =========================
@@ -146,7 +153,6 @@ const Data = {
     });
   },
 
-  // ✅ UPDATE: fallback nhiều endpoint/method cho lessons/questions
   async update(entity, id, payload) {
     const idNum = Number(id);
     const body = { ...payload, id: idNum };
@@ -154,27 +160,24 @@ const Data = {
     const mainUrl = ApiRoutes[entity].update(id);
     const baseUrl = ApiRoutes[entity].create();
 
-    // Courses: ưu tiên PUT chuẩn
-    if (entity === "courses") {
+    // PUT chuẩn
+    if (entity === "courses" || entity === "users") {
       return await http(mainUrl, { method: "PUT", body });
     }
 
-    // Lessons/Questions: thử nhiều kiểu
+    // Lessons/Questions: thử nhiều kiểu (do backend hay khác nhau)
     const pathName = entity === "lessons" ? "baihoc" : "cauhoi";
 
     const candidates = [
       { url: mainUrl, method: "PUT" },
       { url: mainUrl, method: "PATCH" },
 
-      // update không cần /{id}, lấy id trong body
       { url: baseUrl, method: "PUT" },
       { url: baseUrl, method: "PATCH" },
 
-      // một số backend dùng POST update
       { url: mainUrl, method: "POST" },
       { url: baseUrl, method: "POST" },
 
-      // biến thể hay gặp
       { url: `${API_BASE}/${pathName}/update/${idNum}`, method: "PUT" },
       { url: `${API_BASE}/${pathName}/update`, method: "POST" },
     ];
@@ -270,7 +273,6 @@ const Modal = (() => {
         if (!el) continue;
 
         let v = el.value;
-
         if (f.type === "number") v = v === "" ? null : Number(v);
         data[f.name] = v;
       }
@@ -434,6 +436,54 @@ const PageCfg = {
       },
     ],
   },
+
+  // ✅ USERS: bắt buộc nhập matKhau khi sửa (frontend-only fix)
+  users: {
+    title: "Người dùng",
+    sub: "Quản lý người dùng (CRUD)",
+    entity: "users",
+    columns: [
+      { key: "id", label: "ID" },
+      { key: "tenDangNhap", label: "Tên đăng nhập" },
+      { key: "email", label: "Email" },
+      { key: "role", label: "Role" },
+      { key: "streak", label: "Streak" },
+      { key: "lastLogin", label: "LastLogin" },
+      { key: "anhDaiDien", label: "Avatar" },
+    ],
+    fields: [
+      {
+        name: "tenDangNhap",
+        label: "Tên đăng nhập",
+        required: true,
+        col12: true,
+      },
+      {
+        name: "email",
+        label: "Email",
+        type: "email",
+        required: true,
+        col12: true,
+      },
+
+      // ⚠️ bắt buộc vì backend update yêu cầu matKhau NOT NULL (frontend-only)
+      {
+        name: "matKhau",
+        label: "Mật khẩu (bắt buộc khi sửa do backend)",
+        type: "password",
+        required: true,
+        col12: true,
+      },
+
+      {
+        name: "role",
+        label: "Role",
+        type: "select",
+        options: ["USER", "ADMIN"],
+        required: true,
+      },
+    ],
+  },
 };
 
 /* =========================
@@ -450,7 +500,6 @@ function cleanEmptyToNull(obj) {
 
 function normalizePayload(route, data, idForUpdate = null) {
   let p = cleanEmptyToNull(data);
-
   if (idForUpdate != null) p.id = Number(idForUpdate);
 
   if (route === "courses") {
@@ -479,7 +528,6 @@ function normalizePayload(route, data, idForUpdate = null) {
       throw new Error("duLieuDapAn không được để trống (DB NOT NULL)");
     }
 
-    // validate JSON string
     if (typeof p.duLieuDapAn === "object")
       p.duLieuDapAn = JSON.stringify(p.duLieuDapAn);
     try {
@@ -490,13 +538,23 @@ function normalizePayload(route, data, idForUpdate = null) {
     }
   }
 
+  if (route === "users") {
+    if (!p.tenDangNhap) throw new Error("tenDangNhap không được trống");
+    if (!p.email) throw new Error("email không được trống");
+
+    // ✅ Frontend-only fix: update cũng bắt buộc matKhau
+    if (!p.matKhau) throw new Error("matKhau không được trống");
+
+    if (!p.role) p.role = "USER";
+  }
+
   return p;
 }
 
 /* =========================
    RENDER / STATE
 ========================= */
-let currentRoute = "courses";
+let currentRoute = "users";
 let allRows = [];
 
 function setActiveNav(route) {
@@ -520,6 +578,12 @@ function getValue(row, col) {
   return "";
 }
 
+function renderCellValue(key, value) {
+  if (value == null) return "";
+  if (typeof value === "object") return escapeHtml(JSON.stringify(value));
+  return escapeHtml(String(value));
+}
+
 function renderTable(rows) {
   const cfg = PageCfg[currentRoute];
 
@@ -532,11 +596,11 @@ function renderTable(rows) {
         </tr>
       </thead>
       <tbody>
-        ${rows
+        ${(rows || [])
           .map((r) => {
             const id = getIdValue(r);
             const tds = cfg.columns
-              .map((c) => `<td>${escapeHtml(getValue(r, c))}</td>`)
+              .map((c) => `<td>${renderCellValue(c.key, getValue(r, c))}</td>`)
               .join("");
 
             return `
@@ -562,7 +626,7 @@ function renderTable(rows) {
 async function loadAndRender() {
   const cfg = PageCfg[currentRoute];
   allRows = await Data.list(cfg.entity);
-  renderTable(allRows);
+  renderTable(allRows || []);
 }
 
 /* =========================
@@ -588,7 +652,7 @@ function bindEvents() {
       .trim();
     if (!q) return renderTable(allRows);
     renderTable(
-      allRows.filter((r) => JSON.stringify(r).toLowerCase().includes(q))
+      (allRows || []).filter((r) => JSON.stringify(r).toLowerCase().includes(q))
     );
   });
 
@@ -601,6 +665,8 @@ function bindEvents() {
         ? {
             duLieuDapAn: `{"A":"...","B":"...","C":"...","D":"...","Correct":"A"}`,
           }
+        : currentRoute === "users"
+        ? { role: "USER" }
         : {};
 
     Modal.open({
@@ -633,7 +699,9 @@ function bindEvents() {
 
     // edit
     if (e.target.closest(".btnEdit")) {
-      const item = allRows.find((x) => String(getIdValue(x)) === String(id));
+      const item = (allRows || []).find(
+        (x) => String(getIdValue(x)) === String(id)
+      );
       if (!item) return;
 
       const initial = {};
@@ -641,6 +709,11 @@ function bindEvents() {
 
       if (currentRoute === "questions" && !initial.duLieuDapAn) {
         initial.duLieuDapAn = `{"A":"...","B":"...","C":"...","D":"...","Correct":"A"}`;
+      }
+
+      // ✅ USERS: KHÔNG set matKhau = null nữa. Bắt nhập mật khẩu mới.
+      if (currentRoute === "users") {
+        initial.matKhau = ""; // để trống cho user nhập
       }
 
       Modal.open({
@@ -695,7 +768,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   Modal.bindOnce();
   bindEvents();
 
-  setActiveNav("courses");
+  setActiveNav("users");
 
   try {
     await loadAndRender();
