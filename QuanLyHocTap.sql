@@ -591,7 +591,43 @@ INSERT INTO ChiTietBaiLam (IDLichSuBaiLam, IDCauHoi, UserAns, IsCorrect) VALUES
 
 -- CÁC DỮ LIỆU KHÁC (Phản hồi, Bình luận...)
 INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
-(1, 'Hello', N'Xin chào', '/həˈloʊ/', 'Hello, how are you?', 'hello.mp3');
+(1, 'Hello', N'Xin chào', '/həˈloʊ/', 'Hello, how are you?', 'hello.mp3'),
+(1, 'Hi', N'Chào', '/haɪ/', 'Hi, nice to meet you.', 'hi.mp3'),
+(1, 'Goodbye', N'Tạm biệt', '/ˌɡʊdˈbaɪ/', 'Goodbye! See you later.', 'goodbye.mp3'),
+(1, 'Please', N'Làm ơn', '/pliːz/', 'Please help me.', 'please.mp3'),
+(1, 'Thank you', N'Cảm ơn', '/ˈθæŋk juː/', 'Thank you very much.', 'thankyou.mp3'),
+(1, 'Sorry', N'Xin lỗi', '/ˈsɒri/', 'Sorry for being late.', 'sorry.mp3'),
+(1, 'Yes', N'Vâng / Có', '/jɛs/', 'Yes, I agree.', 'yes.mp3'),
+(1, 'No', N'Không', '/noʊ/', 'No, I don’t think so.', 'no.mp3'),
+(1, 'Friend', N'Bạn bè', '/frɛnd/', 'She is my best friend.', 'friend.mp3'),
+(1, 'Name', N'Tên', '/neɪm/', 'What is your name?', 'name.mp3');
+
+INSERT INTO TuVung VALUES
+(2, 'Wake up', N'Thức dậy', '/weɪk ʌp/', 'I wake up at 6 a.m.', 'wakeup.mp3'),
+(2, 'Eat', N'Ăn', '/iːt/', 'I eat breakfast.', 'eat.mp3'),
+(2, 'Drink', N'Uống', '/drɪŋk/', 'She drinks water.', 'drink.mp3'),
+(2, 'Study', N'Học tập', '/ˈstʌdi/', 'They study English.', 'study.mp3'),
+(2, 'Work', N'Làm việc', '/wɜːrk/', 'He works in an office.', 'work.mp3'),
+(2, 'Play', N'Chơi', '/pleɪ/', 'Children play outside.', 'play.mp3'),
+(2, 'Read', N'Đọc', '/riːd/', 'I read books.', 'read.mp3'),
+(2, 'Write', N'Viết', '/raɪt/', 'She writes a letter.', 'write.mp3'),
+(2, 'Sleep', N'Ngủ', '/sliːp/', 'I sleep at 11 p.m.', 'sleep.mp3'),
+(2, 'Relax', N'Thư giãn', '/rɪˈlæks/', 'I relax on weekends.', 'relax.mp3');
+
+INSERT INTO TuVung VALUES
+(3, 'Happy', N'Vui vẻ', '/ˈhæpi/', 'She feels happy.', 'happy.mp3'),
+(3, 'Sad', N'Buồn', '/sæd/', 'He looks sad.', 'sad.mp3'),
+(3, 'Big', N'Lớn', '/bɪɡ/', 'They have a big house.', 'big.mp3'),
+(3, 'Small', N'Nhỏ', '/smɔːl/', 'It is a small room.', 'small.mp3'),
+(3, 'Fast', N'Nhanh', '/fæst/', 'The car is fast.', 'fast.mp3'),
+(3, 'Slow', N'Chậm', '/sloʊ/', 'He walks slowly.', 'slow.mp3'),
+(3, 'Easy', N'Dễ', '/ˈiːzi/', 'This exercise is easy.', 'easy.mp3'),
+(3, 'Difficult', N'Khó', '/ˈdɪfɪkəlt/', 'Math is difficult.', 'difficult.mp3'),
+(3, 'Clean', N'Sạch', '/kliːn/', 'The room is clean.', 'clean.mp3'),
+(3, 'Dirty', N'Bẩn', '/ˈdɜːrti/', 'His shoes are dirty.', 'dirty.mp3');
+
+
+
 
 INSERT INTO NguPhap (IDBaiHoc, tenNguPhap, giaiThich, viDu) VALUES
 (1, N'Động từ TO BE', N'Am, is, are...', 'I am a student.');
@@ -716,3 +752,6 @@ FROM BaiTap bt
 LEFT JOIN CauHoi ch ON bt.ID = ch.IDBaiTap
 GROUP BY bt.ID, bt.TenBaiTap
 ORDER BY bt.ID;
+
+select * from NguPhap
+select * from TuVung

@@ -43,4 +43,8 @@ public class TuVungService {
     public void deleteTuVung(Integer id) {
         tuVungRepository.deleteById(id);
     }
+
+    public List<TuVung> getTuVungByIdBaiHoc(Integer id) {
+        return tuVungRepository.findByIdBaiHoc(id);
+    }
 }

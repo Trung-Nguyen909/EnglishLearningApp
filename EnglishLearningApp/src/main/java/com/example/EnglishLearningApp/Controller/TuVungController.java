@@ -42,4 +42,11 @@ public class TuVungController {
         tuVungService.deleteTuVung(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/baihoc/{id}")
+    public ResponseEntity<List<TuVung>> getTuVungByBaiHoc(@PathVariable Integer id)
+    {
+        return ResponseEntity.ok(tuVungService.getTuVungByIdBaiHoc(id));
+    }
+
 }

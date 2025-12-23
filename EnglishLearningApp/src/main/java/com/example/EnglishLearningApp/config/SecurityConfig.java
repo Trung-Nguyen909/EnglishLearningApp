@@ -38,7 +38,8 @@ public class SecurityConfig implements WebMvcConfigurer {
             "/cauhoi/**",
             "/KhoaHoc/**",
             "/baihoc/**",
-            "/baitap/**"
+            "/baitap/**",
+            "/tuvung/baihoc/**"
     };
 
     //  Chỉ admin mới được vào
