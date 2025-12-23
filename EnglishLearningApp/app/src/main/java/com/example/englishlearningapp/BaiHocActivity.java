@@ -59,7 +59,7 @@ public class BaiHocActivity extends AppCompatActivity {
         String tenChuDeCon = "Bài học";
 
         if (intent != null) {
-            maBaiHoc = intent.getIntExtra("SUB_ITEM_ID", -1);
+            maBaiHoc = intent.getIntExtra("BAIHOC_ID", -1);
             String tmp = intent.getStringExtra("SUB_ITEM_NAME");
             if (tmp != null) tenChuDeCon = tmp;
         }

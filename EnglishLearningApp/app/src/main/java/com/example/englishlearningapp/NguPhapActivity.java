@@ -1,9 +1,11 @@
 package com.example.englishlearningapp;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,26 +28,33 @@ public class NguPhapActivity extends AppCompatActivity {
     private TextView tvHeaderTitle, tvTenNguPhap, tvMoTaNgan, tvGiaiThichChiTiet, tvCongThuc, tvMeoGhiNho;
     private LinearLayout layoutExamplesContainer;
     private ImageView btnBack;
+    private Button btnexcsesi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // SỬA: Dùng layout mới activity_ngu_phap_detail
         setContentView(R.layout.activity_ngu_phap);
-
+        btnexcsesi = findViewById(R.id.btn_start_exercise);
         anhXaView();
 
         // Xử lý nút Back
         btnBack.setOnClickListener(v -> finish());
 
         // Nhận ID bài học
-        int idBaiHoc = getIntent().getIntExtra("ID_BAI_HOC", -1);
+        int idBaiHoc = getIntent().getIntExtra("BAIHOC_ID", -1);
 
         if (idBaiHoc != -1) {
             goiApiLayNguPhap(idBaiHoc);
         } else {
             Toast.makeText(this, "Không tìm thấy ID bài học", Toast.LENGTH_SHORT).show();
         }
+        btnexcsesi.setOnClickListener(v -> {
+            // Chuyển sang màn Grammar (ví dụ GrammarActivity)
+            Intent i = new Intent(this, BaiHocActivity.class);
+            i.putExtra("BAIHOC_ID", idBaiHoc);
+            startActivity(i);
+        });
     }
 
     private void anhXaView() {

@@ -2,6 +2,7 @@ package com.example.englishlearningapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,15 +127,17 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             // CLICK VÀO BÀI HỌC -> mở BaiHocActivity
             String finalTen = ten;
             h.itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(context, BaiHocActivity.class);
+                Intent intent = new Intent(context, LessonVocabularyActivity.class);
                 // lấy id bài học: assume getId()
                 Integer idBai = null;
                 try {
                     idBai = (Integer) mucCon.getClass().getMethod("getId").invoke(mucCon);
+                    Log.d("idbaihoc", String.valueOf(idBai));
                 } catch (Exception e) {
                     // ignore
                 }
-                intent.putExtra("SUB_ITEM_ID", idBai != null ? idBai : -1);
+
+                intent.putExtra("BAIHOC_ID", idBai != null ? idBai : -1);
                 intent.putExtra("SUB_ITEM_NAME", finalTen);
                 context.startActivity(intent);
             });

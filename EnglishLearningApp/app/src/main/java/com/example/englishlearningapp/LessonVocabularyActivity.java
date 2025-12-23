@@ -24,7 +24,7 @@ import retrofit2.Retrofit;
 
 public class LessonVocabularyActivity extends AppCompatActivity {
 
-    public static final String EXTRA_BAIHOC_ID = "ID_BAIHOC";
+    public static final String EXTRA_BAIHOC_ID = "BAIHOC_ID";
     private RecyclerView rv;
     private ProgressBar loading;
     private TuVungAdapter adapter;
@@ -72,7 +72,7 @@ public class LessonVocabularyActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(v -> {
             // Chuyển sang màn Grammar (ví dụ GrammarActivity)
             Intent i = new Intent(LessonVocabularyActivity.this, NguPhapActivity.class);
-            i.putExtra("ID_BAI_HOC", idBaihoc);
+            i.putExtra("BAIHOC_ID", idBaihoc);
             startActivity(i);
         });
     }
