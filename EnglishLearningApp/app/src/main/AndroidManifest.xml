@@ -27,6 +27,7 @@
         <activity android:name=".BaiTapNgheActivity" />
         <activity android:name=".BaiHocActivity" />
         <activity android:name=".MainActivity"/>
+        <activity android:name=".NguPhapActivity"/>
         <activity
             android:name=".ManHinhChoActivity"
             android:exported="true"

@@ -69,12 +69,12 @@ public class LessonVocabularyActivity extends AppCompatActivity {
 
         loadTuVung(idBaihoc);
 
-//        btnContinue.setOnClickListener(v -> {
-//            // Chuyển sang màn Grammar (ví dụ GrammarActivity)
-//            Intent i = new Intent(LessonVocabularyActivity.this, GrammarActivity.class);
-//            i.putExtra(GrammarActivity.EXTRA_BAIHOC_ID, idBaihoc);
-//            startActivity(i);
-//        });
+        btnContinue.setOnClickListener(v -> {
+            // Chuyển sang màn Grammar (ví dụ GrammarActivity)
+            Intent i = new Intent(LessonVocabularyActivity.this, NguPhapActivity.class);
+            i.putExtra("ID_BAI_HOC", idBaihoc);
+            startActivity(i);
+        });
     }
 
     private void loadTuVung(int idBaihoc) {
