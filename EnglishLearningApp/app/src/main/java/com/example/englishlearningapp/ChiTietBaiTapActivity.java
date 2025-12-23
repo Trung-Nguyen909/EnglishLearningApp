@@ -23,7 +23,7 @@ public class ChiTietBaiTapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitiet_baitap);
-
+        Intent intent = getIntent();
         // 1. Ánh xạ các View
         anhXaView();
 
@@ -41,28 +41,20 @@ public class ChiTietBaiTapActivity extends AppCompatActivity {
                 topBar.getChildAt(0).setOnClickListener(v -> finish());
             }
         }
+        int baiHocId = intent.getIntExtra("BAIHOC_ID", -1);
 
         // >>> 3. XỬ LÝ SỰ KIỆN NÚT "LÀM BÀI TẬP" (SỬA Ở ĐÂY) <<<
         if (btnLamBaiTap != null) {
-            btnLamBaiTap.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Tạo Intent chuyển sang trang BaiTapActivity (Trắc nghiệm)
-                    Intent intent = new Intent(ChiTietBaiTapActivity.this, BaiTapDocActivity.class);
-
-                    // Gửi kèm cấp độ (Ví dụ: Beginner) để trang bài tập biết load câu dễ hay khó
-                    if (tvCapDo != null) {
-                        intent.putExtra("SELECTED_LEVEL", tvCapDo.getText().toString());
-                    }
-
-                    // Chuyển trang
-                    startActivity(intent);
-                }
+            btnLamBaiTap.setOnClickListener(v -> {
+                if (baiHocId <= 0) return;
+                Intent i = new Intent(this, LessonVocabularyActivity.class);
+                i.putExtra(LessonVocabularyActivity.EXTRA_BAIHOC_ID, baiHocId);
+                startActivity(i);
             });
+
         }
 
         // 4. NHẬN DỮ LIỆU TỪ MÀN HÌNH TRƯỚC
-        Intent intent = getIntent();
         if (intent != null) {
             String tieuDe = intent.getStringExtra("TITLE");
             String loaiBai = intent.getStringExtra("TYPE");

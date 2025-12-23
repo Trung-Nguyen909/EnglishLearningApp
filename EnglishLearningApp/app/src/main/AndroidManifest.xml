@@ -20,6 +20,7 @@
         <activity android:name=".TestResultActivity" />
         <activity android:name=".BaiTapDocActivity"/>
         <activity android:name=".DangNhapActivity" />
+        <activity android:name=".LessonVocabularyActivity"/>
         <activity android:name=".DangKyActivity" />
         <activity android:name=".KetQuaActivity"/>
         <activity android:name=".ChiTietBaiTapActivity" />

@@ -75,6 +75,7 @@ public class BaiHocActivity extends AppCompatActivity {
             @Override
             public void khiAnVaoItem(BaiHocModel baiHoc) {
                 Intent intentChiTiet = new Intent(BaiHocActivity.this, ChiTietBaiTapActivity.class);
+                intentChiTiet.putExtra("BAIHOC_ID", baiHoc.getId());
                 intentChiTiet.putExtra("TITLE", baiHoc.getTieuDe());
                 intentChiTiet.putExtra("TYPE", baiHoc.getLoaiBaiHoc());
                 intentChiTiet.putExtra("LEVEL", baiHoc.getCapDo());
@@ -122,6 +123,7 @@ public class BaiHocActivity extends AppCompatActivity {
                         }
 
                         mapped.add(new BaiHocModel(
+                                b.getId(),
                                 b.getLoaiBaiTap() != null ? b.getLoaiBaiTap() : "Từ vựng",
                                 b.getTenBaiTap() != null ? b.getTenBaiTap() : "Bài tập",
                                 b.getCapdo() != null ? b.getCapdo() : "Cơ bản",
@@ -221,23 +223,38 @@ public class BaiHocActivity extends AppCompatActivity {
         }
     }
 
-    private void themBoBaiHocDayDu(String tieuDeTuVung, String tieuDeNguPhap, String tieuDeNoi,
-                                   String tieuDeNghe, String tieuDeDoc, String tieuDeViet) {
+    private void themBoBaiHocDayDu(String tieuDeTuVung, String tieuDeNguPhap,
+                                   String tieuDeNoi, String tieuDeNghe,
+                                   String tieuDeDoc, String tieuDeViet) {
 
-        danhSachBaiHoc.add(new BaiHocModel("Từ vựng", tieuDeTuVung, "Cơ bản", "10 phút", MAU_TU_VUNG));
-        danhSachBaiHoc.add(new BaiHocModel("Ngữ pháp", tieuDeNguPhap, "Cơ bản", "12 phút", MAU_NGU_PHAP));
-        danhSachBaiHoc.add(new BaiHocModel("Luyện nói", tieuDeNoi, "Trung cấp", "15 phút", MAU_LUYEN_NOI));
-        danhSachBaiHoc.add(new BaiHocModel("Luyện nghe", tieuDeNghe, "Trung cấp", "15 phút", MAU_LUYEN_NGHE));
-        danhSachBaiHoc.add(new BaiHocModel("Luyện đọc", tieuDeDoc, "Nâng cao", "20 phút", MAU_LUYEN_DOC));
-        danhSachBaiHoc.add(new BaiHocModel("Luyện viết", tieuDeViet, "Trung cấp", "18 phút", MAU_LUYEN_VIET));
+        danhSachBaiHoc.add(new BaiHocModel(1, "Từ vựng", tieuDeTuVung, "Cơ bản", "00:10:00", MAU_TU_VUNG));
+        danhSachBaiHoc.add(new BaiHocModel(2, "Ngữ pháp", tieuDeNguPhap, "Cơ bản", "00:12:00", MAU_NGU_PHAP));
+        danhSachBaiHoc.add(new BaiHocModel(3, "Luyện nói", tieuDeNoi, "Trung cấp", "00:15:00", MAU_LUYEN_NOI));
+        danhSachBaiHoc.add(new BaiHocModel(4, "Luyện nghe", tieuDeNghe, "Trung cấp", "00:15:00", MAU_LUYEN_NGHE));
+        danhSachBaiHoc.add(new BaiHocModel(5, "Luyện đọc", tieuDeDoc, "Nâng cao", "00:20:00", MAU_LUYEN_DOC));
+        danhSachBaiHoc.add(new BaiHocModel(6, "Luyện viết", tieuDeViet, "Trung cấp", "00:18:00", MAU_LUYEN_VIET));
     }
+
 
     private void themBaiHocChung(String tenChuDe) {
-        danhSachBaiHoc.add(new BaiHocModel("Từ vựng", "Từ vựng về " + tenChuDe, "Cơ bản", "10 phút", MAU_TU_VUNG));
-        danhSachBaiHoc.add(new BaiHocModel("Ngữ pháp", "Ngữ pháp liên quan", "Cơ bản", "12 phút", MAU_NGU_PHAP));
-        danhSachBaiHoc.add(new BaiHocModel("Luyện nói", "Luyện nói về " + tenChuDe, "Trung cấp", "15 phút", MAU_LUYEN_NOI));
-        danhSachBaiHoc.add(new BaiHocModel("Luyện nghe", "Bài nghe chủ đề " + tenChuDe, "Trung cấp", "15 phút", MAU_LUYEN_NGHE));
-        danhSachBaiHoc.add(new BaiHocModel("Luyện đọc", "Bài đọc hiểu", "Nâng cao", "20 phút", MAU_LUYEN_DOC));
-        danhSachBaiHoc.add(new BaiHocModel("Luyện viết", "Bài tập viết", "Trung cấp", "18 phút", MAU_LUYEN_VIET));
+
+        danhSachBaiHoc.add(new BaiHocModel(1, "Từ vựng", "Từ vựng về " + tenChuDe,
+                "Cơ bản", "00:10:00", MAU_TU_VUNG));
+
+        danhSachBaiHoc.add(new BaiHocModel(2, "Ngữ pháp", "Ngữ pháp liên quan",
+                "Cơ bản", "00:12:00", MAU_NGU_PHAP));
+
+        danhSachBaiHoc.add(new BaiHocModel(3, "Luyện nói", "Luyện nói về " + tenChuDe,
+                "Trung cấp", "00:15:00", MAU_LUYEN_NOI));
+
+        danhSachBaiHoc.add(new BaiHocModel(4, "Luyện nghe", "Bài nghe chủ đề " + tenChuDe,
+                "Trung cấp", "00:15:00", MAU_LUYEN_NGHE));
+
+        danhSachBaiHoc.add(new BaiHocModel(5, "Luyện đọc", "Bài đọc hiểu",
+                "Nâng cao", "00:20:00", MAU_LUYEN_DOC));
+
+        danhSachBaiHoc.add(new BaiHocModel(6, "Luyện viết", "Bài tập viết",
+                "Trung cấp", "00:18:00", MAU_LUYEN_VIET));
     }
+
 }

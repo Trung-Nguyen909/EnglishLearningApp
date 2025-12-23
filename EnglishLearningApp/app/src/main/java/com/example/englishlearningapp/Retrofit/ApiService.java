@@ -9,6 +9,7 @@ import com.example.englishlearningapp.DTO.Response.CauHoiResponse;
 import com.example.englishlearningapp.DTO.Response.KhoaHocResponse;
 import com.example.englishlearningapp.DTO.Response.NguoiDungRespone;
 import com.example.englishlearningapp.DTO.Response.NhatKyHoatDong;
+import com.example.englishlearningapp.DTO.Response.TuVungResponse;
 import com.example.englishlearningapp.DTO.Response.UserSummaryDto;
 import com.example.englishlearningapp.DTO.Response.KyNangResponse;
 
@@ -59,4 +60,8 @@ public interface ApiService {
     @GET("baitap/baihoc/{idbaihoc}")
     @Headers("No-Authentication: true")
     Call<List<BaiTap>> getBaiTapByBaiHocId(@Path("idbaihoc")int id);
+
+    @GET("tuvung/baihoc/{idbaihoc}")
+    @Headers("No-Authentication: true")
+    Call<List<TuVungResponse>> getTuVungByBaihocID(@Path("idbaihoc") int id);
 }
