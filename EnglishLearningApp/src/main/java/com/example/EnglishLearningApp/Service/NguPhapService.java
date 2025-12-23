@@ -41,4 +41,8 @@ public class NguPhapService {
     public void deleteNguPhap(Integer id) {
         nguPhapRepository.deleteById(id);
     }
+    // Trong NguPhapService.java
+    public List<NguPhap> getNguPhapByBaiHoc(Integer idBaiHoc) {
+        return nguPhapRepository.findByIdBaiHoc(idBaiHoc);
+    }
 }

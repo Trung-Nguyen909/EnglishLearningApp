@@ -45,7 +45,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     //  Chỉ admin mới được vào
     private static final String[] ADMIN_ENDPOINT = {
             "/user/admin/**",
-            "/user/summary"
+
     };
 
     @Bean

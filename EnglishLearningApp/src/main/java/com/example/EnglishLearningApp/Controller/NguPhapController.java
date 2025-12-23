@@ -1,6 +1,7 @@
 package com.example.EnglishLearningApp.Controller;
 
 import com.example.EnglishLearningApp.Model.NguPhap;
+import com.example.EnglishLearningApp.Model.TuVung;
 import com.example.EnglishLearningApp.Service.NguPhapService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +42,16 @@ public class NguPhapController {
     public ResponseEntity<Void> deleteNguPhap(@PathVariable Integer id) {
         nguPhapService.deleteNguPhap(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/bai-hoc/{idBaiHoc}")
+    public ResponseEntity<List<NguPhap>> getNguPhapByBaiHoc(@PathVariable Integer idBaiHoc) {
+        List<NguPhap> list = nguPhapService.getNguPhapByBaiHoc(idBaiHoc);
+
+        // Kiểm tra nếu danh sách rỗng thì trả về 204 No Content hoặc danh sách rỗng
+        if (list.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(list);
     }
 }
