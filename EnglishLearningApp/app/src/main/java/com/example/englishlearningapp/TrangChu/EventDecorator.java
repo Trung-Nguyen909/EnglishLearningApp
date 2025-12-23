@@ -23,7 +23,6 @@ public class EventDecorator implements DayViewDecorator {
     public EventDecorator(int drawableResId, Collection<CalendarDay> dates, Activity context) {
         this.drawableResId = drawableResId;
         this.dates = new HashSet<>(dates);
-        // Load hình tròn (xanh/đỏ) từ drawable
         this.drawable = ContextCompat.getDrawable(context, drawableResId);
     }
 
