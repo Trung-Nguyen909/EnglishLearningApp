@@ -626,11 +626,122 @@ INSERT INTO TuVung VALUES
 (3, 'Clean', N'Sạch', '/kliːn/', 'The room is clean.', 'clean.mp3'),
 (3, 'Dirty', N'Bẩn', '/ˈdɜːrti/', 'His shoes are dirty.', 'dirty.mp3');
 
+INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
+(4, 'Living room', N'Phòng khách', '/ˈlɪv.ɪŋ ˌruːm/', 'We watch TV in the living room.', 'livingroom.mp3'),
+(4, 'Kitchen', N'Nhà bếp', '/ˈkɪtʃ.ən/', 'My mother cooks in the kitchen.', 'kitchen.mp3'),
+(4, 'Bedroom', N'Phòng ngủ', '/ˈbed.ruːm/', 'I sleep in my bedroom.', 'bedroom.mp3'),
+(4, 'Bathroom', N'Phòng tắm', '/ˈbɑːθ.ruːm/', 'I brush my teeth in the bathroom.', 'bathroom.mp3'),
+(4, 'Garden', N'Khu vườn', '/ˈɡɑː.dən/', 'There are many flowers in the garden.', 'garden.mp3'),
+(4, 'Door', N'Cửa ra vào', '/dɔːr/', 'Please close the door.', 'door.mp3'),
+(4, 'Window', N'Cửa sổ', '/ˈwɪn.dəʊ/', 'Open the window, please.', 'window.mp3'),
+(4, 'Table', N'Cái bàn', '/ˈteɪ.bəl/', 'The book is on the table.', 'table.mp3'),
+(4, 'Chair', N'Cái ghế', '/tʃeər/', 'Sit on the chair.', 'chair.mp3'),
+(4, 'Bed', N'Cái giường', '/bed/', 'The baby is on the bed.', 'bed.mp3');
 
+INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
+(5, 'Money', N'Tiền', '/ˈmʌn.i/', 'I need money to buy food.', 'money.mp3'),
+(5, 'Price', N'Giá cả', '/praɪs/', 'What is the price of this shirt?', 'price.mp3'),
+(5, 'Cheap', N'Rẻ', '/tʃiːp/', 'This hat is very cheap.', 'cheap.mp3'),
+(5, 'Expensive', N'Đắt', '/ɪkˈspen.sɪv/', 'That car is too expensive.', 'expensive.mp3'),
+(5, 'Buy', N'Mua', '/baɪ/', 'I want to buy some milk.', 'buy.mp3'),
+(5, 'Sell', N'Bán', '/sel/', 'They sell fresh fruit here.', 'sell.mp3'),
+(5, 'Shop', N'Cửa hàng', '/ʃɒp/', 'The shop opens at 8 a.m.', 'shop.mp3'),
+(5, 'Customer', N'Khách hàng', '/ˈkʌs.tə.mər/', 'The customer is paying for the items.', 'customer.mp3'),
+(5, 'Discount', N'Giảm giá', '/ˈdɪs.kaʊnt/', 'There is a 50% discount today.', 'discount.mp3'),
+(5, 'Pay', N'Thanh toán / Trả tiền', '/peɪ/', 'Can I pay by card?', 'pay.mp3');
 
+INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
+(6, 'Dog', N'Con chó', '/dɒɡ/', 'The dog is barking.', 'dog.mp3'),
+(6, 'Cat', N'Con mèo', '/kæt/', 'The cat likes to eat fish.', 'cat.mp3'),
+(6, 'Bird', N'Con chim', '/bɜːd/', 'The bird is singing in the tree.', 'bird.mp3'),
+(6, 'Fish', N'Con cá', '/fɪʃ/', 'Fish live in water.', 'fish.mp3'),
+(6, 'Chicken', N'Con gà', '/ˈtʃɪk.ɪn/', 'My grandmother feeds the chickens.', 'chicken.mp3'),
+(6, 'Lion', N'Sư tử', '/ˈlaɪ.ən/', 'The lion is the king of the jungle.', 'lion.mp3'),
+(6, 'Tiger', N'Con hổ', '/ˈtaɪ.ɡər/', 'Tigers are very strong.', 'tiger.mp3'),
+(6, 'Elephant', N'Con voi', '/ˈel.ɪ.fənt/', 'The elephant has a long nose.', 'elephant.mp3'),
+(6, 'Monkey', N'Con khỉ', '/ˈmʌŋ.ki/', 'Monkeys love bananas.', 'monkey.mp3'),
+(6, 'Rabbit', N'Con thỏ', '/ˈræb.ɪt/', 'The rabbit runs very fast.', 'rabbit.mp3');
 
+-- BÀI 1: GIA ĐÌNH (Family)
 INSERT INTO NguPhap (IDBaiHoc, tenNguPhap, giaiThich, viDu) VALUES
-(1, N'Động từ TO BE', N'Am, is, are...', 'I am a student.');
+(1, N'Động từ To Be', 
+N'Cấu trúc: S + am/is/are + N/Adj
+- I am (Tôi là)
+- He/She/It is (Anh ấy/Cô ấy/Nó là)
+- You/We/They are (Bạn/Chúng tôi/Họ là)', 
+'I am a student. She is my mother.'),
+
+(1, N'Tính từ sở hữu', 
+N'Cấu trúc: [Tính từ sở hữu] + [Danh từ]
+- My: Của tôi
+- Your: Của bạn
+- His/Her: Của anh ấy/cô ấy', 
+'This is my father. His name is John.');
+
+-- BÀI 2: TRƯỜNG HỌC (School Life)
+INSERT INTO NguPhap (IDBaiHoc, tenNguPhap, giaiThich, viDu) VALUES
+(2, N'Đại từ chỉ định (This/That)', 
+N'Cấu trúc: This/That + is + a/an + [Danh từ số ít]
+- This: Cái này (ở gần)
+- That: Cái kia (ở xa)', 
+'This is a pen. That is a board.'),
+
+(2, N'Câu mệnh lệnh', 
+N'Cấu trúc: [Động từ nguyên thể] + [Tân ngữ]!
+Cách dùng: Dùng để yêu cầu ai đó làm gì trong lớp học.', 
+'Open your book! Sit down, please.');
+
+-- BÀI 3: THỨC ĂN (Food & Drinks)
+INSERT INTO NguPhap (IDBaiHoc, tenNguPhap, giaiThich, viDu) VALUES
+(3, N'Động từ Like & Want', 
+N'Cấu trúc: S + like/want + [Món ăn/Đồ uống]
+- Like: Thích
+- Want: Muốn', 
+'I like pizza. I want some water.'),
+
+(3, N'Dùng Some & Any', 
+N'Cấu trúc: S + have + some/any + [Danh từ]
+- Some: Dùng trong câu khẳng định (+)
+- Any: Dùng trong câu phủ định (-) và nghi vấn (?)', 
+'I have some apples. I do not have any milk.');
+
+-- BÀI 4: NHÀ CỬA (My House)
+INSERT INTO NguPhap (IDBaiHoc, tenNguPhap, giaiThich, viDu) VALUES
+(4, N'Cấu trúc There is/are', 
+N'Cấu trúc:
+- There is + a/an + [Danh từ số ít] (Có một...)
+- There are + [Danh từ số nhiều] (Có nhiều...)', 
+'There is a bed. There are two chairs.'),
+
+(4, N'Giới từ nơi chốn', 
+N'Cấu trúc: S + be + In/On/Under + [Nơi chốn]
+- In: Trong | On: Trên | Under: Dưới', 
+'The cat is under the table.');
+
+-- BÀI 5: MUA SẮM (Shopping)
+INSERT INTO NguPhap (IDBaiHoc, tenNguPhap, giaiThich, viDu) VALUES
+(5, N'Hỏi giá (How much)', 
+N'Cấu trúc: How much + is/are + [Món đồ]?
+- Is: Dùng cho vật số ít
+- Are: Dùng cho vật số nhiều', 
+'How much is this shirt? How much are these shoes?'),
+
+(5, N'Tính từ mô tả', 
+N'Cấu trúc: S + be + [Tính từ] (Cheap, Expensive, Big...)
+Cách dùng: Mô tả đặc điểm, giá cả của sản phẩm.', 
+'This hat is cheap. That bag is expensive.');
+
+-- BÀI 6: ĐỘNG VẬT (Animals)
+INSERT INTO NguPhap (IDBaiHoc, tenNguPhap, giaiThich, viDu) VALUES
+(6, N'Động từ khuyết thiếu Can', 
+N'Cấu trúc: S + can + [Động từ nguyên thể]
+Cách dùng: Nói về khả năng làm được việc gì (Bay, bơi, chạy...).', 
+'Birds can fly. Fish can swim.'),
+
+(6, N'Hiện tại đơn (Sự thật)', 
+N'Cấu trúc: S + V(s/es)
+Cách dùng: Nói về sự thật hiển nhiên hoặc thói quen của động vật.',
+'Monkeys eat bananas. Lions eat meat.');
 
 INSERT INTO KyNang (TenKyNang) VALUES (N'Nghe'), (N'Nói'), (N'Đọc'), (N'Viết');
 
