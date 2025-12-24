@@ -1,14 +1,14 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.englishlearningapp.R;
 import com.google.android.material.button.MaterialButton;
 
 public class ChiTietBaiTapActivity extends AppCompatActivity {
@@ -95,8 +95,7 @@ public class ChiTietBaiTapActivity extends AppCompatActivity {
                     i = new Intent(ChiTietBaiTapActivity.this, BaiTapNoiActivity.class);
                 }
                 else if (typeCheck.contains("viết") || typeCheck.contains("writing")) {
-                    Toast.makeText(this, "Chức năng Luyện Viết đang cập nhật!", Toast.LENGTH_SHORT).show();
-                    return;
+                    i = new Intent(ChiTietBaiTapActivity.this, BaiTapVietActivity.class);
                 }
                 else {
                     // Mặc định nếu không nhận diện được thì mở bài Đọc (hoặc báo lỗi)

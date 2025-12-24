@@ -1,12 +1,10 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.englishlearningapp.Adapter.CauHoiAdapter;
 import com.example.englishlearningapp.DTO.Response.CauHoiResponse;
 import com.example.englishlearningapp.ApiClient;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 
 import java.util.ArrayList;

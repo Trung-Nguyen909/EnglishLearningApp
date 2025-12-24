@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,13 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 // Import Model (Nhớ thay bằng tên Model thực tế của bạn nếu khác)
-import com.example.englishlearningapp.Model.CauHoiNoiModel;
+import com.example.englishlearningapp.DTO.Response.CauHoiNoiResponse;
+import com.example.englishlearningapp.R;
 
 import java.util.List;
-public class BaiTapNoiAdapter extends RecyclerView.Adapter<BaiTapNoiAdapter.BaiTapNoiViewHolder> {
+public class CauHoiNoiAdapter extends RecyclerView.Adapter<CauHoiNoiAdapter.BaiTapNoiViewHolder> {
 
     private Context boiCanh;
-    private List<CauHoiNoiModel> danhSachCauHoi;
+    private List<CauHoiNoiResponse> danhSachCauHoi;
     private LangNgheSuKienItem nguoiLangNghe;
 
     public interface LangNgheSuKienItem {
@@ -25,7 +26,7 @@ public class BaiTapNoiAdapter extends RecyclerView.Adapter<BaiTapNoiAdapter.BaiT
         void khiAnNghe(String noiDung);
     }
 
-    public BaiTapNoiAdapter(Context boiCanh, List<CauHoiNoiModel> danhSachCauHoi, LangNgheSuKienItem nguoiLangNghe) {
+    public CauHoiNoiAdapter(Context boiCanh, List<CauHoiNoiResponse> danhSachCauHoi, LangNgheSuKienItem nguoiLangNghe) {
         this.boiCanh = boiCanh;
         this.danhSachCauHoi = danhSachCauHoi;
         this.nguoiLangNghe = nguoiLangNghe;
@@ -41,7 +42,7 @@ public class BaiTapNoiAdapter extends RecyclerView.Adapter<BaiTapNoiAdapter.BaiT
     @Override
     // 4. Đổi tham số đầu vào thành BaiTapNoiViewHolder
     public void onBindViewHolder(@NonNull BaiTapNoiViewHolder nguoiGiu, int viTri) {
-        CauHoiNoiModel cauHoi = danhSachCauHoi.get(viTri);
+        CauHoiNoiResponse cauHoi = danhSachCauHoi.get(viTri);
 
         nguoiGiu.tvSoThuTuCau.setText("Câu " + (viTri + 1));
         nguoiGiu.tvCauMau.setText(cauHoi.getCauMau());

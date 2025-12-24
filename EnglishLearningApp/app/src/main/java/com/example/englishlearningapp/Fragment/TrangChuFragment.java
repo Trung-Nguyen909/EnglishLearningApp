@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.Adapter.KyNangAdapter;
 import com.example.englishlearningapp.ApiClient;
-import com.example.englishlearningapp.BaiHocActivity;
+import com.example.englishlearningapp.Activity.BaiHocActivity;
 import com.example.englishlearningapp.DTO.Response.BaiHocGanNhatResponse;
 import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;

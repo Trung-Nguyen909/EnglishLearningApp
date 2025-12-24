@@ -19,10 +19,10 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.example.englishlearningapp.BaiTapDocActivity;
-import com.example.englishlearningapp.BaiTapNgheActivity;
-import com.example.englishlearningapp.BaiTapNoiActivity;
-import com.example.englishlearningapp.BaiTapVietActivity;
+import com.example.englishlearningapp.Activity.BaiTapDocActivity;
+import com.example.englishlearningapp.Activity.BaiTapNgheActivity;
+import com.example.englishlearningapp.Activity.BaiTapNoiActivity;
+import com.example.englishlearningapp.Activity.BaiTapVietActivity;
 import com.example.englishlearningapp.DTO.Response.BaiTapResponse;
 import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.R;

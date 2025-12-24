@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -17,8 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishlearningapp.Adapter.CauHoiNoiAdapter;
 import com.example.englishlearningapp.ApiClient;
-import com.example.englishlearningapp.Model.CauHoiNoiModel;
+import com.example.englishlearningapp.DTO.Response.CauHoiNoiResponse;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 
 import java.util.ArrayList;
@@ -36,8 +38,8 @@ public class BaiTapNoiActivity extends AppCompatActivity {
     private RecyclerView rcvCauHoiNoi;
     private Button btnHoanThanh;
 
-    private BaiTapNoiAdapter adapterNoi;
-    private List<CauHoiNoiModel> danhSachCauHoi = new ArrayList<>();
+    private CauHoiNoiAdapter adapterNoi;
+    private List<CauHoiNoiResponse> danhSachCauHoi = new ArrayList<>();
     private TextToSpeech mayDoc;
 
     private Handler boXuLy = new Handler(Looper.getMainLooper());
@@ -99,7 +101,7 @@ public class BaiTapNoiActivity extends AppCompatActivity {
     }
 
     private void caiDatAdapter() {
-        adapterNoi = new BaiTapNoiAdapter(this, danhSachCauHoi, new BaiTapNoiAdapter.LangNgheSuKienItem() {
+        adapterNoi = new CauHoiNoiAdapter(this, danhSachCauHoi, new CauHoiNoiAdapter.LangNgheSuKienItem() {
             @Override
             public void khiAnGhiAm(int viTri) {
                 // Khi ấn nút Mic -> Gọi hàm giả lập
@@ -117,13 +119,13 @@ public class BaiTapNoiActivity extends AppCompatActivity {
     // --- GỌI API LẤY CÂU HỎI (GIỮ NGUYÊN) ---
     private void goiApiLayCauHoi(int id) {
         ApiService api = ApiClient.getClient(this).create(ApiService.class);
-        api.getCauHoiNoiByBaiTapId(id).enqueue(new Callback<List<CauHoiNoiModel>>() {
+        api.getCauHoiNoiByBaiTapId(id).enqueue(new Callback<List<CauHoiNoiResponse>>() {
             @Override
-            public void onResponse(Call<List<CauHoiNoiModel>> call, Response<List<CauHoiNoiModel>> response) {
+            public void onResponse(Call<List<CauHoiNoiResponse>> call, Response<List<CauHoiNoiResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     danhSachCauHoi.clear();
-                    List<CauHoiNoiModel> list = response.body();
-                    for (CauHoiNoiModel q : list) {
+                    List<CauHoiNoiResponse> list = response.body();
+                    for (CauHoiNoiResponse q : list) {
                         q.xuLyDuLieu();
                         danhSachCauHoi.add(q);
                     }
@@ -135,7 +137,7 @@ public class BaiTapNoiActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<CauHoiNoiModel>> call, Throwable t) {
+            public void onFailure(Call<List<CauHoiNoiResponse>> call, Throwable t) {
                 Toast.makeText(BaiTapNoiActivity.this, "Lỗi kết nối!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -148,7 +150,7 @@ public class BaiTapNoiActivity extends AppCompatActivity {
         // Giả vờ đợi 2 giây rồi tự điền đáp án đúng
         boXuLy.postDelayed(() -> {
             if (viTri >= 0 && viTri < danhSachCauHoi.size()) {
-                CauHoiNoiModel q = danhSachCauHoi.get(viTri);
+                CauHoiNoiResponse q = danhSachCauHoi.get(viTri);
 
                 // 1. Lấy câu mẫu gán vào đáp án người dùng (Coi như nói đúng)
                 q.setDapAnNguoiDung(q.getCauMau());
@@ -172,7 +174,7 @@ public class BaiTapNoiActivity extends AppCompatActivity {
         if (tong == 0) return;
 
         int hoanThanh = 0;
-        for (CauHoiNoiModel q : danhSachCauHoi) {
+        for (CauHoiNoiResponse q : danhSachCauHoi) {
             if (q.isChinhXac()) hoanThanh++;
         }
 
@@ -206,7 +208,7 @@ public class BaiTapNoiActivity extends AppCompatActivity {
         boXuLy.removeCallbacks(tacVuDemGio); // Dừng giờ
 
         int soCauDung = 0;
-        for (CauHoiNoiModel q : danhSachCauHoi) {
+        for (CauHoiNoiResponse q : danhSachCauHoi) {
             if (q.isChinhXac()) soCauDung++;
         }
         int tongSoCau = danhSachCauHoi.size();

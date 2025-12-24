@@ -1,13 +1,14 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.englishlearningapp.R;
 
 public class KetQuaActivity extends AppCompatActivity {
 
@@ -112,24 +113,25 @@ public class KetQuaActivity extends AppCompatActivity {
                         }
                         break;
 
-                    // --- NHÓM CHƯA CÓ API HOÀN CHỈNH (Nói & Viết) ---
-                    // Giữ nguyên logic cũ hoặc báo đang phát triển
                     case "Nói":
-                        // Nếu bạn muốn mở lại activity cũ (giả sử BaiTapNoiActivity dùng logic cũ)
-                         intent = new Intent(KetQuaActivity.this, BaiTapNoiActivity.class);
-                         intent.putExtra("SELECTED_LEVEL", receivedLevel);
-
-                        // Hoặc thông báo chưa làm xong:
-//                        Toast.makeText(this, "Chức năng Nói đang được cập nhật API", Toast.LENGTH_SHORT).show();
-                        return;
+                        if (receivedExerciseId != -1) {
+                            intent = new Intent(KetQuaActivity.this, BaiTapNoiActivity.class);
+                            intent.putExtra("ID_BAI_TAP", receivedExerciseId);
+                            intent.putExtra("MUC_DO", receivedLevel);
+                        } else {
+                            Toast.makeText(this, "Lỗi: Không tìm thấy bài tập Nói!", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
 
                     case "Viết":
-                        // Tương tự cho Viết
-                         intent = new Intent(KetQuaActivity.this, BaiTapVietActivity.class);
-                         intent.putExtra("SELECTED_LEVEL", receivedLevel);
-
-//                        Toast.makeText(this, "Chức năng Viết đang được cập nhật API", Toast.LENGTH_SHORT).show();
-                        return;
+                        if (receivedExerciseId != -1) {
+                            intent = new Intent(KetQuaActivity.this, BaiTapVietActivity.class);
+                            intent.putExtra("ID_BAI_TAP", receivedExerciseId);
+                            intent.putExtra("MUC_DO", receivedLevel);
+                        } else {
+                            Toast.makeText(this, "Lỗi: Không tìm thấy bài tập Viết!", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
 
                     default:
                         Toast.makeText(this, "Không xác định được loại bài tập!", Toast.LENGTH_SHORT).show();

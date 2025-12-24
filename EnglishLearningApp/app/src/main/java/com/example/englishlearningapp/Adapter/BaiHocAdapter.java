@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Adapter;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.Model.BaiHocModel;
+import com.example.englishlearningapp.R;
 
 import java.util.List;
 

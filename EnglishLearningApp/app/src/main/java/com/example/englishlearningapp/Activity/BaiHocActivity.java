@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,8 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishlearningapp.ApiClient;
+import com.example.englishlearningapp.Adapter.BaiHocAdapter;
 import com.example.englishlearningapp.DTO.Response.BaiTap; // nếu class tên khác, đổi lại
 import com.example.englishlearningapp.Model.BaiHocModel;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 
 import java.lang.reflect.Method;

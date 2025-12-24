@@ -1,9 +1,9 @@
-package com.example.englishlearningapp.Model;
+package com.example.englishlearningapp.DTO.Response;
 
 import com.google.gson.annotations.SerializedName;
 import org.json.JSONObject;
 
-public class CauHoiNoiModel {
+public class CauHoiNoiResponse {
     @SerializedName("id")
     private int id;
 
@@ -19,7 +19,7 @@ public class CauHoiNoiModel {
     private boolean isChinhXac = false;
 
     // Constructor mặc định cho Retrofit
-    public CauHoiNoiModel() {}
+    public CauHoiNoiResponse() {}
 
     // Hàm xử lý dữ liệu JSON (Gọi sau khi nhận từ API)
     public void xuLyDuLieu() {

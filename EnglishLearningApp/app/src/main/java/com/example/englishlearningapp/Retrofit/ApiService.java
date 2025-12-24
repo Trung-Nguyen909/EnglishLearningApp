@@ -13,7 +13,8 @@ import com.example.englishlearningapp.DTO.Response.NhatKyHoatDong;
 import com.example.englishlearningapp.DTO.Response.TuVungResponse;
 import com.example.englishlearningapp.DTO.Response.UserSummaryDto;
 import com.example.englishlearningapp.DTO.Response.KyNangResponse;
-import com.example.englishlearningapp.Model.CauHoiNoiModel;
+import com.example.englishlearningapp.DTO.Response.CauHoiNoiResponse;
+import com.example.englishlearningapp.DTO.Response.CauHoiVietResponse;
 import com.example.englishlearningapp.Model.NguPhap;
 
 import java.util.List;
@@ -52,7 +53,10 @@ public interface ApiService {
     @GET("cauhoi/baitap/{id}")
     Call<List<CauHoiResponse>> getCauHoiByBaiTapId(@Path("id") int id);
     @GET("cauhoi/baitap/{id}")
-    Call<List<CauHoiNoiModel>> getCauHoiNoiByBaiTapId(@Path("id") int baiTapId);
+    Call<List<CauHoiNoiResponse>> getCauHoiNoiByBaiTapId(@Path("id") int baiTapId);
+
+    @GET("cauhoi/baitap/{id}")
+    Call<List<CauHoiVietResponse>> getCauHoiVietByBaiTapId(@Path("id") int baiTapId);
 
     @GET("KhoaHoc")
     @Headers("No-Authentication: true")

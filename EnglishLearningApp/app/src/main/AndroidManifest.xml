@@ -14,18 +14,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishLearningApp">
-        <activity android:name=".BaiTapNoiActivity" />
-        <activity android:name=".BaiTapVietActivity" />
+        <activity android:name=".Activity.BaiTapNoiActivity" />
+        <activity android:name=".Activity.BaiTapVietActivity" />
         <activity android:name=".LichSuLamBaiActivity" />
         <activity android:name=".TestResultActivity" />
-        <activity android:name=".BaiTapDocActivity"/>
+        <activity android:name=".Activity.BaiTapDocActivity"/>
         <activity android:name=".DangNhapActivity" />
         <activity android:name=".LessonVocabularyActivity"/>
         <activity android:name=".DangKyActivity" />
-        <activity android:name=".KetQuaActivity"/>
-        <activity android:name=".ChiTietBaiTapActivity" />
-        <activity android:name=".BaiTapNgheActivity" />
-        <activity android:name=".BaiHocActivity" />
+        <activity android:name=".Activity.KetQuaActivity"/>
+        <activity android:name=".Activity.ChiTietBaiTapActivity" />
+        <activity android:name=".Activity.BaiTapNgheActivity" />
+        <activity android:name=".Activity.BaiHocActivity" />
         <activity android:name=".MainActivity"/>
         <activity android:name=".NguPhapActivity"/>
         <activity

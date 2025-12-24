@@ -47,9 +47,9 @@
                 android:id="@+id/tv_dem_tu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số từ: 0 / 50-100 từ"
+                android:text="Số từ: 0"
                 android:textColor="#555"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
         </LinearLayout>
 
         <TextView

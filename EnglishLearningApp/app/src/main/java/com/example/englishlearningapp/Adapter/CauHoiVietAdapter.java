@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Adapter;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,13 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Model.CauHoiModel;
+import com.example.englishlearningapp.DTO.Response.CauHoiVietResponse;
+import com.example.englishlearningapp.R;
 
 import java.util.List;
 
-public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.BaiTapVietViewHolder> {
+public class CauHoiVietAdapter extends RecyclerView.Adapter<CauHoiVietAdapter.BaiTapVietViewHolder> {
 
-    private List<CauHoiModel> danhSachCauHoi;
+    private List<CauHoiVietResponse> danhSachCauHoi;
     private LangNgheSuKienViet nguoiLangNghe;
 
     // 1. Định nghĩa Interface ngay trong Adapter (Giống BaiTapNoiAdapter)
@@ -25,7 +26,7 @@ public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.Ba
         void khiDapAnDuocChon(int maCauHoi, String dapAn);
     }
 
-    public BaiTapVietAdapter(List<CauHoiModel> danhSach, LangNgheSuKienViet nguoiLangNghe) {
+    public CauHoiVietAdapter(List<CauHoiVietResponse> danhSach, LangNgheSuKienViet nguoiLangNghe) {
         this.danhSachCauHoi = danhSach;
         this.nguoiLangNghe = nguoiLangNghe;
     }
@@ -39,11 +40,11 @@ public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.Ba
 
     @Override
     public void onBindViewHolder(@NonNull BaiTapVietViewHolder holder, int position) {
-        CauHoiModel cauHoi = danhSachCauHoi.get(position);
+        CauHoiVietResponse cauHoi = danhSachCauHoi.get(position);
 
         // 1. Set hướng dẫn và nội dung câu hỏi
-        holder.tvHuongDan.setText(cauHoi.getHuongDan());
-        holder.tvNoiDung.setText("Câu " + (position + 1) + ": " + cauHoi.getNoiDung());
+        holder.tvHuongDan.setText("Writing Task");
+        holder.tvNoiDung.setText(cauHoi.getDeBai()); // Lấy đề bài từ Model mới
 
         // 2. Xử lý TextWatcher để tránh lỗi khi cuộn
         if (holder.boTheoDoiVanBan != null) {
@@ -51,10 +52,10 @@ public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.Ba
         }
 
         // Hiển thị lại đáp án cũ
-        holder.etCauTraLoi.setText(cauHoi.getDapAnDaChon());
+        holder.etCauTraLoi.setText(cauHoi.getDapAnNguoiDung());
 
         // Cập nhật số từ ban đầu
-        capNhatDemTu(holder, cauHoi.getDapAnDaChon());
+        capNhatDemTu(holder, cauHoi.getDapAnNguoiDung());
 
         // 3. Tạo bộ theo dõi mới
         holder.boTheoDoiVanBan = new TextWatcher() {
@@ -68,7 +69,7 @@ public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.Ba
                 String vanBan = s.toString(); // Không trim ngay để giữ trải nghiệm gõ
 
                 // Lưu vào model
-                cauHoi.setDapAnDaChon(vanBan);
+                cauHoi.setDapAnNguoiDung(vanBan);
 
                 // Cập nhật số từ
                 capNhatDemTu(holder, vanBan);
@@ -76,9 +77,9 @@ public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.Ba
                 // Gửi sự kiện về Activity (Trim khi gửi đi để check rỗng)
                 if (nguoiLangNghe != null) {
                     if (!vanBan.trim().isEmpty()) {
-                        nguoiLangNghe.khiDapAnDuocChon(cauHoi.getMaCauHoi(), vanBan.trim());
+                        nguoiLangNghe.khiDapAnDuocChon(cauHoi.getId(), vanBan.trim());
                     } else {
-                        nguoiLangNghe.khiDapAnDuocChon(cauHoi.getMaCauHoi(), null);
+                        nguoiLangNghe.khiDapAnDuocChon(cauHoi.getId(), null);
                     }
                 }
             }
@@ -88,10 +89,10 @@ public class BaiTapVietAdapter extends RecyclerView.Adapter<BaiTapVietAdapter.Ba
 
     private void capNhatDemTu(BaiTapVietViewHolder holder, String text) {
         if (text == null || text.trim().isEmpty()) {
-            holder.tvDemTu.setText("Số từ: 0 / 50-100 từ");
+            holder.tvDemTu.setText("Số từ: 0");
         } else {
             int soTu = text.trim().split("\\s+").length;
-            holder.tvDemTu.setText("Số từ: " + soTu + " / 50-100 từ");
+            holder.tvDemTu.setText("Số từ: " + soTu);
         }
     }
 
