@@ -133,7 +133,11 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@android:drawable/ic_media_play"
-                    android:background="@null"
+
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+
                     app:tint="@color/royalBlue"
                     android:contentDescription="Play Audio"/>
 
