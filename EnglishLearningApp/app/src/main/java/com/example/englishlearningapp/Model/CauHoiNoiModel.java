@@ -1,39 +1,49 @@
 package com.example.englishlearningapp.Model;
 
+import com.google.gson.annotations.SerializedName;
+import org.json.JSONObject;
+
 public class CauHoiNoiModel {
-    private String cauMau;
-    private String dapAnNguoiDung;
-    private boolean chinhXac;
+    @SerializedName("id")
+    private int id;
 
-    public CauHoiNoiModel(String cauMau) {
-        this.cauMau = cauMau;
-        this.dapAnNguoiDung = "";
-        this.chinhXac = false;
+    @SerializedName("noiDungCauHoi")
+    private String noiDungCauHoi; // Ví dụ: "Read aloud: Good morning"
+
+    @SerializedName("duLieuDapAn")
+    private String duLieuDapAn; // JSON: {"Correct": "Good morning"}
+
+    // Biến nội bộ để xử lý giao diện
+    private String cauMau; // Câu cần đọc (Lấy từ JSON)
+    private String dapAnNguoiDung = "";
+    private boolean isChinhXac = false;
+
+    // Constructor mặc định cho Retrofit
+    public CauHoiNoiModel() {}
+
+    // Hàm xử lý dữ liệu JSON (Gọi sau khi nhận từ API)
+    public void xuLyDuLieu() {
+        try {
+            if (duLieuDapAn != null) {
+                JSONObject json = new JSONObject(duLieuDapAn);
+                // Lấy câu mẫu từ key "Correct"
+                if (json.has("Correct")) {
+                    this.cauMau = json.getString("Correct");
+                } else {
+                    this.cauMau = "No sample sentence";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.cauMau = "Error parsing data";
+        }
     }
 
-    // Getter & Setter (Giữ tiền tố get/set, Việt hóa phần sau)
-
-    public String getCauMau() {
-        return cauMau;
-    }
-
-    public void setCauMau(String cauMau) {
-        this.cauMau = cauMau;
-    }
-
-    public String getDapAnNguoiDung() {
-        return dapAnNguoiDung;
-    }
-
-    public void setDapAnNguoiDung(String dapAnNguoiDung) {
-        this.dapAnNguoiDung = dapAnNguoiDung;
-    }
-
-    public boolean isChinhXac() {
-        return chinhXac;
-    }
-
-    public void setChinhXac(boolean chinhXac) {
-        this.chinhXac = chinhXac;
-    }
+    // Getter & Setter
+    public int getId() { return id; }
+    public String getCauMau() { return cauMau; } // Hiển thị lên màn hình
+    public String getDapAnNguoiDung() { return dapAnNguoiDung; }
+    public void setDapAnNguoiDung(String dapAnNguoiDung) { this.dapAnNguoiDung = dapAnNguoiDung; }
+    public boolean isChinhXac() { return isChinhXac; }
+    public void setChinhXac(boolean chinhXac) { isChinhXac = chinhXac; }
 }

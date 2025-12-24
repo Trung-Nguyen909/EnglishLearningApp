@@ -92,8 +92,7 @@ public class ChiTietBaiTapActivity extends AppCompatActivity {
                     i = new Intent(ChiTietBaiTapActivity.this, BaiTapDocActivity.class);
                 }
                 else if (typeCheck.contains("nói") || typeCheck.contains("speaking")) {
-                    Toast.makeText(this, "Chức năng Luyện Nói đang cập nhật!", Toast.LENGTH_SHORT).show();
-                    return;
+                    i = new Intent(ChiTietBaiTapActivity.this, BaiTapNoiActivity.class);
                 }
                 else if (typeCheck.contains("viết") || typeCheck.contains("writing")) {
                     Toast.makeText(this, "Chức năng Luyện Viết đang cập nhật!", Toast.LENGTH_SHORT).show();

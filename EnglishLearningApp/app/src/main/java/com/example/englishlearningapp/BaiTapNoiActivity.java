@@ -17,11 +17,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.Model.CauHoiNoiModel;
+import com.example.englishlearningapp.Retrofit.ApiService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BaiTapNoiActivity extends AppCompatActivity {
     private ImageButton nutQuayLai;
@@ -29,23 +35,52 @@ public class BaiTapNoiActivity extends AppCompatActivity {
     private ProgressBar thanhTienTrinh;
     private RecyclerView rcvCauHoiNoi;
     private Button btnHoanThanh;
+
     private BaiTapNoiAdapter adapterNoi;
-    private List<CauHoiNoiModel> danhSachCauHoi;
+    private List<CauHoiNoiModel> danhSachCauHoi = new ArrayList<>();
     private TextToSpeech mayDoc;
 
     private Handler boXuLy = new Handler(Looper.getMainLooper());
+
+    // Biến nhận dữ liệu
+    private int idBaiTap = -1;
+    private String level = "Basic";
+
+    // Biến đếm giờ
+    private int soGiayLamBai = 0;
+    private Runnable tacVuDemGio = new Runnable() {
+        @Override
+        public void run() {
+            soGiayLamBai++;
+            tvDongHo.setText(formatTime(soGiayLamBai));
+            boXuLy.postDelayed(this, 1000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bai_tap_noi);
 
+        // Nhận ID từ màn hình trước
+        Intent intent = getIntent();
+        if (intent != null) {
+            idBaiTap = intent.getIntExtra("ID_BAI_TAP", -1);
+            level = intent.getStringExtra("MUC_DO");
+        }
+
         anhXaView();
-        taoDuLieuGia();
         caiDatAdapter();
         caiDatMayDoc();
 
-        capNhatTienDo();
+        if (idBaiTap != -1) {
+            goiApiLayCauHoi(idBaiTap);
+        } else {
+            Toast.makeText(this, "Không tìm thấy bài tập!", Toast.LENGTH_SHORT).show();
+        }
+
+        // Bắt đầu đếm giờ
+        boXuLy.postDelayed(tacVuDemGio, 1000);
     }
 
     private void anhXaView() {
@@ -59,28 +94,15 @@ public class BaiTapNoiActivity extends AppCompatActivity {
 
         rcvCauHoiNoi.setLayoutManager(new LinearLayoutManager(this));
 
-        tvDongHo.setText("00:20");
-
         nutQuayLai.setOnClickListener(v -> finish());
-
-        btnHoanThanh.setOnClickListener(v -> {
-            chuyenSangTrangKetQua();
-        });
-    }
-
-    private void taoDuLieuGia() {
-        danhSachCauHoi = new ArrayList<>();
-        danhSachCauHoi.add(new CauHoiNoiModel("Good morning"));
-        danhSachCauHoi.add(new CauHoiNoiModel("How are you?"));
-        danhSachCauHoi.add(new CauHoiNoiModel("I like learning English"));
-        danhSachCauHoi.add(new CauHoiNoiModel("What is your name?"));
-        danhSachCauHoi.add(new CauHoiNoiModel("Nice to meet you"));
+        btnHoanThanh.setOnClickListener(v -> chuyenSangTrangKetQua());
     }
 
     private void caiDatAdapter() {
         adapterNoi = new BaiTapNoiAdapter(this, danhSachCauHoi, new BaiTapNoiAdapter.LangNgheSuKienItem() {
             @Override
             public void khiAnGhiAm(int viTri) {
+                // Khi ấn nút Mic -> Gọi hàm giả lập
                 giaLapGhiAm(viTri);
             }
 
@@ -92,51 +114,74 @@ public class BaiTapNoiActivity extends AppCompatActivity {
         rcvCauHoiNoi.setAdapter(adapterNoi);
     }
 
-    // --- HÀM GIẢ LẬP GHI ÂM 3 GIÂY ---
-    private void giaLapGhiAm(int viTri) {
-        Toast.makeText(this, "Đang ghi âm...", Toast.LENGTH_SHORT).show();
-
-        boXuLy.postDelayed(new Runnable() {
+    // --- GỌI API LẤY CÂU HỎI (GIỮ NGUYÊN) ---
+    private void goiApiLayCauHoi(int id) {
+        ApiService api = ApiClient.getClient(this).create(ApiService.class);
+        api.getCauHoiNoiByBaiTapId(id).enqueue(new Callback<List<CauHoiNoiModel>>() {
             @Override
-            public void run() {
-                hoanThanhCauHoi(viTri);
+            public void onResponse(Call<List<CauHoiNoiModel>> call, Response<List<CauHoiNoiModel>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    danhSachCauHoi.clear();
+                    List<CauHoiNoiModel> list = response.body();
+                    for (CauHoiNoiModel q : list) {
+                        q.xuLyDuLieu();
+                        danhSachCauHoi.add(q);
+                    }
+                    adapterNoi.notifyDataSetChanged();
+                    capNhatTienDo();
+                } else {
+                    Toast.makeText(BaiTapNoiActivity.this, "Chưa có câu hỏi!", Toast.LENGTH_SHORT).show();
+                }
             }
-        }, 3000);
+
+            @Override
+            public void onFailure(Call<List<CauHoiNoiModel>> call, Throwable t) {
+                Toast.makeText(BaiTapNoiActivity.this, "Lỗi kết nối!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void hoanThanhCauHoi(int viTri) {
-        if (viTri >= 0 && viTri < danhSachCauHoi.size()) {
-            CauHoiNoiModel cauHoi = danhSachCauHoi.get(viTri);
+    // --- HÀM GIẢ LẬP GHI ÂM (QUAN TRỌNG) ---
+    private void giaLapGhiAm(int viTri) {
+        Toast.makeText(this, "Đang nghe...", Toast.LENGTH_SHORT).show();
 
-            // Giả lập: Người dùng nói đúng câu mẫu
-            cauHoi.setDapAnNguoiDung(cauHoi.getCauMau());
-            cauHoi.setChinhXac(true);
+        // Giả vờ đợi 2 giây rồi tự điền đáp án đúng
+        boXuLy.postDelayed(() -> {
+            if (viTri >= 0 && viTri < danhSachCauHoi.size()) {
+                CauHoiNoiModel q = danhSachCauHoi.get(viTri);
 
-            adapterNoi.notifyItemChanged(viTri);
+                // 1. Lấy câu mẫu gán vào đáp án người dùng (Coi như nói đúng)
+                q.setDapAnNguoiDung(q.getCauMau());
 
-            capNhatTienDo();
+                // 2. Đánh dấu là Chính xác
+                q.setChinhXac(true);
 
-            Toast.makeText(this, "Đã xác nhận đúng!", Toast.LENGTH_SHORT).show();
-        }
+                // 3. Cập nhật giao diện dòng đó
+                adapterNoi.notifyItemChanged(viTri);
+
+                // 4. Cập nhật thanh tiến trình
+                capNhatTienDo();
+
+                Toast.makeText(this, "Chính xác!", Toast.LENGTH_SHORT).show();
+            }
+        }, 2000); // 2000ms = 2 giây
     }
 
     private void capNhatTienDo() {
-        int tongSoCau = danhSachCauHoi.size();
-        int soCauHoanThanh = 0;
+        int tong = danhSachCauHoi.size();
+        if (tong == 0) return;
+
+        int hoanThanh = 0;
         for (CauHoiNoiModel q : danhSachCauHoi) {
-            if (q.isChinhXac()) {
-                soCauHoanThanh++;
-            }
+            if (q.isChinhXac()) hoanThanh++;
         }
 
-        // Cập nhật ProgressBar
-        int phanTram = (tongSoCau > 0) ? (int) (((float) soCauHoanThanh / tongSoCau) * 100) : 0;
+        int phanTram = (int) (((float) hoanThanh / tong) * 100);
         thanhTienTrinh.setProgress(phanTram);
         tvPhanTramTienTrinh.setText(phanTram + "%");
-        tvDemSoCau.setText("Câu " + soCauHoanThanh + "/" + tongSoCau + " hoàn thành");
+        tvDemSoCau.setText("Câu " + hoanThanh + "/" + tong);
 
-        // Logic nút Hoàn thành
-        if (soCauHoanThanh == tongSoCau) {
+        if (hoanThanh == tong) {
             btnHoanThanh.setEnabled(true);
             btnHoanThanh.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4169E1")));
         } else {
@@ -145,54 +190,49 @@ public class BaiTapNoiActivity extends AppCompatActivity {
         }
     }
 
-    // --- MÁY ĐỌC (TTS) ---
+    // --- TTS ---
     private void caiDatMayDoc() {
-        mayDoc = new TextToSpeech(this, trangThai -> {
-            if (trangThai == TextToSpeech.SUCCESS) {
-                mayDoc.setLanguage(Locale.US);
-            }
+        mayDoc = new TextToSpeech(this, status -> {
+            if (status == TextToSpeech.SUCCESS) mayDoc.setLanguage(Locale.US);
         });
     }
 
-    private void docVanBan(String noiDung) {
-        if (mayDoc != null) {
-            mayDoc.speak(noiDung, TextToSpeech.QUEUE_FLUSH, null, null);
+    private void docVanBan(String text) {
+        if (mayDoc != null) mayDoc.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+    }
+
+    // --- CHUYỂN TRANG KẾT QUẢ (KHÔNG LƯU API) ---
+    private void chuyenSangTrangKetQua() {
+        boXuLy.removeCallbacks(tacVuDemGio); // Dừng giờ
+
+        int soCauDung = 0;
+        for (CauHoiNoiModel q : danhSachCauHoi) {
+            if (q.isChinhXac()) soCauDung++;
         }
+        int tongSoCau = danhSachCauHoi.size();
+
+        Intent intent = new Intent(this, KetQuaActivity.class);
+        intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, soCauDung);
+        intent.putExtra(KetQuaActivity.EXTRA_TOTAL_QUESTIONS, tongSoCau);
+        intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, soGiayLamBai);
+        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Nói");
+        intent.putExtra(KetQuaActivity.EXTRA_LEVEL, level);
+        intent.putExtra("ID_BAI_TAP", idBaiTap);
+
+        startActivity(intent);
+        finish();
+    }
+
+    private String formatTime(int seconds) {
+        int m = seconds / 60;
+        int s = seconds % 60;
+        return String.format("%02d:%02d", m, s);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mayDoc != null) {
-            mayDoc.stop();
-            mayDoc.shutdown();
-        }
-        // Xóa các luồng đếm giờ nếu thoát app đột ngột
+        if (mayDoc != null) { mayDoc.stop(); mayDoc.shutdown(); }
         boXuLy.removeCallbacksAndMessages(null);
-    }
-
-    private void chuyenSangTrangKetQua() {
-        Intent intent = new Intent(BaiTapNoiActivity.this, KetQuaActivity.class);
-
-        // Tính số câu đúng
-        int soCauDung = 0;
-        for (CauHoiNoiModel q : danhSachCauHoi) {
-            if (q.isChinhXac()) {
-                soCauDung++;
-            }
-        }
-
-        // Truyền dữ liệu sang màn hình kết quả
-        intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, soCauDung);
-        intent.putExtra(KetQuaActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
-        intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, 0);
-        intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Nói");
-
-        // Lấy level từ Intent cũ chuyển sang (nếu có)
-        String level = getIntent().getStringExtra("SELECTED_LEVEL");
-        intent.putExtra(KetQuaActivity.EXTRA_LEVEL, level != null ? level : "Basic");
-
-        startActivity(intent);
-        finish();
     }
 }
