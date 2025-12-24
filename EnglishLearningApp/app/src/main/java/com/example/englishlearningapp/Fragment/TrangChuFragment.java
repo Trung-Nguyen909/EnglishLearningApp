@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.englishlearningapp.Adapter.KyNangAdapter;
 import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.BaiHocActivity;
+import com.example.englishlearningapp.DTO.Response.BaiHocGanNhatResponse;
 import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 import com.example.englishlearningapp.TrangChu.EventDecorator;
@@ -44,6 +46,12 @@ public class TrangChuFragment extends Fragment {
     private KyNangAdapter adapterKyNang;
     private AppCompatButton btnTiepTucHoc;
     private MaterialCalendarView calendarView;
+    private TextView tvKhoaHocGanNhat, tvBaiHocGanNhat, tvPhanTramGanNhat;
+    private com.google.android.material.progressindicator.CircularProgressIndicator progressIndicator;
+
+    // Biến lưu thông tin để dùng cho nút bấm
+    private int idBaiHocCurrent = -1;
+    private String tenBaiHocCurrent = "";
 
     @Nullable
     @Override
@@ -54,29 +62,55 @@ public class TrangChuFragment extends Fragment {
         rcvKiemTraNhanh = view.findViewById(R.id.rcv_kiem_tra_nhanh);
         btnTiepTucHoc = view.findViewById(R.id.btn_tiep_tuc_hoc);
         calendarView = view.findViewById(R.id.calendarView);
+        // Ánh xạ các View hiển thị tiến độ (Thêm ID vào XML trước nhé)
+        tvKhoaHocGanNhat = view.findViewById(R.id.tv_khoa_hoc_gan_nhat);
+        tvBaiHocGanNhat = view.findViewById(R.id.tv_bai_hoc_gan_nhat);
+        tvPhanTramGanNhat = view.findViewById(R.id.tv_phan_tram);
+        progressIndicator = view.findViewById(R.id.progress_indicator);
 
         // 2. Setup Calendar cơ bản
         calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_NONE);
         // Set ngày hiện tại để lịch focus vào tháng hiện tại
         calendarView.setCurrentDate(CalendarDay.today());
 
+
         // 3. GỌI API LẤY LỊCH (Thay thế cho hàm fake data cũ)
         // Giả sử UserId = 1 (Bạn cần lấy ID thật từ SharedPreferences hoặc lúc Login)
-        int userId = 1;
+        SharedPreferences prefs = getActivity().getSharedPreferences("APP_PREFS", Context.MODE_PRIVATE);
+        int userId = prefs.getInt("USER_ID", 1);
+        taiBaiHocGanNhat(userId);// Mặc định là 1 nếu chưa lưu
         callApiLayLichHoatDong(userId);
 
-        // --- CODE CŨ GIỮ NGUYÊN (XỬ LÝ NÚT VÀ QUICK TEST) ---
+        // 4. Xử lý sự kiện nút "Tiếp tục học"
         if (btnTiepTucHoc != null) {
             btnTiepTucHoc.setOnClickListener(v -> {
-                Intent intent = new Intent(getContext(), BaiHocActivity.class);
-                intent.putExtra("SUB_ITEM_ID", 1);
-                intent.putExtra("SUB_ITEM_NAME", "Thành viên trong gia đình");
-                startActivity(intent);
+                if (idBaiHocCurrent != -1) {
+                    Intent intent = new Intent(getContext(), BaiHocActivity.class);
+                    // Truyền đúng ID và Tên bài lấy từ API
+                    intent.putExtra("SUB_ITEM_ID", idBaiHocCurrent);
+                    intent.putExtra("SUB_ITEM_NAME", tenBaiHocCurrent);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "Chưa có bài học nào!", Toast.LENGTH_SHORT).show();
+                }
             });
         }
-
         goiApiLayDanhSachKyNang();
         return view;
+
+
+//        // --- CODE CŨ GIỮ NGUYÊN (XỬ LÝ NÚT VÀ QUICK TEST) ---
+//        if (btnTiepTucHoc != null) {
+//            btnTiepTucHoc.setOnClickListener(v -> {
+//                Intent intent = new Intent(getContext(), BaiHocActivity.class);
+//                intent.putExtra("SUB_ITEM_ID", 1);
+//                intent.putExtra("SUB_ITEM_NAME", "Thành viên trong gia đình");
+//                startActivity(intent);
+//            });
+//        }
+//
+//        goiApiLayDanhSachKyNang();
+//        return view;
     }
 
     // --- HÀM GỌI API MỚI ---
@@ -207,5 +241,36 @@ public class TrangChuFragment extends Fragment {
         calendarView.addDecorator(new EventDecorator(R.drawable.bg_ngaynghi, listDo, getActivity()));
         calendarView.addDecorator(new EventDecorator(R.drawable.bg_ngaychuahoc, listXam, getActivity()));
         calendarView.invalidateDecorators(); // Refresh lại view cho chắc
+    }
+    private void taiBaiHocGanNhat(int userId) {
+        ApiService apiService = ApiClient.getClient(getContext()).create(ApiService.class);
+        apiService.getBaiHocGanNhat(userId).enqueue(new Callback<BaiHocGanNhatResponse>() {
+            @Override
+            public void onResponse(Call<BaiHocGanNhatResponse> call, Response<BaiHocGanNhatResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    BaiHocGanNhatResponse data = response.body();
+
+                    // Cập nhật giao diện
+                    if(tvKhoaHocGanNhat != null) tvKhoaHocGanNhat.setText(data.getTenKhoaHoc());
+                    if(tvBaiHocGanNhat != null) tvBaiHocGanNhat.setText(data.getTenBaiHoc());
+
+                    int phanTram = (int) data.getPhanTram();
+                    if(tvPhanTramGanNhat != null) tvPhanTramGanNhat.setText(phanTram + "%");
+                    if(progressIndicator != null) progressIndicator.setProgress(phanTram);
+
+                    // Lưu lại dữ liệu vào biến toàn cục để dùng cho nút bấm
+                    idBaiHocCurrent = data.getIdBaiHoc();
+                    tenBaiHocCurrent = data.getTenBaiHoc();
+                } else {
+                    // Nếu không có dữ liệu (User mới chưa học gì)
+                    if(tvBaiHocGanNhat != null) tvBaiHocGanNhat.setText("Chưa có bài học");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaiHocGanNhatResponse> call, Throwable t) {
+                Log.e("API_ERROR", "Lỗi tải bài học gần nhất: " + t.getMessage());
+            }
+        });
     }
 }

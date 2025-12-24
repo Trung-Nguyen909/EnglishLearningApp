@@ -2,6 +2,7 @@ package com.example.englishlearningapp.Retrofit;
 import com.example.englishlearningapp.DTO.Request.UserLoginRequest;
 import com.example.englishlearningapp.DTO.Request.UserRegisterRequest;
 import com.example.englishlearningapp.DTO.Response.AuthResponse;
+import com.example.englishlearningapp.DTO.Response.BaiHocGanNhatResponse;
 import com.example.englishlearningapp.DTO.Response.BaiHocResponse;
 import com.example.englishlearningapp.DTO.Response.BaiTap;
 import com.example.englishlearningapp.DTO.Response.BaiTapResponse;
@@ -67,4 +68,6 @@ public interface ApiService {
     Call<List<TuVungResponse>> getTuVungByBaihocID(@Path("idbaihoc") int id);
     @GET("nguphap/bai-hoc/{id}")
     Call<List<NguPhap>> getListNguPhap(@Path("id") int idBaiHoc);
+    @GET("tientrinhbaihoc/gan-nhat/{userId}")
+    Call<BaiHocGanNhatResponse> getBaiHocGanNhat(@Path("userId") int userId);
 }

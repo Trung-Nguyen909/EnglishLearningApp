@@ -111,6 +111,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/progress_indicator"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:progress="72"
@@ -121,10 +122,11 @@
                             app:trackThickness="8dp" />
 
                         <TextView
+                            android:id="@+id/tv_phan_tram"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="72%"
+                            android:text="0%"
                             android:textColor="@color/royalBlue"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -140,16 +142,18 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_bai_hoc_gan_nhat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Thành viên trong gia đình"
+                            android:text="..."
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_khoa_hoc_gan_nhat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Gia đình"
+                            android:text="Đang tải..."
                             android:textColor="@color/royalBlue"
                             android:textSize="16sp"
                             android:textStyle="bold" />
