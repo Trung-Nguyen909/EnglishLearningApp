@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -15,15 +16,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.Adapter.CauHoiAdapter;
-// QUAN TRỌNG: Đổi sang dùng CauHoiResponse thay vì CauHoiModel
 import com.example.englishlearningapp.DTO.Response.CauHoiResponse;
 import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.Retrofit.ApiService;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,43 +40,65 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
     private ImageView nutQuayLai;
 
     // --- BIẾN DỮ LIỆU ---
-    // Sửa List<CauHoiModel> thành List<CauHoiResponse>
     private List<CauHoiResponse> danhSachCauHoi = new ArrayList<>();
     private CauHoiAdapter adapter;
-    private Set<Integer> tapHopIdCauHoiDaTraLoi = new HashSet<>();
 
-    // Biến nhận từ màn hình trước
+    // SỬA ĐỔI 1: Dùng Map để lưu (ID Câu hỏi -> Đáp án người dùng chọn)
+    private Map<Integer, String> danhSachDapAnNguoiDung = new HashMap<>();
+
     private String capDoHienTai = "Basic";
     private int idBaiTapHienTai = -1;
     private String tenBaiTap = "";
+
+    private int soGiayLamBai = 0; // Biến lưu tổng số giây
+    private Handler boDemGio = new Handler();
+    private Runnable tacVuDemGio = new Runnable() {
+        @Override
+        public void run() {
+            soGiayLamBai++; // Tăng 1 giây
+
+            // Nếu muốn hiện lên màn hình thì setText ở đây:
+            // tvDongHo.setText(dinhDangGio(soGiayLamBai));
+
+            boDemGio.postDelayed(this, 1000); // Lặp lại sau 1 giây
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bai_tap_doc);
 
-        // 1. NHẬN DỮ LIỆU TỪ INTENT
         if (getIntent() != null) {
             idBaiTapHienTai = getIntent().getIntExtra("ID_BAI_TAP", -1);
             capDoHienTai = getIntent().getStringExtra("MUC_DO");
             tenBaiTap = getIntent().getStringExtra("TEN_BAI_TAP");
         }
 
-        // 2. ÁNH XẠ VIEW
         anhXaView();
-
-        // 3. THIẾT LẬP RECYCLERVIEW
         setupRecyclerView();
 
-        // 4. GỌI API LẤY CÂU HỎI
         if (idBaiTapHienTai != -1) {
             goiApiLayCauHoi(idBaiTapHienTai);
         } else {
             Toast.makeText(this, "Lỗi: Không tìm thấy ID bài tập!", Toast.LENGTH_SHORT).show();
         }
 
-        // 5. XỬ LÝ SỰ KIỆN
         xuLySuKien();
+        batDauDemGio();
+    }
+
+    private void batDauDemGio() {
+        soGiayLamBai = 0;
+        boDemGio.postDelayed(tacVuDemGio, 1000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (boDemGio != null) {
+            boDemGio.removeCallbacks(tacVuDemGio);
+        }
     }
 
     private void anhXaView() {
@@ -89,7 +111,6 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
     }
 
     private void setupRecyclerView() {
-        // Khởi tạo Adapter với Context và Danh sách Response
         adapter = new CauHoiAdapter(this, danhSachCauHoi);
         rcvDanhSachCauHoi.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rcvDanhSachCauHoi.setAdapter(adapter);
@@ -97,14 +118,13 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
 
     private void xuLySuKien() {
         nutQuayLai.setOnClickListener(v -> finish());
+
+        // Bấm nút hoàn thành sẽ tính điểm
         btnHoanThanh.setOnClickListener(v -> chuyenSangTrangKetQua());
     }
 
-    // --- GỌI API ---
     private void goiApiLayCauHoi(int baiTapId) {
         ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
-
-        // Lưu ý: Trong ApiService, bạn phải sửa return type thành Call<List<CauHoiResponse>>
         apiService.getCauHoiByBaiTapId(baiTapId).enqueue(new Callback<List<CauHoiResponse>>() {
             @Override
             public void onResponse(Call<List<CauHoiResponse>> call, Response<List<CauHoiResponse>> response) {
@@ -112,17 +132,12 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
                     danhSachCauHoi.clear();
                     List<CauHoiResponse> listTuServer = response.body();
 
-                    // Duyệt qua từng câu hỏi
                     for (CauHoiResponse ch : listTuServer) {
-                        // QUAN TRỌNG: Gọi hàm có sẵn trong Class để parse JSON
-                        ch.xuLyDuLieu();
+                        ch.xuLyDuLieu(); // Parse JSON để lấy đáp án A, B, C, D và Correct
                         danhSachCauHoi.add(ch);
                     }
 
-                    // Cập nhật giao diện
                     adapter.notifyDataSetChanged();
-
-                    // Cập nhật thanh tiến trình
                     thanhTienTrinh.setMax(danhSachCauHoi.size());
                     capNhatTrangThaiTienTrinh();
 
@@ -139,17 +154,38 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
         });
     }
 
+    // --- SỬA ĐỔI 2: LOGIC TÍNH ĐIỂM CHÍNH XÁC ---
     private void chuyenSangTrangKetQua() {
+        boDemGio.removeCallbacks(tacVuDemGio);
+        int soCauDung = 0;
+
+        // Duyệt qua tất cả câu hỏi trong danh sách
+        for (CauHoiResponse cauHoi : danhSachCauHoi) {
+            int id = cauHoi.getId();
+
+            // Lấy đáp án đúng của câu hỏi (Từ JSON database đã xử lý)
+            String dapAnDungHeThong = cauHoi.getDapAnDung(); // Ví dụ: "Father"
+
+            // Lấy đáp án người dùng chọn từ Map
+            String dapAnNguoiDungChon = danhSachDapAnNguoiDung.get(id); // Ví dụ: "Father"
+
+            // So sánh (Dùng equals để so sánh chuỗi)
+            if (dapAnNguoiDungChon != null && dapAnDungHeThong != null) {
+                if (dapAnNguoiDungChon.trim().equalsIgnoreCase(dapAnDungHeThong.trim())) {
+                    soCauDung++;
+                }
+            }
+        }
+
         Intent intent = new Intent(BaiTapDocActivity.this, KetQuaActivity.class);
 
-        // Gửi kết quả
-        intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, tapHopIdCauHoiDaTraLoi.size());
+        // Truyền kết quả CHÍNH XÁC vừa tính được
+        intent.putExtra(KetQuaActivity.EXTRA_CORRECT_ANSWERS, soCauDung);
         intent.putExtra(KetQuaActivity.EXTRA_TOTAL_QUESTIONS, danhSachCauHoi.size());
 
-        // --- DÒNG QUAN TRỌNG CÒN THIẾU ---
-        // Phải gửi ID bài tập hiện tại sang để bên kia biết mà "Làm lại"
-        intent.putExtra("ID_BAI_TAP", idBaiTapHienTai);
+        intent.putExtra(KetQuaActivity.EXTRA_TIME_SPENT, soGiayLamBai);
 
+        intent.putExtra("ID_BAI_TAP", idBaiTapHienTai);
         intent.putExtra(KetQuaActivity.EXTRA_TOPIC, "Đọc");
         intent.putExtra(KetQuaActivity.EXTRA_LEVEL, capDoHienTai);
 
@@ -157,19 +193,21 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
         finish();
     }
 
-    // --- SỰ KIỆN TỪ ADAPTER ---
+    // --- SỬA ĐỔI 3: CẬP NHẬT MAP KHI CHỌN ĐÁP ÁN ---
     @Override
     public void khiDapAnDuocChon(int maCauHoi, String dapAnDuocChon) {
         if (dapAnDuocChon != null) {
-            tapHopIdCauHoiDaTraLoi.add(maCauHoi);
+            // Lưu vào Map: ID câu hỏi -> Nội dung chọn (Ví dụ: 1 -> "Father")
+            danhSachDapAnNguoiDung.put(maCauHoi, dapAnDuocChon);
         } else {
-            tapHopIdCauHoiDaTraLoi.remove(maCauHoi);
+            danhSachDapAnNguoiDung.remove(maCauHoi);
         }
         capNhatTrangThaiTienTrinh();
     }
 
     private void capNhatTrangThaiTienTrinh() {
-        int soCauDaTraLoi = tapHopIdCauHoiDaTraLoi.size();
+        // Đếm số lượng phần tử trong Map để biết đã làm bao nhiêu câu
+        int soCauDaTraLoi = danhSachDapAnNguoiDung.size();
         int tongSoCau = danhSachCauHoi.size();
 
         int phanTram = (tongSoCau > 0) ? (int) (((float) soCauDaTraLoi / (float) tongSoCau) * 100) : 0;

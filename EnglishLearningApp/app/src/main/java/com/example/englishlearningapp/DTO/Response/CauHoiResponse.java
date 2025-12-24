@@ -1,12 +1,11 @@
 package com.example.englishlearningapp.DTO.Response;
-import com.google.gson.annotations.SerializedName;
 
+import com.google.gson.annotations.SerializedName;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.Serializable;
 
-public class CauHoiResponse {
+public class CauHoiResponse implements Serializable {
     @SerializedName("id")
     private int id;
 
@@ -14,10 +13,10 @@ public class CauHoiResponse {
     private String noiDung;
 
     @SerializedName("loaiCauHoi")
-    private String loaiCauHoi; // ABCD, Speaking, FillBlank...
+    private String loaiCauHoi;
 
     @SerializedName("duLieuDapAn")
-    private String jsonDapAn; // Dữ liệu thô từ API
+    private String jsonDapAn;
 
     @SerializedName("giaiThich")
     private String giaiThich;
@@ -25,34 +24,40 @@ public class CauHoiResponse {
     @SerializedName("audioUrl")
     private String audioUrl;
 
-    // Các biến hỗ trợ hiển thị (Không map với JSON)
+    // Các biến hỗ trợ hiển thị
     private String dapAnA, dapAnB, dapAnC, dapAnD;
+
     private String dapAnDung;
 
-    // Getter & Setter...
+    private String dapAnDungRaw;
 
-    // HÀM QUAN TRỌNG: Parse JSON để lấy đáp án
+    // Biến lưu đáp án người dùng chọn (A, B...)
+    private String dapAnDaChon = "";
+
+    // --- HÀM XỬ LÝ DỮ LIỆU (ĐÃ SỬA) ---
     public void xuLyDuLieu() {
         try {
             if (jsonDapAn == null || jsonDapAn.isEmpty()) return;
 
             JSONObject json = new JSONObject(jsonDapAn);
 
-            // Lấy đáp án trắc nghiệm (nếu có)
+            // 1. Lấy nội dung các đáp án ABCD
             this.dapAnA = json.optString("A", "");
             this.dapAnB = json.optString("B", "");
             this.dapAnC = json.optString("C", "");
             this.dapAnD = json.optString("D", "");
 
-            // Lấy đáp án đúng
-            // Nếu JSON có field "Correct", giá trị có thể là "A" hoặc câu trả lời full
-            String correctKey = json.optString("Correct", "");
+            // 2. Lấy đáp án đúng THÔ (A, B, C, D hoặc từ điền khuyết)
+            // Đây là cái dùng để so sánh tính điểm
+            String correctKey = json.optString("Correct", "").trim();
+            this.dapAnDungRaw = correctKey;
 
+            // 3. Lấy nội dung hiển thị của đáp án đúng (để hiện lời giải)
             if (json.has(correctKey)) {
-                // Ví dụ Correct="A" -> Lấy nội dung của A
+                // Nếu Correct="A", json có key "A" -> Lấy nội dung của A (VD: "Father")
                 this.dapAnDung = json.optString(correctKey);
             } else {
-                // Ví dụ Correct="Hello" -> Đáp án là Hello
+                // Nếu không phải ABCD (dạng điền từ), nội dung chính là key
                 this.dapAnDung = correctKey;
             }
 
@@ -60,96 +65,37 @@ public class CauHoiResponse {
             e.printStackTrace();
         }
     }
-    private String dapAnDaChon = ""; // Biến lưu đáp án người dùng chọn
+
+    // --- Getter & Setter ---
+
+    public String getDapAnDungRaw() {
+        return dapAnDungRaw; // Dùng hàm này để chấm điểm
+    }
 
     public String getDapAnDaChon() { return dapAnDaChon; }
     public void setDapAnDaChon(String dapAnDaChon) { this.dapAnDaChon = dapAnDaChon; }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getNoiDung() { return noiDung; }
+    public void setNoiDung(String noiDung) { this.noiDung = noiDung; }
 
-    public String getNoiDung() {
-        return noiDung;
-    }
+    public String getLoaiCauHoi() { return loaiCauHoi; }
+    public void setLoaiCauHoi(String loaiCauHoi) { this.loaiCauHoi = loaiCauHoi; }
 
-    public void setNoiDung(String noiDung) {
-        this.noiDung = noiDung;
-    }
+    public String getJsonDapAn() { return jsonDapAn; }
+    public void setJsonDapAn(String jsonDapAn) { this.jsonDapAn = jsonDapAn; }
 
-    public String getLoaiCauHoi() {
-        return loaiCauHoi;
-    }
+    public String getGiaiThich() { return giaiThich; }
+    public void setGiaiThich(String giaiThich) { this.giaiThich = giaiThich; }
 
-    public void setLoaiCauHoi(String loaiCauHoi) {
-        this.loaiCauHoi = loaiCauHoi;
-    }
+    public String getAudioUrl() { return audioUrl; }
+    public void setAudioUrl(String audioUrl) { this.audioUrl = audioUrl; }
 
-    public String getJsonDapAn() {
-        return jsonDapAn;
-    }
-
-    public void setJsonDapAn(String jsonDapAn) {
-        this.jsonDapAn = jsonDapAn;
-    }
-
-    public String getGiaiThich() {
-        return giaiThich;
-    }
-
-    public void setGiaiThich(String giaiThich) {
-        this.giaiThich = giaiThich;
-    }
-
-    public String getAudioUrl() {
-        return audioUrl;
-    }
-
-    public void setAudioUrl(String audioUrl) {
-        this.audioUrl = audioUrl;
-    }
-
-    public String getDapAnA() {
-        return dapAnA;
-    }
-
-    public void setDapAnA(String dapAnA) {
-        this.dapAnA = dapAnA;
-    }
-
-    public String getDapAnB() {
-        return dapAnB;
-    }
-
-    public void setDapAnB(String dapAnB) {
-        this.dapAnB = dapAnB;
-    }
-
-    public String getDapAnC() {
-        return dapAnC;
-    }
-
-    public void setDapAnC(String dapAnC) {
-        this.dapAnC = dapAnC;
-    }
-
-    public String getDapAnD() {
-        return dapAnD;
-    }
-
-    public void setDapAnD(String dapAnD) {
-        this.dapAnD = dapAnD;
-    }
-
-    public String getDapAnDung() {
-        return dapAnDung;
-    }
-
-    public void setDapAnDung(String dapAnDung) {
-        this.dapAnDung = dapAnDung;
-    }
+    public String getDapAnA() { return dapAnA; }
+    public String getDapAnB() { return dapAnB; }
+    public String getDapAnC() { return dapAnC; }
+    public String getDapAnDung() { return dapAnDung; }
+    public String getDapAnD() { return dapAnD; }
 }
