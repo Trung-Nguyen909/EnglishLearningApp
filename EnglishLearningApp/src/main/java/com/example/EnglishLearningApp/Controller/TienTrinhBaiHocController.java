@@ -1,7 +1,9 @@
 package com.example.EnglishLearningApp.Controller;
 
 import com.example.EnglishLearningApp.Model.TienTrinhBaiHoc;
+import com.example.EnglishLearningApp.Repository.TienTrinhBaiHocRepository;
 import com.example.EnglishLearningApp.Service.TienTrinhBaiHocService;
+import com.example.EnglishLearningApp.dto.response.LatestLearningDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +41,14 @@ public class TienTrinhBaiHocController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/gan-nhat/{userId}")
+    public ResponseEntity<LatestLearningDto> getLatestLearning(@PathVariable Integer userId) {
+        LatestLearningDto result = TienTrinhBaiHocRepository.findLatestLessonByUserId(userId);
+        if (result != null) {
+            return ResponseEntity.ok(result);
+        }
         return ResponseEntity.noContent().build();
     }
 }
