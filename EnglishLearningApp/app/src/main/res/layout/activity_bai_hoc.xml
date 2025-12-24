@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,97 +8,109 @@
     android:background="@drawable/bg_trangchu"
     tools:context=".Activity.BaiHocActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="30dp"
+    <LinearLayout
         android:id="@+id/khung_tieu_de"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/royalBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/nut_quay_lai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="16dp"
-            android:src="@drawable/ic_muitentrang"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_muitenxanh"
             android:contentDescription="Quay lại" />
 
         <TextView
+            android:id="@+id/tv_header_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="English App"
-            android:textColor="@android:color/white"
+            android:textColor="#2563EB"
             android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/nut_quay_lai"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textStyle="bold" />
+    </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/khung_thong_tin"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="#FFFFFF"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="#FFFFFF"
         app:layout_constraintTop_toBottomOf="@id/khung_tieu_de"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:id="@+id/img_khoa_hoc"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:contentDescription="Icon Khóa học"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_thanhviengiadinh"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_tieu_de_khoa_hoc"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Thành viên gia đình"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/royalBlue"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@id/img_khoa_hoc"
-            app:layout_constraintTop_toTopOf="@id/img_khoa_hoc" />
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_chi_tiet_khoa_hoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cấp độ: Dễ | Hoàn thành: 0/6"
-            android:textSize="14sp"
-            android:textColor="@color/royalBlue"
-            app:layout_constraintStart_toStartOf="@id/tv_tieu_de_khoa_hoc"
-            app:layout_constraintTop_toBottomOf="@id/tv_tieu_de_khoa_hoc" />
+            <ImageView
+                android:id="@+id/img_khoa_hoc"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="Icon Khóa học"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_thanhviengiadinh"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@id/img_khoa_hoc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_tieu_de_khoa_hoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thành viên gia đình"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#2563EB" />
+
+                <TextView
+                    android:id="@+id/tv_chi_tiet_khoa_hoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Cấp độ: Dễ | Hoàn thành: 0/6"
+                    android:textSize="14sp"
+                    android:textColor="#666666" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_danh_sach_bai_hoc"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:clipToPadding="false"
-        android:padding="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/khung_thong_tin"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_bai_hoc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

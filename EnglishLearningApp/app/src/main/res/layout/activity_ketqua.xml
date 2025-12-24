@@ -187,9 +187,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Câu hỏi writing sẽ được AI chấm"
-                        android:textSize="14sp"
-                        android:textColor="#92400E" />
+                        android:text="Các câu trả lời sẽ được  AI chấm"
+                        android:textAlignment="center"
+                        android:textColor="#92400E"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <!-- Retry Button -->

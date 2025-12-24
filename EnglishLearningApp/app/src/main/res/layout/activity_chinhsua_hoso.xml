@@ -28,11 +28,12 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="8dp"
-            android:text="Chỉnh sửa thông tin"
-            android:textColor="@color/royalBlue"
+            android:layout_weight="1"
             android:gravity="center"
+            android:text="Chỉnh sửa thông tin"
+            android:textAlignment="center"
+            android:textColor="@color/royalBlue"
             android:textSize="20sp"
             android:textStyle="bold" />
         <ImageView
