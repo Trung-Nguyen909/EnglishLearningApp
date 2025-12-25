@@ -22,8 +22,8 @@ public class ChiTietBaiLam {
 
     @Lob
     @Column(name = "UserAns")
-    private String userAns; // Câu trả lời của user
+    private String userAns;
 
     @Column(name = "IsCorrect")
-    private Boolean isCorrect; // True/False
+    private Boolean isCorrect;
 }

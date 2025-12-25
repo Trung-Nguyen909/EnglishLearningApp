@@ -48,8 +48,6 @@ public class NguPhapController {
     public ResponseEntity<List<NguPhap>> getNguPhapByBaiHoc(@PathVariable Integer idBaiHoc) {
         List<NguPhap> list = nguPhapService.getNguPhapByBaiHoc(idBaiHoc);
 
-        // Kiểm tra nếu danh sách rỗng thì trả về 204 No Content hoặc danh sách rỗng hahahahaha
-
         if (list.isEmpty()) {
             return ResponseEntity.noContent().build();
         }

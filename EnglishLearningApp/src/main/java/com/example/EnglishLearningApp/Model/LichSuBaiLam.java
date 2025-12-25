@@ -25,6 +25,9 @@ public class LichSuBaiLam {
     @Column(name = "IDBaiTap")
     private Integer idBaiTap; // Null nếu làm bài test
 
+    @Column(name = "Tenbai", length = 100)
+    private String tenBai;
+
     @Column(name = "LoaiBai", length = 20)
     private String loaiBai; // 'TEST' hoặc 'BAITAP'
 
@@ -37,4 +40,7 @@ public class LichSuBaiLam {
     @Builder.Default
     @Column(name = "TgianNopBai")
     private LocalDateTime tgianNopBai = LocalDateTime.now();
+
+    @Column(name = "TgianLam")
+    private Integer tgianLam;
 }

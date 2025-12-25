@@ -104,10 +104,12 @@ CREATE TABLE LichSuBaiLam (
     IDNguoiDung INT NOT NULL,
     IDTest INT NULL,   -- Null nếu làm bài tập
     IDBaiTap INT NULL, -- Null nếu làm bài test
+	TenBai nvarchar(100),
     LoaiBai NVARCHAR(20), -- 'TEST' hoặc 'BAITAP'
     DiemSo DECIMAL(10,2),
     TrangThai NVARCHAR(50), -- 'Hoàn thành', 'Đang làm'
     TgianNopBai DATETIME DEFAULT GETDATE(),
+    TgianLam int,
     FOREIGN KEY (IDNguoiDung) REFERENCES NguoiDung(ID),
     FOREIGN KEY (IDTest) REFERENCES Test(ID),
     FOREIGN KEY (IDBaiTap) REFERENCES BaiTap(ID)
@@ -577,17 +579,20 @@ INSERT INTO Test_CauHoi (IDTest, IDCauHoi) VALUES
 
 -- 9. Insert LichSuBaiLam (Thay cho KetQua cũ)
 -- User 1 làm bài Test 1 được 8.5 điểm
-INSERT INTO LichSuBaiLam (IDNguoiDung, IDTest, IDBaiTap, LoaiBai, DiemSo, TrangThai, TgianNopBai) VALUES
-(1, 1, NULL, 'TEST', 8.5, N'Hoàn thành', '2024-01-15 08:45:00'),
+INSERT INTO LichSuBaiLam (IDNguoiDung, IDTest, IDBaiTap, Tenbai, LoaiBai, DiemSo, TrangThai, TgianNopBai, TgianLam) VALUES
+(1, 1, NULL, N'Kiểm tra lần 1', 'TEST', 8.5, N'Hoàn thành', '2024-01-15 08:45:00', 100),
 -- User 1 làm Bài tập 1 được 10 điểm
-(1, NULL, 1, 'BAITAP', 10.0, N'Hoàn thành', '2024-01-15 09:00:00');
+(1, NULL, 1, N'Kiểm tra từ vựng', 'BAITAP', 10.0, N'Hoàn thành', '2024-01-15 09:00:00', 100),
+(2, 1, NULL, N'Kiểm tra lần 1', 'TEST', 8.5, N'Hoàn thành', '2024-01-15 08:45:00', 300),
+-- User 1 làm Bài tập 1 được 10 điểm
+(2, NULL, 1, N'Kiểm tra từ vựng', 'BAITAP', 10.0, N'Hoàn thành', '2024-01-15 09:00:00', 560);
 
 -- 10. Insert ChiTietBaiLam (Chi tiết đúng sai)
 -- Chi tiết cho Lịch sử bài làm ID = 1 (Bài Test của User 1)
 INSERT INTO ChiTietBaiLam (IDLichSuBaiLam, IDCauHoi, UserAns, IsCorrect) VALUES
-(1, 1, 'C', 1), -- Câu 1 chọn C (Đúng)
-(1, 2, 'B', 0), -- Câu 2 chọn B (Sai - Đáp án đúng là A)
-(1, 4, 'A', 1); -- Câu 4 chọn A (Đúng)
+(3, 1, 'B', 1),
+(3, 2, 'B', 0),
+(3, 4, 'B', 1);
 
 -- CÁC DỮ LIỆU KHÁC (Phản hồi, Bình luận...)
 INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
@@ -866,3 +871,6 @@ ORDER BY bt.ID;
 
 select * from NguPhap
 select * from TuVung
+select * from LichSuBaiLam
+select ct.id, ct.IDLichSuBaiLam, ct.IDCauHoi, ct.IsCorrect, ct.UserAns, c.NoiDungCauHoi, c.DuLieuDapAn,c.GiaiThich
+from ChiTietBaiLam ct join CauHoi c on ct.IDCauHoi = c.ID
