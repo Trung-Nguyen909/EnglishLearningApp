@@ -32,4 +32,7 @@ public class BaiHoc {
 
     @Column(name = "trangThai", length = 50)
     private String trangThai;
+
+    @Column(name = "IconUrl", length = 255)
+    private String iconUrl;
 }

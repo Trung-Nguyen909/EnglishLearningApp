@@ -26,4 +26,7 @@ public class KhoaHoc {
 
     @Column(name = "ngayTao", nullable = false)
     private LocalDate ngayTao;
+
+    @Column(name = "IconUrl", length = 255)
+    private String iconUrl;
 }

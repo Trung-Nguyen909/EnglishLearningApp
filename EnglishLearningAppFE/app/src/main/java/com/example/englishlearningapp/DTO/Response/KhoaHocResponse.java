@@ -1,25 +1,31 @@
 package com.example.englishlearningapp.DTO.Response;
 
-import java.time.LocalDate;
-
 public class KhoaHocResponse {
+
     private Integer id;
-
     private String tenKhoaHoc;
-
     private String moTa;
-
     private String trinhDo;
-
     private String ngayTao;
+    private String iconUrl;
 
-    public KhoaHocResponse(Integer id, String tenKhoaHoc, String moTa, String trinhDo, String ngayTao) {
+    public KhoaHocResponse(
+            Integer id,
+            String tenKhoaHoc,
+            String moTa,
+            String trinhDo,
+            String ngayTao,
+            String iconUrl
+    ) {
         this.id = id;
         this.tenKhoaHoc = tenKhoaHoc;
         this.moTa = moTa;
         this.trinhDo = trinhDo;
         this.ngayTao = ngayTao;
+        this.iconUrl = iconUrl;
     }
+
+    // ===== getter / setter =====
 
     public Integer getId() {
         return id;
@@ -57,7 +63,15 @@ public class KhoaHocResponse {
         return ngayTao;
     }
 
-    public void setNgayTao(String  ngayTao) {
+    public void setNgayTao(String ngayTao) {
         this.ngayTao = ngayTao;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 }
