@@ -16,20 +16,20 @@
         android:theme="@style/Theme.EnglishLearningApp">
         <activity android:name=".Activity.BaiTapNoiActivity" />
         <activity android:name=".Activity.BaiTapVietActivity" />
-        <activity android:name=".LichSuLamBaiActivity" />
-        <activity android:name=".TestResultActivity" />
+        <activity android:name=".Activity.LichSuLamBaiActivity" />
+        <activity android:name=".Activity.TestResultActivity" />
         <activity android:name=".Activity.BaiTapDocActivity"/>
-        <activity android:name=".DangNhapActivity" />
-        <activity android:name=".LessonVocabularyActivity"/>
-        <activity android:name=".DangKyActivity" />
+        <activity android:name=".Activity.DangNhapActivity" />
+        <activity android:name=".Activity.LessonVocabularyActivity"/>
+        <activity android:name=".Activity.DangKyActivity" />
         <activity android:name=".Activity.KetQuaActivity"/>
         <activity android:name=".Activity.ChiTietBaiTapActivity" />
         <activity android:name=".Activity.BaiTapNgheActivity" />
         <activity android:name=".Activity.BaiHocActivity" />
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".NguPhapActivity"/>
+        <activity android:name=".Activity.MainActivity"/>
+        <activity android:name=".Activity.NguPhapActivity"/>
         <activity
-            android:name=".ManHinhChoActivity"
+            android:name=".Activity.ManHinhChoActivity"
             android:exported="true"
             android:theme="@style/Theme.EnglishLearningApp.Splash">
             <intent-filter>

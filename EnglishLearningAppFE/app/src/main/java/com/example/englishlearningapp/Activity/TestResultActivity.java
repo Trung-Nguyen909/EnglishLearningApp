@@ -1,8 +1,7 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,8 +12,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.DTO.Response.ChiTietBaitapResponse;
 import com.example.englishlearningapp.Model.QuestionResult;
+import com.example.englishlearningapp.Adapter.QuestionResultAdapter;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

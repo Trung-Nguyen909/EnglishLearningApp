@@ -1,9 +1,8 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,10 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Activity.BaiHocActivity;
 import com.example.englishlearningapp.Adapter.NguPhapDetailAdapter;
 import com.example.englishlearningapp.Model.NguPhap;
 import com.example.englishlearningapp.ApiClient;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 
 import java.util.List;

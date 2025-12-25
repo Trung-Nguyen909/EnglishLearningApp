@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.DTO.Response.TuVungResponse;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
+import com.example.englishlearningapp.Adapter.TuVungAdapter;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +17,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+
+import com.example.englishlearningapp.R;
 
 public class ChinhSuaHoSoFragment extends Fragment {
     Button btnHuy, btnLuu;

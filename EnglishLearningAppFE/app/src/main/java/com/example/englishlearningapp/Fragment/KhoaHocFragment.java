@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Fragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,9 +14,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishlearningapp.Adapter.ChuDeAdapter;
+import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.DTO.Response.KhoaHocResponse;
-import com.example.englishlearningapp.Fragment.KiemTraFragment;
 import com.example.englishlearningapp.Model.ChuDeModel;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 
 import java.util.ArrayList;

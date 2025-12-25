@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.DTO.Request.UserRegisterRequest;
 import com.example.englishlearningapp.DTO.Response.NguoiDungRespone;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 
 import java.io.IOException;

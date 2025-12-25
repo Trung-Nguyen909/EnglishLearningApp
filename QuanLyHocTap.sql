@@ -247,7 +247,7 @@ INSERT INTO NguoiDung
 VALUES
 ('user1', '$2a$10$PLLK1jr5F0hDTVVoKFSGj.T7nhAKhH/Qo563lNtuaaEMndxZwy.Ky', 'ttuankhanh4@gmail.com', 'U0001_ava.jpg', '2024-01-15 08:30:00', 5, 'ADMIN', 3600),
 ('user2', '$2a$10$OgyHCP.YQ4xoGGXFpD6z3O01TwJNIhUG8t60Tu82HnwFkThK7BrUy', 'chientranminh355@gmail.com', 'U0002_ava.jpg', '2024-01-14 10:15:00', 3, 'USER', 1800),
-('user3', '$2a$10$l7GqvKZDYVsReEiGCc0LpeGoGgy0beEJ2yrAmSvzOM2BcOWUfStDC', 'huynhletienhien@gmail.com', 'U0003_ava.jpg', '2024-01-13 14:20:00', 7, 'USER', 7200);
+('TienHien', '$2a$10$l7GqvKZDYVsReEiGCc0LpeGoGgy0beEJ2yrAmSvzOM2BcOWUfStDC', 'huynhletienhien@gmail.com', 'U0003_ava.jpg', '2024-01-13 14:20:00', 7, 'USER', 7200);
 
 -- 2. Insert KhoaHoc
 INSERT INTO KhoaHoc (tenKhoaHoc, moTa, trinhDo, ngayTao, IconUrl) VALUES

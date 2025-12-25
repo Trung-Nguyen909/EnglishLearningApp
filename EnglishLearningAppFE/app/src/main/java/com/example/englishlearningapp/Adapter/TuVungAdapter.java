@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Adapter;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.DTO.Response.TuVungResponse;
+import com.example.englishlearningapp.R;
 
 import java.io.IOException;
 import java.util.List;

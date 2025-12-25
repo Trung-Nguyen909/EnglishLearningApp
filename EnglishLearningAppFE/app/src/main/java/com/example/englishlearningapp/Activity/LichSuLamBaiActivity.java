@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.DTO.Response.LichSuBaiTapResponse;
+import com.example.englishlearningapp.Adapter.LichSuLamBaiAdapter;
 import com.example.englishlearningapp.Model.BaiTapModel;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 
 import java.text.ParseException;
