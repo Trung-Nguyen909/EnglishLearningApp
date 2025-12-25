@@ -790,7 +790,7 @@ VALUES
 (2, GETDATE(), 15, 0);
 INSERT INTO TienTrinhKhoaHoc (IdKhoaHoc, IdUser, trangthai, PhanTram, LanLamGanNhat, Tgianhoc, NgayBatDau)
 VALUES 
-(1, 1, N'Đang học', 50.00, GETDATE(), 3600, '2024-01-10 08:00:00'),
+(1, 2, N'Đang học', 50.00, GETDATE(), 3600, '2024-01-10 08:00:00'),
 (1, 2, N'Đang học', 0.00, GETDATE(), 0, GETDATE());
 
 INSERT INTO TienTrinhBaiHoc (IdTienTrinhKhoaHoc, IDBaiHoc, status, Ngaybatdau, Ngayketthuc, solanlam, tgianlam)
@@ -874,3 +874,11 @@ select * from TuVung
 select * from LichSuBaiLam
 select ct.id, ct.IDLichSuBaiLam, ct.IDCauHoi, ct.IsCorrect, ct.UserAns, c.NoiDungCauHoi, c.DuLieuDapAn,c.GiaiThich
 from ChiTietBaiLam ct join CauHoi c on ct.IDCauHoi = c.ID
+
+select top 1 kh.tenKhoaHoc, k.PhanTram, bh.tenBaiHoc, b.Ngaybatdau, bh.ID
+from TienTrinhKhoaHoc k 
+	join TienTrinhBaiHoc b on k.ID = b.IdTienTrinhKhoaHoc
+	join KhoaHoc kh on kh.ID = k.IdKhoaHoc
+	join BaiHoc bh on bh.ID = b.IDBaiHoc
+where b.status = N'In Progress' and k.IdUser = 1
+order by b.Ngaybatdau desc
