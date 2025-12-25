@@ -17,9 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.Adapter.CauHoiAdapter;
 import com.example.englishlearningapp.DTO.Response.CauHoiResponse;
+import com.example.englishlearningapp.DTO.Request.LichSuBaiTapRequest;
+import com.example.englishlearningapp.DTO.Request.CauTraLoiRequest;
 import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
+import com.example.englishlearningapp.Retrofit.ApiResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -160,12 +163,16 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
         boDemGio.removeCallbacks(tacVuDemGio);
         int soCauDung = 0;
 
+        // Tạo danh sách câu trả lời để gửi lên API
+        List<CauTraLoiRequest> danhSachCauTraLoi = new ArrayList<>();
+
         // Duyệt qua tất cả câu hỏi trong danh sách
         for (CauHoiResponse cauHoi : danhSachCauHoi) {
             int id = cauHoi.getId();
 
             // Lấy đáp án đúng của câu hỏi (Từ JSON database đã xử lý)
             String dapAnDungHeThong = cauHoi.getDapAnDung(); // Ví dụ: "Father"
+            String dapAnDungRaw = cauHoi.getDapAnDungRaw(); // Ví dụ: "A", "B", "C", "D"
 
             // Lấy đáp án người dùng chọn từ Map
             String dapAnNguoiDungChon = danhSachDapAnNguoiDung.get(id); // Ví dụ: "Father"
@@ -176,7 +183,26 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
                     soCauDung++;
                 }
             }
+
+            // Thêm vào danh sách câu trả lời
+            // userAns: Nội dung người dùng chọn (hoặc empty nếu không chọn)
+            // correctAns: Nội dung đáp án đúng
+            String userAnswer = dapAnNguoiDungChon != null ? dapAnNguoiDungChon : "";
+            danhSachCauTraLoi.add(new CauTraLoiRequest(id, userAnswer, dapAnDungHeThong));
         }
+
+        // Tạo object LichSuBaiTapRequest để gửi lên API
+        LichSuBaiTapRequest lichSuRequest = new LichSuBaiTapRequest(
+                null,                           // idTest: null vì là bài tập
+                idBaiTapHienTai,               // idBaiTap
+                tenBaiTap,                     // tenBai
+                "BAI_TAP",                     // loaiBai: "BAI_TAP" hoặc "TEST"
+                soGiayLamBai,                  // tgianLam: thời gian làm bài (giây)
+                danhSachCauTraLoi              // cauTraLoi: danh sách câu trả lời
+        );
+
+        // Gửi lên API
+        guiLichSuLenAPI(lichSuRequest);
 
         Intent intent = new Intent(BaiTapDocActivity.this, KetQuaActivity.class);
 
@@ -192,6 +218,26 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
 
         startActivity(intent);
         finish();
+    }
+
+    // --- METHOD GỬI LỊCH SỬ LÊN API ---
+    private void guiLichSuLenAPI(LichSuBaiTapRequest lichSuRequest) {
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+        apiService.submitLichSuBaiTap(lichSuRequest).enqueue(new Callback<ApiResponse<Object>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<Object>> call, Response<ApiResponse<Object>> response) {
+                if (response.isSuccessful()) {
+                    Log.d("SUBMIT_SUCCESS", "Lịch sử bài tập đã được lưu thành công!");
+                } else {
+                    Log.e("SUBMIT_ERROR", "Lỗi khi lưu lịch sử: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<Object>> call, Throwable t) {
+                Log.e("SUBMIT_FAILURE", "Lỗi kết nối: " + t.getMessage());
+            }
+        });
     }
 
     // --- SỬA ĐỔI 3: CẬP NHẬT MAP KHI CHỌN ĐÁP ÁN ---

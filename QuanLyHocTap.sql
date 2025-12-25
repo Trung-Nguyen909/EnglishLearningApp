@@ -862,7 +862,7 @@ USE QuanLyHocTap;
 GO
 
 select * from KyNang
-
+select * from khoahoc
 select * from BaiTap
 select * from BaiHoc
 select * from CauHoi
@@ -878,6 +878,7 @@ ORDER BY bt.ID;
 select * from NguPhap
 select * from TuVung
 select * from LichSuBaiLam
+select * from ChiTietBaiLam
 select ct.id, ct.IDLichSuBaiLam, ct.IDCauHoi, ct.IsCorrect, ct.UserAns, c.NoiDungCauHoi, c.DuLieuDapAn,c.GiaiThich
 from ChiTietBaiLam ct join CauHoi c on ct.IDCauHoi = c.ID
 
@@ -886,5 +887,5 @@ from TienTrinhKhoaHoc k
 	join TienTrinhBaiHoc b on k.ID = b.IdTienTrinhKhoaHoc
 	join KhoaHoc kh on kh.ID = k.IdKhoaHoc
 	join BaiHoc bh on bh.ID = b.IDBaiHoc
-where b.status = N'In Progress' and k.IdUser = 1
+where b.status = N'In Progress' and k.IdUser = 2
 order by b.Ngaybatdau desc

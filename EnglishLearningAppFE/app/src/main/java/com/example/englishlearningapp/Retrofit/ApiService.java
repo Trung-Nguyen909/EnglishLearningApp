@@ -1,6 +1,7 @@
 package com.example.englishlearningapp.Retrofit;
 import com.example.englishlearningapp.DTO.Request.UserLoginRequest;
 import com.example.englishlearningapp.DTO.Request.UserRegisterRequest;
+import com.example.englishlearningapp.DTO.Request.LichSuBaiTapRequest;
 import com.example.englishlearningapp.DTO.Response.AuthResponse;
 import com.example.englishlearningapp.DTO.Response.BaiHocGanNhatResponse;
 import com.example.englishlearningapp.DTO.Response.BaiHocResponse;
@@ -85,4 +86,7 @@ public interface ApiService {
 
     @GET("bai-lam/lich-su/{id}")
     Call<List<ChiTietBaitapResponse>> getChiTietBaiLam(@Path("id") int idLichSu);
+
+    @POST("lichsu/submit")
+    Call<ApiResponse<Object>> submitLichSuBaiTap(@Body LichSuBaiTapRequest lichSuRequest);
 }

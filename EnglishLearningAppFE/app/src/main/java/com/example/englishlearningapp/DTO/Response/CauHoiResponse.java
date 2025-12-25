@@ -98,4 +98,9 @@ public class CauHoiResponse implements Serializable {
     public String getDapAnC() { return dapAnC; }
     public String getDapAnDung() { return dapAnDung; }
     public String getDapAnD() { return dapAnD; }
+
+    // Getter cho đáp án thô (A, B, C, D)
+    public String getDapAnDungRawAnswer() {
+        return dapAnDungRaw; // Trả về "A", "B", "C", "D" hoặc nội dung câu
+    }
 }

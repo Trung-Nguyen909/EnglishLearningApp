@@ -81,13 +81,19 @@ async function http(url, { method = "GET", body, headers } = {}) {
     body: body ? JSON.stringify(body) : undefined,
   };
 
-  console.log("[HTTP]", method, url, body || "");
+  console.log("[HTTP REQ]", method, url, JSON.stringify(body || ""));
 
-  const res = await fetch(url, reqInit);
-  const raw = await res.text().catch(() => "");
-  const data = raw ? safeJsonParse(raw, raw) : null;
+  let res, raw, data;
+  try {
+    res = await fetch(url, reqInit);
+    raw = await res.text().catch(() => "");
+    data = raw ? safeJsonParse(raw, raw) : null;
+  } catch (fetchErr) {
+    console.error("[HTTP FETCH ERROR]", fetchErr);
+    throw new Error(`Fetch failed: ${fetchErr.message}`);
+  }
 
-  console.log("[HTTP RES]", res.status, url, data);
+  console.log("[HTTP RES]", res.status, url, "data:", data, "raw:", raw);
 
   if (res.status === 401 || res.status === 403) {
     toast("Phiên đăng nhập hết hạn", "Vui lòng đăng nhập lại", "warn");
@@ -103,6 +109,7 @@ async function http(url, { method = "GET", body, headers } = {}) {
       typeof data === "string"
         ? data
         : data?.message || data?.error || "Request failed";
+    console.error("[HTTP ERROR]", res.status, msg);
     throw new Error(`HTTP ${res.status}: ${msg}`);
   }
 
@@ -153,51 +160,43 @@ const Data = {
     });
   },
 
-  async update(entity, id, payload) {
-    const idNum = Number(id);
-    const body = { ...payload, id: idNum };
+async update(entity, id, payload) {
+  const mainUrl = ApiRoutes[entity].update(id);
 
-    const mainUrl = ApiRoutes[entity].update(id);
-    const baseUrl = ApiRoutes[entity].create();
+  if (entity === "courses" || entity === "users") {
+    return await http(mainUrl, {
+      method: "PUT",
+      body: payload,
+    });
+  }
 
-    // PUT chuẩn
-    if (entity === "courses" || entity === "users") {
-      return await http(mainUrl, { method: "PUT", body });
+  // Lessons/Questions: thử nhiều kiểu (do backend hay khác nhau)
+  const pathName = entity === "lessons" ? "baihoc" : "cauhoi";
+
+  const candidates = [
+    { url: mainUrl, method: "PUT" },
+    { url: mainUrl, method: "PATCH" },
+    { url: mainUrl, method: "POST" },
+    { url: `${API_BASE}/${pathName}/update/${id}`, method: "PUT" },
+    { url: `${API_BASE}/${pathName}/update`, method: "POST" },
+  ];
+
+  let lastErr = null;
+
+  for (const c of candidates) {
+    try {
+      console.log("[TRY UPDATE]", entity, c.method, c.url, payload);
+      const res = await http(c.url, { method: c.method, body: payload });
+      console.log("[UPDATE OK]", entity, c.method, c.url, res);
+      return res;
+    } catch (e) {
+      lastErr = e;
+      console.warn("[UPDATE FAIL]", entity, c.method, c.url, e.message);
     }
+  }
 
-    // Lessons/Questions: thử nhiều kiểu (do backend hay khác nhau)
-    const pathName = entity === "lessons" ? "baihoc" : "cauhoi";
-
-    const candidates = [
-      { url: mainUrl, method: "PUT" },
-      { url: mainUrl, method: "PATCH" },
-
-      { url: baseUrl, method: "PUT" },
-      { url: baseUrl, method: "PATCH" },
-
-      { url: mainUrl, method: "POST" },
-      { url: baseUrl, method: "POST" },
-
-      { url: `${API_BASE}/${pathName}/update/${idNum}`, method: "PUT" },
-      { url: `${API_BASE}/${pathName}/update`, method: "POST" },
-    ];
-
-    let lastErr = null;
-
-    for (const c of candidates) {
-      try {
-        console.log("[TRY UPDATE]", entity, c.method, c.url, body);
-        const res = await http(c.url, { method: c.method, body });
-        console.log("[UPDATE OK]", entity, c.method, c.url, res);
-        return res;
-      } catch (e) {
-        lastErr = e;
-        console.warn("[UPDATE FAIL]", entity, c.method, c.url, e.message);
-      }
-    }
-
-    throw lastErr || new Error("Không cập nhật được");
-  },
+  throw lastErr || new Error("Không cập nhật được");
+},
 
   async remove(entity, id) {
     await http(ApiRoutes[entity].remove(id), { method: "DELETE" });
@@ -356,6 +355,7 @@ const PageCfg = {
       },
       { name: "ngayTao", label: "Ngày tạo", type: "date", required: true },
       { name: "moTa", label: "Mô tả", as: "textarea", col12: true },
+      { name: "iconUrl", label: "Icon URL", col12: true },
     ],
   },
 
@@ -500,7 +500,6 @@ function cleanEmptyToNull(obj) {
 
 function normalizePayload(route, data, idForUpdate = null) {
   let p = cleanEmptyToNull(data);
-  if (idForUpdate != null) p.id = Number(idForUpdate);
 
   if (route === "courses") {
     if (!p.tenKhoaHoc) throw new Error("tenKhoaHoc không được trống");
@@ -548,7 +547,15 @@ function normalizePayload(route, data, idForUpdate = null) {
     if (!p.role) p.role = "USER";
   }
 
-  return p;
+  // ❌ Xóa fields null/undefined để tránh conflict với backend
+  const result = {};
+  for (const k of Object.keys(p)) {
+    if (p[k] !== null && p[k] !== undefined) {
+      result[k] = p[k];
+    }
+  }
+
+  return result;
 }
 
 /* =========================
@@ -724,11 +731,13 @@ function bindEvents() {
         onSubmit: async (data) => {
           try {
             const payload = normalizePayload(currentRoute, data, id);
+            console.log("[EDIT PAYLOAD]", currentRoute, "id:", id, "payload:", payload);
             await Data.update(entity, id, payload);
             toast("Đã cập nhật", `ID=${id}`, "ok");
             Modal.close();
             await loadAndRender();
           } catch (err) {
+            console.error("[EDIT ERROR]", err);
             toast("Cập nhật thất bại", err.message || "Error", "bad");
           }
         },
