@@ -32,7 +32,8 @@ CREATE TABLE KhoaHoc (
     tenKhoaHoc NVARCHAR(100) NOT NULL,
     moTa NVARCHAR(500),
     trinhDo NVARCHAR(50),
-    ngayTao DATE NOT NULL
+    ngayTao DATE NOT NULL,
+	IconUrl NVARCHAR(255) NULL
 );
 
 -- 3. BẢNG BÀI HỌC
@@ -44,6 +45,7 @@ CREATE TABLE BaiHoc (
     noiDung NVARCHAR(MAX),
     thuTuBaiHoc INT,
     trangThai NVARCHAR(50),
+	IconUrl NVARCHAR(255) NULL,
     FOREIGN KEY (IDKhoaHoc) REFERENCES KhoaHoc(ID)
 );
 
@@ -248,18 +250,22 @@ VALUES
 ('user3', '$2a$10$l7GqvKZDYVsReEiGCc0LpeGoGgy0beEJ2yrAmSvzOM2BcOWUfStDC', 'huynhletienhien@gmail.com', 'U0003_ava.jpg', '2024-01-13 14:20:00', 7, 'USER', 7200);
 
 -- 2. Insert KhoaHoc
-INSERT INTO KhoaHoc (tenKhoaHoc, moTa, trinhDo, ngayTao) VALUES
-(N'Tiếng Anh Cơ Bản', N'Khóa học tiếng Anh dành cho người mới bắt đầu', N'Beginner', '2024-01-01'),
-(N'Tiếng Anh Trung Cấp', N'Khóa học tiếng Anh trình độ trung cấp', N'Intermediate', '2024-01-05');
+INSERT INTO KhoaHoc (tenKhoaHoc, moTa, trinhDo, ngayTao, IconUrl) VALUES
+(N'Tiếng Anh Cơ Bản', N'Khóa học tiếng Anh dành cho người mới bắt đầu', N'Beginner', '2024-01-01', 'img_ic_family_course'),
+(N'Tiếng Anh Trung Cấp', N'Khóa học tiếng Anh trình độ trung cấp', N'Intermediate', '2024-01-05', 'img_ic_shopping_course');
+GO
+
 
 -- 3. Insert BaiHoc
-INSERT INTO BaiHoc (IDKhoaHoc, tenBaiHoc, moTa, noiDung, thuTuBaiHoc, trangThai) VALUES
-(1, N'Gia đình', N'Family Members', N'Vocabulary about family...', 1, N'Đã hoàn thành'),
-(1, N'Cuộc sống học đường', N'School Life', N'School supplies and subjects...', 2, N'Chưa làm'),
-(1, N'Thức ăn & Đồ uống', N'Food & Drinks', N'Meals and ordering food...', 3, N'Chưa làm'),
-(1, N'Nhà của tôi', N'My House', N'Rooms and furniture...', 4, N'Chưa làm'),
-(1, N'Mua sắm', N'Shopping', N'Clothes and prices...', 5, N'Chưa làm'),
-(1, N'Động vật', N'Animals', N'Wild and domestic animals...', 6, N'Chưa làm');
+INSERT INTO BaiHoc (IDKhoaHoc, tenBaiHoc, moTa, noiDung, thuTuBaiHoc, trangThai, IconUrl) VALUES
+(1, N'Gia đình', N'Family Members', N'Vocabulary about family...', 1, N'Đã hoàn thành', 'img_ic_family_course'),
+(1, N'Cuộc sống học đường', N'School Life', N'School supplies and subjects...', 2, N'Chưa làm', N'img_ic_schoollife_course'),
+(1, N'Thức ăn & Đồ uống', N'Food & Drinks', N'Meals and ordering food...', 3, N'Chưa làm', N'img_ic_fooddrink_course'),
+(1, N'Nhà của tôi', N'My House', N'Rooms and furniture...', 4, N'Chưa làm', N'img_ic_househome_course'),
+(1, N'Mua sắm', N'Shopping', N'Clothes and prices...', 5, N'Chưa làm', N'img_ic_shopping_course'),
+(1, N'Động vật', N'Animals', N'Wild and domestic animals...', 6, N'Chưa làm', N'img_ic_animal_course');
+GO
+
 
 -- 4. Insert CapDo
 INSERT INTO CapDo (DoKho) VALUES (N'Dễ'), (N'Trung bình'), (N'Khó');
