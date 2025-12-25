@@ -255,7 +255,6 @@ INSERT INTO KhoaHoc (tenKhoaHoc, moTa, trinhDo, ngayTao, IconUrl) VALUES
 (N'Tiếng Anh Trung Cấp', N'Khóa học tiếng Anh trình độ trung cấp', N'Intermediate', '2024-01-05', 'img_ic_shopping_course');
 GO
 
-
 -- 3. Insert BaiHoc
 INSERT INTO BaiHoc (IDKhoaHoc, tenBaiHoc, moTa, noiDung, thuTuBaiHoc, trangThai, IconUrl) VALUES
 (1, N'Gia đình', N'Family Members', N'Vocabulary about family...', 1, N'Đã hoàn thành', 'img_ic_family_course'),
@@ -266,6 +265,10 @@ INSERT INTO BaiHoc (IDKhoaHoc, tenBaiHoc, moTa, noiDung, thuTuBaiHoc, trangThai,
 (1, N'Động vật', N'Animals', N'Wild and domestic animals...', 6, N'Chưa làm', N'img_ic_animal_course');
 GO
 
+INSERT INTO BaiHoc (IDKhoaHoc, tenBaiHoc, moTa, noiDung, thuTuBaiHoc, trangThai) VALUES
+(2, N'Tại văn phòng', N'Office Life', N'Conversations about work, meetings, and deadlines.', 7, N'Chưa làm'),
+(2, N'Du lịch quốc tế', N'International Travel', N'At the airport, checking in, and customs.', 8, N'Chưa làm'),
+(2, N'Sức khỏe & Lối sống', N'Health & Lifestyle', N'Talking about symptoms, diet, and exercise.', 9, N'Chưa làm');
 
 -- 4. Insert CapDo
 INSERT INTO CapDo (DoKho) VALUES (N'Dễ'), (N'Trung bình'), (N'Khó');
@@ -301,7 +304,22 @@ VALUES
 -- Bài 6: Động vật (ID 16-18)
 (6, N'Động vật hoang dã', N'Đọc', N'Chưa làm', N'Dễ', '00:10:00'),
 (6, N'Nghe tiếng kêu động vật', N'Nghe', N'Chưa làm', N'Trung bình', '00:15:00'),
-(6, N'Viết về thú cưng', N'Viết', N'Chưa làm', N'Khó', '00:20:00');
+(6, N'Viết về thú cưng', N'Viết', N'Chưa làm', N'Khó', '00:20:00'),
+
+-- Bài 7: Tại văn phòng 
+(7, N'Từ vựng & Email công sở', N'Đọc', N'Chưa làm', N'Dễ', '00:10:00'),
+(7, N'Nghe cuộc họp đầu tuần', N'Nghe', N'Chưa làm', N'Trung bình', '00:15:00'),
+(7, N'Nói: Thảo luận deadline', N'Nói', N'Chưa làm', N'Khó', '00:15:00'),
+
+-- Bài 8: Du lịch quốc tế 
+(8, N'Đọc bảng chỉ dẫn sân bay', N'Đọc', N'Chưa làm', N'Dễ', '00:10:00'),
+(8, N'Nghe thông báo chuyến bay', N'Nghe', N'Chưa làm', N'Trung bình', '00:15:00'),
+(8, N'Nói: Giao tiếp với Hải quan', N'Nói', N'Chưa làm', N'Khó', '00:15:00'),
+
+-- Bài 9: Sức khỏe & Lối sống
+(9, N'Đọc hiểu đơn thuốc', N'Đọc', N'Chưa làm', N'Dễ', '00:10:00'),
+(9, N'Nghe bác sĩ tư vấn', N'Nghe', N'Chưa làm', N'Trung bình', '00:15:00'),
+(9, N'Viết về thói quen lành mạnh', N'Viết', N'Chưa làm', N'Khó', '00:20:00');
 
 -- 6. Insert CauHoi (SỬ DỤNG JSON)
 -- Lưu ý: IDBaiTap = 1 (Trắc nghiệm), IDBaiTap = 2 (Nghe hiểu)
@@ -673,6 +691,29 @@ INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanh
 (6, 'Monkey', N'Con khỉ', '/ˈmʌŋ.ki/', 'Monkeys love bananas.', 'monkey.mp3'),
 (6, 'Rabbit', N'Con thỏ', '/ˈræb.ɪt/', 'The rabbit runs very fast.', 'rabbit.mp3');
 
+-- BÀI 7: TẠI VĂN PHÒNG (Office Life)
+INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
+(7, 'Colleague', N'Đồng nghiệp', '/ˈkɒl.iːɡ/', 'I am having lunch with my colleague.', 'colleague.mp3'),
+(7, 'Deadline', N'Hạn chót', '/ˈded.laɪn/', 'We have to meet the deadline.', 'deadline.mp3'),
+(7, 'Promotion', N'Thăng chức', '/prəˈməʊ.ʃən/', 'She got a promotion last week.', 'promotion.mp3'),
+(7, 'Salary', N'Tiền lương', '/ˈsæl.ər.i/', 'The company offers a high salary.', 'salary.mp3'),
+(7, 'Resign', N'Từ chức', '/rɪˈzaɪn/', 'He decided to resign from his job.', 'resign.mp3');
+
+-- BÀI 8: DU LỊCH QUỐC TẾ (International Travel)
+INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
+(8, 'Passport', N'Hộ chiếu', '/ˈpɑːs.pɔːt/', 'Please show me your passport.', 'passport.mp3'),
+(8, 'Luggage', N'Hành lý', '/ˈlʌɡ.ɪdʒ/', 'Do you have any luggage to check in?', 'luggage.mp3'),
+(8, 'Boarding pass', N'Thẻ lên máy bay', '/ˈbɔː.dɪŋ ˌpɑːs/', 'Here is your boarding pass.', 'boardingpass.mp3'),
+(8, 'Customs', N'Hải quan', '/ˈkʌs.təmz/', 'It took an hour to go through customs.', 'customs.mp3'),
+(8, 'Delayed', N'Bị trễ', '/dɪˈleɪd/', 'The flight was delayed due to bad weather.', 'delayed.mp3');
+
+-- BÀI 9: SỨC KHỎE & LỐI SỐNG (Health & Lifestyle)
+INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
+(9, 'Symptom', N'Triệu chứng', '/ˈsɪmp.təm/', 'Fever is a symptom of the flu.', 'symptom.mp3'),
+(9, 'Prescription', N'Đơn thuốc', '/prɪˈskrɪp.ʃən/', 'The doctor gave me a prescription.', 'prescription.mp3'),
+(9, 'Medicine', N'Thuốc', '/ˈmed.ɪ.sən/', 'Take this medicine twice a day.', 'medicine.mp3'),
+(9, 'Fever', N'Sốt', '/ˈfiː.vər/', 'He has a high fever.', 'fever.mp3'),
+(9, 'Recover', N'Hồi phục', '/rɪˈkʌv.ər/', 'She is recovering from her illness.', 'recover.mp3');
 -- BÀI 1: GIA ĐÌNH (Family)
 INSERT INTO NguPhap (IDBaiHoc, tenNguPhap, giaiThich, viDu) VALUES
 (1, N'Động từ To Be', 
