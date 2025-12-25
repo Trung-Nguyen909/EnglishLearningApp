@@ -265,10 +265,10 @@ INSERT INTO BaiHoc (IDKhoaHoc, tenBaiHoc, moTa, noiDung, thuTuBaiHoc, trangThai,
 (1, N'Động vật', N'Animals', N'Wild and domestic animals...', 6, N'Chưa làm', N'img_ic_animal_course');
 GO
 
-INSERT INTO BaiHoc (IDKhoaHoc, tenBaiHoc, moTa, noiDung, thuTuBaiHoc, trangThai) VALUES
-(2, N'Tại văn phòng', N'Office Life', N'Conversations about work, meetings, and deadlines.', 7, N'Chưa làm'),
-(2, N'Du lịch quốc tế', N'International Travel', N'At the airport, checking in, and customs.', 8, N'Chưa làm'),
-(2, N'Sức khỏe & Lối sống', N'Health & Lifestyle', N'Talking about symptoms, diet, and exercise.', 9, N'Chưa làm');
+INSERT INTO BaiHoc (IDKhoaHoc, tenBaiHoc, moTa, noiDung, thuTuBaiHoc, trangThai, IconUrl) VALUES
+(2, N'Tại văn phòng', N'Office Life', N'Conversations about work, meetings, and deadlines.', 7, N'Chưa làm', N'img_ic_househome_course'),
+(2, N'Du lịch quốc tế', N'International Travel', N'At the airport, checking in, and customs.', 8, N'Chưa làm', N'img_ic_shopping_course'),
+(2, N'Sức khỏe & Lối sống', N'Health & Lifestyle', N'Talking about symptoms, diet, and exercise.', 9, N'Chưa làm', N'img_ic_animal_course');
 
 -- 4. Insert CapDo
 INSERT INTO CapDo (DoKho) VALUES (N'Dễ'), (N'Trung bình'), (N'Khó');
