@@ -1,0 +1,25 @@
+:root {
+  --primary-color: #4F46E5; /* Indigo 600 */
+  --secondary-color: #06B6D4; /* Cyan 500 */
+  --bg-color: #F3F4F6; /* Gray 100 */
+  --text-color: #1F2937; /* Gray 800 */
+  --sidebar-bg: #FFFFFF;
+  --sidebar-width: 260px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+}
