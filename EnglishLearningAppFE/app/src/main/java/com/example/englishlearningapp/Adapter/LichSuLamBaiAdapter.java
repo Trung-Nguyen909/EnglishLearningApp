@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.englishlearningapp.Model.BaiTapModel;
+import com.example.englishlearningapp.R;
+
 import java.util.List;
 
 public class LichSuLamBaiAdapter extends RecyclerView.Adapter<LichSuLamBaiAdapter.ViewHolder> {

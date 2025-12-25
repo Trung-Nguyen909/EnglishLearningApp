@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -34,9 +34,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.englishlearningapp.Activity.LichSuLamBaiActivity;
+import com.example.englishlearningapp.Activity.ManHinhChoActivity;
+import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.DTO.Response.SkillDto;
 import com.example.englishlearningapp.DTO.Response.UserSummaryDto;
 import com.example.englishlearningapp.DTO.UserDetail;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 import com.google.gson.Gson;
 

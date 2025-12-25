@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +9,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.englishlearningapp.Fragment.TrangChuFragment;
+import com.example.englishlearningapp.Fragment.HoSoFragment;
+import com.example.englishlearningapp.Fragment.KhoaHocFragment;
+import com.example.englishlearningapp.R;
+import com.example.englishlearningapp.Fragment.TienDoBaiTapFragment;
 
 public class MainActivity extends AppCompatActivity {
 

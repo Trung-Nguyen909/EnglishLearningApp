@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishlearningapp.Activity.LessonVocabularyActivity;
 import com.example.englishlearningapp.DTO.Response.BaiHocResponse;
 import com.example.englishlearningapp.Model.ChuDeModel;
+import com.example.englishlearningapp.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.englishlearningapp;
+package com.example.englishlearningapp.Activity;
 
 import android.os.Bundle;
 import android.content.Intent;
@@ -9,8 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.DTO.Request.UserLoginRequest;
 import com.example.englishlearningapp.DTO.Response.AuthResponse;
+import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiResponse;
 import com.example.englishlearningapp.Retrofit.ApiService;
 import com.google.android.material.snackbar.Snackbar;
