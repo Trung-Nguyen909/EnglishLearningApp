@@ -3,115 +3,126 @@ package com.example.englishlearningapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.englishlearningapp.DTO.Response.LichSuBaiTapResponse;
 import com.example.englishlearningapp.Model.BaiTapModel;
+import com.example.englishlearningapp.Retrofit.ApiService;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LichSuLamBaiActivity extends AppCompatActivity {
     private RecyclerView recyclerViewLichSu;
     private LichSuLamBaiAdapter adapter;
     private ImageView btnBack;
+    private List<BaiTapModel> baiTapList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lichsulambai);
 
-        // Initialize views
+        // Ánh xạ view
         recyclerViewLichSu = findViewById(R.id.recyclerViewLichSu);
         btnBack = findViewById(R.id.btnBack);
 
-        // Set up RecyclerView
+        // Setup RecyclerView
         recyclerViewLichSu.setLayoutManager(new LinearLayoutManager(this));
-
-        // Create sample data
-        List<BaiTapModel> baiTapList = createSampleData();
-
-        // Set adapter
+        baiTapList = new ArrayList<>();
         adapter = new LichSuLamBaiAdapter(this, baiTapList);
         recyclerViewLichSu.setAdapter(adapter);
 
-        // Set click listener for items
+        // Gọi API
+        getHistoryFromApi();
+
+        // --- XỬ LÝ CLICK ---
         adapter.setOnItemClickListener((baiTap, position) -> {
-            try {
-                Log.d("LichSuLamBai", "Item clicked: " + position);
-                Intent intent = new Intent(LichSuLamBaiActivity.this, TestResultActivity.class);
-                startActivity(intent);
-            } catch (Exception e) {
-                Log.e("LichSuLamBai", "Error on item click: " + e.getMessage());
-                e.printStackTrace();
-            }
+            Intent intent = new Intent(LichSuLamBaiActivity.this, TestResultActivity.class);
+
+            intent.putExtra("idLichSuBaiLam", baiTap.getId());
+
+            // Truyền thêm thời gian làm (giây) qua màn hình kết quả
+            intent.putExtra("tgianLam", baiTap.getTgianLam());
+
+            startActivity(intent);
         });
 
+        btnBack.setOnClickListener(v -> finish());
+    }
 
-        // Handle back button
-        btnBack.setOnClickListener(new View.OnClickListener() {
+    private void getHistoryFromApi() {
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+        apiService.getLichSuHocTap().enqueue(new Callback<List<LichSuBaiTapResponse>>() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onResponse(Call<List<LichSuBaiTapResponse>> call, Response<List<LichSuBaiTapResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    mapDataToView(response.body());
+                } else {
+                    Toast.makeText(LichSuLamBaiActivity.this, "Lỗi tải dữ liệu", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<LichSuBaiTapResponse>> call, Throwable t) {
+                Log.e("API_ERROR", "Lỗi: " + t.getMessage());
             }
         });
     }
 
-    private List<BaiTapModel> createSampleData() {
-        List<BaiTapModel> list = new ArrayList<>();
+    private void mapDataToView(List<LichSuBaiTapResponse> apiList) {
+        baiTapList.clear();
 
-        // Item 1: Vocabulary - 100% Correct
-        list.add(new BaiTapModel(
-            R.drawable.ic_thanhviengiadinh,
-            "Từ Vựng: Các Thành Viên Gia Đình",
-            "20 tháng 5, 2024",
-            "100% Đúng",
-            R.color.colorSuccess,
-            false
-        ));
+        for (LichSuBaiTapResponse item : apiList) {
+            // Xử lý icon
+            int iconRes = (item.getLoaiBai() != null && "TEST".equals(item.getLoaiBai()))
+                    ? R.drawable.ic_books : R.drawable.ic_sach;
 
-        // Item 2: Grammar Test - 92% Passed
-        list.add(new BaiTapModel(
-            R.drawable.ic_books,
-            "Bài Kiểm Tra Ngữ Pháp: Thì Quá Khứ",
-            "18 tháng 5, 2024",
-            "92% Vượt Qua",
-            R.color.colorSuccess,
-            false
-        ));
+            // Xử lý điểm & màu sắc
+            boolean isPassed = item.getDiemSo() >= 5.0;
+            int colorRes = isPassed ? R.color.colorSuccess : R.color.colorError;
+            String statusText = String.format(Locale.US, "%.1f điểm - %s", item.getDiemSo(), item.getTrangThai());
 
-        // Item 3: Listening - 85% Correct
-        list.add(new BaiTapModel(
-            R.drawable.ic_nghe,
-            "Nghe Hiểu: Tại Sân Bay",
-            "17 tháng 5, 2024",
-            "85% Đúng",
-            R.color.colorSuccess,
-            false
-        ));
+            // Xử lý ngày
+            String dateStr = formatDate(item.getTgianNopBai());
 
-        // Item 4: Speaking - Try Again
-        list.add(new BaiTapModel(
-            R.drawable.ic_noi,
-            "Nói: Đặt Hàng Thức Ăn",
-            "15 tháng 5, 2024",
-            "Hãy Thử Lại",
-            R.color.colorError,
-            true
-        ));
+            // --- QUAN TRỌNG: Lấy item.getId() (giá trị 3 hoặc 4 trong log) đưa vào Model ---
+            baiTapList.add(new BaiTapModel(
+                    item.getId(),
+                    iconRes,
+                    item.getTenBai(),
+                    dateStr,
+                    statusText,
+                    colorRes,
+                    !isPassed,
+                    item.getTgianLam()
+                    ));
+        }
+        adapter.notifyDataSetChanged();
+    }
 
-        // Item 5: Reading - Completed
-        list.add(new BaiTapModel(
-            R.drawable.ic_sach,
-            "Đọc: Một Câu Chuyện Ngắn",
-            "14 tháng 5, 2024",
-            "Hoàn Thành",
-            R.color.colorCompleted,
-            false
-        ));
-
-        return list;
+    private String formatDate(String jsonDate) {
+        if (jsonDate == null) return "";
+        try {
+            SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+            Date date = sourceFormat.parse(jsonDate);
+            SimpleDateFormat destFormat = new SimpleDateFormat("dd 'tháng' MM, yyyy", new Locale("vi", "VN"));
+            return destFormat.format(date);
+        } catch (ParseException e) {
+            return jsonDate;
+        }
     }
 }
-

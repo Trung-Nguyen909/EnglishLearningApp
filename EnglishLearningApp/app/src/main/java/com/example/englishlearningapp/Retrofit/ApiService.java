@@ -7,7 +7,9 @@ import com.example.englishlearningapp.DTO.Response.BaiHocResponse;
 import com.example.englishlearningapp.DTO.Response.BaiTap;
 import com.example.englishlearningapp.DTO.Response.BaiTapResponse;
 import com.example.englishlearningapp.DTO.Response.CauHoiResponse;
+import com.example.englishlearningapp.DTO.Response.ChiTietBaitapResponse;
 import com.example.englishlearningapp.DTO.Response.KhoaHocResponse;
+import com.example.englishlearningapp.DTO.Response.LichSuBaiTapResponse;
 import com.example.englishlearningapp.DTO.Response.NguoiDungRespone;
 import com.example.englishlearningapp.DTO.Response.NhatKyHoatDong;
 import com.example.englishlearningapp.DTO.Response.TuVungResponse;
@@ -77,4 +79,10 @@ public interface ApiService {
     Call<List<NguPhap>> getListNguPhap(@Path("id") int idBaiHoc);
     @GET("tientrinhbaihoc/gan-nhat/{userId}")
     Call<BaiHocGanNhatResponse> getBaiHocGanNhat(@Path("userId") int userId);
+
+    @GET("lichsu/user")
+    Call<List<LichSuBaiTapResponse>> getLichSuHocTap();
+
+    @GET("bai-lam/lich-su/{id}")
+    Call<List<ChiTietBaitapResponse>> getChiTietBaiLam(@Path("id") int idLichSu);
 }

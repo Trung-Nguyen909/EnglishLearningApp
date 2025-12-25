@@ -33,29 +33,50 @@ public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         QuestionResult question = questions.get(position);
 
-        // Set question number and text
-        holder.tvQuestionNumber.setText("Question " + (position + 1) + " of " + questions.size());
+        // --- ĐỪNG QUÊN CÁC DÒNG NÀY ---
+        holder.tvQuestionNumber.setText("Câu " + (position + 1) + " / " + questions.size());
         holder.tvQuestionText.setText(question.getQuestionText());
-
-        // Set correct answer
         holder.tvCorrectAnswer.setText(question.getCorrectAnswer());
+        // ------------------------------
 
-        // Check if user's answer is wrong
+        // Xử lý logic hiển thị giải thích
         if (!question.getUserAnswer().equals(question.getCorrectAnswer())) {
-            // Show wrong answer
+            // --- TRƯỜNG HỢP LÀM SAI ---
             holder.layoutWrongAnswer.setVisibility(View.VISIBLE);
             holder.tvWrongAnswer.setText(question.getUserAnswer());
+
+            // 1. Hiển thị nút bấm "Xem giải thích"
             holder.tvShowExplanation.setVisibility(View.VISIBLE);
 
-            // Handle explanation click
+            // 2. Set nội dung giải thích
+            if (question.getExplanation() != null && !question.getExplanation().isEmpty()) {
+                holder.tvExplanationText.setText(question.getExplanation());
+            } else {
+                holder.tvExplanationText.setText("Không có giải thích chi tiết.");
+            }
+
+            // 3. Reset trạng thái (Mặc định ẩn khi mới load)
+            holder.tvExplanationText.setVisibility(View.GONE);
+            holder.tvShowExplanation.setText("Xem giải thích");
+
+            // 4. Bắt sự kiện Click
             holder.tvShowExplanation.setOnClickListener(v -> {
-                // Toggle explanation
-                // You can implement expand/collapse logic here
+                if (holder.tvExplanationText.getVisibility() == View.VISIBLE) {
+                    // Đang hiện -> Ẩn đi
+                    holder.tvExplanationText.setVisibility(View.GONE);
+                    holder.tvShowExplanation.setText("Xem giải thích");
+                } else {
+                    // Đang ẩn -> Hiện lên
+                    holder.tvExplanationText.setVisibility(View.VISIBLE);
+                    holder.tvShowExplanation.setText("Ẩn giải thích");
+                }
             });
+
         } else {
-            // Hide wrong answer section
+            // --- TRƯỜNG HỢP LÀM ĐÚNG ---
             holder.layoutWrongAnswer.setVisibility(View.GONE);
             holder.tvShowExplanation.setVisibility(View.GONE);
+            holder.tvExplanationText.setVisibility(View.GONE);
         }
     }
 
@@ -93,13 +114,11 @@ public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAd
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvQuestionNumber;
-        TextView tvQuestionText;
-        LinearLayout layoutWrongAnswer;
-        TextView tvWrongAnswer;
-        LinearLayout layoutCorrectAnswer;
-        TextView tvCorrectAnswer;
-        TextView tvShowExplanation;
+        TextView tvQuestionNumber, tvQuestionText, tvWrongAnswer, tvCorrectAnswer, tvShowExplanation;
+        LinearLayout layoutWrongAnswer, layoutCorrectAnswer;
+
+        // Thêm biến này
+        TextView tvExplanationText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,6 +129,9 @@ public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAd
             layoutCorrectAnswer = itemView.findViewById(R.id.layout_correct_answer);
             tvCorrectAnswer = itemView.findViewById(R.id.tv_correct_answer);
             tvShowExplanation = itemView.findViewById(R.id.tv_show_explanation);
+
+            // Ánh xạ View mới thêm
+            tvExplanationText = itemView.findViewById(R.id.tv_explanation_text);
         }
     }
 }
