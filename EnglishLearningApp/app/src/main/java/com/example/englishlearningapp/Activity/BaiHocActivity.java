@@ -63,7 +63,9 @@ public class BaiHocActivity extends AppCompatActivity {
 
         if (intent != null) {
             maBaiHoc = intent.getIntExtra("BAIHOC_ID", -1);
-            String tmp = intent.getStringExtra("SUB_ITEM_NAME");
+            Log.d("mabaihoc", "onCreate: " + maBaiHoc);
+            String tmp = intent.getStringExtra("TEN_BAI_HOC");
+            Log.d("tenbaichoc", "onCreate: " + tmp);
             if (tmp != null) tenChuDeCon = tmp;
         }
 

@@ -77,8 +77,8 @@ public interface ApiService {
     Call<List<TuVungResponse>> getTuVungByBaihocID(@Path("idbaihoc") int id);
     @GET("nguphap/bai-hoc/{id}")
     Call<List<NguPhap>> getListNguPhap(@Path("id") int idBaiHoc);
-    @GET("tientrinhbaihoc/gan-nhat/{userId}")
-    Call<BaiHocGanNhatResponse> getBaiHocGanNhat(@Path("userId") int userId);
+    @GET("tientrinhbaihoc/gan-nhat")
+    Call<BaiHocGanNhatResponse> getBaiHocGanNhat();
 
     @GET("lichsu/user")
     Call<List<LichSuBaiTapResponse>> getLichSuHocTap();

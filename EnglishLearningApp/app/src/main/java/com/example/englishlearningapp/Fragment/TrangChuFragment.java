@@ -22,11 +22,13 @@ import com.example.englishlearningapp.Adapter.KyNangAdapter;
 import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.Activity.BaiHocActivity;
 import com.example.englishlearningapp.DTO.Response.BaiHocGanNhatResponse;
+import com.example.englishlearningapp.DTO.UserDetail;
 import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 import com.example.englishlearningapp.TrangChu.EventDecorator;
 import com.example.englishlearningapp.DTO.Response.KyNangResponse;
 import com.example.englishlearningapp.DTO.Response.NhatKyHoatDong; // Import Model
+import com.google.gson.Gson;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
@@ -50,7 +52,6 @@ public class TrangChuFragment extends Fragment {
     private com.google.android.material.progressindicator.CircularProgressIndicator progressIndicator;
 
     // Biến lưu thông tin để dùng cho nút bấm
-    private int idBaiHocCurrent = -1;
     private String tenBaiHocCurrent = "";
 
     @Nullable
@@ -77,18 +78,23 @@ public class TrangChuFragment extends Fragment {
         // 3. GỌI API LẤY LỊCH (Thay thế cho hàm fake data cũ)
         // Giả sử UserId = 1 (Bạn cần lấy ID thật từ SharedPreferences hoặc lúc Login)
         SharedPreferences prefs = getActivity().getSharedPreferences("APP_PREFS", Context.MODE_PRIVATE);
-        int userId = prefs.getInt("USER_ID", 1);
-        taiBaiHocGanNhat(userId);// Mặc định là 1 nếu chưa lưu
+        Gson gson = new Gson();
+        UserDetail user = gson.fromJson(
+                prefs.getString("USER", null),
+                UserDetail.class
+        );
+        int userId = user.getId();
+
+        taiBaiHocGanNhat();// Mặc định là 1 nếu chưa lưu
         callApiLayLichHoatDong(userId);
 
         // 4. Xử lý sự kiện nút "Tiếp tục học"
         if (btnTiepTucHoc != null) {
             btnTiepTucHoc.setOnClickListener(v -> {
-                if (idBaiHocCurrent != -1) {
+                if (userId != -1) {
                     Intent intent = new Intent(getContext(), BaiHocActivity.class);
-                    // Truyền đúng ID và Tên bài lấy từ API
-                    intent.putExtra("SUB_ITEM_ID", idBaiHocCurrent);
-                    intent.putExtra("SUB_ITEM_NAME", tenBaiHocCurrent);
+                    intent.putExtra("BAIHOC_ID", userId);
+                    intent.putExtra("TEN_BAI_HOC", tenBaiHocCurrent);
                     startActivity(intent);
                 } else {
                     Toast.makeText(getContext(), "Chưa có bài học nào!", Toast.LENGTH_SHORT).show();
@@ -242,9 +248,9 @@ public class TrangChuFragment extends Fragment {
         calendarView.addDecorator(new EventDecorator(R.drawable.bg_ngaychuahoc, listXam, getActivity()));
         calendarView.invalidateDecorators(); // Refresh lại view cho chắc
     }
-    private void taiBaiHocGanNhat(int userId) {
+    private void taiBaiHocGanNhat() {
         ApiService apiService = ApiClient.getClient(getContext()).create(ApiService.class);
-        apiService.getBaiHocGanNhat(userId).enqueue(new Callback<BaiHocGanNhatResponse>() {
+        apiService.getBaiHocGanNhat().enqueue(new Callback<BaiHocGanNhatResponse>() {
             @Override
             public void onResponse(Call<BaiHocGanNhatResponse> call, Response<BaiHocGanNhatResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -258,8 +264,6 @@ public class TrangChuFragment extends Fragment {
                     if(tvPhanTramGanNhat != null) tvPhanTramGanNhat.setText(phanTram + "%");
                     if(progressIndicator != null) progressIndicator.setProgress(phanTram);
 
-                    // Lưu lại dữ liệu vào biến toàn cục để dùng cho nút bấm
-                    idBaiHocCurrent = data.getIdBaiHoc();
                     tenBaiHocCurrent = data.getTenBaiHoc();
                 } else {
                     // Nếu không có dữ liệu (User mới chưa học gì)

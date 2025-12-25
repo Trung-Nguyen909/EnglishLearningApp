@@ -2,6 +2,7 @@ package com.example.englishlearningapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -69,6 +70,7 @@ public class NguPhapActivity extends AppCompatActivity {
             i.putExtra("BAIHOC_ID", idBaiHoc);
             // Truyền tiếp tên bài học sang màn bài tập nếu cần
             i.putExtra("TEN_BAI_HOC", tenBaiHoc);
+            Log.d("tenbaihoc", "onCreate: " + tenBaiHoc);
             startActivity(i);
         });
 

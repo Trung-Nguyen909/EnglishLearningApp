@@ -138,7 +138,8 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 }
 
                 intent.putExtra("BAIHOC_ID", idBai != null ? idBai : -1);
-                intent.putExtra("SUB_ITEM_NAME", finalTen);
+                intent.putExtra("TEN_BAI_HOC", finalTen);
+                Log.d("tenbaihoc", "onBindViewHolder: " + finalTen);
                 context.startActivity(intent);
             });
         }
