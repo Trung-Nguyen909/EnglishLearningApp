@@ -25,4 +25,27 @@ public class BaiTapService {
     public List<BaiTap> GetBaiTapByLoaiBaiTap(String loaiBT) {
         return baiTapRepository.findByLoaiBaiTap(loaiBT);
     }
+
+    public BaiTap updateBaiTap(Integer id, BaiTap baiTapDetails) {
+        return baiTapRepository.findById(id)
+                .map(baiTap -> {
+                    if (baiTapDetails.getIdBaiHoc() != null) baiTap.setIdBaiHoc(baiTapDetails.getIdBaiHoc());
+                    if (baiTapDetails.getTenBaiTap() != null && !baiTapDetails.getTenBaiTap().isEmpty()) baiTap.setTenBaiTap(baiTapDetails.getTenBaiTap());
+                    if (baiTapDetails.getLoaiBaiTap() != null) baiTap.setLoaiBaiTap(baiTapDetails.getLoaiBaiTap());
+                    if (baiTapDetails.getTrangThai() != null) baiTap.setTrangThai(baiTapDetails.getTrangThai());
+                    if (baiTapDetails.getCapdo() != null) baiTap.setCapdo(baiTapDetails.getCapdo());
+                    if (baiTapDetails.getThoigian() != null) baiTap.setThoigian(baiTapDetails.getThoigian());
+                    
+                    return baiTapRepository.save(baiTap);
+                })
+                .orElseThrow(() -> new RuntimeException("BaiTap not found with id " + id));
+    }
+
+    public BaiTap addBaiTap(BaiTap baiTap) {
+        return baiTapRepository.save(baiTap);
+    }
+
+    public void deleteBaiTap(Integer id) {
+        baiTapRepository.deleteById(id);
+    }
 }

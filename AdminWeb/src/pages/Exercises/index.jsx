@@ -19,7 +19,7 @@ const Exercises = () => {
     tenBaiTap: '',
     idBaiHoc: '',
     loaiBaiTap: 'VOCABULARY', // Default type
-    trangThai: 'ACTIVE',
+    trangThai: 'Chưa làm',
     capdo: 'EASY',
     thoigian: '' // LocalTime, e.g. "00:00:00"
   });
@@ -55,11 +55,14 @@ const Exercises = () => {
     setModalMode(mode);
     setSelectedExercise(exercise);
     if (mode === 'edit' && exercise) {
+      // Handle case where idBaiHoc might be inside a nested object or direct property
+      const currentIdBaiHoc = exercise.idBaiHoc || (exercise.baiHoc ? exercise.baiHoc.id : '');
+      
       setFormData({
         tenBaiTap: exercise.tenBaiTap,
-        idBaiHoc: exercise.idBaiHoc,
+        idBaiHoc: currentIdBaiHoc,
         loaiBaiTap: exercise.loaiBaiTap || 'VOCABULARY',
-        trangThai: exercise.trangThai || 'ACTIVE',
+        trangThai: exercise.trangThai || 'Chưa làm',
         capdo: exercise.capdo || 'EASY',
         thoigian: exercise.thoigian || ''
       });
@@ -68,7 +71,7 @@ const Exercises = () => {
           tenBaiTap: '', 
           idBaiHoc: '', 
           loaiBaiTap: 'VOCABULARY', 
-          trangThai: 'ACTIVE',
+          trangThai: 'Chưa làm',
           capdo: 'EASY',
           thoigian: ''
       });
@@ -92,22 +95,39 @@ const Exercises = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Ensure time is in HH:mm:ss format
+      let formattedTime = formData.thoigian;
+      if (formattedTime && formattedTime.length === 5) {
+          formattedTime += ':00';
+      }
+
       const payload = {
           ...formData,
-          idBaiHoc: parseInt(formData.idBaiHoc)
+          idBaiHoc: formData.idBaiHoc ? parseInt(formData.idBaiHoc) : null,
+          thoigian: formattedTime || null
       };
+      console.log('Sending payload:', payload);
 
       if (modalMode === 'add') {
         await exerciseService.createExercise(payload);
         fetchExercises();
+        alert('Tạo bài tập thành công!');
       } else {
         await exerciseService.updateExercise(selectedExercise.id, payload);
         fetchExercises();
+        alert('Cập nhật bài tập thành công!');
       }
       handleCloseModal();
     } catch (err) {
       console.error('Failed to save exercise', err);
-      alert('Lưu bài tập thất bại');
+      // Log detailed error info for debugging
+      if (err.response) {
+          console.log('Error Status:', err.response.status);
+          console.log('Error Headers:', err.response.headers);
+          console.log('Error Data:', err.response.data);
+      }
+      const errorMessage = err.response?.data?.message || JSON.stringify(err.response?.data) || err.message || 'Lưu bài tập thất bại';
+      alert('Lỗi: ' + errorMessage);
     }
   };
 
@@ -258,8 +278,9 @@ const Exercises = () => {
                     value={formData.trangThai} 
                     onChange={handleInputChange}
                 >
-                    <option value="ACTIVE">Hoạt động (Active)</option>
-                    <option value="INACTIVE">Ngưng hoạt động (Inactive)</option>
+                    <option value="Chưa làm">Chưa làm</option>
+                    <option value="Đang Hoàn thành">Đang Hoàn thành</option>
+                    <option value="Đã hoàn thành">Đã hoàn thành</option>
                 </select>
             </div>
             <div className={styles.formGroup}>

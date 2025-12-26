@@ -5,6 +5,7 @@ import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,10 +21,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.Adapter.CauHoiAdapter;
-import com.example.englishlearningapp.DTO.Response.CauHoiResponse;
 import com.example.englishlearningapp.ApiClient;
+import com.example.englishlearningapp.DTO.Response.CauHoiResponse;
+import com.example.englishlearningapp.DTO.Request.LichSuBaiTapRequest;
+import com.example.englishlearningapp.DTO.Request.CauTraLoiRequest;
 import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
+import com.example.englishlearningapp.Retrofit.ApiResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -226,6 +230,10 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
         tamDungNhac();
 
         int soCauDung = 0;
+
+        // Tạo danh sách câu trả lời để gửi lên API
+        List<CauTraLoiRequest> danhSachCauTraLoi = new ArrayList<>();
+
         for (CauHoiResponse cauHoi : danhSachCauHoi) {
             int id = cauHoi.getId();
 
@@ -241,7 +249,24 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
                     soCauDung++;
                 }
             }
+
+            // Thêm vào danh sách để gửi API
+            String userAnswer = dapAnNguoiDungChon != null ? dapAnNguoiDungChon : "";
+            danhSachCauTraLoi.add(new CauTraLoiRequest(id, userAnswer, dapAnDungHeThong));
         }
+
+        // Tạo object LichSuBaiTapRequest để gửi lên API
+        LichSuBaiTapRequest lichSuRequest = new LichSuBaiTapRequest(
+                null,                           // idTest: null vì là bài tập
+                idBaiTapHienTai,                // idBaiTap
+                "Bài nghe",                     // tenBai
+                "BAI_TAP",                      // loaiBai: "BAI_TAP" hoặc "TEST"
+                soGiayLamBai,                   // tgianLam: thời gian làm bài (giây)
+                danhSachCauTraLoi              // cauTraLoi: danh sách câu trả lời
+        );
+
+        // Gửi lên API
+        guiLichSuLenAPI(lichSuRequest);
 
         Intent intent = new Intent(BaiTapNgheActivity.this, KetQuaActivity.class);
 
@@ -396,6 +421,47 @@ public class BaiTapNgheActivity extends AppCompatActivity implements CauHoiAdapt
         int giay = (miliGiay / 1000) % 60;
         int phut = (miliGiay / (1000 * 60)) % 60;
         return String.format("%02d:%02d", phut, giay);
+    }
+
+    // --- METHOD GỬI LỊCH SỬ LÊN API ---
+    private void guiLichSuLenAPI(LichSuBaiTapRequest lichSuRequest) {
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+
+        // Log dữ liệu gửi lên
+        Log.d("SUBMIT_REQUEST", "Gửi dữ liệu: idBaiTap=" + lichSuRequest.getIdBaiTap() +
+                ", loaiBai=" + lichSuRequest.getLoaiBai() +
+                ", soCauTraLoi=" + lichSuRequest.getCauTraLoi().size());
+
+        apiService.submitLichSuBaiTap(lichSuRequest).enqueue(new Callback<ApiResponse<Object>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<Object>> call, Response<ApiResponse<Object>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<Object> apiResponse = response.body();
+                    if (apiResponse != null) {
+                        Log.d("SUBMIT_SUCCESS", "Code: " + apiResponse.getCode() +
+                                ", Message: " + apiResponse.getMessage() +
+                                ", Result: " + apiResponse.getResult());
+                        Toast.makeText(BaiTapNgheActivity.this, "✅ Bài tập đã được lưu!", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Log.e("SUBMIT_ERROR", "HTTP Error: " + response.code() + ", Message: " + response.message());
+                    try {
+                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "Unknown";
+                        Log.e("SUBMIT_ERROR_BODY", errorBody);
+                    } catch (Exception e) {
+                        Log.e("SUBMIT_ERROR_PARSE", e.getMessage());
+                    }
+                    Toast.makeText(BaiTapNgheActivity.this, "❌ Lỗi lưu bài: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<Object>> call, Throwable t) {
+                Log.e("SUBMIT_FAILURE", "Lỗi kết nối: " + t.getMessage());
+                t.printStackTrace();
+                Toast.makeText(BaiTapNgheActivity.this, "❌ Lỗi kết nối server", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

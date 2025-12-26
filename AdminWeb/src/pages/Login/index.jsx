@@ -4,8 +4,8 @@ import authService from '../../services/authService';
 import styles from './Login.module.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('ttuankhanh4@gmail.com');
-  const [password, setPassword] = useState('1');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();

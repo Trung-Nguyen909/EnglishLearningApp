@@ -223,19 +223,40 @@ public class BaiTapDocActivity extends AppCompatActivity implements CauHoiAdapte
     // --- METHOD GỬI LỊCH SỬ LÊN API ---
     private void guiLichSuLenAPI(LichSuBaiTapRequest lichSuRequest) {
         ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+
+        // Log dữ liệu gửi lên
+        Log.d("SUBMIT_REQUEST", "Gửi dữ liệu: idBaiTap=" + lichSuRequest.getIdBaiTap() +
+                ", loaiBai=" + lichSuRequest.getLoaiBai() +
+                ", soThang=" + lichSuRequest.getCauTraLoi().size());
+
         apiService.submitLichSuBaiTap(lichSuRequest).enqueue(new Callback<ApiResponse<Object>>() {
             @Override
             public void onResponse(Call<ApiResponse<Object>> call, Response<ApiResponse<Object>> response) {
                 if (response.isSuccessful()) {
-                    Log.d("SUBMIT_SUCCESS", "Lịch sử bài tập đã được lưu thành công!");
+                    ApiResponse<Object> apiResponse = response.body();
+                    if (apiResponse != null) {
+                        Log.d("SUBMIT_SUCCESS", "Code: " + apiResponse.getCode() +
+                                ", Message: " + apiResponse.getMessage() +
+                                ", Result: " + apiResponse.getResult());
+                        Toast.makeText(BaiTapDocActivity.this, "✅ Bài tập đã được lưu!", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Log.e("SUBMIT_ERROR", "Lỗi khi lưu lịch sử: " + response.code());
+                    Log.e("SUBMIT_ERROR", "HTTP Error: " + response.code() + ", Message: " + response.message());
+                    try {
+                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "Unknown";
+                        Log.e("SUBMIT_ERROR_BODY", errorBody);
+                    } catch (Exception e) {
+                        Log.e("SUBMIT_ERROR_PARSE", e.getMessage());
+                    }
+                    Toast.makeText(BaiTapDocActivity.this, "❌ Lỗi lưu bài: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse<Object>> call, Throwable t) {
                 Log.e("SUBMIT_FAILURE", "Lỗi kết nối: " + t.getMessage());
+                t.printStackTrace();
+                Toast.makeText(BaiTapDocActivity.this, "❌ Lỗi kết nối server", Toast.LENGTH_SHORT).show();
             }
         });
     }

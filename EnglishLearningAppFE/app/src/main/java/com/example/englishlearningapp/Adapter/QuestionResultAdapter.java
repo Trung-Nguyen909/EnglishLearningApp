@@ -40,10 +40,20 @@ public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAd
         // ------------------------------
 
         // Xử lý logic hiển thị giải thích
-        if (!question.getUserAnswer().equals(question.getCorrectAnswer())) {
-            // --- TRƯỜNG HỢP LÀM SAI ---
-            holder.layoutWrongAnswer.setVisibility(View.VISIBLE);
-            holder.tvWrongAnswer.setText(question.getUserAnswer());
+        // So sánh an toàn: kiểm tra null trước, sau đó kiểm tra equals
+        boolean isAnswerCorrect = question.getUserAnswer() != null &&
+                                 question.getCorrectAnswer() != null &&
+                                 question.getUserAnswer().equals(question.getCorrectAnswer());
+
+        if (!isAnswerCorrect) {
+            // --- TRƯỜNG HỢP LÀM SAI HOẶC KHÔNG TRẢ LỜI ---
+            // Chỉ hiển thị layout sai nếu người dùng có chọn (không phải null)
+            if (question.getUserAnswer() != null) {
+                holder.layoutWrongAnswer.setVisibility(View.VISIBLE);
+                holder.tvWrongAnswer.setText(question.getUserAnswer());
+            } else {
+                holder.layoutWrongAnswer.setVisibility(View.GONE);
+            }
 
             // 1. Hiển thị nút bấm "Xem giải thích"
             holder.tvShowExplanation.setVisibility(View.VISIBLE);
@@ -94,7 +104,10 @@ public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAd
     public void filterCorrect(List<QuestionResult> allQuestions) {
         List<QuestionResult> correctQuestions = new ArrayList<>();
         for (QuestionResult q : allQuestions) {
-            if (q.getUserAnswer().equals(q.getCorrectAnswer())) {
+            // Câu đúng: userAnswer không null AND bằng correctAnswer
+            if (q.getUserAnswer() != null &&
+                    q.getCorrectAnswer() != null &&
+                    q.getUserAnswer().equals(q.getCorrectAnswer())) {
                 correctQuestions.add(q);
             }
         }
@@ -105,7 +118,10 @@ public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAd
     public void filterIncorrect(List<QuestionResult> allQuestions) {
         List<QuestionResult> incorrectQuestions = new ArrayList<>();
         for (QuestionResult q : allQuestions) {
-            if (!q.getUserAnswer().equals(q.getCorrectAnswer())) {
+            // Câu sai + không trả lời: userAnswer = null HOẶC không bằng correctAnswer
+            if (q.getUserAnswer() == null ||
+                    q.getCorrectAnswer() == null ||
+                    !q.getUserAnswer().equals(q.getCorrectAnswer())) {
                 incorrectQuestions.add(q);
             }
         }

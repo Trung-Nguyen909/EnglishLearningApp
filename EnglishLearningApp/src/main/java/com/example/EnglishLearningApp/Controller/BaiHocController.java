@@ -38,6 +38,16 @@ public class BaiHocController {
         return ResponseEntity.ok(baiHocService.updateBaiHoc(id, baiHoc));
     }
 
+    @PostMapping("/{id}/upload-icon")
+    public ResponseEntity<?> uploadIcon(@PathVariable Integer id, @RequestParam("file") org.springframework.web.multipart.MultipartFile file) {
+        try {
+            String iconUrl = baiHocService.updateBaiHocIcon(id, file);
+            return ResponseEntity.ok(java.util.Collections.singletonMap("iconUrl", iconUrl));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBaiHoc(@PathVariable Integer id) {
         baiHocService.deleteBaiHoc(id);

@@ -28,10 +28,21 @@ public class KhoaHocService {
        return khoaHocRepository.save(khoaHoc);
    }
 
-   public KhoaHoc capNhatKhoaHoc(Integer id, KhoaHoc khoaHocChiTiet){
+   public KhoaHoc capNhatKhoaHoc(Integer id, KhoaHoc khoaHocChiTiet) {
        return khoaHocRepository.findById(id).map(khoaHoc -> {
-              khoahocMapper.toKhoaHoc(khoaHocChiTiet);
-              return khoaHocRepository.save(khoaHoc);
+           if (khoaHocChiTiet.getTenKhoaHoc() != null) {
+               khoaHoc.setTenKhoaHoc(khoaHocChiTiet.getTenKhoaHoc());
+           }
+           if (khoaHocChiTiet.getMoTa() != null) {
+               khoaHoc.setMoTa(khoaHocChiTiet.getMoTa());
+           }
+           if (khoaHocChiTiet.getTrinhDo() != null) {
+               khoaHoc.setTrinhDo(khoaHocChiTiet.getTrinhDo());
+           }
+           if (khoaHocChiTiet.getIconUrl() != null) {
+               khoaHoc.setIconUrl(khoaHocChiTiet.getIconUrl());
+           }
+           return khoaHocRepository.save(khoaHoc);
        }).orElseThrow(() -> new RuntimeException("Không tìm thấy Khóa học với ID: " + id));
 
    }

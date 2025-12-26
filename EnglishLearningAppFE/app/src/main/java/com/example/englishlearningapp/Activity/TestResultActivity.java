@@ -152,17 +152,25 @@ public class TestResultActivity extends AppCompatActivity {
                 }
 
                 // 2. Lấy đáp án người dùng chọn (Key -> Text)
-                String userKey = item.getDapAnNguoiDung(); // Ví dụ: "B" hoặc null
-                if (userKey != null && jsonOptions.has(userKey)) {
-                    userAnswerText = jsonOptions.get(userKey).getAsString(); // "Mother"
+                String userKeyOrText = item.getDapAnNguoiDung(); // Có thể là "B" (key) hoặc "Aunt" (text)
+                if (userKeyOrText != null) {
+                    // Kiểm tra xem nó có phải key hợp lệ không (A, B, C, D)
+                    if (jsonOptions.has(userKeyOrText)) {
+                        // Đây là KEY -> Lấy giá trị text
+                        userAnswerText = jsonOptions.get(userKeyOrText).getAsString();
+                    } else {
+                        // Đây là TEXT -> Dùng trực tiếp
+                        userAnswerText = userKeyOrText;
+                    }
                 } else {
-                    userAnswerText = "Không trả lời"; // Hoặc xử lý khi null
+                    // Không trả lời
+                    userAnswerText = null;
                 }
 
             } catch (Exception e) {
                 Log.e("JSON_PARSE", "Lỗi parse json đáp án: " + e.getMessage());
                 correctAnswerText = "Lỗi hiển thị";
-                userAnswerText = item.getDapAnNguoiDung();
+                userAnswerText = null;  // Giữ null để adapter xử lý đúng
             }
 
             // Thêm vào list hiển thị
@@ -173,6 +181,13 @@ public class TestResultActivity extends AppCompatActivity {
                     explanation
             ));
 
+            // DEBUG: In ra để kiểm tra dữ liệu
+            Log.d("DEBUG_ANSWER", "Câu: " + questionText +
+                    " | UserAnswer: " + userAnswerText +
+                    " | CorrectAnswer: " + correctAnswerText +
+                    " | isDungSai: " + item.isDungSai());
+
+            // isDungSai() = true nghĩa là câu ĐÚNG, false = câu SAI
             if (item.isDungSai()) {
                 correctCount++;
             }

@@ -39,6 +39,7 @@ public class SecurityConfig implements WebMvcConfigurer {
             "/KhoaHoc/**",
             "/baihoc/**",
             "/baitap/**",
+            "/user/register",
             "/tuvung/baihoc/**"
     };
 

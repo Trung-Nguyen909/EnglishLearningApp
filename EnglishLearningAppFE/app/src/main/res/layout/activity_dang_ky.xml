@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:paddingLeft="8dp"
-                android:text="Tên đăng nhập"
+                android:text="Tên người dùng"
                 android:textSize="14sp" />
 
             <EditText
@@ -161,7 +161,7 @@
                 android:background="@drawable/bg_nhapdulieu"
                 android:drawableStart="@drawable/ic_user"
                 android:drawablePadding="8dp"
-                android:hint="Nhập tên đăng nhập"
+                android:hint="Nhập tên người dùng"
                 android:inputType="text"
                 android:paddingStart="8dp"
                 android:textSize="14sp" />

@@ -5,10 +5,7 @@ import com.example.EnglishLearningApp.Repository.BaiTapRepository;
 import com.example.EnglishLearningApp.Service.BaiHocService;
 import com.example.EnglishLearningApp.Service.BaiTapService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +27,21 @@ public class BaiTapController {
     @GetMapping("/{loaiBT}")
     public List<BaiTap> GetBaiTapByLoaiBaitap(@PathVariable String loaiBT){
         return baiTapService.GetBaiTapByLoaiBaiTap(loaiBT);
+    }
+
+    @PutMapping("/{id}")
+    public org.springframework.http.ResponseEntity<BaiTap> updateBaiTap(@PathVariable Integer id, @RequestBody BaiTap baiTap) {
+        return org.springframework.http.ResponseEntity.ok(baiTapService.updateBaiTap(id, baiTap));
+    }
+
+    @PostMapping
+    public BaiTap createBaiTap(@RequestBody BaiTap baiTap) {
+        return baiTapService.addBaiTap(baiTap);
+    }
+
+    @DeleteMapping("/{id}")
+    public org.springframework.http.ResponseEntity<Void> deleteBaiTap(@PathVariable Integer id) {
+        baiTapService.deleteBaiTap(id);
+        return org.springframework.http.ResponseEntity.noContent().build();
     }
 }

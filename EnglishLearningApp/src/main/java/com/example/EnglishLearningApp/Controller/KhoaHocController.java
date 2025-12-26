@@ -28,8 +28,9 @@ public class KhoaHocController {
         return khoaHocService.taoKhoaHoc(khoaHoc);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<KhoaHoc> updateKhoaHoc(@PathVariable Integer id,@RequestBody KhoaHoc khoaHocChiTiet){
-        return ResponseEntity.ok(khoaHocService.capNhatKhoaHoc(id,khoaHocChiTiet));
+    public ResponseEntity<KhoaHoc> updateKhoaHoc(@PathVariable Integer id, @RequestBody KhoaHoc khoaHocChiTiet) {
+        KhoaHoc updatedKhoaHoc = khoaHocService.capNhatKhoaHoc(id, khoaHocChiTiet);
+        return ResponseEntity.ok(updatedKhoaHoc);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteKhoaHoc(@PathVariable Integer id){
