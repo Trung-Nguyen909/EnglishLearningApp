@@ -14,14 +14,30 @@
   font-size: 1.5rem;
   color: var(--text-color);
 }
+.addBtn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
 
+.addBtn:hover {
+  background-color: #4338ca;
+}
 .toolbar {
   display: flex;
   justify-content: space-between;
   background: white;
   padding: 16px;
   border-radius: 12px;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   flex-wrap: wrap;
   gap: 16px;
 }
@@ -29,16 +45,16 @@
 .searchBox {
   display: flex;
   align-items: center;
-  background-color: #F9FAFB;
+  background-color: #f9fafb;
   padding: 0 12px;
   border-radius: 8px;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   flex: 1;
   max-width: 400px;
 }
 
 .searchIcon {
-  color: #9CA3AF;
+  color: #9ca3af;
   margin-right: 8px;
 }
 
@@ -52,7 +68,7 @@
 
 .filterSelect {
   padding: 8px 12px;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   background-color: white;
   color: var(--text-color);
@@ -63,9 +79,9 @@
 .tableContainer {
   background: white;
   border-radius: 12px;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .table {
@@ -75,17 +91,17 @@
 }
 
 .table th {
-  background-color: #F9FAFB;
+  background-color: #f9fafb;
   padding: 16px;
   font-weight: 600;
-  color: #6B7280;
+  color: #6b7280;
   font-size: 0.875rem;
-  border-bottom: 1px solid #E5E7EB;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .table td {
   padding: 16px;
-  border-bottom: 1px solid #F3F4F6;
+  border-bottom: 1px solid #f3f4f6;
   color: var(--text-color);
   vertical-align: middle;
 }
@@ -95,38 +111,42 @@
 }
 
 .userCell {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .userIcon {
-    font-size: 2rem;
-    color: #D1D5DB;
+  width: 35px;          /* Kích thước chiều rộng cố định */
+  height: 35px;         /* Kích thước chiều cao cố định */
+  border-radius: 50%;   /* Bo tròn 50% để tạo hình tròn hoàn hảo */
+  object-fit: cover;    /* Giúp ảnh không bị méo khi bị ép vào khung tròn */
+  font-size: 35px;      /* Kích thước cho icon mặc định (nếu không có ảnh) */
+  color: #d1d5db;
 }
 
 .userInfo {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .userName {
-    font-weight: 500;
-    color: var(--text-color);
+  font-weight: 500;
+  color: var(--text-color);
 }
 
 .userEmail {
-    font-size: 0.875rem;
-    color: #6B7280;
+  font-size: 0.875rem;
+  color: #6b7280;
 }
 
 .roleAdmin {
-    color: var(--primary-color);
-    font-weight: 600;
+  color: var(--primary-color);
+  font-weight: 600;
 }
 
 .roleUser {
-    color: var(--text-color);
+  color: var(--text-color);
 }
 
 .statusBadge {
@@ -147,18 +167,18 @@
   cursor: pointer;
   padding: 6px;
   border-radius: 4px;
-  color: #6B7280;
+  color: #6b7280;
   transition: all 0.2s;
 }
 
 .actionBtn:hover {
-  background-color: #F3F4F6;
+  background-color: #f3f4f6;
   color: var(--primary-color);
 }
 
 .deleteBtn:hover {
-  background-color: #FEE2E2;
-  color: #DC2626;
+  background-color: #fee2e2;
+  color: #dc2626;
 }
 
 /* Form Styles */
@@ -184,7 +204,7 @@
 .formGroup textarea,
 .formGroup select {
   padding: 10px 12px;
-  border: 1px solid #D1D5DB;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
   outline: none;
   font-family: inherit;
@@ -193,7 +213,7 @@
 
 .formGroup input:focus,
 .formGroup textarea:focus,
-.formGroup select:focus{
+.formGroup select:focus {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
@@ -207,7 +227,7 @@
 
 .cancelBtn {
   background: white;
-  border: 1px solid #D1D5DB;
+  border: 1px solid #d1d5db;
   padding: 10px 16px;
   border-radius: 8px;
   color: #374151;
@@ -226,6 +246,6 @@
 }
 
 .activateBtn:hover {
-    background-color: #DEF7EC;
-    color: #03543F;
+  background-color: #def7ec;
+  color: #03543f;
 }

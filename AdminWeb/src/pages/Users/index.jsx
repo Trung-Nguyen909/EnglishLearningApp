@@ -146,7 +146,11 @@ const Users = () => {
                 <tr key={user.id}>
                   <td>#{user.id}</td>
                   <td className={styles.userCell}>
-                    <FaUserCircle className={styles.userIcon} />
+                    <img
+                      src={`http://localhost:8080/img_user/user_avatar/${user.anhDaiDien}`}
+                      alt="avatar"
+                      className={styles.userIcon}
+                    />
                     <div className={styles.userInfo}>
                       <div className={styles.userName}>
                         {user.tenDangNhap ||

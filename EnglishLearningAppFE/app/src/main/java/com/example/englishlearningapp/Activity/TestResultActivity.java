@@ -181,7 +181,6 @@ public class TestResultActivity extends AppCompatActivity {
                     explanation
             ));
 
-            // DEBUG: In ra để kiểm tra dữ liệu
             Log.d("DEBUG_ANSWER", "Câu: " + questionText +
                     " | UserAnswer: " + userAnswerText +
                     " | CorrectAnswer: " + correctAnswerText +

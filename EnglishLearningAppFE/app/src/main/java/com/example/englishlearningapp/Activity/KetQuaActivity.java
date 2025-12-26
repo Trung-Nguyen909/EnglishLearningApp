@@ -151,8 +151,11 @@ public class KetQuaActivity extends AppCompatActivity {
 
         // --- XỬ LÝ NÚT THOÁT ---
         btnThoat.setOnClickListener(v -> {
-            // Đóng Activity này -> Quay về màn hình cha (Fragment Kiểm tra hoặc Danh sách bài tập)
+            Intent intent = new Intent(KetQuaActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
             finish();
         });
+
     }
 }

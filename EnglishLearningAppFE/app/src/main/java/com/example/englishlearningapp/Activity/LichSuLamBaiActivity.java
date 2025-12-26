@@ -102,7 +102,6 @@ public class LichSuLamBaiActivity extends AppCompatActivity {
             // Xử lý ngày
             String dateStr = formatDate(item.getTgianNopBai());
 
-            // --- QUAN TRỌNG: Lấy item.getId() (giá trị 3 hoặc 4 trong log) đưa vào Model ---
             baiTapList.add(new BaiTapModel(
                     item.getId(),
                     iconRes,

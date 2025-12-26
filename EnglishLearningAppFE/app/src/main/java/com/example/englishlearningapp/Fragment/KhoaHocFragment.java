@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.Adapter.ChuDeAdapter;
 import com.example.englishlearningapp.ApiClient;
+import com.example.englishlearningapp.DTO.Response.BaiHocResponse;
 import com.example.englishlearningapp.DTO.Response.KhoaHocResponse;
 import com.example.englishlearningapp.Model.ChuDeModel;
 import com.example.englishlearningapp.R;
@@ -68,7 +69,6 @@ public class KhoaHocFragment extends Fragment {
         return view;
     }
 
-    // Map tên drawable (VD: "img_ic_animal_course") -> R.drawable.xxx
     private int getDrawableId(String drawableName) {
         if (drawableName == null || drawableName.trim().isEmpty()) {
             return R.drawable.img_ic_animal_course; // icon mặc định
@@ -132,14 +132,14 @@ public class KhoaHocFragment extends Fragment {
                 for (KhoaHocResponse k : khoaHocs) {
                     final int idKhoa = k.getId();
 
-                    Call<List<com.example.englishlearningapp.DTO.Response.BaiHocResponse>> callBaiHoc =
+                    Call<List<BaiHocResponse>> callBaiHoc =
                             service.getBaiHocByKhoaHoc(idKhoa);
 
-                    callBaiHoc.enqueue(new Callback<List<com.example.englishlearningapp.DTO.Response.BaiHocResponse>>() {
+                    callBaiHoc.enqueue(new Callback<List<BaiHocResponse>>() {
                         @Override
                         public void onResponse(
-                                Call<List<com.example.englishlearningapp.DTO.Response.BaiHocResponse>> call,
-                                Response<List<com.example.englishlearningapp.DTO.Response.BaiHocResponse>> resp
+                                Call<List<BaiHocResponse>> call,
+                                Response<List<BaiHocResponse>> resp
                         ) {
                             if (resp.isSuccessful() && resp.body() != null) {
                                 ChuDeModel cd = mapById.get(idKhoa);
@@ -156,7 +156,7 @@ public class KhoaHocFragment extends Fragment {
 
                         @Override
                         public void onFailure(
-                                Call<List<com.example.englishlearningapp.DTO.Response.BaiHocResponse>> call,
+                                Call<List<BaiHocResponse>> call,
                                 Throwable t
                         ) {
                             Log.e("KHOAHOC_API", "Lỗi khi lấy bài học cho khoahoc " + idKhoa, t);

@@ -1,15 +1,15 @@
-import { FaBell, FaSearch, FaUserCircle } from 'react-icons/fa';
-import styles from './Header.module.css';
+import { FaBell, FaSearch, FaUserCircle } from "react-icons/fa";
+import styles from "./Header.module.css";
 
 const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.searchContainer}>
         <FaSearch className={styles.searchIcon} />
-        <input 
-          type="text" 
-          placeholder="Search..." 
-          className={styles.searchInput} 
+        <input
+          type="text"
+          placeholder="Search..."
+          className={styles.searchInput}
         />
       </div>
 
@@ -23,8 +23,8 @@ const Header = () => {
             <FaUserCircle />
           </div>
           <div className={styles.userInfo}>
-            <span className={styles.userName}>Admin User</span>
-            <span className={styles.userRole}>Super Admin</span>
+            <span className={styles.userName}>ttuankhanh4@gmail.com</span>
+            <span className={styles.userRole}>tuankhanh</span>
           </div>
         </div>
       </div>

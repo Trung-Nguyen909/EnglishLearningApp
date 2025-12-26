@@ -201,16 +201,16 @@ public class HoSoFragment extends Fragment {
 
                 int mapped = Math.min(10, Math.max(0, score));
 
-                if (name.contains("nói") || name.contains("noi") || name.contains("speaking")) {
+                if (name.contains("nói")) {
                     progressNoi.setProgress(mapped);
                     tvNoiScore.setText(score + "/10");
-                } else if (name.contains("viết") || name.contains("viet") || name.contains("writing")) {
+                } else if (name.contains("viết")) {
                     progressViet.setProgress(mapped);
                     tvVietScore.setText(score + "/10");
-                } else if (name.contains("nghe") || name.contains("listening")) {
+                } else if (name.contains("nghe")) {
                     progressNghe.setProgress(mapped);
                     tvNgheScore.setText(score + "/10");
-                } else if (name.contains("đọc") || name.contains("doc") || name.contains("reading")) {
+                } else if (name.contains("đọc")) {
                     progressDoc.setProgress(mapped);
                     tvDocScore.setText(score + "/10");
                 } else {

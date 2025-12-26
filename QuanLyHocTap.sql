@@ -245,8 +245,8 @@ SET DATEFORMAT YMD;
 INSERT INTO NguoiDung 
 (tenDangNhap, matKhau, email, anhDaiDien, LastLogin, Streak, role, TongThoiGianHoatDong)
 VALUES
-('user1', '$2a$10$PLLK1jr5F0hDTVVoKFSGj.T7nhAKhH/Qo563lNtuaaEMndxZwy.Ky', 'ttuankhanh4@gmail.com', 'U0001_ava.jpg', '2024-01-15 08:30:00', 5, 'ADMIN', 3600),
-('user2', '$2a$10$OgyHCP.YQ4xoGGXFpD6z3O01TwJNIhUG8t60Tu82HnwFkThK7BrUy', 'chientranminh355@gmail.com', 'U0002_ava.jpg', '2024-01-14 10:15:00', 3, 'USER', 1800),
+('tuankhanh', '$2a$10$PLLK1jr5F0hDTVVoKFSGj.T7nhAKhH/Qo563lNtuaaEMndxZwy.Ky', 'ttuankhanh4@gmail.com', 'U0001_ava.jpg', '2024-01-15 08:30:00', 5, 'ADMIN', 3600),
+('minhchien', '$2a$10$OgyHCP.YQ4xoGGXFpD6z3O01TwJNIhUG8t60Tu82HnwFkThK7BrUy', 'chientranminh355@gmail.com', 'U0002_ava.jpg', '2024-01-14 10:15:00', 3, 'USER', 1800),
 ('TienHien', '$2a$10$l7GqvKZDYVsReEiGCc0LpeGoGgy0beEJ2yrAmSvzOM2BcOWUfStDC', 'huynhletienhien@gmail.com', 'U0003_ava.jpg', '2024-01-13 14:20:00', 7, 'USER', 7200);
 
 -- 2. Insert KhoaHoc
@@ -620,100 +620,100 @@ INSERT INTO ChiTietBaiLam (IDLichSuBaiLam, IDCauHoi, UserAns, IsCorrect) VALUES
 
 -- CÁC DỮ LIỆU KHÁC (Phản hồi, Bình luận...)
 INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
-(1, 'Hello', N'Xin chào', '/həˈloʊ/', 'Hello, how are you?', 'hello.mp3'),
-(1, 'Hi', N'Chào', '/haɪ/', 'Hi, nice to meet you.', 'hi.mp3'),
-(1, 'Goodbye', N'Tạm biệt', '/ˌɡʊdˈbaɪ/', 'Goodbye! See you later.', 'goodbye.mp3'),
-(1, 'Please', N'Làm ơn', '/pliːz/', 'Please help me.', 'please.mp3'),
-(1, 'Thank you', N'Cảm ơn', '/ˈθæŋk juː/', 'Thank you very much.', 'thankyou.mp3'),
-(1, 'Sorry', N'Xin lỗi', '/ˈsɒri/', 'Sorry for being late.', 'sorry.mp3'),
-(1, 'Yes', N'Vâng / Có', '/jɛs/', 'Yes, I agree.', 'yes.mp3'),
-(1, 'No', N'Không', '/noʊ/', 'No, I don’t think so.', 'no.mp3'),
-(1, 'Friend', N'Bạn bè', '/frɛnd/', 'She is my best friend.', 'friend.mp3'),
-(1, 'Name', N'Tên', '/neɪm/', 'What is your name?', 'name.mp3');
+(1, 'Hello', N'Xin chào', N'/həˈloʊ/', 'Hello, how are you?', 'hello.mp3'),
+(1, 'Hi', N'Chào', N'/haɪ/', 'Hi, nice to meet you.', 'hi.mp3'),
+(1, 'Goodbye', N'Tạm biệt', N'/ˌɡʊdˈbaɪ/', 'Goodbye! See you later.', 'goodbye.mp3'),
+(1, 'Please', N'Làm ơn', N'/pliːz/', 'Please help me.', 'please.mp3'),
+(1, 'Thank you', N'Cảm ơn', N'/ˈθæŋk juː/', 'Thank you very much.', 'thankyou.mp3'),
+(1, 'Sorry', N'Xin lỗi', N'/ˈsɒri/', 'Sorry for being late.', 'sorry.mp3'),
+(1, 'Yes', N'Vâng / Có', N'/jɛs/', 'Yes, I agree.', 'yes.mp3'),
+(1, 'No', N'Không', N'/noʊ/', 'No, I don’t think so.', 'no.mp3'),
+(1, 'Friend', N'Bạn bè', N'/frɛnd/', 'She is my best friend.', 'friend.mp3'),
+(1, 'Name', N'Tên', N'/neɪm/', 'What is your name?', 'name.mp3');
 
 INSERT INTO TuVung VALUES
-(2, 'Wake up', N'Thức dậy', '/weɪk ʌp/', 'I wake up at 6 a.m.', 'wakeup.mp3'),
-(2, 'Eat', N'Ăn', '/iːt/', 'I eat breakfast.', 'eat.mp3'),
-(2, 'Drink', N'Uống', '/drɪŋk/', 'She drinks water.', 'drink.mp3'),
-(2, 'Study', N'Học tập', '/ˈstʌdi/', 'They study English.', 'study.mp3'),
-(2, 'Work', N'Làm việc', '/wɜːrk/', 'He works in an office.', 'work.mp3'),
-(2, 'Play', N'Chơi', '/pleɪ/', 'Children play outside.', 'play.mp3'),
-(2, 'Read', N'Đọc', '/riːd/', 'I read books.', 'read.mp3'),
-(2, 'Write', N'Viết', '/raɪt/', 'She writes a letter.', 'write.mp3'),
-(2, 'Sleep', N'Ngủ', '/sliːp/', 'I sleep at 11 p.m.', 'sleep.mp3'),
-(2, 'Relax', N'Thư giãn', '/rɪˈlæks/', 'I relax on weekends.', 'relax.mp3');
+(2, 'Wake up', N'Thức dậy', N'/weɪk ʌp/', 'I wake up at 6 a.m.', 'wakeup.mp3'),
+(2, 'Eat', N'Ăn', '/iːt/', N'I eat breakfast.', 'eat.mp3'),
+(2, 'Drink', N'Uống', N'/drɪŋk/', 'She drinks water.', 'drink.mp3'),
+(2, 'Study', N'Học tập', N'/ˈstʌdi/', 'They study English.', 'study.mp3'),
+(2, 'Work', N'Làm việc', N'/wɜːrk/', 'He works in an office.', 'work.mp3'),
+(2, 'Play', N'Chơi', N'/pleɪ/', 'Children play outside.', 'play.mp3'),
+(2, 'Read', N'Đọc', N'/riːd/', 'I read books.', 'read.mp3'),
+(2, 'Write', N'Viết', N'/raɪt/', 'She writes a letter.', 'write.mp3'),
+(2, 'Sleep', N'Ngủ', N'/sliːp/', 'I sleep at 11 p.m.', 'sleep.mp3'),
+(2, 'Relax', N'Thư giãn', N'/rɪˈlæks/', 'I relax on weekends.', 'relax.mp3');
 
 INSERT INTO TuVung VALUES
-(3, 'Happy', N'Vui vẻ', '/ˈhæpi/', 'She feels happy.', 'happy.mp3'),
-(3, 'Sad', N'Buồn', '/sæd/', 'He looks sad.', 'sad.mp3'),
-(3, 'Big', N'Lớn', '/bɪɡ/', 'They have a big house.', 'big.mp3'),
-(3, 'Small', N'Nhỏ', '/smɔːl/', 'It is a small room.', 'small.mp3'),
-(3, 'Fast', N'Nhanh', '/fæst/', 'The car is fast.', 'fast.mp3'),
-(3, 'Slow', N'Chậm', '/sloʊ/', 'He walks slowly.', 'slow.mp3'),
-(3, 'Easy', N'Dễ', '/ˈiːzi/', 'This exercise is easy.', 'easy.mp3'),
-(3, 'Difficult', N'Khó', '/ˈdɪfɪkəlt/', 'Math is difficult.', 'difficult.mp3'),
-(3, 'Clean', N'Sạch', '/kliːn/', 'The room is clean.', 'clean.mp3'),
-(3, 'Dirty', N'Bẩn', '/ˈdɜːrti/', 'His shoes are dirty.', 'dirty.mp3');
+(3, 'Happy', N'Vui vẻ', N'/ˈhæpi/', 'She feels happy.', 'happy.mp3'),
+(3, 'Sad', N'Buồn', N'/sæd/', 'He looks sad.', 'sad.mp3'),
+(3, 'Big', N'Lớn', N'/bɪɡ/', 'They have a big house.', 'big.mp3'),
+(3, 'Small', N'Nhỏ', N'/smɔːl/', 'It is a small room.', 'small.mp3'),
+(3, 'Fast', N'Nhanh', N'/fæst/', 'The car is fast.', 'fast.mp3'),
+(3, 'Slow', N'Chậm', N'/sloʊ/', 'He walks slowly.', 'slow.mp3'),
+(3, 'Easy', N'Dễ', N'/ˈiːzi/', 'This exercise is easy.', 'easy.mp3'),
+(3, 'Difficult', N'Khó', N'/ˈdɪfɪkəlt/', 'Math is difficult.', 'difficult.mp3'),
+(3, 'Clean', N'Sạch', N'/kliːn/', 'The room is clean.', 'clean.mp3'),
+(3, 'Dirty', N'Bẩn', N'/ˈdɜːrti/', 'His shoes are dirty.', 'dirty.mp3');
 
 INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
-(4, 'Living room', N'Phòng khách', '/ˈlɪv.ɪŋ ˌruːm/', 'We watch TV in the living room.', 'livingroom.mp3'),
-(4, 'Kitchen', N'Nhà bếp', '/ˈkɪtʃ.ən/', 'My mother cooks in the kitchen.', 'kitchen.mp3'),
-(4, 'Bedroom', N'Phòng ngủ', '/ˈbed.ruːm/', 'I sleep in my bedroom.', 'bedroom.mp3'),
-(4, 'Bathroom', N'Phòng tắm', '/ˈbɑːθ.ruːm/', 'I brush my teeth in the bathroom.', 'bathroom.mp3'),
-(4, 'Garden', N'Khu vườn', '/ˈɡɑː.dən/', 'There are many flowers in the garden.', 'garden.mp3'),
-(4, 'Door', N'Cửa ra vào', '/dɔːr/', 'Please close the door.', 'door.mp3'),
-(4, 'Window', N'Cửa sổ', '/ˈwɪn.dəʊ/', 'Open the window, please.', 'window.mp3'),
-(4, 'Table', N'Cái bàn', '/ˈteɪ.bəl/', 'The book is on the table.', 'table.mp3'),
-(4, 'Chair', N'Cái ghế', '/tʃeər/', 'Sit on the chair.', 'chair.mp3'),
-(4, 'Bed', N'Cái giường', '/bed/', 'The baby is on the bed.', 'bed.mp3');
+(4, 'Living room', N'Phòng khách', N'/ˈlɪv.ɪŋ ˌruːm/', 'We watch TV in the living room.', 'livingroom.mp3'),
+(4, 'Kitchen', N'Nhà bếp', N'/ˈkɪtʃ.ən/', 'My mother cooks in the kitchen.', 'kitchen.mp3'),
+(4, 'Bedroom', N'Phòng ngủ', N'/ˈbed.ruːm/', 'I sleep in my bedroom.', 'bedroom.mp3'),
+(4, 'Bathroom', N'Phòng tắm', N'/ˈbɑːθ.ruːm/', 'I brush my teeth in the bathroom.', 'bathroom.mp3'),
+(4, 'Garden', N'Khu vườn', N'/ˈɡɑː.dən/', 'There are many flowers in the garden.', 'garden.mp3'),
+(4, 'Door', N'Cửa ra vào', N'/dɔːr/', 'Please close the door.', 'door.mp3'),
+(4, 'Window', N'Cửa sổ', N'/ˈwɪn.dəʊ/', 'Open the window, please.', 'window.mp3'),
+(4, 'Table', N'Cái bàn', N'/ˈteɪ.bəl/', 'The book is on the table.', 'table.mp3'),
+(4, 'Chair', N'Cái ghế', N'/tʃeər/', 'Sit on the chair.', 'chair.mp3'),
+(4, 'Bed', N'Cái giường', N'/bed/', 'The baby is on the bed.', 'bed.mp3');
 
 INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
-(5, 'Money', N'Tiền', '/ˈmʌn.i/', 'I need money to buy food.', 'money.mp3'),
-(5, 'Price', N'Giá cả', '/praɪs/', 'What is the price of this shirt?', 'price.mp3'),
-(5, 'Cheap', N'Rẻ', '/tʃiːp/', 'This hat is very cheap.', 'cheap.mp3'),
-(5, 'Expensive', N'Đắt', '/ɪkˈspen.sɪv/', 'That car is too expensive.', 'expensive.mp3'),
-(5, 'Buy', N'Mua', '/baɪ/', 'I want to buy some milk.', 'buy.mp3'),
-(5, 'Sell', N'Bán', '/sel/', 'They sell fresh fruit here.', 'sell.mp3'),
-(5, 'Shop', N'Cửa hàng', '/ʃɒp/', 'The shop opens at 8 a.m.', 'shop.mp3'),
-(5, 'Customer', N'Khách hàng', '/ˈkʌs.tə.mər/', 'The customer is paying for the items.', 'customer.mp3'),
-(5, 'Discount', N'Giảm giá', '/ˈdɪs.kaʊnt/', 'There is a 50% discount today.', 'discount.mp3'),
-(5, 'Pay', N'Thanh toán / Trả tiền', '/peɪ/', 'Can I pay by card?', 'pay.mp3');
+(5, 'Money', N'Tiền', N'/ˈmʌn.i/', 'I need money to buy food.', 'money.mp3'),
+(5, 'Price', N'Giá cả', N'/praɪs/', 'What is the price of this shirt?', 'price.mp3'),
+(5, 'Cheap', N'Rẻ', N'/tʃiːp/', 'This hat is very cheap.', 'cheap.mp3'),
+(5, 'Expensive', N'Đắt', N'/ɪkˈspen.sɪv/', 'That car is too expensive.', 'expensive.mp3'),
+(5, 'Buy', N'Mua', N'/baɪ/', 'I want to buy some milk.', 'buy.mp3'),
+(5, 'Sell', N'Bán', N'/sel/', 'They sell fresh fruit here.', 'sell.mp3'),
+(5, 'Shop', N'Cửa hàng', N'/ʃɒp/', 'The shop opens at 8 a.m.', 'shop.mp3'),
+(5, 'Customer', N'Khách hàng', N'/ˈkʌs.tə.mər/', 'The customer is paying for the items.', 'customer.mp3'),
+(5, 'Discount', N'Giảm giá', N'/ˈdɪs.kaʊnt/', 'There is a 50% discount today.', 'discount.mp3'),
+(5, 'Pay', N'Thanh toán / Trả tiền', N'/peɪ/', 'Can I pay by card?', 'pay.mp3');
 
 INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
-(6, 'Dog', N'Con chó', '/dɒɡ/', 'The dog is barking.', 'dog.mp3'),
-(6, 'Cat', N'Con mèo', '/kæt/', 'The cat likes to eat fish.', 'cat.mp3'),
-(6, 'Bird', N'Con chim', '/bɜːd/', 'The bird is singing in the tree.', 'bird.mp3'),
-(6, 'Fish', N'Con cá', '/fɪʃ/', 'Fish live in water.', 'fish.mp3'),
-(6, 'Chicken', N'Con gà', '/ˈtʃɪk.ɪn/', 'My grandmother feeds the chickens.', 'chicken.mp3'),
-(6, 'Lion', N'Sư tử', '/ˈlaɪ.ən/', 'The lion is the king of the jungle.', 'lion.mp3'),
-(6, 'Tiger', N'Con hổ', '/ˈtaɪ.ɡər/', 'Tigers are very strong.', 'tiger.mp3'),
-(6, 'Elephant', N'Con voi', '/ˈel.ɪ.fənt/', 'The elephant has a long nose.', 'elephant.mp3'),
-(6, 'Monkey', N'Con khỉ', '/ˈmʌŋ.ki/', 'Monkeys love bananas.', 'monkey.mp3'),
-(6, 'Rabbit', N'Con thỏ', '/ˈræb.ɪt/', 'The rabbit runs very fast.', 'rabbit.mp3');
+(6, 'Dog', N'Con chó', N'/dɒɡ/', 'The dog is barking.', 'dog.mp3'),
+(6, 'Cat', N'Con mèo', N'/kæt/', 'The cat likes to eat fish.', 'cat.mp3'),
+(6, 'Bird', N'Con chim', N'/bɜːd/', 'The bird is singing in the tree.', 'bird.mp3'),
+(6, 'Fish', N'Con cá', N'/fɪʃ/', 'Fish live in water.', 'fish.mp3'),
+(6, 'Chicken', N'Con gà', N'/ˈtʃɪk.ɪn/', 'My grandmother feeds the chickens.', 'chicken.mp3'),
+(6, 'Lion', N'Sư tử', N'/ˈlaɪ.ən/', 'The lion is the king of the jungle.', 'lion.mp3'),
+(6, 'Tiger', N'Con hổ', N'/ˈtaɪ.ɡər/', 'Tigers are very strong.', 'tiger.mp3'),
+(6, 'Elephant', N'Con voi', N'/ˈel.ɪ.fənt/', 'The elephant has a long nose.', 'elephant.mp3'),
+(6, 'Monkey', N'Con khỉ', N'/ˈmʌŋ.ki/', 'Monkeys love bananas.', 'monkey.mp3'),
+(6, 'Rabbit', N'Con thỏ', N'/ˈræb.ɪt/', 'The rabbit runs very fast.', 'rabbit.mp3');
 
 -- BÀI 7: TẠI VĂN PHÒNG (Office Life)
 INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
-(7, 'Colleague', N'Đồng nghiệp', '/ˈkɒl.iːɡ/', 'I am having lunch with my colleague.', 'colleague.mp3'),
-(7, 'Deadline', N'Hạn chót', '/ˈded.laɪn/', 'We have to meet the deadline.', 'deadline.mp3'),
-(7, 'Promotion', N'Thăng chức', '/prəˈməʊ.ʃən/', 'She got a promotion last week.', 'promotion.mp3'),
-(7, 'Salary', N'Tiền lương', '/ˈsæl.ər.i/', 'The company offers a high salary.', 'salary.mp3'),
-(7, 'Resign', N'Từ chức', '/rɪˈzaɪn/', 'He decided to resign from his job.', 'resign.mp3');
+(7, 'Colleague', N'Đồng nghiệp', N'/ˈkɒl.iːɡ/', 'I am having lunch with my colleague.', 'colleague.mp3'),
+(7, 'Deadline', N'Hạn chót', N'/ˈded.laɪn/', 'We have to meet the deadline.', 'deadline.mp3'),
+(7, 'Promotion', N'Thăng chức', N'/prəˈməʊ.ʃən/', 'She got a promotion last week.', 'promotion.mp3'),
+(7, 'Salary', N'Tiền lương', N'/ˈsæl.ər.i/', 'The company offers a high salary.', 'salary.mp3'),
+(7, 'Resign', N'Từ chức', N'/rɪˈzaɪn/', 'He decided to resign from his job.', 'resign.mp3');
 
 -- BÀI 8: DU LỊCH QUỐC TẾ (International Travel)
 INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
-(8, 'Passport', N'Hộ chiếu', '/ˈpɑːs.pɔːt/', 'Please show me your passport.', 'passport.mp3'),
-(8, 'Luggage', N'Hành lý', '/ˈlʌɡ.ɪdʒ/', 'Do you have any luggage to check in?', 'luggage.mp3'),
-(8, 'Boarding pass', N'Thẻ lên máy bay', '/ˈbɔː.dɪŋ ˌpɑːs/', 'Here is your boarding pass.', 'boardingpass.mp3'),
-(8, 'Customs', N'Hải quan', '/ˈkʌs.təmz/', 'It took an hour to go through customs.', 'customs.mp3'),
-(8, 'Delayed', N'Bị trễ', '/dɪˈleɪd/', 'The flight was delayed due to bad weather.', 'delayed.mp3');
+(8, 'Passport', N'Hộ chiếu', N'/ˈpɑːs.pɔːt/', 'Please show me your passport.', 'passport.mp3'),
+(8, 'Luggage', N'Hành lý', N'/ˈlʌɡ.ɪdʒ/', 'Do you have any luggage to check in?', 'luggage.mp3'),
+(8, 'Boarding pass', N'Thẻ lên máy bay', N'/ˈbɔː.dɪŋ ˌpɑːs/', 'Here is your boarding pass.', 'boardingpass.mp3'),
+(8, 'Customs', N'Hải quan', N'/ˈkʌs.təmz/', 'It took an hour to go through customs.', 'customs.mp3'),
+(8, 'Delayed', N'Bị trễ', N'/dɪˈleɪd/', 'The flight was delayed due to bad weather.', 'delayed.mp3');
 
 -- BÀI 9: SỨC KHỎE & LỐI SỐNG (Health & Lifestyle)
 INSERT INTO TuVung (IDBaiHoc, tuTiengAnh, nghiaTiengViet, phienAm, viDu, amThanhPhienAm) VALUES
-(9, 'Symptom', N'Triệu chứng', '/ˈsɪmp.təm/', 'Fever is a symptom of the flu.', 'symptom.mp3'),
-(9, 'Prescription', N'Đơn thuốc', '/prɪˈskrɪp.ʃən/', 'The doctor gave me a prescription.', 'prescription.mp3'),
-(9, 'Medicine', N'Thuốc', '/ˈmed.ɪ.sən/', 'Take this medicine twice a day.', 'medicine.mp3'),
-(9, 'Fever', N'Sốt', '/ˈfiː.vər/', 'He has a high fever.', 'fever.mp3'),
-(9, 'Recover', N'Hồi phục', '/rɪˈkʌv.ər/', 'She is recovering from her illness.', 'recover.mp3');
+(9, 'Symptom', N'Triệu chứng', N'/ˈsɪmp.təm/', 'Fever is a symptom of the flu.', 'symptom.mp3'),
+(9, 'Prescription', N'Đơn thuốc', N'/prɪˈskrɪp.ʃən/', 'The doctor gave me a prescription.', 'prescription.mp3'),
+(9, 'Medicine', N'Thuốc', N'/ˈmed.ɪ.sən/', 'Take this medicine twice a day.', 'medicine.mp3'),
+(9, 'Fever', N'Sốt', N'/ˈfiː.vər/', 'He has a high fever.', 'fever.mp3'),
+(9, 'Recover', N'Hồi phục', N'/rɪˈkʌv.ər/', 'She is recovering from her illness.', 'recover.mp3');
 -- BÀI 1: GIA ĐÌNH (Family)
 INSERT INTO NguPhap (IDBaiHoc, tenNguPhap, giaiThich, viDu) VALUES
 (1, N'Động từ To Be', 
