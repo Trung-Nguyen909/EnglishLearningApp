@@ -1,12 +1,12 @@
 package com.example.englishlearningapp.Model;
 
-public class QuestionResult {
+public class KetQuaLamBai {
     private String questionText;
     private String userAnswer;
     private String correctAnswer;
     private String explanation;
 
-    public QuestionResult(String questionText, String userAnswer, String correctAnswer, String explanation) {
+    public KetQuaLamBai(String questionText, String userAnswer, String correctAnswer, String explanation) {
         this.questionText = questionText;
         this.userAnswer = userAnswer;
         this.correctAnswer = correctAnswer;

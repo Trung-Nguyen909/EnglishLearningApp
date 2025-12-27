@@ -17,10 +17,10 @@
         <activity android:name=".Activity.BaiTapNoiActivity" />
         <activity android:name=".Activity.BaiTapVietActivity" />
         <activity android:name=".Activity.LichSuLamBaiActivity" />
-        <activity android:name=".Activity.TestResultActivity" />
+        <activity android:name=".Activity.ChiTietLichSuActivity" />
         <activity android:name=".Activity.BaiTapDocActivity"/>
         <activity android:name=".Activity.DangNhapActivity" />
-        <activity android:name=".Activity.LessonVocabularyActivity"/>
+        <activity android:name=".Activity.TuVungActivity"/>
         <activity android:name=".Activity.DangKyActivity" />
         <activity android:name=".Activity.KetQuaActivity"/>
         <activity android:name=".Activity.ChiTietBaiTapActivity" />

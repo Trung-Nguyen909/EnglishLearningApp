@@ -25,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LessonVocabularyActivity extends AppCompatActivity {
+public class TuVungActivity extends AppCompatActivity {
 
     public static final String EXTRA_BAIHOC_ID = "BAIHOC_ID";
     // Thêm hằng số để nhận và truyền tên bài học
@@ -90,7 +90,7 @@ public class LessonVocabularyActivity extends AppCompatActivity {
 
         // 7. Xử lý nút Tiếp tục (Chuyển sang Ngữ Pháp)
         btnContinue.setOnClickListener(v -> {
-            Intent i = new Intent(LessonVocabularyActivity.this, NguPhapActivity.class);
+            Intent i = new Intent(TuVungActivity.this, NguPhapActivity.class);
             i.putExtra("BAIHOC_ID", idBaihoc);
             // Quan trọng: Truyền tiếp tên bài học sang màn Ngữ pháp để hiển thị Header bên đó
             if (tenBaiHoc != null) {
@@ -108,17 +108,17 @@ public class LessonVocabularyActivity extends AppCompatActivity {
                 loading.setVisibility(View.GONE);
                 if (response.isSuccessful() && response.body() != null) {
                     List<TuVungResponse> list = response.body();
-                    adapter = new TuVungAdapter(LessonVocabularyActivity.this, list, AUDIO_BASE);
+                    adapter = new TuVungAdapter(TuVungActivity.this, list, AUDIO_BASE);
                     rv.setAdapter(adapter);
                 } else {
-                    Toast.makeText(LessonVocabularyActivity.this, "Không tải được từ vựng", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TuVungActivity.this, "Không tải được từ vựng", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<TuVungResponse>> call, Throwable t) {
                 loading.setVisibility(View.GONE);
-                Toast.makeText(LessonVocabularyActivity.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TuVungActivity.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

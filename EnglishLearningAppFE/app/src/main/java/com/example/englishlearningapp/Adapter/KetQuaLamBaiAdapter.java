@@ -9,15 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.englishlearningapp.R;
-import com.example.englishlearningapp.Model.QuestionResult;
+import com.example.englishlearningapp.Model.KetQuaLamBai;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAdapter.ViewHolder> {
+public class KetQuaLamBaiAdapter extends RecyclerView.Adapter<KetQuaLamBaiAdapter.ViewHolder> {
 
-    private List<QuestionResult> questions;
+    private List<KetQuaLamBai> questions;
 
-    public QuestionResultAdapter(List<QuestionResult> questions) {
+    public KetQuaLamBaiAdapter(List<KetQuaLamBai> questions) {
         this.questions = questions;
     }
 
@@ -31,7 +31,7 @@ public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        QuestionResult question = questions.get(position);
+        KetQuaLamBai question = questions.get(position);
 
         // --- ĐỪNG QUÊN CÁC DÒNG NÀY ---
         holder.tvQuestionNumber.setText("Câu " + (position + 1) + " / " + questions.size());
@@ -96,14 +96,14 @@ public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAd
     }
 
     // Filter methods
-    public void filterAll(List<QuestionResult> allQuestions) {
+    public void filterAll(List<KetQuaLamBai> allQuestions) {
         this.questions = allQuestions;
         notifyDataSetChanged();
     }
 
-    public void filterCorrect(List<QuestionResult> allQuestions) {
-        List<QuestionResult> correctQuestions = new ArrayList<>();
-        for (QuestionResult q : allQuestions) {
+    public void filterCorrect(List<KetQuaLamBai> allQuestions) {
+        List<KetQuaLamBai> correctQuestions = new ArrayList<>();
+        for (KetQuaLamBai q : allQuestions) {
             // Câu đúng: userAnswer không null AND bằng correctAnswer
             if (q.getUserAnswer() != null &&
                     q.getCorrectAnswer() != null &&
@@ -115,9 +115,9 @@ public class QuestionResultAdapter extends RecyclerView.Adapter<QuestionResultAd
         notifyDataSetChanged();
     }
 
-    public void filterIncorrect(List<QuestionResult> allQuestions) {
-        List<QuestionResult> incorrectQuestions = new ArrayList<>();
-        for (QuestionResult q : allQuestions) {
+    public void filterIncorrect(List<KetQuaLamBai> allQuestions) {
+        List<KetQuaLamBai> incorrectQuestions = new ArrayList<>();
+        for (KetQuaLamBai q : allQuestions) {
             // Câu sai + không trả lời: userAnswer = null HOẶC không bằng correctAnswer
             if (q.getUserAnswer() == null ||
                     q.getCorrectAnswer() == null ||

@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishlearningapp.ApiClient;
 import com.example.englishlearningapp.DTO.Response.ChiTietBaitapResponse;
-import com.example.englishlearningapp.Model.QuestionResult;
-import com.example.englishlearningapp.Adapter.QuestionResultAdapter;
+import com.example.englishlearningapp.Model.KetQuaLamBai;
+import com.example.englishlearningapp.Adapter.KetQuaLamBaiAdapter;
 import com.example.englishlearningapp.R;
 import com.example.englishlearningapp.Retrofit.ApiService;
 import com.google.gson.Gson;
@@ -31,15 +31,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TestResultActivity extends AppCompatActivity {
+public class ChiTietLichSuActivity extends AppCompatActivity {
 
     private ImageView btnBack;
     private TextView tvTitle, tvScorePercent, tvScore, tvTime, tvDate;
     private Button btnFilterAll, btnFilterIncorrect, btnFilterCorrect;
     private RecyclerView rcvQuestions;
 
-    private QuestionResultAdapter adapter;
-    private List<QuestionResult> allQuestions;
+    private KetQuaLamBaiAdapter adapter;
+    private List<KetQuaLamBai> allQuestions;
 
     private int idLichSuBaiLam;
     private int tgianLamGiay;
@@ -100,7 +100,7 @@ public class TestResultActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         allQuestions = new ArrayList<>();
-        adapter = new QuestionResultAdapter(allQuestions);
+        adapter = new KetQuaLamBaiAdapter(allQuestions);
         rcvQuestions.setLayoutManager(new LinearLayoutManager(this));
         rcvQuestions.setAdapter(adapter);
     }
@@ -113,14 +113,14 @@ public class TestResultActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     processApiData(response.body());
                 } else {
-                    Toast.makeText(TestResultActivity.this, "Lỗi tải chi tiết", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChiTietLichSuActivity.this, "Lỗi tải chi tiết", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<ChiTietBaitapResponse>> call, Throwable t) {
                 Log.e("API_ERROR", t.getMessage());
-                Toast.makeText(TestResultActivity.this, "Lỗi kết nối", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChiTietLichSuActivity.this, "Lỗi kết nối", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -174,7 +174,7 @@ public class TestResultActivity extends AppCompatActivity {
             }
 
             // Thêm vào list hiển thị
-            allQuestions.add(new QuestionResult(
+            allQuestions.add(new KetQuaLamBai(
                     questionText,
                     userAnswerText,
                     correctAnswerText,

@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishlearningapp.Activity.LessonVocabularyActivity;
+import com.example.englishlearningapp.Activity.TuVungActivity;
 import com.example.englishlearningapp.DTO.Response.BaiHocResponse;
 import com.example.englishlearningapp.Model.ChuDeModel;
 import com.example.englishlearningapp.R;
@@ -54,7 +54,6 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    // ✅ map tên drawable (vd: "img_ic_animal_course") -> R.drawable.xxx
     private int getDrawableId(String drawableName, int defaultRes) {
         if (drawableName == null || drawableName.trim().isEmpty()) return defaultRes;
 
@@ -123,7 +122,7 @@ public class ChuDeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             // CLICK -> mở LessonVocabularyActivity
             h.itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(context, LessonVocabularyActivity.class);
+                Intent intent = new Intent(context, TuVungActivity.class);
 
                 Integer idBai = mucCon.getId(); //  nếu BaiHocResponse có getId()
                 Log.d("idbaihoc", String.valueOf(idBai));

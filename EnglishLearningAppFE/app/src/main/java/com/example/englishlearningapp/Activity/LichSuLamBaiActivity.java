@@ -54,7 +54,7 @@ public class LichSuLamBaiActivity extends AppCompatActivity {
 
         // --- XỬ LÝ CLICK ---
         adapter.setOnItemClickListener((baiTap, position) -> {
-            Intent intent = new Intent(LichSuLamBaiActivity.this, TestResultActivity.class);
+            Intent intent = new Intent(LichSuLamBaiActivity.this, ChiTietLichSuActivity.class);
 
             intent.putExtra("idLichSuBaiLam", baiTap.getId());
 
